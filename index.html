@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Villa Rosata Winery - Fine Wines Since 1987</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#hero" class="logo">Villa Rosata</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#wines">Our Wines</a></li>
+        <li><a href="#vineyard">Vineyard</a></li>
+        <li><a href="#visit">Visit Us</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Villa Rosata</h1>
+      <p class="hero-subtitle">Crafting exceptional wines since 1987</p>
+      <a href="#wines" class="btn btn-primary">Explore Our Wines</a>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-header">
+        <h2>Our Story</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="about-grid">
+        <div class="about-image">
+          <div class="placeholder-img" data-label="Vineyard Landscape">
+            <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+              <rect width="200" height="150" fill="#3d1a0a"/>
+              <circle cx="160" cy="30" r="20" fill="#c8956e" opacity="0.6"/>
+              <path d="M0 100 Q50 60 100 90 T200 80 L200 150 L0 150Z" fill="#4a6741"/>
+              <path d="M0 120 Q50 90 100 110 T200 100 L200 150 L0 150Z" fill="#5a7d50"/>
+              <line x1="60" y1="85" x2="60" y2="110" stroke="#3d2b1f" stroke-width="1.5"/>
+              <circle cx="60" cy="82" r="5" fill="#6b3a5d"/>
+              <line x1="80" y1="90" x2="80" y2="115" stroke="#3d2b1f" stroke-width="1.5"/>
+              <circle cx="80" cy="87" r="5" fill="#6b3a5d"/>
+              <line x1="100" y1="87" x2="100" y2="112" stroke="#3d2b1f" stroke-width="1.5"/>
+              <circle cx="100" cy="84" r="5" fill="#6b3a5d"/>
+              <line x1="120" y1="83" x2="120" y2="108" stroke="#3d2b1f" stroke-width="1.5"/>
+              <circle cx="120" cy="80" r="5" fill="#6b3a5d"/>
+              <line x1="140" y1="78" x2="140" y2="103" stroke="#3d2b1f" stroke-width="1.5"/>
+              <circle cx="140" cy="75" r="5" fill="#6b3a5d"/>
+            </svg>
+          </div>
+        </div>
+        <div class="about-text">
+          <h3>A Legacy of Excellence</h3>
+          <p>Nestled in the rolling hills of Tuscany, Villa Rosata has been producing world-class wines for over three decades. Our founder, Marco Rosata, believed that great wine begins in the vineyard, a philosophy we honor to this day.</p>
+          <p>Every bottle tells the story of our land, our climate, and the passion of our winemakers. From hand-harvested grapes to careful aging in our centuries-old cellars, we craft wines that capture the essence of Italian winemaking tradition.</p>
+          <p>Today, the third generation of the Rosata family continues this legacy, blending time-honored techniques with modern innovation to produce wines of extraordinary character and depth.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wines Section -->
+  <section class="section section-dark" id="wines">
+    <div class="container">
+      <div class="section-header">
+        <h2>Our Wines</h2>
+        <div class="divider"></div>
+        <p class="section-subtitle">Discover our carefully curated collection</p>
+      </div>
+      <div class="wines-grid">
+
+        <div class="wine-card">
+          <div class="wine-image">
+            <svg viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
+              <rect width="200" height="280" fill="#1a0a0a" rx="8"/>
+              <rect x="75" y="20" width="50" height="180" fill="#2d0a0a" rx="4"/>
+              <rect x="70" y="180" width="60" height="80" fill="#1a3a1a" rx="2"/>
+              <rect x="85" y="10" width="30" height="15" fill="#c8956e" rx="2"/>
+              <rect x="78" y="195" width="44" height="50" fill="#f5e6d0" rx="2"/>
+              <text x="100" y="215" text-anchor="middle" fill="#3d1a0a" font-size="7" font-family="serif">VILLA</text>
+              <text x="100" y="228" text-anchor="middle" fill="#3d1a0a" font-size="7" font-family="serif">ROSATA</text>
+              <text x="100" y="238" text-anchor="middle" fill="#722f37" font-size="5" font-family="serif">2019</text>
+            </svg>
+          </div>
+          <div class="wine-info">
+            <span class="wine-type">Red Wine</span>
+            <h3>Rosata Reserve</h3>
+            <p>A bold, full-bodied Sangiovese with notes of dark cherry, leather, and vanilla. Aged 24 months in French oak barrels.</p>
+            <span class="wine-price">$48</span>
+          </div>
+        </div>
+
+        <div class="wine-card">
+          <div class="wine-image">
+            <svg viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
+              <rect width="200" height="280" fill="#1a0a0a" rx="8"/>
+              <rect x="75" y="20" width="50" height="180" fill="#3d3a1a" rx="4"/>
+              <rect x="70" y="180" width="60" height="80" fill="#3a3a1a" rx="2"/>
+              <rect x="85" y="10" width="30" height="15" fill="#c8956e" rx="2"/>
+              <rect x="78" y="195" width="44" height="50" fill="#f5e6d0" rx="2"/>
+              <text x="100" y="215" text-anchor="middle" fill="#3d1a0a" font-size="7" font-family="serif">VILLA</text>
+              <text x="100" y="228" text-anchor="middle" fill="#3d1a0a" font-size="7" font-family="serif">ROSATA</text>
+              <text x="100" y="238" text-anchor="middle" fill="#8a7a3a" font-size="5" font-family="serif">2021</text>
+            </svg>
+          </div>
+          <div class="wine-info">
+            <span class="wine-type">White Wine</span>
+            <h3>Bianco di Collina</h3>
+            <p>A crisp, refreshing Vermentino with bright citrus and tropical fruit notes, complemented by subtle mineral undertones.</p>
+            <span class="wine-price">$32</span>
+          </div>
+        </div>
+
+        <div class="wine-card">
+          <div class="wine-image">
+            <svg viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
+              <rect width="200" height="280" fill="#1a0a0a" rx="8"/>
+              <rect x="75" y="20" width="50" height="180" fill="#2d1a1a" rx="4"/>
+              <rect x="70" y="180" width="60" height="80" fill="#2a1a2a" rx="2"/>
+              <rect x="85" y="10" width="30" height="15" fill="#c8956e" rx="2"/>
+              <rect x="78" y="195" width="44" height="50" fill="#f5e6d0" rx="2"/>
+              <text x="100" y="215" text-anchor="middle" fill="#3d1a0a" font-size="7" font-family="serif">VILLA</text>
+              <text x="100" y="228" text-anchor="middle" fill="#3d1a0a" font-size="7" font-family="serif">ROSATA</text>
+              <text x="100" y="238" text-anchor="middle" fill="#9a4a5a" font-size="5" font-family="serif">2022</text>
+            </svg>
+          </div>
+          <div class="wine-info">
+            <span class="wine-type">Ros&eacute;</span>
+            <h3>Rosa del Tramonto</h3>
+            <p>An elegant ros&eacute; with delicate flavors of strawberry and white peach. Perfect for warm summer evenings.</p>
+            <span class="wine-price">$28</span>
+          </div>
+        </div>
+
+        <div class="wine-card">
+          <div class="wine-image">
+            <svg viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
+              <rect width="200" height="280" fill="#1a0a0a" rx="8"/>
+              <rect x="75" y="20" width="50" height="180" fill="#0a1a2a" rx="4"/>
+              <rect x="70" y="180" width="60" height="80" fill="#0a0a2a" rx="2"/>
+              <rect x="85" y="10" width="30" height="15" fill="#c8956e" rx="2"/>
+              <rect x="78" y="195" width="44" height="50" fill="#f5e6d0" rx="2"/>
+              <text x="100" y="215" text-anchor="middle" fill="#3d1a0a" font-size="7" font-family="serif">VILLA</text>
+              <text x="100" y="228" text-anchor="middle" fill="#3d1a0a" font-size="7" font-family="serif">ROSATA</text>
+              <text x="100" y="238" text-anchor="middle" fill="#3a4a6a" font-size="5" font-family="serif">2018</text>
+            </svg>
+          </div>
+          <div class="wine-info">
+            <span class="wine-type">Red Wine</span>
+            <h3>Gran Riserva</h3>
+            <p>Our flagship Brunello. Complex layers of blackberry, tobacco, and spice with a silky, lingering finish. Aged 36 months.</p>
+            <span class="wine-price">$85</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Vineyard Section -->
+  <section class="section" id="vineyard">
+    <div class="container">
+      <div class="section-header">
+        <h2>The Vineyard</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number" data-target="35">0</div>
+          <div class="stat-label">Hectares of Vineyard</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-target="37">0</div>
+          <div class="stat-label">Years of Tradition</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-target="6">0</div>
+          <div class="stat-label">Wine Varieties</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-target="50000">0</div>
+          <div class="stat-label">Bottles Per Year</div>
+        </div>
+      </div>
+      <div class="vineyard-content">
+        <div class="vineyard-text">
+          <h3>Where Great Wine Begins</h3>
+          <p>Our 35-hectare estate sits at an elevation of 350 meters, where the Mediterranean climate and mineral-rich soil create perfect conditions for our vines. The warm days and cool nights allow our grapes to develop intense flavors while maintaining their natural acidity.</p>
+          <p>We practice sustainable viticulture, working in harmony with nature to produce grapes of the highest quality. Each vine is tended by hand, and we harvest at the precise moment when the grapes reach optimal ripeness.</p>
+        </div>
+        <div class="vineyard-image">
+          <div class="placeholder-img" data-label="Wine Cellar">
+            <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+              <rect width="200" height="150" fill="#1a0f0a"/>
+              <ellipse cx="40" cy="80" rx="25" ry="15" fill="#3d2b1f" stroke="#5a4030" stroke-width="1"/>
+              <ellipse cx="40" cy="80" rx="10" ry="15" fill="none" stroke="#5a4030" stroke-width="0.5"/>
+              <ellipse cx="100" cy="80" rx="25" ry="15" fill="#3d2b1f" stroke="#5a4030" stroke-width="1"/>
+              <ellipse cx="100" cy="80" rx="10" ry="15" fill="none" stroke="#5a4030" stroke-width="0.5"/>
+              <ellipse cx="160" cy="80" rx="25" ry="15" fill="#3d2b1f" stroke="#5a4030" stroke-width="1"/>
+              <ellipse cx="160" cy="80" rx="10" ry="15" fill="none" stroke="#5a4030" stroke-width="0.5"/>
+              <ellipse cx="70" cy="115" rx="25" ry="15" fill="#3d2b1f" stroke="#5a4030" stroke-width="1"/>
+              <ellipse cx="70" cy="115" rx="10" ry="15" fill="none" stroke="#5a4030" stroke-width="0.5"/>
+              <ellipse cx="130" cy="115" rx="25" ry="15" fill="#3d2b1f" stroke="#5a4030" stroke-width="1"/>
+              <ellipse cx="130" cy="115" rx="10" ry="15" fill="none" stroke="#5a4030" stroke-width="0.5"/>
+              <rect x="0" y="0" width="200" height="40" fill="#1a0f0a"/>
+              <path d="M0 40 Q100 20 200 40" fill="none" stroke="#3d2b1f" stroke-width="2"/>
+              <circle cx="100" cy="25" r="8" fill="#c8956e" opacity="0.3"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Visit Section -->
+  <section class="section section-dark" id="visit">
+    <div class="container">
+      <div class="section-header">
+        <h2>Visit Us</h2>
+        <div class="divider"></div>
+        <p class="section-subtitle">Experience the magic of Villa Rosata</p>
+      </div>
+      <div class="visit-grid">
+        <div class="visit-card">
+          <div class="visit-icon">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M24 4C15.2 4 8 11.2 8 20c0 12 16 24 16 24s16-12 16-24c0-8.8-7.2-16-16-16zm0 22c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z" fill="#722f37"/></svg>
+          </div>
+          <h3>Wine Tastings</h3>
+          <p>Join us for a guided tasting of our award-winning wines, paired with local artisan cheeses and cured meats.</p>
+          <p class="visit-detail">Every Saturday & Sunday, 11am - 5pm</p>
+          <p class="visit-price">$25 per person</p>
+        </div>
+        <div class="visit-card">
+          <div class="visit-icon">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M24 4l-8 8h6v10h4V12h6L24 4zM8 28v12c0 2.2 1.8 4 4 4h24c2.2 0 4-1.8 4-4V28H8zm16 12c-2.8 0-5-2.2-5-5h2c0 1.7 1.3 3 3 3s3-1.3 3-3h2c0 2.8-2.2 5-5 5z" fill="#722f37"/></svg>
+          </div>
+          <h3>Vineyard Tours</h3>
+          <p>Walk through our beautiful vineyards and ancient cellars with our expert guides. Learn the art of winemaking firsthand.</p>
+          <p class="visit-detail">Daily at 10am & 2pm (booking required)</p>
+          <p class="visit-price">$35 per person</p>
+        </div>
+        <div class="visit-card">
+          <div class="visit-icon">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M38 6H10c-2.2 0-4 1.8-4 4v28c0 2.2 1.8 4 4 4h28c2.2 0 4-1.8 4-4V10c0-2.2-1.8-4-4-4zm-4 24H14v-4h20v4zm0-8H14v-4h20v4zm0-8H14v-4h20v4z" fill="#722f37"/></svg>
+          </div>
+          <h3>Private Events</h3>
+          <p>Host your special occasion at our estate. From intimate dinners to grand celebrations, we create unforgettable experiences.</p>
+          <p class="visit-detail">Available year-round</p>
+          <p class="visit-price">Contact us for pricing</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <h2>Get In Touch</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>Contact Information</h3>
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#722f37"/></svg>
+            <div>
+              <strong>Address</strong>
+              <p>Via delle Vigne 42, 53024<br>Montalcino, Siena, Italy</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24" width="24" height="24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="#722f37"/></svg>
+            <div>
+              <strong>Phone</strong>
+              <p>+39 0577 849 321</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24" width="24" height="24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="#722f37"/></svg>
+            <div>
+              <strong>Email</strong>
+              <p>info@villarosata.wine</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24" width="24" height="24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z" fill="#722f37"/></svg>
+            <div>
+              <strong>Hours</strong>
+              <p>Mon-Sat: 9am - 6pm<br>Sun: 10am - 5pm</p>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form" id="contactForm">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <select id="subject" name="subject">
+              <option value="general">General Inquiry</option>
+              <option value="tasting">Wine Tasting Reservation</option>
+              <option value="tour">Vineyard Tour Booking</option>
+              <option value="event">Private Event</option>
+              <option value="order">Wine Order</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>Villa Rosata</h3>
+          <p>Crafting exceptional wines in the heart of Tuscany since 1987.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#about">Our Story</a></li>
+            <li><a href="#wines">Our Wines</a></li>
+            <li><a href="#vineyard">The Vineyard</a></li>
+            <li><a href="#visit">Visit Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Please drink responsibly. You must be of legal drinking age in your country to purchase our wines.</p>
+        <p>&copy; 2026 Villa Rosata Winery. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

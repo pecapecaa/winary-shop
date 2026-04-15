@@ -87,6 +87,7 @@ const WINES = [
 ];
 
 const RECIPIENT_EMAIL = 'pecav96@gmail.com';
+const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/pecav96@gmail.com';
 let currentLang = 'sr';
 let cart = JSON.parse(localStorage.getItem('hercegCart') || '[]');
 
@@ -227,7 +228,7 @@ function openCheckout() {
   document.getElementById('checkoutOverlay').classList.add('active');
 }
 
-function submitOrder(e) {
+async function submitOrder(e) {
   e.preventDefault();
   const name = document.getElementById('oName').value;
   const email = document.getElementById('oEmail').value;
@@ -237,38 +238,84 @@ function submitOrder(e) {
   const country = document.getElementById('oCountry').value;
   const notes = document.getElementById('oNotes').value;
 
-  const subject = `Nova porudzbina - Vinarija Herceg - ${name}`;
-  let body = `NOVA PORUDZBINA / NEW ORDER\n`;
-  body += `===========================\n\n`;
-  body += `KUPAC / CUSTOMER:\n`;
-  body += `Ime: ${name}\n`;
-  body += `Email: ${email}\n`;
-  body += `Telefon: ${phone}\n`;
-  body += `Adresa: ${address}\n`;
-  body += `Grad: ${city}\n`;
-  body += `Drzava: ${country}\n\n`;
-  body += `PORUDZBINA / ORDER:\n`;
-  body += `---------------------------\n`;
+  let orderLines = '';
   cart.forEach(item => {
     const wine = WINES.find(w => w.id === item.id);
-    body += `${wine.name.sr} × ${item.qty} = ${wine.price * item.qty} EUR\n`;
+    orderLines += `${wine.name.sr} × ${item.qty} = ${wine.price * item.qty} EUR\n`;
   });
-  body += `---------------------------\n`;
-  body += `UKUPNO / TOTAL: ${getCartTotal()} EUR\n\n`;
-  if (notes) body += `NAPOMENA / NOTES:\n${notes}\n\n`;
-  body += `Poslato sa: vinarijahergeg.ba\n`;
 
-  const mailto = `mailto:${RECIPIENT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  window.location.href = mailto;
+  const message =
+    `NOVA PORUDZBINA / NEW ORDER\n` +
+    `===========================\n\n` +
+    `KUPAC / CUSTOMER:\n` +
+    `Ime: ${name}\n` +
+    `Email: ${email}\n` +
+    `Telefon: ${phone}\n` +
+    `Adresa: ${address}\n` +
+    `Grad: ${city}\n` +
+    `Drzava: ${country}\n\n` +
+    `PORUDZBINA / ORDER:\n` +
+    `---------------------------\n` +
+    orderLines +
+    `---------------------------\n` +
+    `UKUPNO / TOTAL: ${getCartTotal()} EUR\n\n` +
+    (notes ? `NAPOMENA / NOTES:\n${notes}\n\n` : '') +
+    `Poslato sa: vinarijahergeg.ba`;
 
-  setTimeout(() => {
+  const submitBtn = e.target.querySelector('button[type="submit"]');
+  const originalBtnText = submitBtn ? submitBtn.textContent : '';
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = currentLang === 'sr' ? 'Slanje...' : 'Sending...';
+  }
+
+  try {
+    const res = await fetch(FORMSUBMIT_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        _subject: `Nova porudzbina - Vinarija Herceg - ${name}`,
+        _template: 'table',
+        _captcha: 'false',
+        name: name,
+        email: email,
+        phone: phone,
+        address: address,
+        city: city,
+        country: country,
+        total: `${getCartTotal()} EUR`,
+        order: orderLines,
+        notes: notes || '-',
+        message: message
+      })
+    });
+
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    if (data.success !== 'true' && data.success !== true) {
+      throw new Error('FormSubmit error');
+    }
+
     showToast(currentLang === 'sr' ? 'Porudzbina je poslata! Hvala vam.' : 'Order sent! Thank you.');
     cart = [];
     saveCart();
     renderCart();
     document.getElementById('checkoutForm').reset();
     document.getElementById('checkoutOverlay').classList.remove('active');
-  }, 500);
+  } catch (err) {
+    console.error('Order submission failed:', err);
+    showToast(currentLang === 'sr'
+      ? 'Greska pri slanju. Pokusajte ponovo ili nas pozovite.'
+      : 'Failed to send. Please try again or call us.');
+  } finally {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalBtnText;
+    }
+  }
 }
 
 // ===== Language Toggle =====
@@ -362,16 +409,51 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('checkoutForm').addEventListener('submit', submitOrder);
 
   // Contact form
-  document.getElementById('contactForm').addEventListener('submit', e => {
+  document.getElementById('contactForm').addEventListener('submit', async e => {
     e.preventDefault();
     const name = document.getElementById('cName').value;
     const email = document.getElementById('cEmail').value;
     const subject = document.getElementById('cSubject').value || 'Poruka sa sajta';
     const message = document.getElementById('cMessage').value;
-    const body = `Ime: ${name}\nEmail: ${email}\n\nPoruka:\n${message}`;
-    window.location.href = `mailto:${RECIPIENT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    showToast(currentLang === 'sr' ? 'Poruka poslata!' : 'Message sent!');
-    e.target.reset();
+
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn ? submitBtn.textContent : '';
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = currentLang === 'sr' ? 'Slanje...' : 'Sending...';
+    }
+
+    try {
+      const res = await fetch(FORMSUBMIT_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: `Kontakt - ${subject}`,
+          _template: 'table',
+          _captcha: 'false',
+          name: name,
+          email: email,
+          subject: subject,
+          message: message
+        })
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      if (data.success !== 'true' && data.success !== true) throw new Error('FormSubmit error');
+      showToast(currentLang === 'sr' ? 'Poruka poslata!' : 'Message sent!');
+      e.target.reset();
+    } catch (err) {
+      console.error('Contact submission failed:', err);
+      showToast(currentLang === 'sr' ? 'Greska pri slanju poruke.' : 'Failed to send message.');
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+      }
+    }
   });
 
   // Smooth scroll

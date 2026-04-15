@@ -1,374 +1,352 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Villa Rosata Winery - Fine Wines Since 1987</title>
+  <title>Vinarija Herceg - Vina Hercegovine od 1892</title>
+  <meta name="description" content="Vinarija Herceg - tradicionalna vina iz srca Hercegovine. Zilavka, Blatina, i vrhunska vina.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <!-- Navigation -->
   <nav class="navbar" id="navbar">
     <div class="container nav-container">
-      <a href="#hero" class="logo">Villa Rosata</a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-        <span></span><span></span><span></span>
-      </button>
+      <a href="#hero" class="logo">
+        <span class="logo-mark">H</span>
+        <span class="logo-text">Vinarija Herceg</span>
+      </a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="#about">About</a></li>
-        <li><a href="#wines">Our Wines</a></li>
-        <li><a href="#vineyard">Vineyard</a></li>
-        <li><a href="#visit">Visit Us</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about" data-sr="Nasa Prica" data-en="Our Story">Nasa Prica</a></li>
+        <li><a href="#wines" data-sr="Vina" data-en="Wines">Vina</a></li>
+        <li><a href="#vineyard" data-sr="Vinograd" data-en="Vineyard">Vinograd</a></li>
+        <li><a href="#visit" data-sr="Posjetite Nas" data-en="Visit Us">Posjetite Nas</a></li>
+        <li><a href="#contact" data-sr="Kontakt" data-en="Contact">Kontakt</a></li>
       </ul>
+      <div class="nav-actions">
+        <button class="lang-toggle" id="langToggle">
+          <span class="lang-active">SR</span> / <span>EN</span>
+        </button>
+        <button class="cart-btn" id="cartBtn" aria-label="Cart">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 01-8 0"/>
+          </svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </nav>
 
-  <!-- Hero Section -->
   <section class="hero" id="hero">
+    <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <h1>Villa Rosata</h1>
-      <p class="hero-subtitle">Crafting exceptional wines since 1987</p>
-      <a href="#wines" class="btn btn-primary">Explore Our Wines</a>
+      <div class="hero-ornament">
+        <svg width="80" height="20" viewBox="0 0 80 20"><path d="M0 10 L30 10 M50 10 L80 10 M35 5 L40 15 L45 5" stroke="#c8a96a" stroke-width="1.5" fill="none"/></svg>
+      </div>
+      <p class="hero-kicker" data-sr="Od 1892. godine" data-en="Since 1892">Od 1892. godine</p>
+      <h1 class="hero-title">
+        <span data-sr="Vinarija" data-en="Herceg">Vinarija</span>
+        <span class="hero-title-accent" data-sr="Herceg" data-en="Winery">Herceg</span>
+      </h1>
+      <p class="hero-subtitle" data-sr="Duh Hercegovine u svakoj kapi" data-en="The spirit of Herzegovina in every drop">Duh Hercegovine u svakoj kapi</p>
+      <div class="hero-buttons">
+        <a href="#wines" class="btn btn-primary" data-sr="Nasa Vina" data-en="Our Wines">Nasa Vina</a>
+        <a href="#about" class="btn btn-outline" data-sr="Nasa Prica" data-en="Our Story">Nasa Prica</a>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span data-sr="Istrazi" data-en="Explore">Istrazi</span>
+      <div class="scroll-line"></div>
     </div>
   </section>
 
-  <!-- About Section -->
-  <section class="section" id="about">
+  <section class="section section-about" id="about">
     <div class="container">
-      <div class="section-header">
-        <h2>Our Story</h2>
-        <div class="divider"></div>
-      </div>
       <div class="about-grid">
         <div class="about-image">
-          <div class="placeholder-img" data-label="Vineyard Landscape">
-            <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
-              <rect width="200" height="150" fill="#3d1a0a"/>
-              <circle cx="160" cy="30" r="20" fill="#c8956e" opacity="0.6"/>
-              <path d="M0 100 Q50 60 100 90 T200 80 L200 150 L0 150Z" fill="#4a6741"/>
-              <path d="M0 120 Q50 90 100 110 T200 100 L200 150 L0 150Z" fill="#5a7d50"/>
-              <line x1="60" y1="85" x2="60" y2="110" stroke="#3d2b1f" stroke-width="1.5"/>
-              <circle cx="60" cy="82" r="5" fill="#6b3a5d"/>
-              <line x1="80" y1="90" x2="80" y2="115" stroke="#3d2b1f" stroke-width="1.5"/>
-              <circle cx="80" cy="87" r="5" fill="#6b3a5d"/>
-              <line x1="100" y1="87" x2="100" y2="112" stroke="#3d2b1f" stroke-width="1.5"/>
-              <circle cx="100" cy="84" r="5" fill="#6b3a5d"/>
-              <line x1="120" y1="83" x2="120" y2="108" stroke="#3d2b1f" stroke-width="1.5"/>
-              <circle cx="120" cy="80" r="5" fill="#6b3a5d"/>
-              <line x1="140" y1="78" x2="140" y2="103" stroke="#3d2b1f" stroke-width="1.5"/>
-              <circle cx="140" cy="75" r="5" fill="#6b3a5d"/>
+          <div class="stone-frame">
+            <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" class="herceg-illustration">
+              <defs>
+                <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#f4d9a8"/>
+                  <stop offset="50%" stop-color="#e8a87c"/>
+                  <stop offset="100%" stop-color="#c38d5c"/>
+                </linearGradient>
+                <linearGradient id="mountGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#6b5842"/>
+                  <stop offset="100%" stop-color="#3d2e1f"/>
+                </linearGradient>
+                <linearGradient id="stoneGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#d4c4a8"/>
+                  <stop offset="100%" stop-color="#8b7355"/>
+                </linearGradient>
+              </defs>
+              <rect width="400" height="500" fill="url(#skyGrad)"/>
+              <circle cx="320" cy="100" r="40" fill="#fff4d6" opacity="0.9"/>
+              <path d="M0 250 L60 200 L120 230 L180 180 L240 210 L300 170 L360 200 L400 190 L400 500 L0 500 Z" fill="url(#mountGrad)"/>
+              <path d="M0 300 L80 260 L140 285 L200 250 L260 275 L320 245 L400 270 L400 500 L0 500 Z" fill="#5a4a33" opacity="0.8"/>
+              <rect x="120" y="320" width="160" height="120" fill="url(#stoneGrad)"/>
+              <rect x="120" y="320" width="160" height="10" fill="#6b5842"/>
+              <path d="M110 320 L200 270 L290 320 Z" fill="#722f37"/>
+              <rect x="180" y="370" width="40" height="70" fill="#3d2e1f"/>
+              <rect x="140" y="350" width="25" height="25" fill="#f4d9a8" opacity="0.7"/>
+              <rect x="235" y="350" width="25" height="25" fill="#f4d9a8" opacity="0.7"/>
+              <line x1="140" y1="362" x2="165" y2="362" stroke="#3d2e1f" stroke-width="1"/>
+              <line x1="152" y1="350" x2="152" y2="375" stroke="#3d2e1f" stroke-width="1"/>
+              <line x1="235" y1="362" x2="260" y2="362" stroke="#3d2e1f" stroke-width="1"/>
+              <line x1="247" y1="350" x2="247" y2="375" stroke="#3d2e1f" stroke-width="1"/>
+              <g opacity="0.85">
+                <line x1="30" y1="440" x2="30" y2="460" stroke="#3d2e1f" stroke-width="2"/>
+                <circle cx="30" cy="435" r="4" fill="#4a1e23"/>
+                <line x1="55" y1="445" x2="55" y2="465" stroke="#3d2e1f" stroke-width="2"/>
+                <circle cx="55" cy="440" r="4" fill="#4a1e23"/>
+                <line x1="80" y1="440" x2="80" y2="460" stroke="#3d2e1f" stroke-width="2"/>
+                <circle cx="80" cy="435" r="4" fill="#4a1e23"/>
+                <line x1="320" y1="445" x2="320" y2="465" stroke="#3d2e1f" stroke-width="2"/>
+                <circle cx="320" cy="440" r="4" fill="#4a1e23"/>
+                <line x1="345" y1="440" x2="345" y2="460" stroke="#3d2e1f" stroke-width="2"/>
+                <circle cx="345" cy="435" r="4" fill="#4a1e23"/>
+                <line x1="370" y1="445" x2="370" y2="465" stroke="#3d2e1f" stroke-width="2"/>
+                <circle cx="370" cy="440" r="4" fill="#4a1e23"/>
+              </g>
             </svg>
           </div>
         </div>
-        <div class="about-text">
-          <h3>A Legacy of Excellence</h3>
-          <p>Nestled in the rolling hills of Tuscany, Villa Rosata has been producing world-class wines for over three decades. Our founder, Marco Rosata, believed that great wine begins in the vineyard, a philosophy we honor to this day.</p>
-          <p>Every bottle tells the story of our land, our climate, and the passion of our winemakers. From hand-harvested grapes to careful aging in our centuries-old cellars, we craft wines that capture the essence of Italian winemaking tradition.</p>
-          <p>Today, the third generation of the Rosata family continues this legacy, blending time-honored techniques with modern innovation to produce wines of extraordinary character and depth.</p>
+        <div class="about-content">
+          <div class="section-kicker" data-sr="Nasa Prica" data-en="Our Story">Nasa Prica</div>
+          <h2 class="section-title" data-sr="Tri vijeka tradicije u srcu Hercegovine" data-en="Three centuries of tradition in the heart of Herzegovina">Tri vijeka tradicije u srcu Hercegovine</h2>
+          <div class="divider"></div>
+          <p data-sr="U kamenoj dolini Citluka, gdje sunce Hercegovine grije vinograde od vajkada, porodica Herceg njeguje umijece pravljenja vina vec vise od jednog vijeka. Nasi djedovi su znali: najbolje vino rodi se tamo gdje kamen, sunce i ljudska ruka zajedno pricaju pricu." data-en="In the stone valley of Citluk, where the Herzegovinian sun has warmed the vineyards since time immemorial, the Herceg family has been nurturing the art of winemaking for over a century. Our grandfathers knew: the best wine is born where stone, sun, and human hand together tell a story.">U kamenoj dolini Citluka, gdje sunce Hercegovine grije vinograde od vajkada, porodica Herceg njeguje umijece pravljenja vina vec vise od jednog vijeka. Nasi djedovi su znali: najbolje vino rodi se tamo gdje kamen, sunce i ljudska ruka zajedno pricaju pricu.</p>
+          <p data-sr="Zilavka i Blatina - dvije autohtone hercegovacke sorte - sustina su svega sto radimo. Ovaj krs, ovo sunce, ovaj vjetar sa mora - sve se to prepoznaje u svakoj casi naseg vina." data-en="Zilavka and Blatina - two indigenous Herzegovinian grape varieties - are the essence of everything we do. This karst, this sun, this wind from the sea - all of it can be tasted in every glass of our wine.">Zilavka i Blatina - dvije autohtone hercegovacke sorte - sustina su svega sto radimo. Ovaj krs, ovo sunce, ovaj vjetar sa mora - sve se to prepoznaje u svakoj casi naseg vina.</p>
+          <div class="about-stats">
+            <div class="about-stat">
+              <div class="stat-num">130+</div>
+              <div class="stat-lbl" data-sr="Godina tradicije" data-en="Years of tradition">Godina tradicije</div>
+            </div>
+            <div class="about-stat">
+              <div class="stat-num">45</div>
+              <div class="stat-lbl" data-sr="Hektara vinograda" data-en="Hectares of vineyards">Hektara vinograda</div>
+            </div>
+            <div class="about-stat">
+              <div class="stat-num">6</div>
+              <div class="stat-lbl" data-sr="Vrhunskih vina" data-en="Premium wines">Vrhunskih vina</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Wines Section -->
-  <section class="section section-dark" id="wines">
+  <section class="section section-wines" id="wines">
     <div class="container">
       <div class="section-header">
-        <h2>Our Wines</h2>
-        <div class="divider"></div>
-        <p class="section-subtitle">Discover our carefully curated collection</p>
+        <div class="section-kicker" data-sr="Nasa Kolekcija" data-en="Our Collection">Nasa Kolekcija</div>
+        <h2 class="section-title" data-sr="Vrhunska vina Hercegovine" data-en="Premium wines of Herzegovina">Vrhunska vina Hercegovine</h2>
+        <div class="divider divider-center"></div>
+        <p class="section-sub" data-sr="Od autohtone Zilavke do mocne Blatine - svako vino prica svoju pricu" data-en="From indigenous Zilavka to powerful Blatina - every wine tells its own story">Od autohtone Zilavke do mocne Blatine - svako vino prica svoju pricu</p>
       </div>
-      <div class="wines-grid">
-
-        <div class="wine-card">
-          <div class="wine-image">
-            <svg viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
-              <rect width="200" height="280" fill="#1a0a0a" rx="8"/>
-              <rect x="75" y="20" width="50" height="180" fill="#2d0a0a" rx="4"/>
-              <rect x="70" y="180" width="60" height="80" fill="#1a3a1a" rx="2"/>
-              <rect x="85" y="10" width="30" height="15" fill="#c8956e" rx="2"/>
-              <rect x="78" y="195" width="44" height="50" fill="#f5e6d0" rx="2"/>
-              <text x="100" y="215" text-anchor="middle" fill="#3d1a0a" font-size="7" font-family="serif">VILLA</text>
-              <text x="100" y="228" text-anchor="middle" fill="#3d1a0a" font-size="7" font-family="serif">ROSATA</text>
-              <text x="100" y="238" text-anchor="middle" fill="#722f37" font-size="5" font-family="serif">2019</text>
-            </svg>
-          </div>
-          <div class="wine-info">
-            <span class="wine-type">Red Wine</span>
-            <h3>Rosata Reserve</h3>
-            <p>A bold, full-bodied Sangiovese with notes of dark cherry, leather, and vanilla. Aged 24 months in French oak barrels.</p>
-            <span class="wine-price">$48</span>
-          </div>
-        </div>
-
-        <div class="wine-card">
-          <div class="wine-image">
-            <svg viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
-              <rect width="200" height="280" fill="#1a0a0a" rx="8"/>
-              <rect x="75" y="20" width="50" height="180" fill="#3d3a1a" rx="4"/>
-              <rect x="70" y="180" width="60" height="80" fill="#3a3a1a" rx="2"/>
-              <rect x="85" y="10" width="30" height="15" fill="#c8956e" rx="2"/>
-              <rect x="78" y="195" width="44" height="50" fill="#f5e6d0" rx="2"/>
-              <text x="100" y="215" text-anchor="middle" fill="#3d1a0a" font-size="7" font-family="serif">VILLA</text>
-              <text x="100" y="228" text-anchor="middle" fill="#3d1a0a" font-size="7" font-family="serif">ROSATA</text>
-              <text x="100" y="238" text-anchor="middle" fill="#8a7a3a" font-size="5" font-family="serif">2021</text>
-            </svg>
-          </div>
-          <div class="wine-info">
-            <span class="wine-type">White Wine</span>
-            <h3>Bianco di Collina</h3>
-            <p>A crisp, refreshing Vermentino with bright citrus and tropical fruit notes, complemented by subtle mineral undertones.</p>
-            <span class="wine-price">$32</span>
-          </div>
-        </div>
-
-        <div class="wine-card">
-          <div class="wine-image">
-            <svg viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
-              <rect width="200" height="280" fill="#1a0a0a" rx="8"/>
-              <rect x="75" y="20" width="50" height="180" fill="#2d1a1a" rx="4"/>
-              <rect x="70" y="180" width="60" height="80" fill="#2a1a2a" rx="2"/>
-              <rect x="85" y="10" width="30" height="15" fill="#c8956e" rx="2"/>
-              <rect x="78" y="195" width="44" height="50" fill="#f5e6d0" rx="2"/>
-              <text x="100" y="215" text-anchor="middle" fill="#3d1a0a" font-size="7" font-family="serif">VILLA</text>
-              <text x="100" y="228" text-anchor="middle" fill="#3d1a0a" font-size="7" font-family="serif">ROSATA</text>
-              <text x="100" y="238" text-anchor="middle" fill="#9a4a5a" font-size="5" font-family="serif">2022</text>
-            </svg>
-          </div>
-          <div class="wine-info">
-            <span class="wine-type">Ros&eacute;</span>
-            <h3>Rosa del Tramonto</h3>
-            <p>An elegant ros&eacute; with delicate flavors of strawberry and white peach. Perfect for warm summer evenings.</p>
-            <span class="wine-price">$28</span>
-          </div>
-        </div>
-
-        <div class="wine-card">
-          <div class="wine-image">
-            <svg viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
-              <rect width="200" height="280" fill="#1a0a0a" rx="8"/>
-              <rect x="75" y="20" width="50" height="180" fill="#0a1a2a" rx="4"/>
-              <rect x="70" y="180" width="60" height="80" fill="#0a0a2a" rx="2"/>
-              <rect x="85" y="10" width="30" height="15" fill="#c8956e" rx="2"/>
-              <rect x="78" y="195" width="44" height="50" fill="#f5e6d0" rx="2"/>
-              <text x="100" y="215" text-anchor="middle" fill="#3d1a0a" font-size="7" font-family="serif">VILLA</text>
-              <text x="100" y="228" text-anchor="middle" fill="#3d1a0a" font-size="7" font-family="serif">ROSATA</text>
-              <text x="100" y="238" text-anchor="middle" fill="#3a4a6a" font-size="5" font-family="serif">2018</text>
-            </svg>
-          </div>
-          <div class="wine-info">
-            <span class="wine-type">Red Wine</span>
-            <h3>Gran Riserva</h3>
-            <p>Our flagship Brunello. Complex layers of blackberry, tobacco, and spice with a silky, lingering finish. Aged 36 months.</p>
-            <span class="wine-price">$85</span>
-          </div>
-        </div>
-
-      </div>
+      <div class="wines-grid" id="winesGrid"></div>
     </div>
   </section>
 
-  <!-- Vineyard Section -->
-  <section class="section" id="vineyard">
+  <section class="section section-vineyard" id="vineyard">
+    <div class="vineyard-bg"></div>
     <div class="container">
-      <div class="section-header">
-        <h2>The Vineyard</h2>
-        <div class="divider"></div>
-      </div>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-number" data-target="35">0</div>
-          <div class="stat-label">Hectares of Vineyard</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number" data-target="37">0</div>
-          <div class="stat-label">Years of Tradition</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number" data-target="6">0</div>
-          <div class="stat-label">Wine Varieties</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number" data-target="50000">0</div>
-          <div class="stat-label">Bottles Per Year</div>
-        </div>
-      </div>
       <div class="vineyard-content">
-        <div class="vineyard-text">
-          <h3>Where Great Wine Begins</h3>
-          <p>Our 35-hectare estate sits at an elevation of 350 meters, where the Mediterranean climate and mineral-rich soil create perfect conditions for our vines. The warm days and cool nights allow our grapes to develop intense flavors while maintaining their natural acidity.</p>
-          <p>We practice sustainable viticulture, working in harmony with nature to produce grapes of the highest quality. Each vine is tended by hand, and we harvest at the precise moment when the grapes reach optimal ripeness.</p>
-        </div>
-        <div class="vineyard-image">
-          <div class="placeholder-img" data-label="Wine Cellar">
-            <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
-              <rect width="200" height="150" fill="#1a0f0a"/>
-              <ellipse cx="40" cy="80" rx="25" ry="15" fill="#3d2b1f" stroke="#5a4030" stroke-width="1"/>
-              <ellipse cx="40" cy="80" rx="10" ry="15" fill="none" stroke="#5a4030" stroke-width="0.5"/>
-              <ellipse cx="100" cy="80" rx="25" ry="15" fill="#3d2b1f" stroke="#5a4030" stroke-width="1"/>
-              <ellipse cx="100" cy="80" rx="10" ry="15" fill="none" stroke="#5a4030" stroke-width="0.5"/>
-              <ellipse cx="160" cy="80" rx="25" ry="15" fill="#3d2b1f" stroke="#5a4030" stroke-width="1"/>
-              <ellipse cx="160" cy="80" rx="10" ry="15" fill="none" stroke="#5a4030" stroke-width="0.5"/>
-              <ellipse cx="70" cy="115" rx="25" ry="15" fill="#3d2b1f" stroke="#5a4030" stroke-width="1"/>
-              <ellipse cx="70" cy="115" rx="10" ry="15" fill="none" stroke="#5a4030" stroke-width="0.5"/>
-              <ellipse cx="130" cy="115" rx="25" ry="15" fill="#3d2b1f" stroke="#5a4030" stroke-width="1"/>
-              <ellipse cx="130" cy="115" rx="10" ry="15" fill="none" stroke="#5a4030" stroke-width="0.5"/>
-              <rect x="0" y="0" width="200" height="40" fill="#1a0f0a"/>
-              <path d="M0 40 Q100 20 200 40" fill="none" stroke="#3d2b1f" stroke-width="2"/>
-              <circle cx="100" cy="25" r="8" fill="#c8956e" opacity="0.3"/>
-            </svg>
+        <div class="section-kicker light" data-sr="Vinograd" data-en="Vineyard">Vinograd</div>
+        <h2 class="section-title light" data-sr="Gdje kamen radja vino" data-en="Where stone gives birth to wine">Gdje kamen radja vino</h2>
+        <div class="divider divider-center gold"></div>
+        <p class="vineyard-text" data-sr="Nasi vinogradi prostiru se na 45 hektara plodne hercegovacke zemlje, na nadmorskoj visini od 200 do 350 metara. Mediteranska klima, topli dani, hladne noci i mineralna tla daju nasem grozdju jedinstven karakter." data-en="Our vineyards extend over 45 hectares of fertile Herzegovinian land, at an altitude of 200 to 350 meters. Mediterranean climate, warm days, cool nights and mineral soils give our grapes a unique character.">Nasi vinogradi prostiru se na 45 hektara plodne hercegovacke zemlje, na nadmorskoj visini od 200 do 350 metara. Mediteranska klima, topli dani, hladne noci i mineralna tla daju nasem grozdju jedinstven karakter.</p>
+        <div class="vineyard-features">
+          <div class="vf-item">
+            <div class="vf-num">45</div>
+            <div class="vf-lbl" data-sr="Hektara" data-en="Hectares">Hektara</div>
+          </div>
+          <div class="vf-item">
+            <div class="vf-num">350m</div>
+            <div class="vf-lbl" data-sr="Nadmorske visine" data-en="Altitude">Nadmorske visine</div>
+          </div>
+          <div class="vf-item">
+            <div class="vf-num">2800</div>
+            <div class="vf-lbl" data-sr="Sati sunca" data-en="Sunshine hours">Sati sunca</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Visit Section -->
-  <section class="section section-dark" id="visit">
+  <section class="section section-visit" id="visit">
     <div class="container">
       <div class="section-header">
-        <h2>Visit Us</h2>
-        <div class="divider"></div>
-        <p class="section-subtitle">Experience the magic of Villa Rosata</p>
+        <div class="section-kicker" data-sr="Posjetite Nas" data-en="Visit Us">Posjetite Nas</div>
+        <h2 class="section-title" data-sr="Dozivite Hercegovinu" data-en="Experience Herzegovina">Dozivite Hercegovinu</h2>
+        <div class="divider divider-center"></div>
       </div>
       <div class="visit-grid">
         <div class="visit-card">
           <div class="visit-icon">
-            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M24 4C15.2 4 8 11.2 8 20c0 12 16 24 16 24s16-12 16-24c0-8.8-7.2-16-16-16zm0 22c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z" fill="#722f37"/></svg>
+            <svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="#722f37" stroke-width="2"><path d="M24 4 L30 18 L44 20 L34 30 L36 44 L24 37 L12 44 L14 30 L4 20 L18 18 Z"/></svg>
           </div>
-          <h3>Wine Tastings</h3>
-          <p>Join us for a guided tasting of our award-winning wines, paired with local artisan cheeses and cured meats.</p>
-          <p class="visit-detail">Every Saturday & Sunday, 11am - 5pm</p>
-          <p class="visit-price">$25 per person</p>
+          <h3 data-sr="Degustacija vina" data-en="Wine Tasting">Degustacija vina</h3>
+          <p data-sr="Probajte nasu kompletnu kolekciju uz domace hercegovacke specijalitete - prsut, sir iz mijeha, masline." data-en="Taste our complete collection paired with traditional Herzegovinian specialties - prosciutto, cheese in a skin, olives.">Probajte nasu kompletnu kolekciju uz domace hercegovacke specijalitete - prsut, sir iz mijeha, masline.</p>
+          <div class="visit-price">25 EUR</div>
+        </div>
+        <div class="visit-card featured">
+          <div class="visit-icon">
+            <svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="#c8a96a" stroke-width="2"><circle cx="24" cy="24" r="20"/><path d="M24 8 L24 24 L36 30"/></svg>
+          </div>
+          <h3 data-sr="Obilazak podruma" data-en="Cellar Tour">Obilazak podruma</h3>
+          <p data-sr="Vodjeni obilazak naseg kamenog podruma i vinograda. Saznajte tajne pravljenja vina od naseg vinara." data-en="Guided tour of our stone cellar and vineyards. Learn the secrets of winemaking from our vintner.">Vodjeni obilazak naseg kamenog podruma i vinograda. Saznajte tajne pravljenja vina od naseg vinara.</p>
+          <div class="visit-price">35 EUR</div>
         </div>
         <div class="visit-card">
           <div class="visit-icon">
-            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M24 4l-8 8h6v10h4V12h6L24 4zM8 28v12c0 2.2 1.8 4 4 4h24c2.2 0 4-1.8 4-4V28H8zm16 12c-2.8 0-5-2.2-5-5h2c0 1.7 1.3 3 3 3s3-1.3 3-3h2c0 2.8-2.2 5-5 5z" fill="#722f37"/></svg>
+            <svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="#722f37" stroke-width="2"><path d="M4 20 L44 20 L40 42 L8 42 Z"/><path d="M14 20 L14 12 A10 10 0 0 1 34 12 L34 20"/></svg>
           </div>
-          <h3>Vineyard Tours</h3>
-          <p>Walk through our beautiful vineyards and ancient cellars with our expert guides. Learn the art of winemaking firsthand.</p>
-          <p class="visit-detail">Daily at 10am & 2pm (booking required)</p>
-          <p class="visit-price">$35 per person</p>
-        </div>
-        <div class="visit-card">
-          <div class="visit-icon">
-            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M38 6H10c-2.2 0-4 1.8-4 4v28c0 2.2 1.8 4 4 4h28c2.2 0 4-1.8 4-4V10c0-2.2-1.8-4-4-4zm-4 24H14v-4h20v4zm0-8H14v-4h20v4zm0-8H14v-4h20v4z" fill="#722f37"/></svg>
-          </div>
-          <h3>Private Events</h3>
-          <p>Host your special occasion at our estate. From intimate dinners to grand celebrations, we create unforgettable experiences.</p>
-          <p class="visit-detail">Available year-round</p>
-          <p class="visit-price">Contact us for pricing</p>
+          <h3 data-sr="Privatni dogadjaji" data-en="Private Events">Privatni dogadjaji</h3>
+          <p data-sr="Organizujte svoj poseban dogadjaj u nasem autenticnom ambijentu. Svadbe, proslave, poslovni skupovi." data-en="Organize your special event in our authentic setting. Weddings, celebrations, business gatherings.">Organizujte svoj poseban dogadjaj u nasem autenticnom ambijentu. Svadbe, proslave, poslovni skupovi.</p>
+          <div class="visit-price" data-sr="Po dogovoru" data-en="On request">Po dogovoru</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section class="section" id="contact">
+  <section class="section section-contact" id="contact">
     <div class="container">
-      <div class="section-header">
-        <h2>Get In Touch</h2>
-        <div class="divider"></div>
-      </div>
       <div class="contact-grid">
         <div class="contact-info">
-          <h3>Contact Information</h3>
+          <div class="section-kicker" data-sr="Kontakt" data-en="Contact">Kontakt</div>
+          <h2 class="section-title" data-sr="Posjetite nas u Citluku" data-en="Visit us in Citluk">Posjetite nas u Citluku</h2>
+          <div class="divider"></div>
           <div class="contact-item">
-            <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#722f37"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c8a96a" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
             <div>
-              <strong>Address</strong>
-              <p>Via delle Vigne 42, 53024<br>Montalcino, Siena, Italy</p>
+              <strong data-sr="Adresa" data-en="Address">Adresa</strong>
+              <p>Vinogradska 42, 88260 Citluk<br>Hercegovina, BiH</p>
             </div>
           </div>
           <div class="contact-item">
-            <svg viewBox="0 0 24 24" width="24" height="24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="#722f37"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c8a96a" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
             <div>
-              <strong>Phone</strong>
-              <p>+39 0577 849 321</p>
+              <strong data-sr="Telefon" data-en="Phone">Telefon</strong>
+              <p>+387 36 640 123</p>
             </div>
           </div>
           <div class="contact-item">
-            <svg viewBox="0 0 24 24" width="24" height="24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="#722f37"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c8a96a" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             <div>
               <strong>Email</strong>
-              <p>info@villarosata.wine</p>
+              <p>info@vinarijahergeg.ba</p>
             </div>
           </div>
           <div class="contact-item">
-            <svg viewBox="0 0 24 24" width="24" height="24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z" fill="#722f37"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c8a96a" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
             <div>
-              <strong>Hours</strong>
-              <p>Mon-Sat: 9am - 6pm<br>Sun: 10am - 5pm</p>
+              <strong data-sr="Radno vrijeme" data-en="Opening hours">Radno vrijeme</strong>
+              <p data-sr="Ponedjeljak - Subota: 9h - 19h<br>Nedjelja: 10h - 17h" data-en="Monday - Saturday: 9am - 7pm<br>Sunday: 10am - 5pm">Ponedjeljak - Subota: 9h - 19h<br>Nedjelja: 10h - 17h</p>
             </div>
           </div>
         </div>
         <form class="contact-form" id="contactForm">
-          <div class="form-group">
-            <label for="name">Full Name</label>
-            <input type="text" id="name" name="name" required>
+          <h3 data-sr="Posaljite nam poruku" data-en="Send us a message">Posaljite nam poruku</h3>
+          <div class="form-row">
+            <input type="text" id="cName" placeholder="Ime" data-sr-ph="Ime" data-en-ph="Name" required>
+            <input type="email" id="cEmail" placeholder="Email" required>
           </div>
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" required>
-          </div>
-          <div class="form-group">
-            <label for="subject">Subject</label>
-            <select id="subject" name="subject">
-              <option value="general">General Inquiry</option>
-              <option value="tasting">Wine Tasting Reservation</option>
-              <option value="tour">Vineyard Tour Booking</option>
-              <option value="event">Private Event</option>
-              <option value="order">Wine Order</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Send Message</button>
+          <input type="text" id="cSubject" placeholder="Naslov" data-sr-ph="Naslov" data-en-ph="Subject">
+          <textarea id="cMessage" rows="5" placeholder="Vasa poruka" data-sr-ph="Vasa poruka" data-en-ph="Your message" required></textarea>
+          <button type="submit" class="btn btn-primary" data-sr="Posalji poruku" data-en="Send Message">Posalji poruku</button>
         </form>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <h3>Villa Rosata</h3>
-          <p>Crafting exceptional wines in the heart of Tuscany since 1987.</p>
+          <div class="logo">
+            <span class="logo-mark">H</span>
+            <span class="logo-text">Vinarija Herceg</span>
+          </div>
+          <p data-sr="Duh Hercegovine u svakoj kapi. Od 1892. godine njegujemo tradiciju pravljenja vina u srcu Citluka." data-en="The spirit of Herzegovina in every drop. Since 1892 we have been nurturing the winemaking tradition in the heart of Citluk.">Duh Hercegovine u svakoj kapi. Od 1892. godine njegujemo tradiciju pravljenja vina u srcu Citluka.</p>
         </div>
         <div class="footer-links">
-          <h4>Quick Links</h4>
+          <h4 data-sr="Navigacija" data-en="Navigation">Navigacija</h4>
           <ul>
-            <li><a href="#about">Our Story</a></li>
-            <li><a href="#wines">Our Wines</a></li>
-            <li><a href="#vineyard">The Vineyard</a></li>
-            <li><a href="#visit">Visit Us</a></li>
+            <li><a href="#about" data-sr="Nasa Prica" data-en="Our Story">Nasa Prica</a></li>
+            <li><a href="#wines" data-sr="Vina" data-en="Wines">Vina</a></li>
+            <li><a href="#vineyard" data-sr="Vinograd" data-en="Vineyard">Vinograd</a></li>
+            <li><a href="#visit" data-sr="Posjetite Nas" data-en="Visit Us">Posjetite Nas</a></li>
           </ul>
         </div>
         <div class="footer-links">
-          <h4>Legal</h4>
+          <h4 data-sr="Kontakt" data-en="Contact">Kontakt</h4>
           <ul>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms of Service</a></li>
-            <li><a href="#">Cookie Policy</a></li>
+            <li>Vinogradska 42</li>
+            <li>88260 Citluk, BiH</li>
+            <li>+387 36 640 123</li>
+            <li>info@vinarijahergeg.ba</li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>Please drink responsibly. You must be of legal drinking age in your country to purchase our wines.</p>
-        <p>&copy; 2026 Villa Rosata Winery. All rights reserved.</p>
+        <p data-sr="Pijte odgovorno. Prodaja alkohola samo punoljetnim osobama." data-en="Drink responsibly. Alcohol sales to adults only.">Pijte odgovorno. Prodaja alkohola samo punoljetnim osobama.</p>
+        <p>&copy; 2026 Vinarija Herceg. <span data-sr="Sva prava zadrzana." data-en="All rights reserved.">Sva prava zadrzana.</span></p>
       </div>
     </div>
   </footer>
+
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3 data-sr="Vasa Korpa" data-en="Your Cart">Vasa Korpa</h3>
+      <button class="cart-close" id="cartClose">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <p class="cart-empty" data-sr="Vasa korpa je prazna" data-en="Your cart is empty">Vasa korpa je prazna</p>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none;">
+      <div class="cart-total">
+        <span data-sr="Ukupno:" data-en="Total:">Ukupno:</span>
+        <span id="cartTotal">0 EUR</span>
+      </div>
+      <button class="btn btn-primary btn-full" id="checkoutBtn" data-sr="Nastavi na porudzbinu" data-en="Proceed to Checkout">Nastavi na porudzbinu</button>
+    </div>
+  </aside>
+
+  <div class="checkout-overlay" id="checkoutOverlay">
+    <div class="checkout-modal">
+      <button class="checkout-close" id="checkoutClose">&times;</button>
+      <h2 data-sr="Zavrsi porudzbinu" data-en="Complete Your Order">Zavrsi porudzbinu</h2>
+      <p data-sr="Popunite svoje podatke i mi cemo vas kontaktirati u roku od 24h." data-en="Fill in your details and we will contact you within 24h.">Popunite svoje podatke i mi cemo vas kontaktirati u roku od 24h.</p>
+      <form id="checkoutForm">
+        <div class="form-row">
+          <input type="text" id="oName" placeholder="Ime i prezime" data-sr-ph="Ime i prezime" data-en-ph="Full name" required>
+          <input type="email" id="oEmail" placeholder="Email" required>
+        </div>
+        <div class="form-row">
+          <input type="tel" id="oPhone" placeholder="Telefon" data-sr-ph="Telefon" data-en-ph="Phone" required>
+          <input type="text" id="oCity" placeholder="Grad" data-sr-ph="Grad" data-en-ph="City" required>
+        </div>
+        <input type="text" id="oAddress" placeholder="Adresa za dostavu" data-sr-ph="Adresa za dostavu" data-en-ph="Delivery address" required>
+        <input type="text" id="oCountry" placeholder="Drzava" data-sr-ph="Drzava" data-en-ph="Country" required>
+        <textarea id="oNotes" rows="3" placeholder="Napomena (opciono)" data-sr-ph="Napomena (opciono)" data-en-ph="Notes (optional)"></textarea>
+        <div class="checkout-summary" id="checkoutSummary"></div>
+        <button type="submit" class="btn btn-primary btn-full" data-sr="Posalji porudzbinu" data-en="Submit Order">Posalji porudzbinu</button>
+        <p class="checkout-note" data-sr="Vasa porudzbina ce biti poslata direktno na nas email. Kontaktiracemo vas za potvrdu i placanje." data-en="Your order will be sent directly to our email. We will contact you for confirmation and payment.">Vasa porudzbina ce biti poslata direktno na nas email. Kontaktiracemo vas za potvrdu i placanje.</p>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
 
   <script src="script.js"></script>
 </body>

@@ -460,15 +460,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // FAB contact toggle
-  document.getElementById('fabMainBtn').addEventListener('click', () => {
-    document.getElementById('fabContact').classList.toggle('active');
-  });
-  document.addEventListener('click', e => {
-    const fab = document.getElementById('fabContact');
-    if (!fab.contains(e.target)) fab.classList.remove('active');
-  });
-
   // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {

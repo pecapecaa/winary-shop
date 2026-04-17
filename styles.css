@@ -1055,19 +1055,14 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   position: absolute;
   bottom: 72px;
   right: 0;
-  display: flex;
+  display: none;
   flex-direction: column;
+  align-items: flex-end;
   gap: 10px;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(10px);
-  transition: all 0.3s;
 }
 
 .fab-contact.active .fab-options {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+  display: flex;
 }
 
 .fab-option {

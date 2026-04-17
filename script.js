@@ -237,6 +237,8 @@ async function submitOrder(e) {
   const address = document.getElementById('oAddress').value;
   const country = document.getElementById('oCountry').value;
   const notes = document.getElementById('oNotes').value;
+  const payment = document.querySelector('input[name="payment"]:checked')?.value || 'pouzecem';
+  const paymentLabel = payment === 'pouzecem' ? 'Pouzecem / Cash on delivery' : 'Virman / Bank transfer';
 
   let orderLines = '';
   cart.forEach(item => {
@@ -253,7 +255,8 @@ async function submitOrder(e) {
     `Telefon: ${phone}\n` +
     `Adresa: ${address}\n` +
     `Grad: ${city}\n` +
-    `Drzava: ${country}\n\n` +
+    `Drzava: ${country}\n` +
+    `Placanje: ${paymentLabel}\n\n` +
     `PORUDZBINA / ORDER:\n` +
     `---------------------------\n` +
     orderLines +
@@ -288,6 +291,7 @@ async function submitOrder(e) {
         country: country,
         total: `${getCartTotal()} EUR`,
         order: orderLines,
+        payment: paymentLabel,
         notes: notes || '-',
         message: message
       })
@@ -454,6 +458,15 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.textContent = originalBtnText;
       }
     }
+  });
+
+  // FAB contact toggle
+  document.getElementById('fabMainBtn').addEventListener('click', () => {
+    document.getElementById('fabContact').classList.toggle('active');
+  });
+  document.addEventListener('click', e => {
+    const fab = document.getElementById('fabContact');
+    if (!fab.contains(e.target)) fab.classList.remove('active');
   });
 
   // Smooth scroll

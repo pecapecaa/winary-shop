@@ -1064,12 +1064,48 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   font-size: 1.15rem;
 }
 
-.checkout-note {
-  font-size: 0.8rem;
-  color: var(--text-light);
+#checkoutSuccess {
   text-align: center;
-  margin-top: 14px;
+  padding: 20px 0;
+}
+
+#checkoutSuccess h2 {
+  font-size: 2rem;
+  color: var(--wine);
+  margin: 20px 0 12px;
+}
+
+#checkoutSuccess > p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
   font-style: italic;
+  color: var(--text-light);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.success-icon {
+  display: flex;
+  justify-content: center;
+  animation: successPop 0.5s ease;
+}
+
+@keyframes successPop {
+  0% { transform: scale(0); }
+  60% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.success-bonus {
+  background: linear-gradient(135deg, rgba(201, 169, 97, 0.15) 0%, rgba(107, 31, 42, 0.1) 100%);
+  border: 1px solid var(--gold);
+  padding: 16px 20px;
+  margin: 20px 0 24px;
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--wine);
+  letter-spacing: 0.5px;
 }
 
 /* ===== TOAST ===== */

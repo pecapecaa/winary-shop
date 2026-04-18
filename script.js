@@ -233,36 +233,13 @@ async function submitOrder(e) {
   const name = document.getElementById('oName').value;
   const email = document.getElementById('oEmail').value;
   const phone = document.getElementById('oPhone').value;
-  const city = document.getElementById('oCity').value;
   const address = document.getElementById('oAddress').value;
-  const country = document.getElementById('oCountry').value;
-  const notes = document.getElementById('oNotes').value;
-  const paymentLabel = 'Pouzecem / Cash on delivery';
 
   let orderLines = '';
   cart.forEach(item => {
     const wine = WINES.find(w => w.id === item.id);
     orderLines += `${wine.name.sr} × ${item.qty} = ${wine.price * item.qty} EUR\n`;
   });
-
-  const message =
-    `NOVA PORUDZBINA / NEW ORDER\n` +
-    `===========================\n\n` +
-    `KUPAC / CUSTOMER:\n` +
-    `Ime: ${name}\n` +
-    `Email: ${email}\n` +
-    `Telefon: ${phone}\n` +
-    `Adresa: ${address}\n` +
-    `Grad: ${city}\n` +
-    `Drzava: ${country}\n` +
-    `Placanje: ${paymentLabel}\n\n` +
-    `PORUDZBINA / ORDER:\n` +
-    `---------------------------\n` +
-    orderLines +
-    `---------------------------\n` +
-    `UKUPNO / TOTAL: ${getCartTotal()} EUR\n\n` +
-    (notes ? `NAPOMENA / NOTES:\n${notes}\n\n` : '') +
-    `Poslato sa: vinarijahergeg.ba`;
 
   const submitBtn = e.target.querySelector('button[type="submit"]');
   const originalBtnText = submitBtn ? submitBtn.textContent : '';
@@ -279,20 +256,15 @@ async function submitOrder(e) {
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        _subject: `Nova porudzbina - Vinarija Herceg - ${name}`,
+        _subject: `Nova narudzba - ${name} - ${getCartTotal()} EUR`,
         _template: 'table',
         _captcha: 'false',
         name: name,
         email: email,
         phone: phone,
         address: address,
-        city: city,
-        country: country,
         total: `${getCartTotal()} EUR`,
-        order: orderLines,
-        payment: paymentLabel,
-        notes: notes || '-',
-        message: message
+        order: orderLines
       })
     });
 
@@ -302,12 +274,12 @@ async function submitOrder(e) {
       throw new Error('FormSubmit error');
     }
 
-    showToast(currentLang === 'sr' ? 'Porudzbina je poslata! Hvala vam.' : 'Order sent! Thank you.');
+    document.getElementById('checkoutFormWrap').style.display = 'none';
+    document.getElementById('checkoutSuccess').style.display = 'block';
     cart = [];
     saveCart();
     renderCart();
     document.getElementById('checkoutForm').reset();
-    document.getElementById('checkoutOverlay').classList.remove('active');
   } catch (err) {
     console.error('Order submission failed:', err);
     showToast(currentLang === 'sr'
@@ -482,6 +454,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('checkoutBtn').addEventListener('click', openCheckout);
   document.getElementById('checkoutClose').addEventListener('click', () => {
     document.getElementById('checkoutOverlay').classList.remove('active');
+    document.getElementById('checkoutFormWrap').style.display = '';
+    document.getElementById('checkoutSuccess').style.display = 'none';
   });
   document.getElementById('checkoutForm').addEventListener('submit', submitOrder);
 

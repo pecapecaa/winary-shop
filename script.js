@@ -104,11 +104,11 @@ function bottleSVG(color) {
     <rect x="58" y="5" width="24" height="30" fill="#c8a96a" rx="1"/>
     <path d="M 55 35 Q 55 50 50 70 L 50 260 Q 50 270 60 270 L 80 270 Q 90 270 90 260 L 90 70 Q 85 50 85 35 Z" fill="url(#bg-${color.replace('#','')})" stroke="#1a0f0a" stroke-width="1"/>
     <rect x="52" y="110" width="36" height="90" fill="#f5ede0" stroke="#8b7355" stroke-width="0.5"/>
-    <text x="70" y="140" text-anchor="middle" font-family="Cinzel, serif" font-size="8" fill="#722f37" font-weight="700">VINARIJA</text>
-    <text x="70" y="155" text-anchor="middle" font-family="Cinzel, serif" font-size="11" fill="#722f37" font-weight="700">HERCEG</text>
+    <text x="70" y="140" text-anchor="middle" font-family="Cinzel, serif" font-size="8" fill="#722f37" font-weight="700">HERCEG</text>
+    <text x="70" y="155" text-anchor="middle" font-family="Cinzel, serif" font-size="11" fill="#722f37" font-weight="700">WINES</text>
     <line x1="58" y1="165" x2="82" y2="165" stroke="#c8a96a" stroke-width="0.8"/>
     <text x="70" y="180" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="7" font-style="italic" fill="#4a1e23">Hercegovina</text>
-    <text x="70" y="195" text-anchor="middle" font-family="Lato, sans-serif" font-size="6" fill="#722f37">ESTABLISHED 1892</text>
+    <text x="70" y="195" text-anchor="middle" font-family="Lato, sans-serif" font-size="6" fill="#722f37">SELECTED WINES</text>
   </svg>`;
 }
 
@@ -257,7 +257,7 @@ async function submitOrder(e) {
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        _subject: `Nova narudzba - ${name} - ${getCartTotal()} EUR`,
+        _subject: `Herceg Wines - nova narudzba - ${name} - ${getCartTotal()} EUR`,
         _template: 'table',
         _captcha: 'false',
         name: name,

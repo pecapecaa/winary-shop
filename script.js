@@ -352,12 +352,70 @@ function showToast(msg) {
   setTimeout(() => toast.classList.remove('active'), 3000);
 }
 
-// ===== Scroll animations =====
+// ===== Hero Particles =====
+function createHeroParticles() {
+  const container = document.querySelector('.hero-particles');
+  if (!container) return;
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.className = 'hero-particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.bottom = '-5%';
+    p.style.animationDelay = Math.random() * 8 + 's';
+    p.style.animationDuration = (6 + Math.random() * 6) + 's';
+    p.style.width = p.style.height = (2 + Math.random() * 3) + 'px';
+    container.appendChild(p);
+  }
+}
+
+// ===== Counter Animation =====
+function animateCounters() {
+  const counters = document.querySelectorAll('.stat-num, .vf-num');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const el = e.target;
+        const text = el.textContent.trim();
+        const match = text.match(/^(\d+)/);
+        if (!match) return;
+        const target = parseInt(match[1]);
+        const suffix = text.replace(match[1], '');
+        const duration = 1500;
+        const start = performance.now();
+        function update(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.round(target * eased) + suffix;
+          if (progress < 1) requestAnimationFrame(update);
+        }
+        requestAnimationFrame(update);
+        io.unobserve(el);
+      }
+    });
+  }, { threshold: 0.3 });
+  counters.forEach(el => io.observe(el));
+}
+
+// ===== Staggered Scroll Animations =====
 function observeFadeElements() {
-  const els = document.querySelectorAll('.wine-card, .visit-card, .about-content, .stone-frame, .vf-item, .contact-form, .about-stats');
-  els.forEach(el => {
+  const groups = [
+    '.wine-card',
+    '.visit-card',
+    '.vf-item',
+    '.about-stat'
+  ];
+  groups.forEach(selector => {
+    const items = document.querySelectorAll(selector);
+    items.forEach((el, i) => {
+      if (!el.classList.contains('fade-up')) el.classList.add('fade-up');
+      el.classList.add('stagger-' + (i + 1));
+    });
+  });
+  const singles = document.querySelectorAll('.about-content, .stone-frame, .contact-form, .vineyard-content, .section-header');
+  singles.forEach(el => {
     if (!el.classList.contains('fade-up')) el.classList.add('fade-up');
   });
+  const allFade = document.querySelectorAll('.fade-up');
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -366,7 +424,23 @@ function observeFadeElements() {
       }
     });
   }, { threshold: 0.1 });
-  els.forEach(el => io.observe(el));
+  allFade.forEach(el => io.observe(el));
+}
+
+// ===== Vineyard Parallax =====
+function initParallax() {
+  const vineyard = document.querySelector('.section-vineyard');
+  if (!vineyard) return;
+  const bg = vineyard.querySelector(':before');
+  window.addEventListener('scroll', () => {
+    const rect = vineyard.getBoundingClientRect();
+    const windowH = window.innerHeight;
+    if (rect.bottom > 0 && rect.top < windowH) {
+      const progress = (windowH - rect.top) / (windowH + rect.height);
+      const offset = (progress - 0.5) * 80;
+      vineyard.style.setProperty('--parallax-y', offset + 'px');
+    }
+  }, { passive: true });
 }
 
 // ===== Init =====
@@ -478,6 +552,9 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCart();
   switchLanguage(currentLang);
   observeFadeElements();
+  createHeroParticles();
+  animateCounters();
+  initParallax();
 });
 
 // Expose for inline handlers

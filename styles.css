@@ -697,6 +697,53 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   color: var(--wine);
 }
 
+/* ===== TOUR BANNER ===== */
+.tour-banner {
+  margin-top: 60px;
+  background: var(--wine-deep);
+  padding: 48px 40px;
+  text-align: center;
+  border: 1px solid rgba(201, 169, 97, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.tour-banner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(201, 169, 97, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.tour-banner-content { position: relative; z-index: 1; }
+
+.tour-banner h3 {
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.tour-banner p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 600px;
+  margin: 0 auto 24px;
+  line-height: 1.7;
+}
+
+.tour-banner .btn-outline {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.tour-banner .btn-outline:hover {
+  background: var(--gold);
+  color: var(--wine-deep);
+}
+
 /* ===== CONTACT ===== */
 .section-contact { background: var(--cream); }
 

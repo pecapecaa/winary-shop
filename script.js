@@ -512,9 +512,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Load saved lang
-  const savedLang = localStorage.getItem('hercegLang');
-  if (savedLang) currentLang = savedLang;
+  currentLang = 'sr';
 
   renderWines();
   renderCart();

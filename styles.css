@@ -120,19 +120,24 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 .nav-phone {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--gold);
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  transition: color 0.3s;
+  display: none;
 }
 
-.nav-phone:hover { color: var(--gold-light); }
-
-.nav-phone svg { stroke: var(--gold); }
+@media (min-width: 1025px) {
+  .nav-phone {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--gold);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    transition: color 0.3s;
+  }
+  .nav-phone:hover { color: var(--gold-light); }
+  .nav-phone svg { stroke: var(--gold); }
+}
 
 .lang-toggle {
   color: #fff;
@@ -792,7 +797,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   right: 0;
   width: 420px;
   max-width: 100vw;
-  height: 100vh;
+  height: 100%;
+  height: 100dvh;
   background: #fff;
   z-index: 1100;
   transform: translateX(100%);
@@ -906,6 +912,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   padding: 22px 28px;
   border-top: 1px solid rgba(139, 115, 85, 0.15);
   background: var(--cream);
+  flex-shrink: 0;
 }
 
 .cart-total {
@@ -1121,7 +1128,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 @media (max-width: 768px) {
-  .nav-phone-number { display: none; }
   .nav-links {
     display: none;
     position: absolute;

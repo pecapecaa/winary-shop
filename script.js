@@ -237,8 +237,7 @@ async function submitOrder(e) {
   const address = document.getElementById('oAddress').value;
   const country = document.getElementById('oCountry').value;
   const notes = document.getElementById('oNotes').value;
-  const payment = document.querySelector('input[name="payment"]:checked')?.value || 'pouzecem';
-  const paymentLabel = payment === 'pouzecem' ? 'Pouzecem / Cash on delivery' : 'Virman / Bank transfer';
+  const paymentLabel = 'Pouzecem / Cash on delivery';
 
   let orderLines = '';
   cart.forEach(item => {

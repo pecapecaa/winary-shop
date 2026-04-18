@@ -329,7 +329,8 @@
           <input type="text" id="oName" placeholder="Ime i prezime" data-sr-ph="Ime i prezime" data-en-ph="Full name" required>
           <input type="email" id="oEmail" placeholder="Email" required>
           <input type="tel" id="oPhone" placeholder="Telefon" data-sr-ph="Telefon" data-en-ph="Phone" required>
-          <input type="text" id="oAddress" placeholder="Adresa dostave (grad, ulica)" data-sr-ph="Adresa dostave (grad, ulica)" data-en-ph="Delivery address (city, street)" required>
+          <input type="text" id="oCity" placeholder="Grad" data-sr-ph="Grad" data-en-ph="City" required>
+          <input type="text" id="oAddress" placeholder="Adresa dostave" data-sr-ph="Adresa dostave" data-en-ph="Delivery address" required>
           <div class="checkout-summary" id="checkoutSummary"></div>
           <button type="submit" class="btn btn-primary btn-full" data-sr="Poruci" data-en="Order">Poruci</button>
         </form>
@@ -338,12 +339,12 @@
         <div class="success-icon">
           <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11.5 14.5 16 9"/></svg>
         </div>
-        <h2 data-sr="Hvala vam!" data-en="Thank you!">Hvala vam!</h2>
-        <p data-sr="Vasa porudzbina je primljena. Bićete medju prvima koji ce dobiti nasa vina iz Trebinja. Javićemo vam se uskoro sa svim detaljima." data-en="Your order has been received. You will be among the first to receive our wines from Trebinje. We will contact you soon with all the details.">Vasa porudzbina je primljena. Bićete medju prvima koji ce dobiti nasa vina iz Trebinja. Javićemo vam se uskoro sa svim detaljima.</p>
+        <h2 data-sr="Odlican izbor!" data-en="Excellent choice!">Odlican izbor!</h2>
+        <p data-sr="Porudzbina primljena! Nas tim ce vas kontaktirati telefonom u roku od 24h radi potvrde i dogovora oko dostave." data-en="Order received! Our team will contact you by phone within 24h to confirm and arrange delivery.">Porudzbina primljena! Nas tim ce vas kontaktirati telefonom u roku od 24h radi potvrde i dogovora oko dostave.</p>
         <div class="success-bonus">
-          <span data-sr="Kao zahvalnost, dobijate 10% popusta na prvu porudzbinu!" data-en="As a thank you, you get 10% off your first order!">Kao zahvalnost, dobijate 10% popusta na prvu porudzbinu!</span>
+          <span data-sr="Vase vino vec ceka u podrumu!" data-en="Your wine is already waiting in the cellar!">Vase vino vec ceka u podrumu!</span>
         </div>
-        <button class="btn btn-primary" onclick="document.getElementById('checkoutOverlay').classList.remove('active')" data-sr="Zatvori" data-en="Close">Zatvori</button>
+        <button class="btn btn-primary" id="successCloseBtn" data-sr="Zatvori" data-en="Close">Zatvori</button>
       </div>
     </div>
   </div>

@@ -70,8 +70,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 .logo-mark {
-  width: 42px;
-  height: 42px;
+  width: 46px;
+  height: 46px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -79,9 +79,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 .logo-mark svg {
-  width: 42px;
-  height: 42px;
-  filter: drop-shadow(0 2px 8px rgba(201, 169, 97, 0.3));
+  width: 46px;
+  height: 46px;
+  filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.15));
 }
 
 .logo-text {
@@ -539,21 +539,29 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 .wine-fill {
-  animation: wineWave 4s ease-in-out infinite;
+  animation: wineWave 3s ease-in-out infinite;
+  transform-origin: center bottom;
 }
 
 .wine-surface {
-  animation: wineSurface 4s ease-in-out infinite;
+  animation: wineSurface 3s ease-in-out infinite;
+  transform-origin: center center;
 }
 
 @keyframes wineWave {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
+  0% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-10px) rotate(1.5deg); }
+  50% { transform: translateY(-4px) rotate(0deg); }
+  75% { transform: translateY(-10px) rotate(-1.5deg); }
+  100% { transform: translateY(0) rotate(0deg); }
 }
 
 @keyframes wineSurface {
-  0%, 100% { transform: translateY(0) scaleX(1); }
-  50% { transform: translateY(-4px) scaleX(0.97); }
+  0% { transform: translateY(0) scaleX(1) rotate(0deg); }
+  25% { transform: translateY(-10px) scaleX(0.92) rotate(2deg); }
+  50% { transform: translateY(-4px) scaleX(1) rotate(0deg); }
+  75% { transform: translateY(-10px) scaleX(0.92) rotate(-2deg); }
+  100% { transform: translateY(0) scaleX(1) rotate(0deg); }
 }
 
 .about-visual-text {

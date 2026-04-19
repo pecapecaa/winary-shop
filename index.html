@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=1920&q=80">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -68,53 +69,7 @@
     <div class="container">
       <div class="about-grid">
         <div class="about-image">
-          <div class="stone-frame">
-            <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" class="herceg-illustration">
-              <defs>
-                <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stop-color="#f4d9a8"/>
-                  <stop offset="50%" stop-color="#e8a87c"/>
-                  <stop offset="100%" stop-color="#c38d5c"/>
-                </linearGradient>
-                <linearGradient id="mountGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stop-color="#6b5842"/>
-                  <stop offset="100%" stop-color="#3d2e1f"/>
-                </linearGradient>
-                <linearGradient id="stoneGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stop-color="#d4c4a8"/>
-                  <stop offset="100%" stop-color="#8b7355"/>
-                </linearGradient>
-              </defs>
-              <rect width="400" height="500" fill="url(#skyGrad)"/>
-              <circle cx="320" cy="100" r="40" fill="#fff4d6" opacity="0.9"/>
-              <path d="M0 250 L60 200 L120 230 L180 180 L240 210 L300 170 L360 200 L400 190 L400 500 L0 500 Z" fill="url(#mountGrad)"/>
-              <path d="M0 300 L80 260 L140 285 L200 250 L260 275 L320 245 L400 270 L400 500 L0 500 Z" fill="#5a4a33" opacity="0.8"/>
-              <rect x="120" y="320" width="160" height="120" fill="url(#stoneGrad)"/>
-              <rect x="120" y="320" width="160" height="10" fill="#6b5842"/>
-              <path d="M110 320 L200 270 L290 320 Z" fill="#722f37"/>
-              <rect x="180" y="370" width="40" height="70" fill="#3d2e1f"/>
-              <rect x="140" y="350" width="25" height="25" fill="#f4d9a8" opacity="0.7"/>
-              <rect x="235" y="350" width="25" height="25" fill="#f4d9a8" opacity="0.7"/>
-              <line x1="140" y1="362" x2="165" y2="362" stroke="#3d2e1f" stroke-width="1"/>
-              <line x1="152" y1="350" x2="152" y2="375" stroke="#3d2e1f" stroke-width="1"/>
-              <line x1="235" y1="362" x2="260" y2="362" stroke="#3d2e1f" stroke-width="1"/>
-              <line x1="247" y1="350" x2="247" y2="375" stroke="#3d2e1f" stroke-width="1"/>
-              <g opacity="0.85">
-                <line x1="30" y1="440" x2="30" y2="460" stroke="#3d2e1f" stroke-width="2"/>
-                <circle cx="30" cy="435" r="4" fill="#4a1e23"/>
-                <line x1="55" y1="445" x2="55" y2="465" stroke="#3d2e1f" stroke-width="2"/>
-                <circle cx="55" cy="440" r="4" fill="#4a1e23"/>
-                <line x1="80" y1="440" x2="80" y2="460" stroke="#3d2e1f" stroke-width="2"/>
-                <circle cx="80" cy="435" r="4" fill="#4a1e23"/>
-                <line x1="320" y1="445" x2="320" y2="465" stroke="#3d2e1f" stroke-width="2"/>
-                <circle cx="320" cy="440" r="4" fill="#4a1e23"/>
-                <line x1="345" y1="440" x2="345" y2="460" stroke="#3d2e1f" stroke-width="2"/>
-                <circle cx="345" cy="435" r="4" fill="#4a1e23"/>
-                <line x1="370" y1="445" x2="370" y2="465" stroke="#3d2e1f" stroke-width="2"/>
-                <circle cx="370" cy="440" r="4" fill="#4a1e23"/>
-              </g>
-            </svg>
-          </div>
+          <img src="https://images.unsplash.com/photo-1507434965515-61970f2bd7c6?auto=format&fit=crop&w=800&q=80" alt="Wine cellar with oak barrels" class="about-photo" loading="lazy">
         </div>
         <div class="about-content">
           <div class="section-kicker" data-sr="O nama" data-en="About">O nama</div>

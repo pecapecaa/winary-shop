@@ -509,14 +509,80 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   overflow: hidden;
   box-shadow: 0 20px 60px rgba(61, 16, 21, 0.25);
   aspect-ratio: 4/5;
-  background: linear-gradient(135deg, #3d2e1f, #1a0508);
 }
 
-.about-photo {
+.about-visual {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.about-visual-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse at 30% 30%, rgba(201,169,97,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 70%, rgba(107,31,42,0.3) 0%, transparent 50%),
+    linear-gradient(160deg, #1a0508 0%, #2a0e14 30%, #3d1015 60%, #1f0508 100%);
+}
+
+.wine-glass-art {
+  position: relative;
+  z-index: 1;
+  width: 65%;
+  max-width: 260px;
+  filter: drop-shadow(0 10px 30px rgba(107,31,42,0.4));
+}
+
+.wine-fill {
+  animation: wineWave 4s ease-in-out infinite;
+}
+
+.wine-surface {
+  animation: wineSurface 4s ease-in-out infinite;
+}
+
+@keyframes wineWave {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes wineSurface {
+  0%, 100% { transform: translateY(0) scaleX(1); }
+  50% { transform: translateY(-4px) scaleX(0.97); }
+}
+
+.about-visual-text {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 2;
+}
+
+.avt-big {
   display: block;
+  font-family: 'Cinzel', serif;
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1;
+  opacity: 0.15;
+}
+
+.avt-small {
+  display: block;
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 4px;
+  color: var(--gold);
+  opacity: 0.2;
+  margin-top: 4px;
 }
 
 .about-content p {

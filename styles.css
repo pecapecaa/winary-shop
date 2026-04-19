@@ -72,16 +72,16 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .logo-mark {
   width: 42px;
   height: 42px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--gold), var(--gold-light));
-  color: var(--wine-deep);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Cinzel', serif;
-  font-weight: 900;
-  font-size: 1.4rem;
-  box-shadow: 0 2px 12px rgba(201, 169, 97, 0.3);
+  flex-shrink: 0;
+}
+
+.logo-mark svg {
+  width: 42px;
+  height: 42px;
+  filter: drop-shadow(0 2px 8px rgba(201, 169, 97, 0.3));
 }
 
 .logo-text {

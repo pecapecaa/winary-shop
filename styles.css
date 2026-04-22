@@ -539,8 +539,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 .wine-fill {
-  animation: wineWave 3s ease-in-out infinite;
-  transform-origin: center bottom;
+  /* static - no animation, only surface moves */
 }
 
 .wine-surface {
@@ -548,19 +547,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   transform-origin: center center;
 }
 
-@keyframes wineWave {
-  0% { transform: translateY(0); }
-  25% { transform: translateY(-10px); }
-  50% { transform: translateY(-4px); }
-  75% { transform: translateY(-10px); }
-  100% { transform: translateY(0); }
-}
-
 @keyframes wineSurface {
-  0% { transform: translateY(0) scaleX(1); }
-  25% { transform: translateY(-10px) scaleX(0.96); }
-  50% { transform: translateY(-4px) scaleX(1); }
-  75% { transform: translateY(-10px) scaleX(0.96); }
+  0%   { transform: translateY(0) scaleX(1); }
+  30%  { transform: translateY(-5px) scaleX(0.97); }
+  60%  { transform: translateY(-2px) scaleX(1.01); }
   100% { transform: translateY(0) scaleX(1); }
 }
 

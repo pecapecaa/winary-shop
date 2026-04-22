@@ -277,9 +277,10 @@ async function submitOrder(e) {
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        _subject: `Herceg Wines - nova narudzba - ${name} - ${getCartTotal()} EUR`,
+        _subject: `Herceg Wines — Nova rezervacija — ${name} — ${getCartTotal()} EUR`,
         _template: 'table',
         _captcha: 'false',
+        _autoresponse: `Poštovani ${name},\n\nhvala Vam što ste odabrali Herceg Wines.\n\nVaša rezervacija je uspješno primljena i obrađujemo je po redoslijedu prispijeća. Kontaktiraćemo Vas u roku od 2–3 radna dana sa svim detaljima.\n\n——————————————————\nVAŠA NARUDŽBA\n——————————————————\n${orderLines}\nUkupno: ${getCartTotal()} EUR\n——————————————————\n\nKao zahvalnost na strpljenju, pripremili smo za Vas ekskluzivni kod:\n\n  ★  HERCEG10  ★\n\n10% popusta na narednu narudžbu.\nKod unesite pri sljedećoj kupovini na pecapecaa.github.io\n\n——————————————————\n\nS poštovanjem,\nHerceg Wines tim\n\nTrebinje, Hercegovina\ninfo@hercegwines.com\n+387 36 640 123\n\n——————————————————\nHerceg Wines • Hercegovačka vina. Online. • Est. 2021`,
         datum_i_vrijeme: timestamp,
         name: name,
         email: email,

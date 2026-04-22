@@ -135,7 +135,11 @@ function renderWines() {
 }
 
 // ===== Cart Logic =====
+let _cartBusy = false;
+
 function addToCart(id) {
+  if (_cartBusy) return;
+  _cartBusy = true;
   const existing = cart.find(i => i.id === id);
   if (existing) {
     existing.qty += 1;
@@ -146,24 +150,34 @@ function addToCart(id) {
   renderCart();
   const wine = WINES.find(w => w.id === id);
   showToast(currentLang === 'sr' ? `${wine.name.sr} dodato u korpu` : `${wine.name.en} added to cart`);
+  setTimeout(() => { _cartBusy = false; }, 600);
 }
 
 function removeFromCart(id) {
+  if (_cartBusy) return;
+  _cartBusy = true;
   cart = cart.filter(i => i.id !== id);
   saveCart();
   renderCart();
+  setTimeout(() => { _cartBusy = false; }, 300);
 }
 
 function updateQty(id, delta) {
+  if (_cartBusy) return;
+  _cartBusy = true;
   const item = cart.find(i => i.id === id);
-  if (!item) return;
+  if (!item) { _cartBusy = false; return; }
   item.qty += delta;
   if (item.qty <= 0) {
-    removeFromCart(id);
+    cart = cart.filter(i => i.id !== id);
+    saveCart();
+    renderCart();
+    setTimeout(() => { _cartBusy = false; }, 300);
     return;
   }
   saveCart();
   renderCart();
+  setTimeout(() => { _cartBusy = false; }, 300);
 }
 
 function saveCart() {

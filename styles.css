@@ -549,19 +549,19 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 @keyframes wineWave {
-  0% { transform: translateY(0) rotate(0deg); }
-  25% { transform: translateY(-10px) rotate(1.5deg); }
-  50% { transform: translateY(-4px) rotate(0deg); }
-  75% { transform: translateY(-10px) rotate(-1.5deg); }
-  100% { transform: translateY(0) rotate(0deg); }
+  0% { transform: translateY(0); }
+  25% { transform: translateY(-10px); }
+  50% { transform: translateY(-4px); }
+  75% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
 }
 
 @keyframes wineSurface {
-  0% { transform: translateY(0) scaleX(1) rotate(0deg); }
-  25% { transform: translateY(-10px) scaleX(0.92) rotate(2deg); }
-  50% { transform: translateY(-4px) scaleX(1) rotate(0deg); }
-  75% { transform: translateY(-10px) scaleX(0.92) rotate(-2deg); }
-  100% { transform: translateY(0) scaleX(1) rotate(0deg); }
+  0% { transform: translateY(0) scaleX(1); }
+  25% { transform: translateY(-10px) scaleX(0.96); }
+  50% { transform: translateY(-4px) scaleX(1); }
+  75% { transform: translateY(-10px) scaleX(0.96); }
+  100% { transform: translateY(0) scaleX(1); }
 }
 
 .about-visual-text {

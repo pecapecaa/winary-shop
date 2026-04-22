@@ -242,6 +242,12 @@ async function submitOrder(e) {
     orderLines += `${wine.name.sr} × ${item.qty} = ${wine.price * item.qty} EUR\n`;
   });
 
+  const timestamp = new Date().toLocaleString('sr-RS', {
+    timeZone: 'Europe/Belgrade',
+    day: '2-digit', month: '2-digit', year: 'numeric',
+    hour: '2-digit', minute: '2-digit', second: '2-digit'
+  });
+
   const submitBtn = e.target.querySelector('button[type="submit"]');
   const originalBtnText = submitBtn ? submitBtn.textContent : '';
   if (submitBtn) {
@@ -260,6 +266,7 @@ async function submitOrder(e) {
         _subject: `Herceg Wines - nova narudzba - ${name} - ${getCartTotal()} EUR`,
         _template: 'table',
         _captcha: 'false',
+        datum_i_vrijeme: timestamp,
         name: name,
         email: email,
         phone: phone,

@@ -6,7 +6,7 @@ const WINES = [
     subtitle: { sr: 'Bijelo vino • Berba 2022', en: 'White wine • Vintage 2022' },
     type: { sr: 'Bijelo', en: 'White' },
     desc: {
-      sr: 'Autohtona hercegovacka Zilavka iz vinograda oko Trebinja. Svjeze, mineralno vino sa notama jabuke, kruske i mediteranskog bilja.',
+      sr: 'Autohtona hercegovačka Žilavka iz vinograda oko Trebinja. Svježe, mineralno vino sa notama jabuke, kruške i mediteranskog bilja.',
       en: 'Indigenous Herzegovinian Zilavka from vineyards around Trebinje. Fresh, mineral wine with notes of apple, pear and Mediterranean herbs.'
     },
     price: 18,
@@ -18,7 +18,7 @@ const WINES = [
     subtitle: { sr: 'Crveno vino • Berba 2020', en: 'Red wine • Vintage 2020' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
-      sr: 'Kralj trebinjskih vinograda. Mocan, tamnorubinski Vranac sa aromama visnje, duhana i kamena iz Popovog polja.',
+      sr: 'Kralj trebinjskih vinograda. Moćan, tamnorubinski Vranac sa aromama višnje, duhana i kamena iz Popovog polja.',
       en: 'The king of Trebinje vineyards. Powerful, dark ruby Vranac with aromas of cherry, tobacco and stone from Popovo polje.'
     },
     price: 24,
@@ -30,7 +30,7 @@ const WINES = [
     subtitle: { sr: 'Crveno vino • Berba 2020', en: 'Red wine • Vintage 2020' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
-      sr: 'Mocna Blatina iz kamenih vinograda Popovog polja kod Trebinja. Bogat ukus tamnog voca, zacina i hrastovine.',
+      sr: 'Moćna Blatina iz kamenih vinograda Popovog polja kod Trebinja. Bogat ukus tamnog voća, začina i hrastovine.',
       en: 'Powerful Blatina from the stone vineyards of Popovo polje near Trebinje. Rich flavor of dark fruit, spice and oak.'
     },
     price: 22,
@@ -42,7 +42,7 @@ const WINES = [
     subtitle: { sr: 'Roze vino • Berba 2023', en: 'Rose wine • Vintage 2023' },
     type: { sr: 'Roze', en: 'Rose' },
     desc: {
-      sr: 'Elegantan roze od trebinjske Blatine. Delikatne arome jagode, narandze i rumarina sa obala Trebisnjice.',
+      sr: 'Elegantan rosé od trebinjske Blatine. Delikatne arome jagode, narandže i ruzmarina sa obala Trebišnjice.',
       en: 'Elegant rose from Trebinje Blatina. Delicate aromas of strawberry, orange and rosemary from the banks of Trebisnjica.'
     },
     price: 16,
@@ -54,7 +54,7 @@ const WINES = [
     subtitle: { sr: 'Bijelo vino • Berba 2021', en: 'White wine • Vintage 2021' },
     type: { sr: 'Bijelo', en: 'White' },
     desc: {
-      sr: 'Trebinjska Zilavka odlezana 12 mjeseci u francuskom hrastu. Kremasta tekstura, vanilija i med.',
+      sr: 'Trebinjska Žilavka odležana 12 mjeseci u francuskom hrastu. Kremasta tekstura, vanilija i med.',
       en: 'Trebinje Zilavka aged 12 months in French oak. Creamy texture, vanilla and honey.'
     },
     price: 28,
@@ -66,7 +66,7 @@ const WINES = [
     subtitle: { sr: 'Crveno vino • Berba 2018', en: 'Red wine • Vintage 2018' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
-      sr: 'Nas flagship iz srca Trebinja. 36 mjeseci u barriku. Kompleksno vino za posebne prilike.',
+      sr: 'Naš flagship iz srca Trebinja. 36 mjeseci u barriku. Kompleksno vino za posebne prilike.',
       en: 'Our flagship from the heart of Trebinje. 36 months in barrique. Complex wine for special occasions.'
     },
     price: 35,
@@ -75,10 +75,10 @@ const WINES = [
   {
     id: 'herceg-cuvee',
     name: { sr: 'Herceg Cuvee Trebinje', en: 'Herceg Cuvee Trebinje' },
-    subtitle: { sr: 'Kupaza • Berba 2019', en: 'Blend • Vintage 2019' },
+    subtitle: { sr: 'Kupaža • Berba 2019', en: 'Blend • Vintage 2019' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
-      sr: 'Vrhunska kupaza Blatine, Trnjaka i Vranca iz trebinjskih vinograda. Dusa Hercegovine u jednoj flasi.',
+      sr: 'Vrhunska kupaža Blatine, Trnjaka i Vranca iz trebinjskih vinograda. Duša Hercegovine u jednoj flaši.',
       en: 'Premium blend of Blatina, Trnjak and Vranac from Trebinje vineyards. The soul of Herzegovina in one bottle.'
     },
     price: 42,

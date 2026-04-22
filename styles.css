@@ -539,19 +539,18 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 .wine-fill {
-  /* static - no animation, only surface moves */
+  /* static */
 }
 
 .wine-surface {
-  animation: wineSurface 3s ease-in-out infinite;
+  animation: wineSurface 4s ease-in-out infinite;
   transform-origin: center center;
 }
 
 @keyframes wineSurface {
-  0%   { transform: translateY(0) scaleX(1); }
-  30%  { transform: translateY(-5px) scaleX(0.97); }
-  60%  { transform: translateY(-2px) scaleX(1.01); }
-  100% { transform: translateY(0) scaleX(1); }
+  0%   { transform: scaleX(1);    opacity: 0.8; }
+  50%  { transform: scaleX(0.94); opacity: 0.95; }
+  100% { transform: scaleX(1);    opacity: 0.8; }
 }
 
 .about-visual-text {

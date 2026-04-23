@@ -333,32 +333,33 @@
         <div class="cp-line" id="cpLine1"></div>
         <div class="cp-step" id="cpStep2">
           <span class="cp-num">2</span>
-          <span class="cp-lbl" data-sr="Dostava" data-en="Delivery">Dostava</span>
-        </div>
-        <div class="cp-line" id="cpLine2"></div>
-        <div class="cp-step" id="cpStep3">
-          <span class="cp-num">3</span>
           <span class="cp-lbl" data-sr="Potvrda" data-en="Confirm">Potvrda</span>
         </div>
       </div>
       <div id="checkoutFormWrap">
         <h2 id="checkoutStepTitle" data-sr="Vaši podaci" data-en="Your Details">Vaši podaci</h2>
-        <p id="checkoutStepDesc" data-sr="Unesite kontakt informacije." data-en="Enter your contact details.">Unesite kontakt informacije.</p>
+        <p id="checkoutStepDesc" data-sr="Popunite sve informacije za rezervaciju." data-en="Fill in all details for your reservation.">Popunite sve informacije za rezervaciju.</p>
         <form id="checkoutForm" novalidate>
           <div id="checkoutStep1">
             <input type="text" id="oName" placeholder="Ime i prezime" data-sr-ph="Ime i prezime" data-en-ph="Full name">
             <input type="email" id="oEmail" placeholder="Email">
             <input type="tel" id="oPhone" placeholder="Telefon" data-sr-ph="Telefon" data-en-ph="Phone">
-            <button type="button" class="btn btn-primary btn-full" id="checkoutNext" data-sr="Dalje →" data-en="Next →">Dalje →</button>
-          </div>
-          <div id="checkoutStep2" style="display:none;">
             <input type="text" id="oCity" placeholder="Grad" data-sr-ph="Grad" data-en-ph="City">
             <input type="text" id="oAddress" placeholder="Adresa dostave" data-sr-ph="Adresa dostave" data-en-ph="Delivery address">
-            <div class="checkout-summary" id="checkoutSummary"></div>
-            <div class="checkout-step-nav">
-              <button type="button" class="btn btn-outline" id="checkoutBack" data-sr="← Nazad" data-en="← Back">← Nazad</button>
-              <button type="submit" class="btn btn-primary" data-sr="Rezerviši" data-en="Reserve">Rezerviši</button>
+            <button type="button" class="btn btn-primary btn-full" id="checkoutNext" data-sr="Pregledaj i potvrdi →" data-en="Review &amp; Confirm →">Pregledaj i potvrdi →</button>
+          </div>
+          <div id="checkoutStep2" style="display:none;">
+            <div class="confirm-section">
+              <h4 data-sr="Kontakt podaci" data-en="Contact details">Kontakt podaci</h4>
+              <div id="confirmContact"></div>
             </div>
+            <div class="confirm-section">
+              <h4 data-sr="Adresa dostave" data-en="Delivery address">Adresa dostave</h4>
+              <div id="confirmDelivery"></div>
+            </div>
+            <div class="checkout-summary" id="checkoutSummary"></div>
+            <button type="submit" class="btn btn-primary btn-full" data-sr="Potvrdi rezervaciju" data-en="Confirm Reservation">Potvrdi rezervaciju</button>
+            <button type="button" class="checkout-edit-btn" id="checkoutBack" data-sr="← Izmijeni podatke" data-en="← Edit details">← Izmijeni podatke</button>
             <p class="form-privacy-note" data-sr="Vaši podaci se koriste isključivo kako bismo vas kontaktirali u vezi rezervacije i ne čuvaju se trajno." data-en="Your data is used solely to contact you about your reservation and is not stored permanently.">Vaši podaci se koriste isključivo kako bismo vas kontaktirali u vezi rezervacije i ne čuvaju se trajno.</p>
           </div>
         </form>

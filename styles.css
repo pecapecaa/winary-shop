@@ -1453,12 +1453,47 @@ button {
 
 .cp-line--done { background: var(--wine); }
 
-.checkout-step-nav {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-top: 8px;
+.confirm-section {
+  margin-bottom: 12px;
+  padding: 12px 14px;
+  background: var(--cream);
+  border-left: 3px solid var(--gold);
 }
+
+.confirm-section h4 {
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--wine-deep);
+  margin-bottom: 5px;
+}
+
+.confirm-section p {
+  color: var(--text);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.checkout-edit-btn {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--text-light);
+  font-size: 0.78rem;
+  font-family: 'Lato', sans-serif;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 10px 0 2px;
+  text-align: center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.3s;
+}
+
+.checkout-edit-btn:hover { color: var(--wine); }
 
 /* ===== CART PULSE ===== */
 @keyframes cartPulse {

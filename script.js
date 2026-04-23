@@ -228,15 +228,15 @@ function renderCart() {
 
 // ===== Checkout =====
 function updateProgress(step) {
-  ['cpStep1','cpStep2','cpStep3'].forEach((id, i) => {
+  ['cpStep1', 'cpStep2'].forEach((id, i) => {
     const el = document.getElementById(id);
+    if (!el) return;
     el.classList.remove('cp-step--active', 'cp-step--done');
     if (i + 1 < step) el.classList.add('cp-step--done');
     if (i + 1 === step) el.classList.add('cp-step--active');
   });
-  ['cpLine1','cpLine2'].forEach((id, i) => {
-    document.getElementById(id).classList.toggle('cp-line--done', i + 1 < step);
-  });
+  const line = document.getElementById('cpLine1');
+  if (line) line.classList.toggle('cp-line--done', step > 1);
 }
 
 function populateSummary() {
@@ -251,19 +251,25 @@ function populateSummary() {
 }
 
 function goToStep2() {
-  const name  = document.getElementById('oName').value.trim();
-  const email = document.getElementById('oEmail').value.trim();
-  const phone = document.getElementById('oPhone').value.trim();
-  if (!name || !email || !phone) {
+  const name    = document.getElementById('oName').value.trim();
+  const email   = document.getElementById('oEmail').value.trim();
+  const phone   = document.getElementById('oPhone').value.trim();
+  const city    = document.getElementById('oCity').value.trim();
+  const address = document.getElementById('oAddress').value.trim();
+  if (!name || !email || !phone || !city || !address) {
     showToast(currentLang === 'sr' ? 'Popunite sva polja' : 'Please fill in all fields', false);
     return;
   }
+  document.getElementById('confirmContact').innerHTML =
+    `<p>${name}<br>${email}<br>${phone}</p>`;
+  document.getElementById('confirmDelivery').innerHTML =
+    `<p>${city}<br>${address}</p>`;
+  populateSummary();
   document.getElementById('checkoutStep1').style.display = 'none';
   document.getElementById('checkoutStep2').style.display = 'block';
-  document.getElementById('checkoutStepTitle').textContent = currentLang === 'sr' ? 'Adresa dostave' : 'Delivery address';
-  document.getElementById('checkoutStepDesc').textContent = currentLang === 'sr' ? 'Gdje da isporučimo vašu narudžbu?' : 'Where should we deliver your order?';
+  document.getElementById('checkoutStepTitle').textContent = currentLang === 'sr' ? 'Pregled rezervacije' : 'Reservation review';
+  document.getElementById('checkoutStepDesc').textContent = currentLang === 'sr' ? 'Provjerite detalje i potvrdite.' : 'Review the details and confirm.';
   updateProgress(2);
-  populateSummary();
   document.getElementById('checkoutModal').scrollTop = 0;
 }
 
@@ -271,7 +277,7 @@ function goToStep1() {
   document.getElementById('checkoutStep2').style.display = 'none';
   document.getElementById('checkoutStep1').style.display = 'block';
   document.getElementById('checkoutStepTitle').textContent = currentLang === 'sr' ? 'Vaši podaci' : 'Your Details';
-  document.getElementById('checkoutStepDesc').textContent = currentLang === 'sr' ? 'Unesite kontakt informacije.' : 'Enter your contact details.';
+  document.getElementById('checkoutStepDesc').textContent = currentLang === 'sr' ? 'Popunite sve informacije za rezervaciju.' : 'Fill in all details for your reservation.';
   updateProgress(1);
   document.getElementById('checkoutModal').scrollTop = 0;
 }
@@ -284,7 +290,7 @@ function openCheckout() {
   document.getElementById('checkoutStep1').style.display = 'block';
   document.getElementById('checkoutStep2').style.display = 'none';
   document.getElementById('checkoutStepTitle').textContent = currentLang === 'sr' ? 'Vaši podaci' : 'Your Details';
-  document.getElementById('checkoutStepDesc').textContent = currentLang === 'sr' ? 'Unesite kontakt informacije.' : 'Enter your contact details.';
+  document.getElementById('checkoutStepDesc').textContent = currentLang === 'sr' ? 'Popunite sve informacije za rezervaciju.' : 'Fill in all details for your reservation.';
   updateProgress(1);
   document.getElementById('cartOverlay').classList.remove('active');
   document.getElementById('cartSidebar').classList.remove('active');
@@ -544,6 +550,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('checkoutSuccess').style.display = 'none';
     document.getElementById('checkoutStep1').style.display = 'block';
     document.getElementById('checkoutStep2').style.display = 'none';
+    document.getElementById('checkoutStepTitle').textContent = currentLang === 'sr' ? 'Vaši podaci' : 'Your Details';
+    document.getElementById('checkoutStepDesc').textContent = currentLang === 'sr' ? 'Popunite sve informacije za rezervaciju.' : 'Fill in all details for your reservation.';
     updateProgress(1);
   }
   document.getElementById('checkoutClose').addEventListener('click', closeCheckout);

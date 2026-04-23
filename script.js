@@ -507,11 +507,39 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('ageDenied').style.display = 'block';
   });
 
-  // Navbar scroll
+  // Scroll progress bar
+  const scrollProgress = document.createElement('div');
+  scrollProgress.className = 'scroll-progress';
+  document.body.appendChild(scrollProgress);
+
+  // Navbar scroll + progress update
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 50);
-  });
+    const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    scrollProgress.style.width = Math.min(pct * 100, 100) + '%';
+  }, { passive: true });
+
+  // Custom cursor (mouse-only devices)
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    const cursor = document.createElement('div');
+    cursor.className = 'custom-cursor';
+    document.body.appendChild(cursor);
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+    document.addEventListener('mouseover', e => {
+      if (e.target.closest('a, button, .wine-card, .visit-card, input, textarea, select, .fab-btn')) {
+        cursor.classList.add('hovering');
+      }
+    });
+    document.addEventListener('mouseout', e => {
+      if (e.target.closest('a, button, .wine-card, .visit-card, input, textarea, select, .fab-btn')) {
+        cursor.classList.remove('hovering');
+      }
+    });
+  }
 
   // Mobile nav
   document.getElementById('navToggle').addEventListener('click', () => {

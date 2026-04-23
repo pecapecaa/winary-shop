@@ -550,18 +550,31 @@ button {
 }
 
 .wine-fill {
-  /* static */
+  animation: wineFillSip 7s ease-in-out infinite;
 }
 
 .wine-surface {
-  animation: wineSurface 4s ease-in-out infinite;
+  animation: wineSurfaceSip 7s ease-in-out infinite;
   transform-origin: center center;
 }
 
-@keyframes wineSurface {
-  0%   { transform: scaleX(1);    opacity: 0.8; }
-  50%  { transform: scaleX(0.94); opacity: 0.95; }
-  100% { transform: scaleX(1);    opacity: 0.8; }
+@keyframes wineFillSip {
+  0%, 10%  { transform: translateY(0); }
+  18%      { transform: translateY(11px); }
+  28%      { transform: translateY(11px); }
+  36%      { transform: translateY(24px); }
+  52%      { transform: translateY(24px); }
+  100%     { transform: translateY(0); }
+}
+
+@keyframes wineSurfaceSip {
+  0%, 10%  { transform: translateY(0) scaleX(1);     opacity: 0.8; }
+  18%      { transform: translateY(11px) scaleX(0.93); opacity: 0.9; }
+  28%      { transform: translateY(11px) scaleX(1);   opacity: 0.82; }
+  36%      { transform: translateY(24px) scaleX(0.91); opacity: 0.9; }
+  46%      { transform: translateY(24px) scaleX(1.02); opacity: 0.82; }
+  52%      { transform: translateY(24px) scaleX(0.97); opacity: 0.82; }
+  100%     { transform: translateY(0) scaleX(1);     opacity: 0.8; }
 }
 
 .about-visual-text {
@@ -1501,6 +1514,197 @@ button {
   .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
   .about-image { max-width: 500px; margin: 0 auto; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ===== FORM PRIVACY NOTE ===== */
+.form-privacy-note {
+  font-size: 0.78rem;
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-top: 10px;
+  font-style: italic;
+  opacity: 0.8;
+}
+
+/* ===== FOOTER DISCLAIMER ===== */
+.footer-disclaimer {
+  margin-top: 10px;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.22);
+  line-height: 1.7;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== AGE GATE ===== */
+.age-gate {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.age-gate--hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.age-gate-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse at 30% 35%, rgba(201, 169, 97, 0.14) 0%, transparent 55%),
+    radial-gradient(ellipse at 70% 65%, rgba(107, 31, 42, 0.45) 0%, transparent 55%),
+    linear-gradient(155deg, #1a0508 0%, #2a0e14 40%, #3d1015 70%, #1f0508 100%);
+}
+
+.age-gate-bg::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url('https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+  opacity: 0.13;
+}
+
+.age-gate-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 520px;
+  width: 100%;
+  background: rgba(20, 4, 6, 0.82);
+  border: 1px solid rgba(201, 169, 97, 0.28);
+  padding: 56px 48px 44px;
+  backdrop-filter: blur(24px);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(201, 169, 97, 0.18);
+}
+
+.age-gate-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.age-gate-brand {
+  font-family: 'Cinzel', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #fff;
+}
+
+.age-gate-ornament {
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+.age-gate-badge {
+  font-family: 'Cinzel', serif;
+  font-size: 5rem;
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 20px;
+  letter-spacing: 4px;
+  text-shadow: 0 0 50px rgba(201, 169, 97, 0.45);
+}
+
+.age-gate-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.35rem;
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 14px;
+  letter-spacing: 0.5px;
+}
+
+.age-gate-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.75;
+  margin-bottom: 36px;
+  max-width: 360px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.age-gate-btns {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.age-gate-confirm {
+  width: 100%;
+  max-width: 300px;
+  padding: 16px 40px;
+  font-size: 0.82rem;
+  letter-spacing: 2px;
+}
+
+.age-gate-decline {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.38);
+  font-size: 0.78rem;
+  font-family: 'Lato', sans-serif;
+  cursor: pointer;
+  text-decoration: underline;
+  letter-spacing: 0.5px;
+  padding: 4px 8px;
+  transition: color 0.3s;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.age-gate-decline:hover { color: rgba(255, 255, 255, 0.65); }
+
+.age-gate-denied {
+  margin-bottom: 16px;
+}
+
+.age-gate-denied p {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.age-gate-legal {
+  font-size: 0.68rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.2);
+  margin-top: 8px;
+}
+
+@media (max-width: 480px) {
+  .age-gate-content {
+    padding: 40px 24px 36px;
+  }
+  .age-gate-badge {
+    font-size: 3.8rem;
+  }
+  .age-gate-title {
+    font-size: 1.15rem;
+  }
+  .age-gate-sub {
+    font-size: 0.98rem;
+    margin-bottom: 28px;
+  }
 }
 
 @media (max-width: 768px) {

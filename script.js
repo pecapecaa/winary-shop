@@ -124,7 +124,7 @@ function renderWines() {
       <p class="wine-desc">${wine.desc[currentLang]}</p>
       <div class="wine-footer">
         <span class="wine-price">${wine.price} EUR</span>
-        <button class="wine-add" data-id="${wine.id}">${currentLang === 'sr' ? 'Dodaj u korpu' : 'Add to cart'}</button>
+        <button class="wine-add" data-id="${wine.id}">${currentLang === 'sr' ? 'Dodaj u listu' : 'Add to list'}</button>
       </div>
     </div>
   `).join('');
@@ -149,7 +149,7 @@ function addToCart(id) {
   saveCart();
   renderCart();
   const wine = WINES.find(w => w.id === id);
-  showToast(currentLang === 'sr' ? `${wine.name.sr} dodato u korpu` : `${wine.name.en} added to cart`);
+  showToast(currentLang === 'sr' ? `${wine.name.sr} dodato u listu` : `${wine.name.en} added to list`);
   setTimeout(() => { _cartBusy = false; }, 600);
 }
 
@@ -196,7 +196,7 @@ function renderCart() {
   const itemsEl = document.getElementById('cartItems');
   const footerEl = document.getElementById('cartFooter');
   if (cart.length === 0) {
-    itemsEl.innerHTML = `<p class="cart-empty">${currentLang === 'sr' ? 'Vasa korpa je prazna' : 'Your cart is empty'}</p>`;
+    itemsEl.innerHTML = `<p class="cart-empty">${currentLang === 'sr' ? 'Lista je prazna' : 'Your list is empty'}</p>`;
     footerEl.style.display = 'none';
     return;
   }
@@ -225,12 +225,12 @@ function renderCart() {
 // ===== Checkout =====
 function openCheckout() {
   if (cart.length === 0) {
-    showToast(currentLang === 'sr' ? 'Korpa je prazna' : 'Cart is empty');
+    showToast(currentLang === 'sr' ? 'Lista je prazna' : 'Your list is empty');
     return;
   }
   const summary = document.getElementById('checkoutSummary');
   summary.innerHTML = `
-    <h4>${currentLang === 'sr' ? 'Vasa porudzbina' : 'Your order'}</h4>
+    <h4>${currentLang === 'sr' ? 'Vaša rezervacija' : 'Your reservation'}</h4>
     ${cart.map(item => {
       const wine = WINES.find(w => w.id === item.id);
       return `<div class="checkout-summary-item"><span>${wine.name[currentLang]} × ${item.qty}</span><span>${wine.price * item.qty} EUR</span></div>`;
@@ -431,6 +431,21 @@ function initParallax() {
 
 // ===== Init =====
 document.addEventListener('DOMContentLoaded', () => {
+  // Age Gate
+  const ageGate = document.getElementById('ageGate');
+  if (!sessionStorage.getItem('ageVerified')) {
+    document.body.style.overflow = 'hidden';
+  }
+  document.getElementById('ageYes').addEventListener('click', () => {
+    sessionStorage.setItem('ageVerified', '1');
+    ageGate.classList.add('age-gate--hidden');
+    document.body.style.overflow = '';
+  });
+  document.getElementById('ageNo').addEventListener('click', () => {
+    document.getElementById('ageBtns').style.display = 'none';
+    document.getElementById('ageDenied').style.display = 'block';
+  });
+
   // Navbar scroll
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {

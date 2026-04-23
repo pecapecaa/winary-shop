@@ -261,6 +261,7 @@
           <input type="text" id="cSubject" placeholder="Naslov" data-sr-ph="Naslov" data-en-ph="Subject">
           <textarea id="cMessage" rows="5" placeholder="Vaša poruka" data-sr-ph="Vaša poruka" data-en-ph="Your message" required></textarea>
           <button type="submit" class="btn btn-primary" data-sr="Pošalji poruku" data-en="Send Message">Pošalji poruku</button>
+          <p class="form-privacy-note" data-sr="Vaši podaci se koriste isključivo kako bismo vas kontaktirali povodom Vašeg upita i ne čuvaju se trajno." data-en="Your data is used solely to respond to your inquiry and is not stored permanently.">Vaši podaci se koriste isključivo kako bismo vas kontaktirali povodom Vašeg upita i ne čuvaju se trajno.</p>
         </form>
       </div>
     </div>
@@ -298,6 +299,7 @@
       <div class="footer-bottom">
         <p data-sr="Pijte odgovorno. Prodaja alkohola samo punoljetnim osobama." data-en="Drink responsibly. Alcohol sales to adults only.">Pijte odgovorno. Prodaja alkohola samo punoljetnim osobama.</p>
         <p>&copy; 2024 Herceg Wines. <span data-sr="Sva prava zadržana." data-en="All rights reserved.">Sva prava zadržana.</span></p>
+        <p class="footer-disclaimer" data-sr="Napomena: Preko ovog sajta se ne vrši direktna prodaja, niti sajt predstavlja zvaničnu internet prodavnicu. Slanjem upita ne preuzimate nikakvu finansijsku obavezu." data-en="Notice: This website does not conduct direct sales, nor does it represent an official online store. Submitting an inquiry does not constitute any financial obligation.">Napomena: Preko ovog sajta se ne vrši direktna prodaja, niti sajt predstavlja zvaničnu internet prodavnicu. Slanjem upita ne preuzimate nikakvu finansijsku obavezu.</p>
       </div>
     </div>
   </footer>
@@ -305,11 +307,11 @@
   <div class="cart-overlay" id="cartOverlay"></div>
   <aside class="cart-sidebar" id="cartSidebar">
     <div class="cart-header">
-      <h3 data-sr="Vaša korpa" data-en="Your Cart">Vaša korpa</h3>
+      <h3 data-sr="Lista za rezervaciju" data-en="Reservation List">Lista za rezervaciju</h3>
       <button class="cart-close" id="cartClose">&times;</button>
     </div>
     <div class="cart-items" id="cartItems">
-      <p class="cart-empty" data-sr="Vaša korpa je prazna" data-en="Your cart is empty">Vaša korpa je prazna</p>
+      <p class="cart-empty" data-sr="Lista je prazna" data-en="Your list is empty">Lista je prazna</p>
     </div>
     <div class="cart-footer" id="cartFooter" style="display:none;">
       <div class="cart-total">
@@ -334,6 +336,7 @@
           <input type="text" id="oAddress" placeholder="Adresa dostave" data-sr-ph="Adresa dostave" data-en-ph="Delivery address" required>
           <div class="checkout-summary" id="checkoutSummary"></div>
           <button type="submit" class="btn btn-primary btn-full" data-sr="Rezerviši" data-en="Reserve">Rezerviši</button>
+          <p class="form-privacy-note" data-sr="Vaši podaci se koriste isključivo kako bismo vas kontaktirali u vezi rezervacije i ne čuvaju se trajno." data-en="Your data is used solely to contact you about your reservation and is not stored permanently.">Vaši podaci se koriste isključivo kako bismo vas kontaktirali u vezi rezervacije i ne čuvaju se trajno.</p>
         </form>
       </div>
       <div id="checkoutSuccess" style="display:none;">
@@ -361,6 +364,32 @@
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
     </a>
   </div>
+
+  <!-- Age Verification Gate -->
+  <div class="age-gate" id="ageGate">
+    <div class="age-gate-bg"></div>
+    <div class="age-gate-content">
+      <div class="age-gate-logo">
+        <svg viewBox="0 0 200 200" width="54" height="54" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="94" fill="none" stroke="#c9a961" stroke-width="4"/><text x="100" y="125" text-anchor="middle" font-family="Cinzel,serif" font-size="82" font-weight="900" fill="#c9a961">H</text></svg>
+        <span class="age-gate-brand">Herceg Wines</span>
+      </div>
+      <div class="age-gate-ornament">
+        <svg width="160" height="22" viewBox="0 0 160 22"><path d="M0 11 L60 11 M100 11 L160 11 M66 4 L80 18 L94 4" stroke="#c8a96a" stroke-width="1.5" fill="none"/></svg>
+      </div>
+      <div class="age-gate-badge">18+</div>
+      <h2 class="age-gate-title">Da li ste punoljetni?</h2>
+      <p class="age-gate-sub">Ovaj sajt nudi alkoholna pića. Za ulazak potvrdite da imate 18 ili više godina.</p>
+      <div class="age-gate-btns" id="ageBtns">
+        <button class="btn btn-primary age-gate-confirm" id="ageYes">Da, imam 18+ godina</button>
+        <button class="age-gate-decline" id="ageNo">Nisam punoljetni</button>
+      </div>
+      <div class="age-gate-denied" id="ageDenied" style="display:none;">
+        <p>Žao nam je — ovaj sajt nije namijenjen osobama mlađim od 18 godina.</p>
+      </div>
+      <p class="age-gate-legal">Pijte odgovorno. Prekomjerna konzumacija alkohola šteti zdravlju.</p>
+    </div>
+  </div>
+  <script>if(sessionStorage.getItem('ageVerified'))document.getElementById('ageGate').classList.add('age-gate--hidden');</script>
 
   <script src="script.js"></script>
 </body>

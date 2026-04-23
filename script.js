@@ -150,7 +150,11 @@ function addToCart(id) {
   renderCart();
   const wine = WINES.find(w => w.id === id);
   showToast(currentLang === 'sr' ? `${wine.name.sr} dodato u listu` : `${wine.name.en} added to list`);
-  setTimeout(() => { _cartBusy = false; }, 600);
+  const cartBtn = document.getElementById('cartBtn');
+  cartBtn.classList.remove('cart-pulse');
+  void cartBtn.offsetWidth;
+  cartBtn.classList.add('cart-pulse');
+  setTimeout(() => { cartBtn.classList.remove('cart-pulse'); _cartBusy = false; }, 600);
 }
 
 function removeFromCart(id) {
@@ -223,13 +227,20 @@ function renderCart() {
 }
 
 // ===== Checkout =====
-function openCheckout() {
-  if (cart.length === 0) {
-    showToast(currentLang === 'sr' ? 'Lista je prazna' : 'Your list is empty');
-    return;
-  }
-  const summary = document.getElementById('checkoutSummary');
-  summary.innerHTML = `
+function updateProgress(step) {
+  ['cpStep1','cpStep2','cpStep3'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.classList.remove('cp-step--active', 'cp-step--done');
+    if (i + 1 < step) el.classList.add('cp-step--done');
+    if (i + 1 === step) el.classList.add('cp-step--active');
+  });
+  ['cpLine1','cpLine2'].forEach((id, i) => {
+    document.getElementById(id).classList.toggle('cp-line--done', i + 1 < step);
+  });
+}
+
+function populateSummary() {
+  document.getElementById('checkoutSummary').innerHTML = `
     <h4>${currentLang === 'sr' ? 'Vaša rezervacija' : 'Your reservation'}</h4>
     ${cart.map(item => {
       const wine = WINES.find(w => w.id === item.id);
@@ -237,6 +248,44 @@ function openCheckout() {
     }).join('')}
     <div class="checkout-summary-total"><span>${currentLang === 'sr' ? 'Ukupno' : 'Total'}</span><span>${getCartTotal()} EUR</span></div>
   `;
+}
+
+function goToStep2() {
+  const name  = document.getElementById('oName').value.trim();
+  const email = document.getElementById('oEmail').value.trim();
+  const phone = document.getElementById('oPhone').value.trim();
+  if (!name || !email || !phone) {
+    showToast(currentLang === 'sr' ? 'Popunite sva polja' : 'Please fill in all fields', false);
+    return;
+  }
+  document.getElementById('checkoutStep1').style.display = 'none';
+  document.getElementById('checkoutStep2').style.display = 'block';
+  document.getElementById('checkoutStepTitle').textContent = currentLang === 'sr' ? 'Adresa dostave' : 'Delivery address';
+  document.getElementById('checkoutStepDesc').textContent = currentLang === 'sr' ? 'Gdje da isporučimo vašu narudžbu?' : 'Where should we deliver your order?';
+  updateProgress(2);
+  populateSummary();
+  document.getElementById('checkoutModal').scrollTop = 0;
+}
+
+function goToStep1() {
+  document.getElementById('checkoutStep2').style.display = 'none';
+  document.getElementById('checkoutStep1').style.display = 'block';
+  document.getElementById('checkoutStepTitle').textContent = currentLang === 'sr' ? 'Vaši podaci' : 'Your Details';
+  document.getElementById('checkoutStepDesc').textContent = currentLang === 'sr' ? 'Unesite kontakt informacije.' : 'Enter your contact details.';
+  updateProgress(1);
+  document.getElementById('checkoutModal').scrollTop = 0;
+}
+
+function openCheckout() {
+  if (cart.length === 0) {
+    showToast(currentLang === 'sr' ? 'Lista je prazna' : 'Your list is empty', false);
+    return;
+  }
+  document.getElementById('checkoutStep1').style.display = 'block';
+  document.getElementById('checkoutStep2').style.display = 'none';
+  document.getElementById('checkoutStepTitle').textContent = currentLang === 'sr' ? 'Vaši podaci' : 'Your Details';
+  document.getElementById('checkoutStepDesc').textContent = currentLang === 'sr' ? 'Unesite kontakt informacije.' : 'Enter your contact details.';
+  updateProgress(1);
   document.getElementById('cartOverlay').classList.remove('active');
   document.getElementById('cartSidebar').classList.remove('active');
   document.getElementById('checkoutOverlay').classList.add('active');
@@ -244,6 +293,7 @@ function openCheckout() {
 
 async function submitOrder(e) {
   e.preventDefault();
+  if (document.getElementById('checkoutStep2').style.display === 'none') return;
   const name = document.getElementById('oName').value;
   const email = document.getElementById('oEmail').value;
   const phone = document.getElementById('oPhone').value;
@@ -297,6 +347,7 @@ async function submitOrder(e) {
 
   document.getElementById('checkoutFormWrap').style.display = 'none';
   document.getElementById('checkoutSuccess').style.display = 'block';
+  updateProgress(3);
   cart = [];
   saveCart();
   renderCart();
@@ -331,9 +382,13 @@ function switchLanguage(lang) {
 }
 
 // ===== Toast =====
-function showToast(msg) {
+function showToast(msg, success = true) {
   const toast = document.getElementById('toast');
-  toast.textContent = msg;
+  if (success) {
+    toast.innerHTML = `<span class="toast-check">✓</span>${msg}`;
+  } else {
+    toast.textContent = msg;
+  }
   toast.classList.add('active');
   setTimeout(() => toast.classList.remove('active'), 3000);
 }
@@ -481,10 +536,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Checkout
   document.getElementById('checkoutBtn').addEventListener('click', openCheckout);
+  document.getElementById('checkoutNext').addEventListener('click', goToStep2);
+  document.getElementById('checkoutBack').addEventListener('click', goToStep1);
   function closeCheckout() {
     document.getElementById('checkoutOverlay').classList.remove('active');
     document.getElementById('checkoutFormWrap').style.display = '';
     document.getElementById('checkoutSuccess').style.display = 'none';
+    document.getElementById('checkoutStep1').style.display = 'block';
+    document.getElementById('checkoutStep2').style.display = 'none';
+    updateProgress(1);
   }
   document.getElementById('checkoutClose').addEventListener('click', closeCheckout);
   document.getElementById('successCloseBtn').addEventListener('click', closeCheckout);
@@ -529,7 +589,7 @@ document.addEventListener('DOMContentLoaded', () => {
       e.target.reset();
     } catch (err) {
       console.error('Contact submission failed:', err);
-      showToast(currentLang === 'sr' ? 'Greska pri slanju poruke.' : 'Failed to send message.');
+      showToast(currentLang === 'sr' ? 'Greška pri slanju poruke.' : 'Failed to send message.', false);
     } finally {
       if (submitBtn) {
         submitBtn.disabled = false;

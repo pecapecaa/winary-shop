@@ -558,6 +558,10 @@ button {
   transform-origin: center center;
 }
 
+.wine-shimmer {
+  animation: wineFillSip 10s ease-in-out infinite;
+}
+
 @keyframes wineFillSip {
   0%, 5%   { transform: translateY(0); }
   26%      { transform: translateY(11px); }

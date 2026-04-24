@@ -89,7 +89,7 @@ const WINES = [
 const RECIPIENT_EMAIL = 'pecav96@gmail.com';
 const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/pecav96@gmail.com';
 let currentLang = 'sr';
-let cart = JSON.parse(localStorage.getItem('hercegCart') || '[]');
+let cart = JSON.parse(sessionStorage.getItem('hercegCart') || '[]');
 
 // ===== Wine Bottle SVG =====
 function bottleSVG(color) {
@@ -185,7 +185,7 @@ function updateQty(id, delta) {
 }
 
 function saveCart() {
-  localStorage.setItem('hercegCart', JSON.stringify(cart));
+  sessionStorage.setItem('hercegCart', JSON.stringify(cart));
   document.getElementById('cartCount').textContent = cart.reduce((s, i) => s + i.qty, 0);
 }
 
@@ -519,27 +519,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
     scrollProgress.style.width = Math.min(pct * 100, 100) + '%';
   }, { passive: true });
-
-  // Custom cursor (mouse-only devices)
-  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    const cursor = document.createElement('div');
-    cursor.className = 'custom-cursor';
-    document.body.appendChild(cursor);
-    document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top  = e.clientY + 'px';
-    });
-    document.addEventListener('mouseover', e => {
-      if (e.target.closest('a, button, .wine-card, .visit-card, input, textarea, select, .fab-btn')) {
-        cursor.classList.add('hovering');
-      }
-    });
-    document.addEventListener('mouseout', e => {
-      if (e.target.closest('a, button, .wine-card, .visit-card, input, textarea, select, .fab-btn')) {
-        cursor.classList.remove('hovering');
-      }
-    });
-  }
 
   // Mobile nav
   document.getElementById('navToggle').addEventListener('click', () => {

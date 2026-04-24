@@ -1702,37 +1702,6 @@ button {
   pointer-events: none;
 }
 
-/* ===== CUSTOM CURSOR ===== */
-.custom-cursor {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 8px;
-  height: 8px;
-  background: var(--gold);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 99999;
-  transform: translate(-50%, -50%);
-  transition: width 0.22s ease, height 0.22s ease, background 0.22s ease, opacity 0.22s ease;
-  will-change: transform;
-}
-
-.custom-cursor.hovering {
-  width: 32px;
-  height: 32px;
-  background: transparent;
-  border: 1.5px solid var(--gold);
-  opacity: 0.65;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .custom-cursor { display: block; }
-  html { cursor: none; }
-  a, button, input, textarea, select, label,
-  .wine-card, .visit-card, .fab-btn { cursor: none; }
-}
 
 /* ===== FORM PRIVACY NOTE ===== */
 .form-privacy-note {

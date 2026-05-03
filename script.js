@@ -582,7 +582,6 @@ function animateCounters() {
 function observeFadeElements() {
   const groups = [
     '.wine-card',
-    '.bundle-card',
     '.visit-card',
     '.vf-item',
     '.about-stat'

@@ -891,11 +891,25 @@ button {
 }
 
 .bundle-mini-bottle {
-  width: 36px;
+  width: 18px;
+  height: 72px;
   flex-shrink: 0;
-  opacity: 0.92;
+  border-radius: 3px 3px 2px 2px;
+  opacity: 0.88;
   transition: transform 0.3s;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  position: relative;
+}
+.bundle-mini-bottle::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 10px;
+  background: #c8a96a;
+  border-radius: 2px 2px 0 0;
 }
 
 .bundle-card:hover .bundle-mini-bottle:nth-child(odd) { transform: translateY(-4px); }

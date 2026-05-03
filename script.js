@@ -185,34 +185,37 @@ function renderWines() {
 function renderBundles() {
   const grid = document.getElementById('bundlesGrid');
   if (!grid) return;
-  grid.innerHTML = BUNDLES.map(bundle => {
-    const miniBottles = bundle.wines.map(wid => {
-      const w = WINES.find(x => x.id === wid);
-      return `<div class="bundle-mini-bottle" title="${w ? w.name[currentLang] : ''}">${w ? bottleSVG(w.color) : ''}</div>`;
+  const isSr = currentLang === 'sr';
+  let html = '';
+  BUNDLES.forEach(function(bundle) {
+    const saving = isSr ? ('Uštedite ' + bundle.saving + ' EUR') : ('Save ' + bundle.saving + ' EUR');
+    const featured = bundle.featured ? ' bundle-card--featured' : '';
+    const topBadge = bundle.featured ? ('<div class="bundle-top-badge">' + (isSr ? 'Najpopularnije' : 'Most popular') + '</div>') : '';
+    const bottleIcons = bundle.wines.map(function(wid) {
+      const w = WINES.find(function(x) { return x.id === wid; });
+      return '<div class="bundle-mini-bottle" style="background:' + (w ? w.color : '#722f37') + '"></div>';
     }).join('');
-    const savingLabel = currentLang === 'sr' ? `Uštedite ${bundle.saving} EUR` : `Save ${bundle.saving} EUR`;
-    const featuredClass = bundle.featured ? ' bundle-card--featured' : '';
-    return `
-      <div class="bundle-card${featuredClass}">
-        ${bundle.featured ? `<div class="bundle-top-badge">${currentLang === 'sr' ? 'Najpopularnije' : 'Most popular'}</div>` : ''}
-        <div class="bundle-saving-tag">${savingLabel}</div>
-        <div class="bundle-bottles">${miniBottles}</div>
-        <div class="bundle-count">${bundle.count} ${currentLang === 'sr' ? 'flase' : 'bottles'}</div>
-        <h3 class="bundle-name">${bundle.name[currentLang]}</h3>
-        <p class="bundle-subtitle">${bundle.subtitle[currentLang]}</p>
-        <p class="bundle-desc">${bundle.desc[currentLang]}</p>
-        <div class="bundle-pricing">
-          <span class="bundle-original">${bundle.originalPrice} EUR</span>
-          <span class="bundle-price">${bundle.price} EUR</span>
-        </div>
-        <button class="bundle-add" data-bundle-id="${bundle.id}">${currentLang === 'sr' ? 'Dodaj paket u listu' : 'Add bundle to list'}</button>
-      </div>
-    `;
-  }).join('');
-  grid.querySelectorAll('.bundle-add').forEach(btn => {
-    btn.addEventListener('click', () => addBundleToCart(btn.dataset.bundleId));
+    const countLabel = bundle.count + ' ' + (isSr ? 'flase' : 'bottles');
+    const btnLabel = isSr ? 'Dodaj paket u listu' : 'Add bundle to list';
+    html += '<div class="bundle-card' + featured + '">';
+    html += topBadge;
+    html += '<div class="bundle-saving-tag">' + saving + '</div>';
+    html += '<div class="bundle-bottles">' + bottleIcons + '</div>';
+    html += '<div class="bundle-count">' + countLabel + '</div>';
+    html += '<h3 class="bundle-name">' + bundle.name[currentLang] + '</h3>';
+    html += '<p class="bundle-subtitle">' + bundle.subtitle[currentLang] + '</p>';
+    html += '<p class="bundle-desc">' + bundle.desc[currentLang] + '</p>';
+    html += '<div class="bundle-pricing">';
+    html += '<span class="bundle-original">' + bundle.originalPrice + ' EUR</span>';
+    html += '<span class="bundle-price">' + bundle.price + ' EUR</span>';
+    html += '</div>';
+    html += '<button class="bundle-add" data-bundle-id="' + bundle.id + '">' + btnLabel + '</button>';
+    html += '</div>';
   });
-  observeFadeElements();
+  grid.innerHTML = html;
+  grid.querySelectorAll('.bundle-add').forEach(function(btn) {
+    btn.addEventListener('click', function() { addBundleToCart(btn.dataset.bundleId); });
+  });
 }
 
 // ===== Cart Logic =====

@@ -193,7 +193,7 @@ function renderBundles() {
     const savingLabel = currentLang === 'sr' ? `Uštedite ${bundle.saving} EUR` : `Save ${bundle.saving} EUR`;
     const featuredClass = bundle.featured ? ' bundle-card--featured' : '';
     return `
-      <div class="bundle-card${featuredClass} fade-up">
+      <div class="bundle-card${featuredClass}">
         ${bundle.featured ? `<div class="bundle-top-badge">${currentLang === 'sr' ? 'Najpopularnije' : 'Most popular'}</div>` : ''}
         <div class="bundle-saving-tag">${savingLabel}</div>
         <div class="bundle-bottles">${miniBottles}</div>
@@ -582,6 +582,7 @@ function animateCounters() {
 function observeFadeElements() {
   const groups = [
     '.wine-card',
+    '.bundle-card',
     '.visit-card',
     '.vf-item',
     '.about-stat'

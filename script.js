@@ -445,8 +445,16 @@ async function submitOrder(e) {
 
   let orderLines = '';
   cart.forEach(item => {
-    const wine = WINES.find(w => w.id === item.id);
-    orderLines += `${wine.name.sr} × ${item.qty} = ${wine.price * item.qty} EUR\n`;
+    const price = getItemPrice(item);
+    let label;
+    if (item.isBundle) {
+      const bundle = BUNDLES.find(b => b.id === item.id);
+      label = bundle ? bundle.name.sr + ' (paket)' : item.id;
+    } else {
+      const wine = WINES.find(w => w.id === item.id);
+      label = wine ? wine.name.sr : item.id;
+    }
+    orderLines += label + ' × ' + item.qty + ' = ' + (price * item.qty) + ' EUR\n';
   });
 
   const timestamp = new Date().toLocaleString('sr-RS', {
@@ -490,7 +498,7 @@ async function submitOrder(e) {
 
   document.getElementById('checkoutFormWrap').style.display = 'none';
   document.getElementById('checkoutSuccess').style.display = 'block';
-  updateProgress(3);
+  updateProgress(2);
   cart = [];
   saveCart();
   renderCart();

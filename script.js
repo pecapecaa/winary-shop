@@ -86,6 +86,53 @@ const WINES = [
   }
 ];
 
+// ===== Bundles Data =====
+const BUNDLES = [
+  {
+    id: 'bundle-duo',
+    name: { sr: 'Duo Paket', en: 'Duo Bundle' },
+    subtitle: { sr: '2 flase — bijelo i crveno', en: '2 bottles — white and red' },
+    desc: {
+      sr: 'Zilavka Trebinje i Vranac Trebinjski. Savršena kombinacija za posebnu večer.',
+      en: 'Zilavka Trebinje and Vranac Trebinjski. The perfect pairing for a special evening.'
+    },
+    wines: ['zilavka-trebinje', 'vranac-trebinjski'],
+    count: 2,
+    originalPrice: 42,
+    price: 34,
+    saving: 8
+  },
+  {
+    id: 'bundle-trio',
+    name: { sr: 'Trio Paket', en: 'Trio Bundle' },
+    subtitle: { sr: '3 premium hercegovačka vina', en: '3 premium Herzegovinian wines' },
+    desc: {
+      sr: 'Zilavka, Blatina i Vranac — kompletna degustacija Hercegovine u jednoj kutiji.',
+      en: 'Zilavka, Blatina and Vranac — the complete Herzegovina tasting experience in one box.'
+    },
+    wines: ['zilavka-trebinje', 'blatina-popovo', 'vranac-trebinjski'],
+    count: 3,
+    originalPrice: 64,
+    price: 52,
+    saving: 12,
+    featured: true
+  },
+  {
+    id: 'bundle-grande',
+    name: { sr: 'Grande Paket', en: 'Grande Bundle' },
+    subtitle: { sr: '5 ekskluzivnih vina Hercegovine', en: '5 exclusive wines of Herzegovina' },
+    desc: {
+      sr: 'Barrique Žilavka, Vranac, Blatina, Gangas Rose i Grand Reserve. Savršen poklon ili kompletna kolekcija.',
+      en: 'Barrique Zilavka, Vranac, Blatina, Gangas Rose and Grand Reserve. Perfect gift or full collection.'
+    },
+    wines: ['zilavka-barrique', 'vranac-trebinjski', 'blatina-popovo', 'gangas-rose', 'blatina-grand'],
+    count: 5,
+    originalPrice: 125,
+    price: 99,
+    saving: 26
+  }
+];
+
 const RECIPIENT_EMAIL = 'pecav96@gmail.com';
 const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/pecav96@gmail.com';
 let currentLang = 'sr';
@@ -134,8 +181,63 @@ function renderWines() {
   observeFadeElements();
 }
 
+// ===== Render Bundles =====
+function renderBundles() {
+  const grid = document.getElementById('bundlesGrid');
+  if (!grid) return;
+  grid.innerHTML = BUNDLES.map(bundle => {
+    const miniBottles = bundle.wines.map(wid => {
+      const w = WINES.find(x => x.id === wid);
+      return `<div class="bundle-mini-bottle" title="${w ? w.name[currentLang] : ''}">${w ? bottleSVG(w.color) : ''}</div>`;
+    }).join('');
+    const savingLabel = currentLang === 'sr' ? `Uštedite ${bundle.saving} EUR` : `Save ${bundle.saving} EUR`;
+    const featuredClass = bundle.featured ? ' bundle-card--featured' : '';
+    return `
+      <div class="bundle-card${featuredClass} fade-up">
+        ${bundle.featured ? `<div class="bundle-top-badge">${currentLang === 'sr' ? 'Najpopularnije' : 'Most popular'}</div>` : ''}
+        <div class="bundle-saving-tag">${savingLabel}</div>
+        <div class="bundle-bottles">${miniBottles}</div>
+        <div class="bundle-count">${bundle.count} ${currentLang === 'sr' ? 'flase' : 'bottles'}</div>
+        <h3 class="bundle-name">${bundle.name[currentLang]}</h3>
+        <p class="bundle-subtitle">${bundle.subtitle[currentLang]}</p>
+        <p class="bundle-desc">${bundle.desc[currentLang]}</p>
+        <div class="bundle-pricing">
+          <span class="bundle-original">${bundle.originalPrice} EUR</span>
+          <span class="bundle-price">${bundle.price} EUR</span>
+        </div>
+        <button class="bundle-add" data-bundle-id="${bundle.id}">${currentLang === 'sr' ? 'Dodaj paket u listu' : 'Add bundle to list'}</button>
+      </div>
+    `;
+  }).join('');
+  grid.querySelectorAll('.bundle-add').forEach(btn => {
+    btn.addEventListener('click', () => addBundleToCart(btn.dataset.bundleId));
+  });
+  observeFadeElements();
+}
+
 // ===== Cart Logic =====
 let _cartBusy = false;
+
+function addBundleToCart(bundleId) {
+  if (_cartBusy) return;
+  _cartBusy = true;
+  const bundle = BUNDLES.find(b => b.id === bundleId);
+  if (!bundle) { _cartBusy = false; return; }
+  const existing = cart.find(i => i.id === bundleId);
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({ id: bundleId, qty: 1, isBundle: true });
+  }
+  saveCart();
+  renderCart();
+  showToast(currentLang === 'sr' ? `${bundle.name.sr} dodat u listu` : `${bundle.name.en} added to list`);
+  const cartBtn = document.getElementById('cartBtn');
+  cartBtn.classList.remove('cart-pulse');
+  void cartBtn.offsetWidth;
+  cartBtn.classList.add('cart-pulse');
+  setTimeout(() => { cartBtn.classList.remove('cart-pulse'); _cartBusy = false; }, 600);
+}
 
 function addToCart(id) {
   if (_cartBusy) return;
@@ -189,11 +291,17 @@ function saveCart() {
   document.getElementById('cartCount').textContent = cart.reduce((s, i) => s + i.qty, 0);
 }
 
+function getItemPrice(item) {
+  if (item.isBundle) {
+    const bundle = BUNDLES.find(b => b.id === item.id);
+    return bundle ? bundle.price : 0;
+  }
+  const wine = WINES.find(w => w.id === item.id);
+  return wine ? wine.price : 0;
+}
+
 function getCartTotal() {
-  return cart.reduce((sum, item) => {
-    const wine = WINES.find(w => w.id === item.id);
-    return sum + (wine ? wine.price * item.qty : 0);
-  }, 0);
+  return cart.reduce((sum, item) => sum + getItemPrice(item) * item.qty, 0);
 }
 
 function renderCart() {
@@ -205,13 +313,36 @@ function renderCart() {
     return;
   }
   itemsEl.innerHTML = cart.map(item => {
+    const price = getItemPrice(item);
+    if (item.isBundle) {
+      const bundle = BUNDLES.find(b => b.id === item.id);
+      const thumbs = bundle.wines.map(wid => {
+        const w = WINES.find(x => x.id === wid);
+        return `<div style="width:22px;display:inline-block;">${w ? bottleSVG(w.color) : ''}</div>`;
+      }).join('');
+      return `
+        <div class="cart-item cart-item--bundle">
+          <div class="cart-bundle-thumbs">${thumbs}</div>
+          <div class="cart-item-info">
+            <h4>${bundle.name[currentLang]} <span class="cart-bundle-label">${currentLang === 'sr' ? 'Paket' : 'Bundle'}</span></h4>
+            <div class="cart-item-price">${price * item.qty} EUR</div>
+            <div class="cart-item-controls">
+              <button class="qty-btn" onclick="updateQty('${item.id}', -1)">−</button>
+              <span class="qty-val">${item.qty}</span>
+              <button class="qty-btn" onclick="updateQty('${item.id}', 1)">+</button>
+              <button class="remove-btn" onclick="removeFromCart('${item.id}')">${currentLang === 'sr' ? 'Ukloni' : 'Remove'}</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
     const wine = WINES.find(w => w.id === item.id);
     return `
       <div class="cart-item">
         <div style="width:60px;">${bottleSVG(wine.color)}</div>
         <div class="cart-item-info">
           <h4>${wine.name[currentLang]}</h4>
-          <div class="cart-item-price">${wine.price * item.qty} EUR</div>
+          <div class="cart-item-price">${price * item.qty} EUR</div>
           <div class="cart-item-controls">
             <button class="qty-btn" onclick="updateQty('${item.id}', -1)">−</button>
             <span class="qty-val">${item.qty}</span>
@@ -243,8 +374,11 @@ function populateSummary() {
   document.getElementById('checkoutSummary').innerHTML = `
     <h4>${currentLang === 'sr' ? 'Vaša rezervacija' : 'Your reservation'}</h4>
     ${cart.map(item => {
-      const wine = WINES.find(w => w.id === item.id);
-      return `<div class="checkout-summary-item"><span>${wine.name[currentLang]} × ${item.qty}</span><span>${wine.price * item.qty} EUR</span></div>`;
+      const price = getItemPrice(item);
+      const label = item.isBundle
+        ? `${BUNDLES.find(b => b.id === item.id).name[currentLang]} (${currentLang === 'sr' ? 'paket' : 'bundle'})`
+        : WINES.find(w => w.id === item.id).name[currentLang];
+      return `<div class="checkout-summary-item"><span>${label} × ${item.qty}</span><span>${price * item.qty} EUR</span></div>`;
     }).join('')}
     <div class="checkout-summary-total"><span>${currentLang === 'sr' ? 'Ukupno' : 'Total'}</span><span>${getCartTotal()} EUR</span></div>
   `;
@@ -384,6 +518,7 @@ function switchLanguage(lang) {
     : '<span>SR</span> / <span class="lang-active">EN</span>';
   localStorage.setItem('hercegLang', lang);
   renderWines();
+  renderBundles();
   renderCart();
 }
 
@@ -627,6 +762,7 @@ document.addEventListener('DOMContentLoaded', () => {
   currentLang = 'sr';
 
   renderWines();
+  renderBundles();
   renderCart();
   switchLanguage(currentLang);
   observeFadeElements();

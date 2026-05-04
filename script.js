@@ -815,6 +815,9 @@ window.removeFromCart = removeFromCart;
   window.onYouTubeIframeAPIReady = function() {
     ytPlayer = new YT.Player('heroVideo', {
       events: {
+        onReady: function(e) {
+          e.target.setPlaybackRate(0.75);
+        },
         onStateChange: function(e) {
           if (e.data === YT.PlayerState.ENDED) {
             // Fade out video wrap

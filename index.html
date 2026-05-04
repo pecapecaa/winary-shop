@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=1920&q=80">
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=7">
 </head>
 <body>
   <nav class="navbar" id="navbar">
@@ -45,6 +45,15 @@
   </nav>
 
   <section class="hero" id="hero">
+    <!-- VIDEO BACKGROUND — zamijeni VIDEO_ID sa YouTube ID-om (11 karaktera iz youtube.com/watch?v=XXXXX) -->
+    <div class="hero-video-wrap" id="heroVideoWrap">
+      <iframe id="heroVideo" class="hero-video"
+        src="https://www.youtube.com/embed/XNpFGIY_P3Y?autoplay=1&mute=1&loop=1&playlist=XNpFGIY_P3Y&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
+        frameborder="0"
+        allow="autoplay; encrypted-media; fullscreen"
+        allowfullscreen>
+      </iframe>
+    </div>
     <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
     <div class="hero-particles"></div>
@@ -146,7 +155,12 @@
         <div class="section-kicker" data-sr="Ponuda" data-en="Shop">Ponuda</div>
         <h2 class="section-title" data-sr="Izaberite vaše vino" data-en="Choose your wine">Izaberite vaše vino</h2>
         <div class="divider divider-center"></div>
-        <p class="section-sub" data-sr="Selektovana vina iz najboljih hercegovačkih vinarija" data-en="Selected wines from the best Herzegovinian wineries">Selektovana vina iz najboljih hercegovačkih vinarija</p>
+      </div>
+      <div class="wine-filters" id="wineFilters">
+        <button class="wf-btn wf-btn--active" data-filter="all" data-sr="Sva vina" data-en="All wines">Sva vina</button>
+        <button class="wf-btn" data-filter="Bijelo" data-sr="Bijelo" data-en="White">Bijelo</button>
+        <button class="wf-btn" data-filter="Crveno" data-sr="Crveno" data-en="Red">Crveno</button>
+        <button class="wf-btn" data-filter="Roze" data-sr="Roze" data-en="Rosé">Roze</button>
       </div>
       <div class="wines-grid" id="winesGrid"></div>
 
@@ -429,6 +443,6 @@
   </div>
   <script>if(sessionStorage.getItem('ageVerified'))document.getElementById('ageGate').classList.add('age-gate--hidden');</script>
 
-  <script src="script.js?v=6"></script>
+  <script src="script.js?v=7"></script>
 </body>
 </html>

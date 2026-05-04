@@ -213,18 +213,46 @@ button {
   background: linear-gradient(135deg, #1a0508 0%, #3d1015 40%, #6b1f2a 100%);
 }
 
+/* Video background */
+.hero-video-wrap {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.hero-video {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 56.25vw; /* 16:9 */
+  min-height: 100vh;
+  min-width: 177.78vh; /* 16:9 inverted */
+  pointer-events: none;
+  border: 0;
+}
+
+/* Fallback photo shown when video is blocked/unavailable */
 .hero-bg {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   background: url('https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-  opacity: 0.42;
+  opacity: 0.3;
+  z-index: 1;
 }
 
 .hero-overlay {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(180deg, rgba(31,5,8,0.6) 0%, rgba(107,31,42,0.15) 40%, rgba(31,5,8,0.7) 100%);
+  background: linear-gradient(180deg, rgba(31,5,8,0.65) 0%, rgba(107,31,42,0.2) 40%, rgba(31,5,8,0.75) 100%);
+  z-index: 2;
 }
+
+.hero-particles { z-index: 3; }
+.hero-content    { position: relative; z-index: 4; }
+.hero-wave       { position: relative; z-index: 4; }
 
 .hero::before {
   content: '';
@@ -663,6 +691,49 @@ button {
     radial-gradient(ellipse at 80% 20%, rgba(201, 169, 97, 0.06) 0%, transparent 50%),
     linear-gradient(180deg, var(--cream) 0%, #f0e6d2 100%);
   position: relative;
+}
+
+/* ===== WINE FILTERS ===== */
+.wine-filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 44px;
+}
+
+.wf-btn {
+  background: transparent;
+  border: 1.5px solid rgba(139, 115, 85, 0.35);
+  color: var(--text-light);
+  font-family: 'Lato', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 10px 26px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.wf-btn:hover {
+  border-color: var(--gold);
+  color: var(--wine-deep);
+}
+
+.wf-btn--active {
+  background: var(--wine-deep);
+  border-color: var(--wine-deep);
+  color: #fff;
+}
+
+.wine-card {
+  transition: all 0.4s, opacity 0.3s, transform 0.3s;
+}
+
+.wine-card--hidden {
+  display: none;
 }
 
 .wines-grid {

@@ -222,14 +222,14 @@ button {
   pointer-events: none;
 }
 
-/* Transparent shield over iframe — hides YouTube UI/play button */
+/* Shield over iframe — blocks all YouTube UI interaction */
 .hero-video-wrap::after {
   content: '';
   position: absolute;
-  inset: 0;
-  z-index: 1;
+  inset: -20px;
+  z-index: 2;
   background: transparent;
-  pointer-events: none;
+  pointer-events: all;
 }
 
 /* Shorts = 9:16 portrait — scale to cover landscape viewport */

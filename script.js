@@ -817,16 +817,31 @@ window.removeFromCart = removeFromCart;
       events: {
         onReady: function(e) {
           e.target.setPlaybackRate(0.75);
+
+          // Poll every 500ms — start fade 2.5s before video ends
+          var faded = false;
+          var poll = setInterval(function() {
+            try {
+              var duration = ytPlayer.getDuration();
+              var current  = ytPlayer.getCurrentTime();
+              if (duration > 0 && current >= duration - 2.5 && !faded) {
+                faded = true;
+                clearInterval(poll);
+                // Fade in background image while video still playing
+                var bg = document.getElementById('heroBgFallback');
+                if (bg) bg.classList.add('visible');
+              }
+            } catch(err) {}
+          }, 500);
         },
         onStateChange: function(e) {
           if (e.data === YT.PlayerState.ENDED) {
-            // Fade out video wrap
+            // Image already fading in — now hide video instantly
             var wrap = document.getElementById('heroVideoWrap');
             if (wrap) {
-              wrap.style.transition = 'opacity 1.5s ease';
+              wrap.style.transition = 'opacity 0.3s ease';
               wrap.style.opacity = '0';
             }
-            // Fade in background image
             var bg = document.getElementById('heroBgFallback');
             if (bg) bg.classList.add('visible');
           }

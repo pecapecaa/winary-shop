@@ -251,7 +251,7 @@ button {
   background: url('https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
   opacity: 0;
   z-index: 1;
-  transition: opacity 1.5s ease;
+  transition: opacity 2.5s ease;
 }
 
 .hero-bg.visible {

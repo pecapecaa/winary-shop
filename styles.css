@@ -233,14 +233,23 @@ button {
   border: 0;
 }
 
-/* Fallback photo shown when video is blocked/unavailable */
-.hero-bg {
+.hero-play-btn {
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: url('https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-  opacity: 0.3;
-  z-index: 1;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  background: rgba(255,255,255,0.15);
+  border: 1.5px solid rgba(255,255,255,0.5);
+  border-radius: 50%;
+  width: 60px; height: 60px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: opacity 0.4s;
 }
+
+.hero-play-btn.hidden { display: none; }
 
 .hero-overlay {
   position: absolute;

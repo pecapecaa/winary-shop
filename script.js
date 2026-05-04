@@ -797,6 +797,23 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // Hero video play button (for iOS which blocks autoplay)
+  const heroPlayBtn = document.getElementById('heroPlayBtn');
+  const heroVideo = document.getElementById('heroVideo');
+  if (heroPlayBtn && heroVideo) {
+    heroPlayBtn.addEventListener('click', function() {
+      heroVideo.src = heroVideo.src; // reload iframe to trigger autoplay on iOS
+      heroPlayBtn.classList.add('hidden');
+    });
+    // Hide button if video autoplayed successfully
+    setTimeout(function() {
+      try {
+        // If video container has content, assume it's playing
+        heroPlayBtn.classList.add('hidden');
+      } catch(e) {}
+    }, 3000);
+  }
 });
 
 // Expose for inline handlers

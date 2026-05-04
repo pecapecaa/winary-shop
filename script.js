@@ -804,3 +804,31 @@ document.addEventListener('DOMContentLoaded', () => {
 // Expose for inline handlers
 window.updateQty = updateQty;
 window.removeFromCart = removeFromCart;
+
+// ===== Hero Video — play once then show background image =====
+(function() {
+  var tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(tag);
+
+  var ytPlayer;
+  window.onYouTubeIframeAPIReady = function() {
+    ytPlayer = new YT.Player('heroVideo', {
+      events: {
+        onStateChange: function(e) {
+          if (e.data === YT.PlayerState.ENDED) {
+            // Fade out video wrap
+            var wrap = document.getElementById('heroVideoWrap');
+            if (wrap) {
+              wrap.style.transition = 'opacity 1.5s ease';
+              wrap.style.opacity = '0';
+            }
+            // Fade in background image
+            var bg = document.getElementById('heroBgFallback');
+            if (bg) bg.classList.add('visible');
+          }
+        }
+      }
+    });
+  };
+})();

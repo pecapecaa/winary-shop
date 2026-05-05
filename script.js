@@ -160,10 +160,15 @@ function bottleSVG(color) {
 }
 
 // ===== Render Wines =====
+let activeWineFilter = 'all';
+
 function renderWines() {
   const grid = document.getElementById('winesGrid');
-  grid.innerHTML = WINES.map(wine => `
-    <div class="wine-card fade-up" data-type="${wine.type.sr}">
+  const list = activeWineFilter === 'all'
+    ? WINES
+    : WINES.filter(w => w.type.sr === activeWineFilter);
+  grid.innerHTML = list.map(wine => `
+    <div class="wine-card fade-up">
       <div class="wine-bottle">${bottleSVG(wine.color)}</div>
       <span class="wine-type-badge">${wine.type[currentLang]}</span>
       <h3>${wine.name[currentLang]}</h3>
@@ -787,15 +792,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!btn) return;
     document.querySelectorAll('.wf-btn').forEach(b => b.classList.remove('wf-btn--active'));
     btn.classList.add('wf-btn--active');
-    const filter = btn.dataset.filter;
-    document.querySelectorAll('#winesGrid .wine-card').forEach(card => {
-      if (filter === 'all') {
-        card.classList.remove('wine-card--hidden');
-      } else {
-        const type = card.dataset.type;
-        card.classList.toggle('wine-card--hidden', type !== filter);
-      }
-    });
+    activeWineFilter = btn.dataset.filter;
+    renderWines();
   });
 
 

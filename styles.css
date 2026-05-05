@@ -897,7 +897,7 @@ button {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  align-items: center;
+  align-items: stretch;
 }
 
 .bundle-card {

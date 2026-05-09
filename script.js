@@ -38,8 +38,8 @@ const WINES = [
   },
   {
     id: 'tvrdos-2022',
-    name: { sr: 'Tvrdoš 2022', en: 'Tvrdoš 2022' },
-    subtitle: { sr: 'Crveno vino • Manastir Tvrdoš, Trebinje', en: 'Red Wine • Monastery Tvrdoš, Trebinje' },
+    name: { sr: 'Tvrdоš 2022', en: 'Tvrdоš 2022' },
+    subtitle: { sr: 'Crveno vino • Manastir Tvrdоš, Trebinje', en: 'Red Wine • Monastery Tvrdоš, Trebinje' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
       sr: 'Vino iz manastirskih vinograda na stjenovitim padinama iznad Trebinja. Monaška tradicija utkana u svaki gutljaj — kompleksno, dostojanstveno, duboko, za momente koji ostaju u sjećanju.',
@@ -47,6 +47,18 @@ const WINES = [
     },
     price: 28,
     img: 'images/tvrdos-2022.PNG'
+  },
+  {
+    id: 'andjelic-hercegovina',
+    name: { sr: 'Anđelić Hercegovina', en: 'Anđelić Herzegovina' },
+    subtitle: { sr: 'Crveno vino • Vinarija Anđelić', en: 'Red Wine • Vinarija Anđelić' },
+    type: { sr: 'Crveno', en: 'Red' },
+    desc: {
+      sr: 'Vrhunsko crveno vino iz podruma vinarije Anđelić. Bogata tamna boja, arome zrelog voća, crnih ribizla i blage vanilije. Dugo odležano, baršunasti tanini i izuzetno dug završetak.',
+      en: 'Premium red wine from the Anđelić winery cellar. Rich dark colour, aromas of ripe fruit, blackcurrant and gentle vanilla. Long-aged, velvety tannins and an exceptionally long finish.'
+    },
+    price: 24,
+    img: 'images/andjelic-hercegovina.PNG'
   }
 ];
 
@@ -71,8 +83,8 @@ const BUNDLES = [
     name: { sr: 'Trio Paket', en: 'Trio Bundle' },
     subtitle: { sr: '3 premium hercegovačka vina', en: '3 premium Herzegovinian wines' },
     desc: {
-      sr: 'Hercegovačka Žilavka, Blatina Čitluk i Tvrdoš 2022 — kompletna degustacija Hercegovine u jednoj kutiji.',
-      en: 'Herzegovinian Žilavka, Blatina Čitluk and Tvrdoš 2022 — the complete Herzegovina tasting experience in one box.'
+      sr: 'Hercegovačka Žilavka, Blatina Čitluk i Tvrdоš 2022 — kompletna degustacija Hercegovine u jednoj kutiji.',
+      en: 'Herzegovinian Žilavka, Blatina Čitluk and Tvrdоš 2022 — the complete Herzegovina tasting experience in one box.'
     },
     wines: ['zilavka-hercegovina', 'blatina-citluk', 'tvrdos-2022'],
     count: 3,
@@ -86,8 +98,8 @@ const BUNDLES = [
     name: { sr: 'Grande Kolekcija', en: 'Grande Collection' },
     subtitle: { sr: 'Sva 4 ekskluzivna vina Hercegovine', en: 'All 4 exclusive wines of Herzegovina' },
     desc: {
-      sr: 'Kompletna kolekcija — Žilavka Hercegovina, Žilavka Mostar, Blatina Čitluk i Tvrdoš 2022. Savršen poklon za poznavaoce.',
-      en: 'The complete collection — Žilavka Herzegovina, Žilavka Mostar, Blatina Čitluk and Tvrdoš 2022. The perfect gift for connoisseurs.'
+      sr: 'Kompletna kolekcija — Žilavka Hercegovina, Žilavka Mostar, Blatina Čitluk i Tvrdоš 2022. Savršen poklon za poznavaoce.',
+      en: 'The complete collection — Žilavka Herzegovina, Žilavka Mostar, Blatina Čitluk and Tvrdоš 2022. The perfect gift for connoisseurs.'
     },
     wines: ['zilavka-hercegovina', 'zilavka-mostar', 'blatina-citluk', 'tvrdos-2022'],
     count: 4,

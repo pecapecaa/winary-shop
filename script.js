@@ -113,10 +113,10 @@ function renderWines() {
   grid.innerHTML = list.map(wine => `
     <div class="wine-card fade-up">
       <div class="wine-img-wrap">
+        <span class="wine-type-badge">${wine.type[currentLang]}</span>
         <img src="${wine.img}" alt="${wine.name[currentLang]}" loading="lazy">
       </div>
       <div class="wine-card-body">
-        <span class="wine-type-badge">${wine.type[currentLang]}</span>
         <h3>${wine.name[currentLang]}</h3>
         <div class="wine-srb">${wine.subtitle[currentLang]}</div>
         <p class="wine-desc">${wine.desc[currentLang]}</p>
@@ -425,21 +425,14 @@ async function submitOrder(e) {
   try {
     await fetch(FORMSUBMIT_ENDPOINT, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
         _subject: `Herceg Wines — Nova rezervacija — ${name} — ${getCartTotal()} EUR`,
         _template: 'table',
         _captcha: 'false',
-        _autoresponse: `Poštovani ${name},\n\nhvala Vam što ste odabrali Herceg Wines.\n\nVaša rezervacija je uspješno primljena i obrađujemo je po redoslijedu prispijeća. Kontaktiraćemo Vas u roku od 2–3 radna dana sa svim detaljima.\n\nKao zahvalnost na strpljenju, pripremili smo za Vas ekskluzivni kod:\n\n  ★  HERCEG10  ★\n\n10% popusta na narednu narudžbu.\nKod unesite pri sljedećoj kupovini na pecapecaa.github.io\n\n——————————————————\n\nS poštovanjem,\nHerceg Wines tim\n\nTrebinje, Hercegovina\ninfo@hercegwines.com\n+387 36 640 123\n\n——————————————————\nHerceg Wines • Hercegovačka vina. Online. • Est. 2021`,
+        _autoresponse: `Poštovani ${name},\n\nhvala Vam što ste odabrali Herceg Wines.\n\nVaša rezervacija je uspješno primljena. Kontaktiraćemo Vas u roku od 2–3 radna dana.\n\n★ HERCEG10 ★\n10% popusta na narednu narudžbu.\n\nHerceg Wines tim`,
         datum_i_vrijeme: timestamp,
-        name: name,
-        email: email,
-        phone: phone,
-        city: city,
-        address: address,
+        name, email, phone, city, address,
         total: `${getCartTotal()} EUR`,
         order: orderLines
       })
@@ -455,10 +448,7 @@ async function submitOrder(e) {
   saveCart();
   renderCart();
   document.getElementById('checkoutForm').reset();
-  if (submitBtn) {
-    submitBtn.disabled = false;
-    submitBtn.textContent = originalBtnText;
-  }
+  if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalBtnText; }
 }
 
 // ===== Language Toggle =====
@@ -543,12 +533,7 @@ function animateCounters() {
 
 // ===== Staggered Scroll Animations =====
 function observeFadeElements() {
-  const groups = [
-    '.wine-card',
-    '.visit-card',
-    '.vf-item',
-    '.about-stat'
-  ];
+  const groups = ['.wine-card', '.visit-card', '.vf-item', '.about-stat'];
   groups.forEach(selector => {
     const items = document.querySelectorAll(selector);
     items.forEach((el, i) => {
@@ -590,9 +575,7 @@ function initParallax() {
 // ===== Init =====
 document.addEventListener('DOMContentLoaded', () => {
   const ageGate = document.getElementById('ageGate');
-  if (!sessionStorage.getItem('ageVerified')) {
-    document.body.style.overflow = 'hidden';
-  }
+  if (!sessionStorage.getItem('ageVerified')) document.body.style.overflow = 'hidden';
   document.getElementById('ageYes').addEventListener('click', () => {
     sessionStorage.setItem('ageVerified', '1');
     ageGate.classList.add('age-gate--hidden');
@@ -661,30 +644,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const email = document.getElementById('cEmail').value;
     const subject = document.getElementById('cSubject').value || 'Poruka sa sajta';
     const message = document.getElementById('cMessage').value;
-
     const submitBtn = e.target.querySelector('button[type="submit"]');
     const originalBtnText = submitBtn ? submitBtn.textContent : '';
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = currentLang === 'sr' ? 'Slanje...' : 'Sending...';
-    }
-
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = currentLang === 'sr' ? 'Slanje...' : 'Sending...'; }
     try {
       const res = await fetch(FORMSUBMIT_ENDPOINT, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          _subject: `Kontakt - ${subject}`,
-          _template: 'table',
-          _captcha: 'false',
-          name: name,
-          email: email,
-          subject: subject,
-          message: message
-        })
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ _subject: `Kontakt - ${subject}`, _template: 'table', _captcha: 'false', name, email, subject, message })
       });
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const data = await res.json();
@@ -695,20 +662,14 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error('Contact submission failed:', err);
       showToast(currentLang === 'sr' ? 'Greška pri slanju poruke.' : 'Failed to send message.', false);
     } finally {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalBtnText;
-      }
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalBtnText; }
     }
   });
 
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const target = document.querySelector(a.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
     });
   });
 
@@ -740,7 +701,6 @@ window.removeFromCart = removeFromCart;
   var tag = document.createElement('script');
   tag.src = 'https://www.youtube.com/iframe_api';
   document.head.appendChild(tag);
-
   var ytPlayer;
   window.onYouTubeIframeAPIReady = function() {
     ytPlayer = new YT.Player('heroVideo', {
@@ -751,7 +711,7 @@ window.removeFromCart = removeFromCart;
           var poll = setInterval(function() {
             try {
               var duration = ytPlayer.getDuration();
-              var current  = ytPlayer.getCurrentTime();
+              var current = ytPlayer.getCurrentTime();
               if (duration > 0 && current >= duration - 2.5 && !faded) {
                 faded = true;
                 clearInterval(poll);
@@ -764,10 +724,7 @@ window.removeFromCart = removeFromCart;
         onStateChange: function(e) {
           if (e.data === YT.PlayerState.ENDED) {
             var wrap = document.getElementById('heroVideoWrap');
-            if (wrap) {
-              wrap.style.transition = 'opacity 0.3s ease';
-              wrap.style.opacity = '0';
-            }
+            if (wrap) { wrap.style.transition = 'opacity 0.3s ease'; wrap.style.opacity = '0'; }
             var bg = document.getElementById('heroBgFallback');
             if (bg) bg.classList.add('visible');
           }

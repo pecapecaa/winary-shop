@@ -10,7 +10,7 @@ const WINES = [
       en: 'A rare indigenous variety grown on the Herzegovina karst. Golden-yellow, rich mineral structure, notes of ripe apple, peach and Mediterranean herbs. A wine that leaves a mark.'
     },
     price: 22,
-    img: 'images/zilavka-hercegovina.jpg'
+    img: 'images/zilavka-hercegovina.png'
   },
   {
     id: 'zilavka-mostar',
@@ -22,7 +22,7 @@ const WINES = [
       en: 'Elegant Žilavka from the renowned Vinarija Čitluk along the Neretva. Fresh acidity, fruity complexity and a long, silky finish. The most recognised white wine of BiH.'
     },
     price: 18,
-    img: 'images/zilavka-mostar.jpg'
+    img: 'images/zilavka-mostar.png'
   },
   {
     id: 'blatina-citluk',
@@ -34,7 +34,7 @@ const WINES = [
       en: 'A uniquely indigenous red cultivar, grown exclusively in Herzegovina. Dark ruby, aromas of cherry, plum and spice. Medium tannins, soft and perfectly balanced.'
     },
     price: 20,
-    img: 'images/blatina-citluk.jpg'
+    img: 'images/blatina-citluk.png'
   },
   {
     id: 'tvrdos-2022',
@@ -46,7 +46,7 @@ const WINES = [
       en: 'Wine from monastery vineyards on rocky slopes above Trebinje. Monastic tradition woven into every sip — complex, dignified, deep, for moments that stay in memory.'
     },
     price: 28,
-    img: 'images/tvrdos-2022.jpg'
+    img: 'images/tvrdos-2022.png'
   }
 ];
 
@@ -763,7 +763,6 @@ window.removeFromCart = removeFromCart;
         onReady: function(e) {
           e.target.setPlaybackRate(0.75);
 
-          // Poll every 500ms — start fade 2.5s before video ends
           var faded = false;
           var poll = setInterval(function() {
             try {
@@ -772,7 +771,6 @@ window.removeFromCart = removeFromCart;
               if (duration > 0 && current >= duration - 2.5 && !faded) {
                 faded = true;
                 clearInterval(poll);
-                // Fade in background image while video still playing
                 var bg = document.getElementById('heroBgFallback');
                 if (bg) bg.classList.add('visible');
               }
@@ -781,7 +779,6 @@ window.removeFromCart = removeFromCart;
         },
         onStateChange: function(e) {
           if (e.data === YT.PlayerState.ENDED) {
-            // Image already fading in — now hide video instantly
             var wrap = document.getElementById('heroVideoWrap');
             if (wrap) {
               wrap.style.transition = 'opacity 0.3s ease';

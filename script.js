@@ -10,7 +10,7 @@ const WINES = [
       en: 'A rare indigenous variety grown on the Herzegovina karst. Golden-yellow, rich mineral structure, notes of ripe apple, peach and Mediterranean herbs. A wine that leaves a mark.'
     },
     price: 22,
-    img: 'images/zilavka-hercegovina.png'
+    img: 'images/zilavka-hercegovina.PNG'
   },
   {
     id: 'zilavka-mostar',
@@ -22,7 +22,7 @@ const WINES = [
       en: 'Elegant Žilavka from the renowned Vinarija Čitluk along the Neretva. Fresh acidity, fruity complexity and a long, silky finish. The most recognised white wine of BiH.'
     },
     price: 18,
-    img: 'images/zilavka-mostar.png'
+    img: 'images/zilavka-mostar.PNG'
   },
   {
     id: 'blatina-citluk',
@@ -34,7 +34,7 @@ const WINES = [
       en: 'A uniquely indigenous red cultivar, grown exclusively in Herzegovina. Dark ruby, aromas of cherry, plum and spice. Medium tannins, soft and perfectly balanced.'
     },
     price: 20,
-    img: 'images/blatina-citluk.png'
+    img: 'images/blatina-citluk.PNG'
   },
   {
     id: 'tvrdos-2022',
@@ -46,7 +46,7 @@ const WINES = [
       en: 'Wine from monastery vineyards on rocky slopes above Trebinje. Monastic tradition woven into every sip — complex, dignified, deep, for moments that stay in memory.'
     },
     price: 28,
-    img: 'images/tvrdos-2022.png'
+    img: 'images/tvrdos-2022.PNG'
   }
 ];
 
@@ -576,7 +576,6 @@ function observeFadeElements() {
 function initParallax() {
   const vineyard = document.querySelector('.section-vineyard');
   if (!vineyard) return;
-  const bg = vineyard.querySelector(':before');
   window.addEventListener('scroll', () => {
     const rect = vineyard.getBoundingClientRect();
     const windowH = window.innerHeight;
@@ -590,7 +589,6 @@ function initParallax() {
 
 // ===== Init =====
 document.addEventListener('DOMContentLoaded', () => {
-  // Age Gate
   const ageGate = document.getElementById('ageGate');
   if (!sessionStorage.getItem('ageVerified')) {
     document.body.style.overflow = 'hidden';
@@ -605,12 +603,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('ageDenied').style.display = 'block';
   });
 
-  // Scroll progress bar
   const scrollProgress = document.createElement('div');
   scrollProgress.className = 'scroll-progress';
   document.body.appendChild(scrollProgress);
 
-  // Navbar scroll + progress update
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 50);
@@ -618,7 +614,6 @@ document.addEventListener('DOMContentLoaded', () => {
     scrollProgress.style.width = Math.min(pct * 100, 100) + '%';
   }, { passive: true });
 
-  // Mobile nav
   document.getElementById('navToggle').addEventListener('click', () => {
     document.getElementById('navLinks').classList.toggle('active');
   });
@@ -626,12 +621,10 @@ document.addEventListener('DOMContentLoaded', () => {
     a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('active'));
   });
 
-  // Language toggle
   document.getElementById('langToggle').addEventListener('click', () => {
     switchLanguage(currentLang === 'sr' ? 'en' : 'sr');
   });
 
-  // Cart UI
   document.getElementById('cartBtn').addEventListener('click', () => {
     document.getElementById('cartOverlay').classList.add('active');
     document.getElementById('cartSidebar').classList.add('active');
@@ -645,7 +638,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('cartSidebar').classList.remove('active');
   });
 
-  // Checkout
   document.getElementById('checkoutBtn').addEventListener('click', openCheckout);
   document.getElementById('checkoutNext').addEventListener('click', goToStep2);
   document.getElementById('checkoutBack').addEventListener('click', goToStep1);
@@ -663,7 +655,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('successCloseBtn').addEventListener('click', closeCheckout);
   document.getElementById('checkoutForm').addEventListener('submit', submitOrder);
 
-  // Contact form
   document.getElementById('contactForm').addEventListener('submit', async e => {
     e.preventDefault();
     const name = document.getElementById('cName').value;
@@ -711,7 +702,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const target = document.querySelector(a.getAttribute('href'));
@@ -723,7 +713,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   currentLang = 'sr';
-
   renderWines();
   renderBundles();
   renderCart();
@@ -733,7 +722,6 @@ document.addEventListener('DOMContentLoaded', () => {
   animateCounters();
   initParallax();
 
-  // Wine type filters
   document.getElementById('wineFilters').addEventListener('click', function(e) {
     const btn = e.target.closest('.wf-btn');
     if (!btn) return;
@@ -742,15 +730,12 @@ document.addEventListener('DOMContentLoaded', () => {
     activeWineFilter = btn.dataset.filter;
     renderWines();
   });
-
-
 });
 
-// Expose for inline handlers
 window.updateQty = updateQty;
 window.removeFromCart = removeFromCart;
 
-// ===== Hero Video — play once then show background image =====
+// ===== Hero Video =====
 (function() {
   var tag = document.createElement('script');
   tag.src = 'https://www.youtube.com/iframe_api';
@@ -762,7 +747,6 @@ window.removeFromCart = removeFromCart;
       events: {
         onReady: function(e) {
           e.target.setPlaybackRate(0.75);
-
           var faded = false;
           var poll = setInterval(function() {
             try {

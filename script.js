@@ -1,88 +1,52 @@
 // ===== Wines Data =====
 const WINES = [
   {
-    id: 'zilavka-trebinje',
-    name: { sr: 'Zilavka Trebinje', en: 'Zilavka Trebinje' },
-    subtitle: { sr: 'Bijelo vino • Berba 2022', en: 'White wine • Vintage 2022' },
+    id: 'zilavka-hercegovina',
+    name: { sr: 'Hercegovačka Žilavka', en: 'Herzegovinian Žilavka' },
+    subtitle: { sr: 'Bijelo vino • Autohtona sorta', en: 'White Wine • Indigenous Variety' },
     type: { sr: 'Bijelo', en: 'White' },
     desc: {
-      sr: 'Autohtona hercegovačka Žilavka iz vinograda oko Trebinja. Svježe, mineralno vino sa notama jabuke, kruške i mediteranskog bilja.',
-      en: 'Indigenous Herzegovinian Zilavka from vineyards around Trebinje. Fresh, mineral wine with notes of apple, pear and Mediterranean herbs.'
-    },
-    price: 18,
-    color: '#e8d89a'
-  },
-  {
-    id: 'vranac-trebinjski',
-    name: { sr: 'Vranac Trebinjski', en: 'Vranac of Trebinje' },
-    subtitle: { sr: 'Crveno vino • Berba 2020', en: 'Red wine • Vintage 2020' },
-    type: { sr: 'Crveno', en: 'Red' },
-    desc: {
-      sr: 'Kralj trebinjskih vinograda. Moćan, tamnorubinski Vranac sa aromama višnje, duhana i kamena iz Popovog polja.',
-      en: 'The king of Trebinje vineyards. Powerful, dark ruby Vranac with aromas of cherry, tobacco and stone from Popovo polje.'
-    },
-    price: 24,
-    color: '#3d0f14'
-  },
-  {
-    id: 'blatina-popovo',
-    name: { sr: 'Blatina Popovo Polje', en: 'Blatina Popovo Polje' },
-    subtitle: { sr: 'Crveno vino • Berba 2020', en: 'Red wine • Vintage 2020' },
-    type: { sr: 'Crveno', en: 'Red' },
-    desc: {
-      sr: 'Moćna Blatina iz kamenih vinograda Popovog polja kod Trebinja. Bogat ukus tamnog voća, začina i hrastovine.',
-      en: 'Powerful Blatina from the stone vineyards of Popovo polje near Trebinje. Rich flavor of dark fruit, spice and oak.'
+      sr: 'Rijetka autohtona sorta uzgojena na karstu Hercegovine. Zlatno-žuta boja, bogata mineralna struktura, note zrele jabuke, breskve i mediteranskog bilja. Vino koje ostavlja trag.',
+      en: 'A rare indigenous variety grown on the Herzegovina karst. Golden-yellow, rich mineral structure, notes of ripe apple, peach and Mediterranean herbs. A wine that leaves a mark.'
     },
     price: 22,
-    color: '#4a1e23'
+    img: 'images/zilavka-hercegovina.jpg'
   },
   {
-    id: 'gangas-rose',
-    name: { sr: 'Gangas Rose', en: 'Gangas Rose' },
-    subtitle: { sr: 'Roze vino • Berba 2023', en: 'Rose wine • Vintage 2023' },
-    type: { sr: 'Roze', en: 'Rose' },
-    desc: {
-      sr: 'Elegantan rosé od trebinjske Blatine. Delikatne arome jagode, narandže i ruzmarina sa obala Trebišnjice.',
-      en: 'Elegant rose from Trebinje Blatina. Delicate aromas of strawberry, orange and rosemary from the banks of Trebisnjica.'
-    },
-    price: 16,
-    color: '#d4788a'
-  },
-  {
-    id: 'zilavka-barrique',
-    name: { sr: 'Zilavka Barrique', en: 'Zilavka Barrique' },
-    subtitle: { sr: 'Bijelo vino • Berba 2021', en: 'White wine • Vintage 2021' },
+    id: 'zilavka-mostar',
+    name: { sr: 'Žilavka Mostar', en: 'Žilavka Mostar' },
+    subtitle: { sr: 'Bijelo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
     type: { sr: 'Bijelo', en: 'White' },
     desc: {
-      sr: 'Trebinjska Žilavka odležana 12 mjeseci u francuskom hrastu. Kremasta tekstura, vanilija i med.',
-      en: 'Trebinje Zilavka aged 12 months in French oak. Creamy texture, vanilla and honey.'
+      sr: 'Elegantna Žilavka iz čuvene Vinarije Čitluk uz rijeku Neretvu. Svježa kiselina, voćna kompleksnost i dug, svilenkast završetak. Najprepoznatljivije bijelo vino BiH.',
+      en: 'Elegant Žilavka from the renowned Vinarija Čitluk along the Neretva. Fresh acidity, fruity complexity and a long, silky finish. The most recognised white wine of BiH.'
+    },
+    price: 18,
+    img: 'images/zilavka-mostar.jpg'
+  },
+  {
+    id: 'blatina-citluk',
+    name: { sr: 'Blatina Čitluk', en: 'Blatina Čitluk' },
+    subtitle: { sr: 'Crveno vino • Vinarija Čitluk', en: 'Red Wine • Vinarija Čitluk' },
+    type: { sr: 'Crveno', en: 'Red' },
+    desc: {
+      sr: 'Jedinstven autohtoni crveni kultivar, uzgojen isključivo u Hercegovini. Tamno rubinska boja, arome višnje, šljive i začina. Srednji tanini, mek i savršeno balansiran.',
+      en: 'A uniquely indigenous red cultivar, grown exclusively in Herzegovina. Dark ruby, aromas of cherry, plum and spice. Medium tannins, soft and perfectly balanced.'
+    },
+    price: 20,
+    img: 'images/blatina-citluk.jpg'
+  },
+  {
+    id: 'tvrdos-2022',
+    name: { sr: 'Tvrdoš 2022', en: 'Tvrdoš 2022' },
+    subtitle: { sr: 'Crveno vino • Manastir Tvrdoš, Trebinje', en: 'Red Wine • Monastery Tvrdoš, Trebinje' },
+    type: { sr: 'Crveno', en: 'Red' },
+    desc: {
+      sr: 'Vino iz manastirskih vinograda na stjenovitim padinama iznad Trebinja. Monaška tradicija utkana u svaki gutljaj — kompleksno, dostojanstveno, duboko, za momente koji ostaju u sjećanju.',
+      en: 'Wine from monastery vineyards on rocky slopes above Trebinje. Monastic tradition woven into every sip — complex, dignified, deep, for moments that stay in memory.'
     },
     price: 28,
-    color: '#d4b56a'
-  },
-  {
-    id: 'blatina-grand',
-    name: { sr: 'Blatina Grand Reserve', en: 'Blatina Grand Reserve' },
-    subtitle: { sr: 'Crveno vino • Berba 2018', en: 'Red wine • Vintage 2018' },
-    type: { sr: 'Crveno', en: 'Red' },
-    desc: {
-      sr: 'Naš flagship iz srca Trebinja. 36 mjeseci u barriku. Kompleksno vino za posebne prilike.',
-      en: 'Our flagship from the heart of Trebinje. 36 months in barrique. Complex wine for special occasions.'
-    },
-    price: 35,
-    color: '#2d1216'
-  },
-  {
-    id: 'herceg-cuvee',
-    name: { sr: 'Herceg Cuvee Trebinje', en: 'Herceg Cuvee Trebinje' },
-    subtitle: { sr: 'Kupaža • Berba 2019', en: 'Blend • Vintage 2019' },
-    type: { sr: 'Crveno', en: 'Red' },
-    desc: {
-      sr: 'Vrhunska kupaža Blatine, Trnjaka i Vranca iz trebinjskih vinograda. Duša Hercegovine u jednoj flaši.',
-      en: 'Premium blend of Blatina, Trnjak and Vranac from Trebinje vineyards. The soul of Herzegovina in one bottle.'
-    },
-    price: 42,
-    color: '#6b2330'
+    img: 'images/tvrdos-2022.jpg'
   }
 ];
 
@@ -93,13 +57,13 @@ const BUNDLES = [
     name: { sr: 'Duo Paket', en: 'Duo Bundle' },
     subtitle: { sr: '2 flase — bijelo i crveno', en: '2 bottles — white and red' },
     desc: {
-      sr: 'Zilavka Trebinje i Vranac Trebinjski. Savršena kombinacija za posebnu večer.',
-      en: 'Zilavka Trebinje and Vranac Trebinjski. The perfect pairing for a special evening.'
+      sr: 'Žilavka Mostar i Blatina Čitluk. Savršena kombinacija autohtone bijele i crvene sorte za posebnu večer.',
+      en: 'Žilavka Mostar and Blatina Čitluk. The perfect pairing of indigenous white and red for a special evening.'
     },
-    wines: ['zilavka-trebinje', 'vranac-trebinjski'],
+    wines: ['zilavka-mostar', 'blatina-citluk'],
     count: 2,
-    originalPrice: 42,
-    price: 34,
+    originalPrice: 38,
+    price: 30,
     saving: 8
   },
   {
@@ -107,29 +71,29 @@ const BUNDLES = [
     name: { sr: 'Trio Paket', en: 'Trio Bundle' },
     subtitle: { sr: '3 premium hercegovačka vina', en: '3 premium Herzegovinian wines' },
     desc: {
-      sr: 'Zilavka, Blatina i Vranac — kompletna degustacija Hercegovine u jednoj kutiji.',
-      en: 'Zilavka, Blatina and Vranac — the complete Herzegovina tasting experience in one box.'
+      sr: 'Hercegovačka Žilavka, Blatina Čitluk i Tvrdoš 2022 — kompletna degustacija Hercegovine u jednoj kutiji.',
+      en: 'Herzegovinian Žilavka, Blatina Čitluk and Tvrdoš 2022 — the complete Herzegovina tasting experience in one box.'
     },
-    wines: ['zilavka-trebinje', 'blatina-popovo', 'vranac-trebinjski'],
+    wines: ['zilavka-hercegovina', 'blatina-citluk', 'tvrdos-2022'],
     count: 3,
-    originalPrice: 64,
-    price: 52,
-    saving: 12,
+    originalPrice: 70,
+    price: 56,
+    saving: 14,
     featured: true
   },
   {
     id: 'bundle-grande',
-    name: { sr: 'Grande Paket', en: 'Grande Bundle' },
-    subtitle: { sr: '5 ekskluzivnih vina Hercegovine', en: '5 exclusive wines of Herzegovina' },
+    name: { sr: 'Grande Kolekcija', en: 'Grande Collection' },
+    subtitle: { sr: 'Sva 4 ekskluzivna vina Hercegovine', en: 'All 4 exclusive wines of Herzegovina' },
     desc: {
-      sr: 'Barrique Žilavka, Vranac, Blatina, Gangas Rose i Grand Reserve. Savršen poklon ili kompletna kolekcija.',
-      en: 'Barrique Zilavka, Vranac, Blatina, Gangas Rose and Grand Reserve. Perfect gift or full collection.'
+      sr: 'Kompletna kolekcija — Žilavka Hercegovina, Žilavka Mostar, Blatina Čitluk i Tvrdoš 2022. Savršen poklon za poznavaoce.',
+      en: 'The complete collection — Žilavka Herzegovina, Žilavka Mostar, Blatina Čitluk and Tvrdoš 2022. The perfect gift for connoisseurs.'
     },
-    wines: ['zilavka-barrique', 'vranac-trebinjski', 'blatina-popovo', 'gangas-rose', 'blatina-grand'],
-    count: 5,
-    originalPrice: 125,
-    price: 99,
-    saving: 26
+    wines: ['zilavka-hercegovina', 'zilavka-mostar', 'blatina-citluk', 'tvrdos-2022'],
+    count: 4,
+    originalPrice: 88,
+    price: 68,
+    saving: 20
   }
 ];
 
@@ -137,27 +101,6 @@ const RECIPIENT_EMAIL = 'pecav96@gmail.com';
 const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/pecav96@gmail.com';
 let currentLang = 'sr';
 let cart = JSON.parse(sessionStorage.getItem('hercegCart') || '[]');
-
-// ===== Wine Bottle SVG =====
-function bottleSVG(color) {
-  return `<svg viewBox="0 0 140 280" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="bg-${color.replace('#','')}" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="${color}" stop-opacity="0.9"/>
-        <stop offset="50%" stop-color="${color}" stop-opacity="1"/>
-        <stop offset="100%" stop-color="${color}" stop-opacity="0.7"/>
-      </linearGradient>
-    </defs>
-    <rect x="58" y="5" width="24" height="30" fill="#c8a96a" rx="1"/>
-    <path d="M 55 35 Q 55 50 50 70 L 50 260 Q 50 270 60 270 L 80 270 Q 90 270 90 260 L 90 70 Q 85 50 85 35 Z" fill="url(#bg-${color.replace('#','')})" stroke="#1a0f0a" stroke-width="1"/>
-    <rect x="52" y="110" width="36" height="90" fill="#f5ede0" stroke="#8b7355" stroke-width="0.5"/>
-    <text x="70" y="140" text-anchor="middle" font-family="Cinzel, serif" font-size="8" fill="#722f37" font-weight="700">HERCEG</text>
-    <text x="70" y="155" text-anchor="middle" font-family="Cinzel, serif" font-size="11" fill="#722f37" font-weight="700">WINES</text>
-    <line x1="58" y1="165" x2="82" y2="165" stroke="#c8a96a" stroke-width="0.8"/>
-    <text x="70" y="180" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="7" font-style="italic" fill="#4a1e23">Hercegovina</text>
-    <text x="70" y="195" text-anchor="middle" font-family="Lato, sans-serif" font-size="6" fill="#722f37">SELECTED WINES</text>
-  </svg>`;
-}
 
 // ===== Render Wines =====
 let activeWineFilter = 'all';
@@ -169,14 +112,18 @@ function renderWines() {
     : WINES.filter(w => w.type.sr === activeWineFilter);
   grid.innerHTML = list.map(wine => `
     <div class="wine-card fade-up">
-      <div class="wine-bottle">${bottleSVG(wine.color)}</div>
-      <span class="wine-type-badge">${wine.type[currentLang]}</span>
-      <h3>${wine.name[currentLang]}</h3>
-      <div class="wine-srb">${wine.subtitle[currentLang]}</div>
-      <p class="wine-desc">${wine.desc[currentLang]}</p>
-      <div class="wine-footer">
-        <span class="wine-price">${wine.price} EUR</span>
-        <button class="wine-add" data-id="${wine.id}">${currentLang === 'sr' ? 'Dodaj u listu' : 'Add to list'}</button>
+      <div class="wine-img-wrap">
+        <img src="${wine.img}" alt="${wine.name[currentLang]}" loading="lazy">
+      </div>
+      <div class="wine-card-body">
+        <span class="wine-type-badge">${wine.type[currentLang]}</span>
+        <h3>${wine.name[currentLang]}</h3>
+        <div class="wine-srb">${wine.subtitle[currentLang]}</div>
+        <p class="wine-desc">${wine.desc[currentLang]}</p>
+        <div class="wine-footer">
+          <span class="wine-price">${wine.price} EUR</span>
+          <button class="wine-add" data-id="${wine.id}">${currentLang === 'sr' ? 'Dodaj u listu' : 'Add to list'}</button>
+        </div>
       </div>
     </div>
   `).join('');

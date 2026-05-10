@@ -76,7 +76,8 @@ const BUNDLES = [
     count: 2,
     originalPrice: 38,
     price: 30,
-    saving: 8
+    saving: 8,
+    img: 'images/IMG_9965.png'
   },
   {
     id: 'bundle-trio',
@@ -91,7 +92,8 @@ const BUNDLES = [
     originalPrice: 70,
     price: 56,
     saving: 14,
-    featured: true
+    featured: true,
+    img: 'images/IMG_9968.png'
   },
   {
     id: 'bundle-grande',
@@ -105,7 +107,8 @@ const BUNDLES = [
     count: 4,
     originalPrice: 88,
     price: 68,
-    saving: 20
+    saving: 20,
+    img: 'images/IMG_9969.png'
   }
 ];
 
@@ -150,36 +153,41 @@ function renderBundles() {
   const grid = document.getElementById('bundlesGrid');
   if (!grid) return;
   const isSr = currentLang === 'sr';
-  let html = '';
-  BUNDLES.forEach(function(bundle) {
+  grid.innerHTML = BUNDLES.map(function(bundle) {
     const saving = isSr ? ('Uštedite ' + bundle.saving + ' EUR') : ('Save ' + bundle.saving + ' EUR');
     const featured = bundle.featured ? ' bundle-card--featured' : '';
-    const topBadge = bundle.featured ? ('<div class="bundle-top-badge">' + (isSr ? 'Najpopularnije' : 'Most popular') + '</div>') : '';
-    const bottleIcons = bundle.wines.map(function(wid) {
-      const w = WINES.find(function(x) { return x.id === wid; });
-      return '<div class="bundle-mini-bottle" style="background:' + (w ? w.color : '#722f37') + '"></div>';
-    }).join('');
-    const countLabel = bundle.count + ' ' + (isSr ? 'flase' : 'bottles');
+    const topBadge = bundle.featured
+      ? '<div class="bundle-top-badge">' + (isSr ? 'Najpopularnije' : 'Most popular') + '</div>'
+      : '';
+    const countLabel = bundle.count + (isSr ? ' flase' : ' btl.');
     const btnLabel = isSr ? 'Dodaj paket u listu' : 'Add bundle to list';
-    html += '<div class="bundle-card' + featured + '">';
-    html += topBadge;
-    html += '<div class="bundle-saving-tag">' + saving + '</div>';
-    html += '<div class="bundle-bottles">' + bottleIcons + '</div>';
-    html += '<div class="bundle-count">' + countLabel + '</div>';
-    html += '<h3 class="bundle-name">' + bundle.name[currentLang] + '</h3>';
-    html += '<p class="bundle-subtitle">' + bundle.subtitle[currentLang] + '</p>';
-    html += '<p class="bundle-desc">' + bundle.desc[currentLang] + '</p>';
-    html += '<div class="bundle-pricing">';
-    html += '<span class="bundle-original">' + bundle.originalPrice + ' EUR</span>';
-    html += '<span class="bundle-price">' + bundle.price + ' EUR</span>';
-    html += '</div>';
-    html += '<button class="bundle-add" data-bundle-id="' + bundle.id + '">' + btnLabel + '</button>';
-    html += '</div>';
-  });
-  grid.innerHTML = html;
+    return [
+      '<div class="wine-card' + featured + ' fade-up">',
+        '<div class="wine-img-wrap">',
+          '<span class="wine-type-badge">' + countLabel + '</span>',
+          '<img src="' + bundle.img + '" alt="' + bundle.name[currentLang] + '" loading="lazy">',
+        '</div>',
+        topBadge,
+        '<div class="bundle-saving-tag">' + saving + '</div>',
+        '<div class="wine-card-body">',
+          '<h3>' + bundle.name[currentLang] + '</h3>',
+          '<div class="wine-srb">' + bundle.subtitle[currentLang] + '</div>',
+          '<p class="wine-desc">' + bundle.desc[currentLang] + '</p>',
+          '<div class="wine-footer">',
+            '<div class="bundle-pricing">',
+              '<span class="bundle-original">' + bundle.originalPrice + ' EUR</span>',
+              '<span class="wine-price">' + bundle.price + ' EUR</span>',
+            '</div>',
+            '<button class="bundle-add" data-bundle-id="' + bundle.id + '">' + btnLabel + '</button>',
+          '</div>',
+        '</div>',
+      '</div>'
+    ].join('');
+  }).join('');
   grid.querySelectorAll('.bundle-add').forEach(function(btn) {
     btn.addEventListener('click', function() { addBundleToCart(btn.dataset.bundleId); });
   });
+  observeFadeElements();
 }
 
 // ===== Cart Logic =====

@@ -3,10 +3,10 @@ const WINES = [
   {
     id: 'zilavka-hercegovina',
     name: { sr: 'Žilavka Čitluk 1L', en: 'Žilavka Čitluk 1L' },
-    subtitle: { sr: 'Bijelo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
-    type: { sr: 'Bijelo', en: 'White' },
+    subtitle: { sr: 'Belo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
+    type: { sr: 'Belo', en: 'White' },
     desc: {
-      sr: 'Rijetka autohtona sorta uzgojena na karstu Hercegovine. Zlatno-žuta boja, bogata mineralna struktura, note zrele jabuke, breskve i mediteranskog bilja. Vino koje ostavlja trag.',
+      sr: 'Retka autohtona sorta uzgojena na karstu Hercegovine. Zlatno-žuta boja, bogata mineralna struktura, note zrele jabuke, breskve i mediteranskog bilja. Vino koje ostavlja trag.',
       en: 'A rare indigenous variety grown on the Herzegovina karst. Golden-yellow, rich mineral structure, notes of ripe apple, peach and Mediterranean herbs. A wine that leaves a mark.'
     },
     price: 890,
@@ -15,10 +15,10 @@ const WINES = [
   {
     id: 'zilavka-mostar',
     name: { sr: 'Žilavka Čitluk 0.75L', en: 'Žilavka Čitluk 0.75L' },
-    subtitle: { sr: 'Bijelo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
-    type: { sr: 'Bijelo', en: 'White' },
+    subtitle: { sr: 'Belo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
+    type: { sr: 'Belo', en: 'White' },
     desc: {
-      sr: 'Elegantna Žilavka iz čuvene Vinarije Čitluk uz rijeku Neretvu. Svježa kiselina, voćna kompleksnost i dug, svilenkast završetak. Najprepoznatljivije bijelo vino BiH.',
+      sr: 'Elegantna Žilavka iz čuvene Vinarije Čitluk uz reku Neretvu. Sveža kiselina, voćna kompleksnost i dug, svilenkast završetak. Najprepoznatljivije belo vino BiH.',
       en: 'Elegant Žilavka from the renowned Vinarija Čitluk along the Neretva. Fresh acidity, fruity complexity and a long, silky finish. The most recognised white wine of BiH.'
     },
     price: 1290,
@@ -42,7 +42,7 @@ const WINES = [
     subtitle: { sr: 'Crveno vino • Manastir Tvrdоš, Trebinje', en: 'Red Wine • Monastery Tvrdоš, Trebinje' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
-      sr: 'Vino iz manastirskih vinograda na stjenovitim padinama iznad Trebinja. Monaška tradicija utkana u svaki gutljaj — kompleksno, dostojanstveno, duboko, za momente koji ostaju u sjećanju.',
+      sr: 'Vino iz manastirskih vinograda na stenovitim padinama iznad Trebinja. Monaška tradicija utkana u svaki gutljaj — kompleksno, dostojanstveno, duboko, za momente koji ostaju u sećanju.',
       en: 'Wine from monastery vineyards on rocky slopes above Trebinje. Monastic tradition woven into every sip — complex, dignified, deep, for moments that stay in memory.'
     },
     price: 2090,
@@ -69,7 +69,7 @@ const BUNDLES = [
     name: { sr: 'Starter', en: 'Starter' },
     subtitle: { sr: '2 flaše — Žilavka 0.75 + Blatina', en: '2 bottles — Žilavka 0.75 + Blatina' },
     desc: {
-      sr: 'Žilavka Čitluk 0.75L i Blatina Čitluk. Savršena kombinacija autohtone bijele i crvene sorte za posebnu večer.',
+      sr: 'Žilavka Čitluk 0.75L i Blatina Čitluk. Savršena kombinacija autohtone bele i crvene sorte za posebnu večer.',
       en: 'Žilavka Čitluk 0.75L and Blatina Čitluk. The perfect pairing of indigenous white and red for a special evening.'
     },
     wines: ['zilavka-mostar', 'blatina-citluk'],
@@ -162,7 +162,7 @@ function renderBundles() {
     const countLabel = bundle.count + (isSr ? ' flase' : ' btl.');
     const btnLabel = isSr ? 'Dodaj paket u listu' : 'Add bundle to list';
     return [
-      '<div class="wine-card' + featured + ' fade-up">',
+      '<div class="wine-card ' + bundle.id + featured + ' fade-up">',
         '<div class="wine-img-wrap">',
           '<span class="wine-type-badge">' + countLabel + '</span>',
           '<img src="' + bundle.img + '" alt="' + bundle.name[currentLang] + '" loading="lazy">',
@@ -377,7 +377,7 @@ function goToStep2() {
   document.getElementById('checkoutStep1').style.display = 'none';
   document.getElementById('checkoutStep2').style.display = 'block';
   document.getElementById('checkoutStepTitle').textContent = currentLang === 'sr' ? 'Pregled rezervacije' : 'Reservation review';
-  document.getElementById('checkoutStepDesc').textContent = currentLang === 'sr' ? 'Provjerite detalje i potvrdite.' : 'Review the details and confirm.';
+  document.getElementById('checkoutStepDesc').textContent = currentLang === 'sr' ? 'Proverite detalje i potvrdite.' : 'Review the details and confirm.';
   updateProgress(2);
   document.getElementById('checkoutModal').scrollTop = 0;
 }
@@ -450,7 +450,7 @@ async function submitOrder(e) {
         _subject: `Herceg Wines — Nova rezervacija — ${name} — ${getCartTotal()} RSD`,
         _template: 'table',
         _captcha: 'false',
-        _autoresponse: `Poštovani ${name},\n\nhvala Vam što ste odabrali Herceg Wines.\n\nVaša rezervacija je uspješno primljena. Kontaktiraćemo Vas u roku od 2–3 radna dana.\n\n★ HERCEG10 ★\n10% popusta na narednu narudžbu.\n\nHerceg Wines tim`,
+        _autoresponse: `Poštovani ${name},\n\nhvala Vam što ste odabrali Herceg Wines.\n\nVaša rezervacija je uspešno primljena. Kontaktiraćemo Vas u roku od 2–3 radna dana.\n\n★ HERCEG10 ★\n10% popusta na narednu narudžbu.\n\nHerceg Wines tim`,
         datum_i_vrijeme: timestamp,
         name, email, phone, city, address,
         total: `${getCartTotal()} RSD`,

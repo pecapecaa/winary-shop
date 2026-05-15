@@ -2,26 +2,26 @@
 const WINES = [
   {
     id: 'zilavka-hercegovina',
-    name: { sr: 'Hercegovačka Žilavka', en: 'Herzegovinian Žilavka' },
-    subtitle: { sr: 'Bijelo vino • Autohtona sorta', en: 'White Wine • Indigenous Variety' },
+    name: { sr: 'Žilavka Čitluk 1L', en: 'Žilavka Čitluk 1L' },
+    subtitle: { sr: 'Bijelo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
     type: { sr: 'Bijelo', en: 'White' },
     desc: {
       sr: 'Rijetka autohtona sorta uzgojena na karstu Hercegovine. Zlatno-žuta boja, bogata mineralna struktura, note zrele jabuke, breskve i mediteranskog bilja. Vino koje ostavlja trag.',
       en: 'A rare indigenous variety grown on the Herzegovina karst. Golden-yellow, rich mineral structure, notes of ripe apple, peach and Mediterranean herbs. A wine that leaves a mark.'
     },
-    price: 22,
+    price: 890,
     img: 'images/zilavka-hercegovina.PNG'
   },
   {
     id: 'zilavka-mostar',
-    name: { sr: 'Žilavka Mostar', en: 'Žilavka Mostar' },
+    name: { sr: 'Žilavka Čitluk 0.75L', en: 'Žilavka Čitluk 0.75L' },
     subtitle: { sr: 'Bijelo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
     type: { sr: 'Bijelo', en: 'White' },
     desc: {
       sr: 'Elegantna Žilavka iz čuvene Vinarije Čitluk uz rijeku Neretvu. Svježa kiselina, voćna kompleksnost i dug, svilenkast završetak. Najprepoznatljivije bijelo vino BiH.',
       en: 'Elegant Žilavka from the renowned Vinarija Čitluk along the Neretva. Fresh acidity, fruity complexity and a long, silky finish. The most recognised white wine of BiH.'
     },
-    price: 18,
+    price: 1290,
     img: 'images/zilavka-mostar.PNG'
   },
   {
@@ -33,31 +33,31 @@ const WINES = [
       sr: 'Jedinstven autohtoni crveni kultivar, uzgojen isključivo u Hercegovini. Tamno rubinska boja, arome višnje, šljive i začina. Srednji tanini, mek i savršeno balansiran.',
       en: 'A uniquely indigenous red cultivar, grown exclusively in Herzegovina. Dark ruby, aromas of cherry, plum and spice. Medium tannins, soft and perfectly balanced.'
     },
-    price: 20,
+    price: 1490,
     img: 'images/blatina-citluk.PNG'
   },
   {
     id: 'tvrdos-2022',
-    name: { sr: 'Tvrdоš 2022', en: 'Tvrdоš 2022' },
+    name: { sr: 'Manastir Tvrdoš Vranac', en: 'Monastery Tvrdoš Vranac' },
     subtitle: { sr: 'Crveno vino • Manastir Tvrdоš, Trebinje', en: 'Red Wine • Monastery Tvrdоš, Trebinje' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
       sr: 'Vino iz manastirskih vinograda na stjenovitim padinama iznad Trebinja. Monaška tradicija utkana u svaki gutljaj — kompleksno, dostojanstveno, duboko, za momente koji ostaju u sjećanju.',
       en: 'Wine from monastery vineyards on rocky slopes above Trebinje. Monastic tradition woven into every sip — complex, dignified, deep, for moments that stay in memory.'
     },
-    price: 28,
+    price: 2090,
     img: 'images/tvrdos-2022.PNG'
   },
   {
     id: 'andjelic-hercegovina',
-    name: { sr: 'Anđelić Hercegovina', en: 'Anđelić Herzegovina' },
+    name: { sr: 'Anđelić Tribun', en: 'Anđelić Tribun' },
     subtitle: { sr: 'Crveno vino • Vinarija Anđelić', en: 'Red Wine • Vinarija Anđelić' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
       sr: 'Vrhunsko crveno vino iz podruma vinarije Anđelić. Bogata tamna boja, arome zrelog voća, crnih ribizla i blage vanilije. Dugo odležano, baršunasti tanini i izuzetno dug završetak.',
       en: 'Premium red wine from the Anđelić winery cellar. Rich dark colour, aromas of ripe fruit, blackcurrant and gentle vanilla. Long-aged, velvety tannins and an exceptionally long finish.'
     },
-    price: 24,
+    price: 2290,
     img: 'images/andjelic-hercegovina.PNG'
   }
 ];
@@ -65,49 +65,49 @@ const WINES = [
 // ===== Bundles Data =====
 const BUNDLES = [
   {
-    id: 'bundle-duo',
-    name: { sr: 'Duo Paket', en: 'Duo Bundle' },
-    subtitle: { sr: '2 flase — bijelo i crveno', en: '2 bottles — white and red' },
+    id: 'bundle-starter',
+    name: { sr: 'Starter', en: 'Starter' },
+    subtitle: { sr: '2 flaše — Žilavka 0.75 + Blatina', en: '2 bottles — Žilavka 0.75 + Blatina' },
     desc: {
-      sr: 'Žilavka Mostar i Blatina Čitluk. Savršena kombinacija autohtone bijele i crvene sorte za posebnu večer.',
-      en: 'Žilavka Mostar and Blatina Čitluk. The perfect pairing of indigenous white and red for a special evening.'
+      sr: 'Žilavka Čitluk 0.75L i Blatina Čitluk. Savršena kombinacija autohtone bijele i crvene sorte za posebnu večer.',
+      en: 'Žilavka Čitluk 0.75L and Blatina Čitluk. The perfect pairing of indigenous white and red for a special evening.'
     },
     wines: ['zilavka-mostar', 'blatina-citluk'],
     count: 2,
-    originalPrice: 38,
-    price: 30,
-    saving: 8,
+    originalPrice: 2780,
+    price: 2490,
+    saving: 290,
     img: 'images/IMG_9965.png'
   },
   {
-    id: 'bundle-trio',
-    name: { sr: 'Trio Paket', en: 'Trio Bundle' },
-    subtitle: { sr: '3 premium hercegovačka vina', en: '3 premium Herzegovinian wines' },
+    id: 'bundle-herceg-box',
+    name: { sr: 'Herceg Box', en: 'Herceg Box' },
+    subtitle: { sr: '3 premium vina Hercegovine', en: '3 premium wines of Herzegovina' },
     desc: {
-      sr: 'Hercegovačka Žilavka, Blatina Čitluk i Tvrdоš 2022 — kompletna degustacija Hercegovine u jednoj kutiji.',
-      en: 'Herzegovinian Žilavka, Blatina Čitluk and Tvrdоš 2022 — the complete Herzegovina tasting experience in one box.'
+      sr: 'Blatina Čitluk, Manastir Tvrdoš Vranac i Anđelić Tribun — moćna trijada crnih vina Hercegovine u jednoj kutiji.',
+      en: 'Blatina Čitluk, Monastery Tvrdoš Vranac and Anđelić Tribun — a powerful trio of Herzegovinian reds in one box.'
     },
-    wines: ['zilavka-hercegovina', 'blatina-citluk', 'tvrdos-2022'],
+    wines: ['blatina-citluk', 'tvrdos-2022', 'andjelic-hercegovina'],
     count: 3,
-    originalPrice: 70,
-    price: 56,
-    saving: 14,
+    originalPrice: 5870,
+    price: 5490,
+    saving: 380,
     featured: true,
     img: 'images/IMG_9968.png'
   },
   {
-    id: 'bundle-grande',
-    name: { sr: 'Grande Kolekcija', en: 'Grande Collection' },
-    subtitle: { sr: 'Sva 4 ekskluzivna vina Hercegovine', en: 'All 4 exclusive wines of Herzegovina' },
+    id: 'bundle-full-herceg',
+    name: { sr: 'Full Herceg', en: 'Full Herceg' },
+    subtitle: { sr: 'Svih 5 vina Hercegovine', en: 'All 5 wines of Herzegovina' },
     desc: {
-      sr: 'Kompletna kolekcija — Žilavka Hercegovina, Žilavka Mostar, Blatina Čitluk i Tvrdоš 2022. Savršen poklon za poznavaoce.',
-      en: 'The complete collection — Žilavka Herzegovina, Žilavka Mostar, Blatina Čitluk and Tvrdоš 2022. The perfect gift for connoisseurs.'
+      sr: 'Kompletna kolekcija — Žilavka 1L, Žilavka 0.75L, Blatina Čitluk, Manastir Tvrdoš Vranac i Anđelić Tribun. Savršen poklon za poznavaoce.',
+      en: 'The complete collection — Žilavka 1L, Žilavka 0.75L, Blatina Čitluk, Monastery Tvrdoš Vranac and Anđelić Tribun. The perfect gift for connoisseurs.'
     },
-    wines: ['zilavka-hercegovina', 'zilavka-mostar', 'blatina-citluk', 'tvrdos-2022'],
-    count: 4,
-    originalPrice: 88,
-    price: 68,
-    saving: 20,
+    wines: ['zilavka-hercegovina', 'zilavka-mostar', 'blatina-citluk', 'tvrdos-2022', 'andjelic-hercegovina'],
+    count: 5,
+    originalPrice: 8050,
+    price: 6990,
+    saving: 1060,
     img: 'images/IMG_9969.png'
   }
 ];
@@ -136,7 +136,7 @@ function renderWines() {
         <div class="wine-srb">${wine.subtitle[currentLang]}</div>
         <p class="wine-desc">${wine.desc[currentLang]}</p>
         <div class="wine-footer">
-          <span class="wine-price">${wine.price} EUR</span>
+          <span class="wine-price">${wine.price} RSD</span>
           <button class="wine-add" data-id="${wine.id}">${currentLang === 'sr' ? 'Dodaj u listu' : 'Add to list'}</button>
         </div>
       </div>
@@ -154,7 +154,7 @@ function renderBundles() {
   if (!grid) return;
   const isSr = currentLang === 'sr';
   grid.innerHTML = BUNDLES.map(function(bundle) {
-    const saving = isSr ? ('Uštedite ' + bundle.saving + ' EUR') : ('Save ' + bundle.saving + ' EUR');
+    const saving = isSr ? ('Uštedite ' + bundle.saving + ' RSD') : ('Save ' + bundle.saving + ' RSD');
     const featured = bundle.featured ? ' bundle-card--featured' : '';
     const topBadge = bundle.featured
       ? '<div class="bundle-top-badge">' + (isSr ? 'Najpopularnije' : 'Most popular') + '</div>'
@@ -175,8 +175,8 @@ function renderBundles() {
           '<p class="wine-desc">' + bundle.desc[currentLang] + '</p>',
           '<div class="wine-footer">',
             '<div class="bundle-pricing">',
-              '<span class="bundle-original">' + bundle.originalPrice + ' EUR</span>',
-              '<span class="wine-price">' + bundle.price + ' EUR</span>',
+              '<span class="bundle-original">' + bundle.originalPrice + ' RSD</span>',
+              '<span class="wine-price">' + bundle.price + ' RSD</span>',
             '</div>',
             '<button class="bundle-add" data-bundle-id="' + bundle.id + '">' + btnLabel + '</button>',
           '</div>',
@@ -300,7 +300,7 @@ function renderCart() {
           <div class="cart-bundle-thumbs">${thumbs}</div>
           <div class="cart-item-info">
             <h4>${bundle.name[currentLang]} <span class="cart-bundle-label">${currentLang === 'sr' ? 'Paket' : 'Bundle'}</span></h4>
-            <div class="cart-item-price">${price * item.qty} EUR</div>
+            <div class="cart-item-price">${price * item.qty} RSD</div>
             <div class="cart-item-controls">
               <button class="qty-btn" onclick="updateQty('${item.id}', -1)">−</button>
               <span class="qty-val">${item.qty}</span>
@@ -317,7 +317,7 @@ function renderCart() {
         <img src="${wine.img}" alt="${wine.name[currentLang]}" style="width:52px;height:70px;object-fit:contain;background:#f5ede0;flex-shrink:0;">
         <div class="cart-item-info">
           <h4>${wine.name[currentLang]}</h4>
-          <div class="cart-item-price">${price * item.qty} EUR</div>
+          <div class="cart-item-price">${price * item.qty} RSD</div>
           <div class="cart-item-controls">
             <button class="qty-btn" onclick="updateQty('${item.id}', -1)">−</button>
             <span class="qty-val">${item.qty}</span>
@@ -328,7 +328,7 @@ function renderCart() {
       </div>
     `;
   }).join('');
-  document.getElementById('cartTotal').textContent = getCartTotal() + ' EUR';
+  document.getElementById('cartTotal').textContent = getCartTotal() + ' RSD';
   footerEl.style.display = 'block';
 }
 
@@ -353,9 +353,9 @@ function populateSummary() {
       const label = item.isBundle
         ? `${BUNDLES.find(b => b.id === item.id).name[currentLang]} (${currentLang === 'sr' ? 'paket' : 'bundle'})`
         : WINES.find(w => w.id === item.id).name[currentLang];
-      return `<div class="checkout-summary-item"><span>${label} × ${item.qty}</span><span>${price * item.qty} EUR</span></div>`;
+      return `<div class="checkout-summary-item"><span>${label} × ${item.qty}</span><span>${price * item.qty} RSD</span></div>`;
     }).join('')}
-    <div class="checkout-summary-total"><span>${currentLang === 'sr' ? 'Ukupno' : 'Total'}</span><span>${getCartTotal()} EUR</span></div>
+    <div class="checkout-summary-total"><span>${currentLang === 'sr' ? 'Ukupno' : 'Total'}</span><span>${getCartTotal()} RSD</span></div>
   `;
 }
 
@@ -426,7 +426,7 @@ async function submitOrder(e) {
       const wine = WINES.find(w => w.id === item.id);
       label = wine ? wine.name.sr : item.id;
     }
-    orderLines += label + ' × ' + item.qty + ' = ' + (price * item.qty) + ' EUR\n';
+    orderLines += label + ' × ' + item.qty + ' = ' + (price * item.qty) + ' RSD\n';
   });
 
   const timestamp = new Date().toLocaleString('sr-RS', {
@@ -447,13 +447,13 @@ async function submitOrder(e) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
-        _subject: `Herceg Wines — Nova rezervacija — ${name} — ${getCartTotal()} EUR`,
+        _subject: `Herceg Wines — Nova rezervacija — ${name} — ${getCartTotal()} RSD`,
         _template: 'table',
         _captcha: 'false',
         _autoresponse: `Poštovani ${name},\n\nhvala Vam što ste odabrali Herceg Wines.\n\nVaša rezervacija je uspješno primljena. Kontaktiraćemo Vas u roku od 2–3 radna dana.\n\n★ HERCEG10 ★\n10% popusta na narednu narudžbu.\n\nHerceg Wines tim`,
         datum_i_vrijeme: timestamp,
         name, email, phone, city, address,
-        total: `${getCartTotal()} EUR`,
+        total: `${getCartTotal()} RSD`,
         order: orderLines
       })
     });

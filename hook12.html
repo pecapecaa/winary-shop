@@ -19,18 +19,7 @@
       font-family: 'Montserrat', sans-serif;
     }
 
-    /* cut line between the two cards */
-    body::after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 4mm;
-      bottom: 4mm;
-      border-left: 0.6px dashed rgba(196,160,90,0.55);
-      pointer-events: none;
-    }
-
-    /* each card = half of A4 landscape = 148.5mm × 210mm */
+/* each card = half of A4 landscape = 148.5mm × 210mm */
     .card {
       width: 148.5mm;
       height: 210mm;
@@ -49,7 +38,7 @@
       padding: 7mm 10mm;
       position: relative;
       transform: rotate(180deg);
-      border-bottom: 0.5px dashed rgba(196,160,90,0.5);
+      border-bottom: none;
     }
 
     .front {

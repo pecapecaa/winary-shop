@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mockup — Hook na stolu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Pinyon+Script&family=Montserrat:wght@200;300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #2a2420;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .scene {
+      perspective: 900px;
+      perspective-origin: 50% 30%;
+      margin-bottom: 20px;
+    }
+
+    /* table surface */
+    .table-surface {
+      width: 700px;
+      height: 340px;
+      background: linear-gradient(135deg, #3d2b1f 0%, #2a1e14 60%, #1e1510 100%);
+      border-radius: 4px;
+      position: relative;
+      transform: rotateX(55deg);
+      transform-style: preserve-3d;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.7);
+    }
+
+    /* wood grain lines */
+    .table-surface::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 60px,
+        rgba(255,255,255,0.015) 60px,
+        rgba(255,255,255,0.015) 61px
+      );
+      border-radius: 4px;
+    }
+
+    /* tent card wrapper — sits on table */
+    .tent-wrap {
+      position: absolute;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      transform-style: preserve-3d;
+      width: 280px;
+      height: 200px;
+    }
+
+    /* front panel */
+    .panel-front {
+      position: absolute;
+      width: 280px;
+      height: 200px;
+      background: #f9f5ee;
+      border: 0.5px solid rgba(196,160,90,0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transform-origin: bottom center;
+      transform: rotateX(-28deg) translateY(-10px);
+      backface-visibility: hidden;
+      box-shadow: -4px 0 20px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    /* back panel */
+    .panel-back {
+      position: absolute;
+      width: 280px;
+      height: 200px;
+      background: #f9f5ee;
+      border: 0.5px solid rgba(196,160,90,0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transform-origin: bottom center;
+      transform: rotateX(28deg) translateY(-10px);
+      box-shadow: 4px 0 20px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    /* corner decorations on panels */
+    .panel-front::before, .panel-back::before {
+      content: '';
+      position: absolute;
+      top: 8px; left: 8px;
+      width: 14px; height: 14px;
+      border-top: 0.5px solid #c4a05a;
+      border-left: 0.5px solid #c4a05a;
+    }
+    .panel-front::after, .panel-back::after {
+      content: '';
+      position: absolute;
+      bottom: 8px; right: 8px;
+      width: 14px; height: 14px;
+      border-bottom: 0.5px solid #c4a05a;
+      border-right: 0.5px solid #c4a05a;
+    }
+
+    .p-label {
+      font-size: 6px;
+      font-weight: 200;
+      letter-spacing: 0.4em;
+      color: #7a6a58;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    hr.pr {
+      border: none;
+      border-top: 0.4px solid #c4a05a;
+      width: 40px;
+      margin: 0 auto 4px;
+      opacity: 0.65;
+    }
+
+    .p-name {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 22px;
+      color: #2a221a;
+      line-height: 1.0;
+      display: block;
+    }
+
+    .p-amp {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 16px;
+      color: #c4a05a;
+      display: block;
+      line-height: 1.1;
+    }
+
+    .p-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 52px;
+      color: #c4a05a;
+      line-height: 0.9;
+    }
+
+    .p-sub {
+      font-size: 5px;
+      font-weight: 200;
+      letter-spacing: 0.3em;
+      color: #c4a05a;
+      text-transform: uppercase;
+    }
+
+    .p-date {
+      font-size: 5px;
+      font-weight: 200;
+      letter-spacing: 0.3em;
+      color: #9a8a78;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+
+    /* back panel guest list */
+    .p-guests {
+      list-style: none;
+      columns: 2;
+      column-gap: 10px;
+      text-align: center;
+    }
+
+    .p-guests li {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 7.5px;
+      color: #3a3028;
+      padding: 1.5px 0;
+      border-bottom: 0.3px solid rgba(196,160,90,0.2);
+    }
+
+    .p-guests li:last-child { border-bottom: none; }
+
+    /* shadow under tent */
+    .tent-shadow {
+      position: absolute;
+      top: 220px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 260px;
+      height: 10px;
+      background: radial-gradient(ellipse, rgba(0,0,0,0.35) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    /* label below */
+    .caption {
+      color: #7a6a58;
+      font-size: 11px;
+      font-weight: 200;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-top: -10px;
+    }
+
+    /* fold arrow */
+    .fold-note {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+      color: #5a4a3a;
+      font-size: 10px;
+      font-weight: 200;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .fold-note span {
+      display: inline-block;
+      width: 40px;
+      height: 1px;
+      background: #5a4a3a;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="scene">
+    <div class="table-surface">
+
+      <div class="tent-wrap">
+        <!-- PREDNJA STRANA -->
+        <div class="panel-front">
+          <p class="p-label">Венчање</p>
+          <hr class="pr" />
+          <span class="p-name">Александра</span>
+          <span class="p-amp">&amp;</span>
+          <span class="p-name">Петар</span>
+          <hr class="pr" style="margin-top:5px;" />
+          <p class="p-sub">Сто</p>
+          <div class="p-num">1</div>
+          <p class="p-date">26. Мај 2026 · Ресторан Пасент</p>
+        </div>
+
+        <!-- ZADNJA STRANA -->
+        <div class="panel-back">
+          <p class="p-label" style="margin-bottom:3px;">Гости — Сто 1</p>
+          <hr class="pr" />
+          <ul class="p-guests">
+            <li>Miljan Denić</li>
+            <li>Stefan Cvetković</li>
+            <li>A. Jakovljević</li>
+            <li>Predrag Krstić</li>
+            <li>Miša Živanović</li>
+            <li>Jelena Živanović</li>
+            <li>Veljko Ivanović</li>
+            <li>Anja Ivanović</li>
+            <li>Dejana Vujačić</li>
+            <li>Nikola Vujačić</li>
+            <li>Milena Mitić</li>
+            <li>B. Dobranić</li>
+            <li>Kristina Lukić</li>
+          </ul>
+        </div>
+
+        <div class="tent-shadow"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <p class="caption">Hook kartica na stolu</p>
+  <div class="fold-note">
+    <span></span>
+    Štampaš A4 · saviješ po sredini · stoji sama
+    <span></span>
+  </div>
+
+</body>
+</html>

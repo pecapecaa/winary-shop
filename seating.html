@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raspored sedenja — Петар & Александра</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Great+Vibes&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #f5f0e8;
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 20px 80px;
+      color: #4a3f35;
+    }
+
+    /* ── decorative corner frames ── */
+    .corner {
+      position: fixed;
+      width: 80px;
+      height: 80px;
+      opacity: 0.35;
+    }
+    .corner--tl { top: 16px; left: 16px; border-top: 1px solid #b8985a; border-left: 1px solid #b8985a; }
+    .corner--tr { top: 16px; right: 16px; border-top: 1px solid #b8985a; border-right: 1px solid #b8985a; }
+    .corner--bl { bottom: 16px; left: 16px; border-bottom: 1px solid #b8985a; border-left: 1px solid #b8985a; }
+    .corner--br { bottom: 16px; right: 16px; border-bottom: 1px solid #b8985a; border-right: 1px solid #b8985a; }
+
+    /* ── header ── */
+    .header {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .header__eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 200;
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      color: #7a6a5a;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .header__label {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 200;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      color: #b8985a;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .header__names {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(48px, 8vw, 72px);
+      color: #3a3028;
+      line-height: 1.1;
+    }
+
+    .header__amp {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(32px, 5vw, 48px);
+      color: #b8985a;
+      display: block;
+      line-height: 1.2;
+    }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: #b8985a;
+      margin: 18px auto;
+      opacity: 0.7;
+    }
+
+    .header__title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 200;
+      font-size: 10px;
+      letter-spacing: 0.45em;
+      color: #7a6a5a;
+      text-transform: uppercase;
+    }
+
+    /* ── tables grid ── */
+    .tables {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 340px));
+      gap: 40px;
+      justify-content: center;
+      width: 100%;
+      max-width: 1100px;
+      margin-top: 10px;
+    }
+
+    /* ── single table card ── */
+    .table-card {
+      background: #faf7f2;
+      border: 1px solid rgba(184, 152, 90, 0.3);
+      padding: 36px 32px 32px;
+      text-align: center;
+      position: relative;
+    }
+
+    .table-card::before,
+    .table-card::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-color: #b8985a;
+      border-style: solid;
+      opacity: 0.5;
+    }
+    .table-card::before { top: 6px; left: 6px; border-width: 1px 0 0 1px; }
+    .table-card::after  { bottom: 6px; right: 6px; border-width: 0 1px 1px 0; }
+
+    .table-card__number {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 200;
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      color: #b8985a;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .table-card__heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 38px;
+      color: #3a3028;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .table-card .divider {
+      width: 40px;
+      margin: 14px auto;
+    }
+
+    .table-card__guests {
+      list-style: none;
+    }
+
+    .table-card__guests li {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 17px;
+      color: #4a3f35;
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(184, 152, 90, 0.15);
+      letter-spacing: 0.02em;
+    }
+
+    .table-card__guests li:last-child {
+      border-bottom: none;
+    }
+
+    .table-card__guests li span {
+      font-size: 10px;
+      color: #b8985a;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      margin-right: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── footer note ── */
+    .footer-note {
+      margin-top: 50px;
+      text-align: center;
+    }
+
+    .footer-note p {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: 16px;
+      color: #7a6a5a;
+      letter-spacing: 0.03em;
+    }
+
+    @media (max-width: 600px) {
+      .tables {
+        grid-template-columns: 1fr;
+        max-width: 360px;
+      }
+      .corner { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="corner corner--tl"></div>
+  <div class="corner corner--tr"></div>
+  <div class="corner corner--bl"></div>
+  <div class="corner corner--br"></div>
+
+  <header class="header">
+    <p class="header__eyebrow">Венчање</p>
+    <p class="header__label">Распоред седења</p>
+    <div class="header__names">
+      Петар
+      <span class="header__amp">&amp;</span>
+      Александра
+    </div>
+    <div class="divider"></div>
+    <p class="header__title">26. мај 2026 &nbsp;·&nbsp; Ресторан Пасент</p>
+  </header>
+
+  <div class="divider" style="margin: 32px auto;"></div>
+
+  <section class="tables">
+
+    <!-- STO 1 -->
+    <div class="table-card">
+      <p class="table-card__number">Сто</p>
+      <h2 class="table-card__heading">1</h2>
+      <div class="divider"></div>
+      <ul class="table-card__guests">
+        <li><span>01</span>Miljan Denić</li>
+        <li><span>02</span>Stefan Cvetković</li>
+        <li><span>03</span>Aleksandar Jakovljević</li>
+        <li><span>04</span>Predrag Krstić</li>
+        <li><span>05</span>Miša Živanović</li>
+        <li><span>06</span>Jelena Živanović</li>
+        <li><span>07</span>Veljko Ivanović</li>
+        <li><span>08</span>Anja Ivanović</li>
+        <li><span>09</span>Dejana Vujačić</li>
+        <li><span>10</span>Nikola Vujačić</li>
+        <li><span>11</span>Milena Mitić</li>
+        <li><span>12</span>Borislav Dobranić</li>
+        <li><span>13</span>Kristina Lukić</li>
+      </ul>
+    </div>
+
+    <!-- STO 2 -->
+    <div class="table-card">
+      <p class="table-card__number">Сто</p>
+      <h2 class="table-card__heading">2</h2>
+      <div class="divider"></div>
+      <ul class="table-card__guests">
+        <li><span>01</span>Teodora Miloševski</li>
+        <li><span>02</span>Slobodan Žunac</li>
+        <li><span>03</span>Nikola Mićić</li>
+        <li><span>04</span>Jovana Mitrović</li>
+        <li><span>05</span>Silvija Blagojević</li>
+        <li><span>06</span>Milena Stamenković</li>
+        <li><span>07</span>Đorđe Stamenković</li>
+        <li><span>08</span>Andrea Nikolić</li>
+        <li><span>09</span>Katarina Anđelić</li>
+        <li><span>10</span>Magdalena Anđelić</li>
+        <li><span>11</span>Gregor Fabijan</li>
+        <li><span>12</span>Bogdan Radovanović</li>
+      </ul>
+    </div>
+
+    <!-- STO 3 -->
+    <div class="table-card">
+      <p class="table-card__number">Сто</p>
+      <h2 class="table-card__heading">3</h2>
+      <div class="divider"></div>
+      <ul class="table-card__guests">
+        <li><span>01</span>Vladimir Vasiljević</li>
+        <li><span>02</span>Pavle Vasiljević</li>
+        <li><span>03</span>Jelena Lukić</li>
+        <li><span>04</span>Snežana Lukić</li>
+        <li><span>05</span>Žaklina Nikolić</li>
+        <li><span>06</span>Zorica Vasiljević</li>
+        <li><span>07</span>Dragan Vasiljević</li>
+        <li><span>08</span>Dragan Kostić</li>
+        <li><span>09</span>Violeta Radovanović</li>
+        <li><span>10</span>Goran Radovanović</li>
+        <li><span>11</span>Miljana Mitić</li>
+        <li><span>12</span>Dobrivoje Mitić</li>
+      </ul>
+    </div>
+
+  </section>
+
+  <div class="footer-note">
+    <div class="divider"></div>
+    <p>Ваше присуство је наш најлепши поклон.</p>
+  </div>
+
+</body>
+</html>

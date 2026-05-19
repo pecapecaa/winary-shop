@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Сто 2 — Александра & Петар</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Great+Vibes&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #f5f0e8;
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      color: #4a3f35;
+    }
+
+    .corner {
+      position: fixed;
+      width: 70px;
+      height: 70px;
+      opacity: 0.35;
+    }
+    .corner--tl { top: 14px; left: 14px; border-top: 1px solid #b8985a; border-left: 1px solid #b8985a; }
+    .corner--tr { top: 14px; right: 14px; border-top: 1px solid #b8985a; border-right: 1px solid #b8985a; }
+    .corner--bl { bottom: 14px; left: 14px; border-bottom: 1px solid #b8985a; border-left: 1px solid #b8985a; }
+    .corner--br { bottom: 14px; right: 14px; border-bottom: 1px solid #b8985a; border-right: 1px solid #b8985a; }
+
+    .card {
+      background: #faf7f2;
+      border: 1px solid rgba(184, 152, 90, 0.35);
+      padding: 48px 48px 44px;
+      text-align: center;
+      width: 100%;
+      max-width: 420px;
+      position: relative;
+    }
+    .card::before, .card::after {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-color: #b8985a;
+      border-style: solid;
+      opacity: 0.5;
+    }
+    .card::before { top: 8px; left: 8px; border-width: 1px 0 0 1px; }
+    .card::after  { bottom: 8px; right: 8px; border-width: 0 1px 1px 0; }
+
+    .eyebrow {
+      font-size: 9px;
+      font-weight: 200;
+      letter-spacing: 0.4em;
+      color: #7a6a5a;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .names {
+      font-family: 'Great Vibes', cursive;
+      font-size: 38px;
+      color: #3a3028;
+      line-height: 1.15;
+    }
+
+    .amp {
+      font-family: 'Great Vibes', cursive;
+      font-size: 26px;
+      color: #b8985a;
+    }
+
+    .divider {
+      width: 50px;
+      height: 1px;
+      background: #b8985a;
+      margin: 16px auto;
+      opacity: 0.7;
+    }
+
+    .table-label {
+      font-size: 9px;
+      font-weight: 200;
+      letter-spacing: 0.4em;
+      color: #b8985a;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .table-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 72px;
+      color: #3a3028;
+      line-height: 1;
+    }
+
+    .guests {
+      list-style: none;
+      margin-top: 4px;
+    }
+
+    .guests li {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 18px;
+      color: #4a3f35;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(184, 152, 90, 0.15);
+      letter-spacing: 0.02em;
+    }
+
+    .guests li:last-child { border-bottom: none; }
+
+    .guests li span {
+      font-size: 10px;
+      color: #b8985a;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      margin-right: 8px;
+      letter-spacing: 0.05em;
+    }
+
+    @media print {
+      body { background: #f5f0e8; }
+      .corner { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="corner corner--tl"></div>
+  <div class="corner corner--tr"></div>
+  <div class="corner corner--bl"></div>
+  <div class="corner corner--br"></div>
+
+  <div class="card">
+    <p class="eyebrow">Александра <span class="amp">&amp;</span> Петар</p>
+    <div class="divider"></div>
+    <p class="table-label">Сто</p>
+    <div class="table-number">2</div>
+    <div class="divider"></div>
+    <ul class="guests">
+      <li><span>01</span>Teodora Miloševski</li>
+      <li><span>02</span>Slobodan Žunac</li>
+      <li><span>03</span>Nikola Mićić</li>
+      <li><span>04</span>Jovana Mitrović</li>
+      <li><span>05</span>Silvija Blagojević</li>
+      <li><span>06</span>Milena Stamenković</li>
+      <li><span>07</span>Đorđe Stamenković</li>
+      <li><span>08</span>Andrea Nikolić</li>
+      <li><span>09</span>Katarina Anđelić</li>
+      <li><span>10</span>Magdalena Anđelić</li>
+      <li><span>11</span>Gregor Fabijan</li>
+      <li><span>12</span>Bogdan Radovanović</li>
+    </ul>
+  </div>
+</body>
+</html>

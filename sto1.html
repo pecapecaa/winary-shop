@@ -62,15 +62,17 @@
 
     .names {
       font-family: 'Great Vibes', cursive;
-      font-size: 38px;
+      font-size: clamp(48px, 8vw, 72px);
       color: #3a3028;
-      line-height: 1.15;
+      line-height: 1.1;
     }
 
     .amp {
       font-family: 'Great Vibes', cursive;
-      font-size: 26px;
+      font-size: clamp(32px, 5vw, 48px);
       color: #b8985a;
+      display: block;
+      line-height: 1.2;
     }
 
     .divider {
@@ -137,7 +139,7 @@
   <div class="corner corner--br"></div>
 
   <div class="card">
-    <div class="names">Александра<br><span class="amp">&amp;</span><br>Петар</div>
+    <div class="names">Александра<span class="amp">&amp;</span>Петар</div>
     <div class="divider"></div>
     <p class="table-label">Сто</p>
     <div class="table-number">1</div>

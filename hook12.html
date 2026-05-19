@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hook 1+2 — dva na A4</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Pinyon+Script&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @page { size: A4 landscape; margin: 0; }
+
+    body {
+      background: #f9f5ee;
+      width: 297mm;
+      height: 210mm;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* cut line between the two cards */
+    body::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 4mm;
+      bottom: 4mm;
+      border-left: 0.6px dashed rgba(196,160,90,0.55);
+      pointer-events: none;
+    }
+
+    /* each card = half of A4 landscape = 148.5mm × 210mm */
+    .card {
+      width: 148.5mm;
+      height: 210mm;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* top = back (rotated 180°), bottom = front (normal) */
+    .back {
+      height: 105mm;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 7mm 10mm;
+      position: relative;
+      transform: rotate(180deg);
+      border-bottom: 0.5px dashed rgba(196,160,90,0.5);
+    }
+
+    .front {
+      height: 105mm;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 7mm 10mm;
+      position: relative;
+    }
+
+    .c { position: absolute; width: 7mm; height: 7mm; }
+    .c-tl { top: 4mm; left: 4mm; border-top: 0.4px solid #c4a05a; border-left: 0.4px solid #c4a05a; }
+    .c-tr { top: 4mm; right: 4mm; border-top: 0.4px solid #c4a05a; border-right: 0.4px solid #c4a05a; }
+    .c-bl { bottom: 4mm; left: 4mm; border-bottom: 0.4px solid #c4a05a; border-left: 0.4px solid #c4a05a; }
+    .c-br { bottom: 4mm; right: 4mm; border-bottom: 0.4px solid #c4a05a; border-right: 0.4px solid #c4a05a; }
+
+    .lbl { font-weight: 200; font-size: 5.5pt; letter-spacing: 0.4em; color: #7a6a58; text-transform: uppercase; margin-bottom: 1.5mm; }
+    hr.r { border: none; border-top: 0.4px solid #c4a05a; width: 18mm; margin: 0 auto 1.5mm; opacity: 0.65; }
+    .gold { color: #c4a05a; }
+    .name { font-family: 'Pinyon Script', cursive; font-size: 30pt; color: #2a221a; line-height: 1.0; display: block; }
+    .amp  { font-family: 'Pinyon Script', cursive; font-size: 20pt; color: #c4a05a; display: block; line-height: 1.0; }
+    .num  { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 64pt; color: #c4a05a; line-height: 0.85; }
+    .sub  { font-size: 5pt; font-weight: 200; letter-spacing: 0.35em; color: #7a6a58; text-transform: uppercase; margin-top: 1.5mm; }
+
+    .guests { list-style: none; columns: 2; column-gap: 6mm; }
+    .guests li { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-style: italic; font-size: 9pt; color: #3a3028; padding: 1mm 0; border-bottom: 0.3px solid rgba(196,160,90,0.18); }
+    .guests li:last-child { border-bottom: none; }
+
+    @media print { body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+  </style>
+</head>
+<body>
+
+  <!-- KARTICA 1 -->
+  <div class="card">
+    <div class="back">
+      <div class="c c-tl"></div><div class="c c-tr"></div>
+      <div class="c c-bl"></div><div class="c c-br"></div>
+      <p class="lbl" style="margin-bottom:1.5mm;">Гости — Сто 1</p>
+      <hr class="r" />
+      <ul class="guests">
+        <li>Miljan Denić</li>
+        <li>Stefan Cvetković</li>
+        <li>Aleksandar Jakovljević</li>
+        <li>Predrag Krstić</li>
+        <li>Miša Živanović</li>
+        <li>Jelena Živanović</li>
+        <li>Veljko Ivanović</li>
+        <li>Anja Ivanović</li>
+        <li>Dejana Vujačić</li>
+        <li>Nikola Vujačić</li>
+        <li>Milena Mitić</li>
+        <li>Borislav Dobranić</li>
+        <li>Kristina Lukić</li>
+      </ul>
+    </div>
+    <div class="front">
+      <div class="c c-tl"></div><div class="c c-tr"></div>
+      <div class="c c-bl"></div><div class="c c-br"></div>
+      <p class="lbl">Венчање</p>
+      <hr class="r" />
+      <span class="name">Александра</span>
+      <span class="amp">&amp;</span>
+      <span class="name">Петар</span>
+      <hr class="r" style="margin-top:2mm;" />
+      <p class="lbl gold">Сто</p>
+      <div class="num">1</div>
+      <p class="sub">26. Мај 2026 · Ресторан Пасент</p>
+    </div>
+  </div>
+
+  <!-- KARTICA 2 -->
+  <div class="card">
+    <div class="back">
+      <div class="c c-tl"></div><div class="c c-tr"></div>
+      <div class="c c-bl"></div><div class="c c-br"></div>
+      <p class="lbl" style="margin-bottom:1.5mm;">Гости — Сто 2</p>
+      <hr class="r" />
+      <ul class="guests">
+        <li>Teodora Miloševski</li>
+        <li>Slobodan Žunac</li>
+        <li>Nikola Mićić</li>
+        <li>Jovana Mitrović</li>
+        <li>Silvija Blagojević</li>
+        <li>Milena Stamenković</li>
+        <li>Đorđe Stamenković</li>
+        <li>Andrea Nikolić</li>
+        <li>Katarina Anđelić</li>
+        <li>Magdalena Anđelić</li>
+        <li>Gregor Fabijan</li>
+        <li>Bogdan Radovanović</li>
+      </ul>
+    </div>
+    <div class="front">
+      <div class="c c-tl"></div><div class="c c-tr"></div>
+      <div class="c c-bl"></div><div class="c c-br"></div>
+      <p class="lbl">Венчање</p>
+      <hr class="r" />
+      <span class="name">Александра</span>
+      <span class="amp">&amp;</span>
+      <span class="name">Петар</span>
+      <hr class="r" style="margin-top:2mm;" />
+      <p class="lbl gold">Сто</p>
+      <div class="num">2</div>
+      <p class="sub">26. Мај 2026 · Ресторан Пасент</p>
+    </div>
+  </div>
+
+</body>
+</html>

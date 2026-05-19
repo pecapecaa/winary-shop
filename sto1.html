@@ -3,162 +3,168 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Сто 1 — Александра & Петар</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Great+Vibes&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet" />
+  <title>Сто 1</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Pinyon+Script&family=Great+Vibes&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
-      background-color: #f5f0e8;
-      font-family: 'Montserrat', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 20px;
-      color: #4a3f35;
-    }
-
-    .corner {
-      position: fixed;
-      width: 70px;
-      height: 70px;
-      opacity: 0.35;
-    }
-    .corner--tl { top: 14px; left: 14px; border-top: 1px solid #b8985a; border-left: 1px solid #b8985a; }
-    .corner--tr { top: 14px; right: 14px; border-top: 1px solid #b8985a; border-right: 1px solid #b8985a; }
-    .corner--bl { bottom: 14px; left: 14px; border-bottom: 1px solid #b8985a; border-left: 1px solid #b8985a; }
-    .corner--br { bottom: 14px; right: 14px; border-bottom: 1px solid #b8985a; border-right: 1px solid #b8985a; }
-
-    .card {
-      background: #faf7f2;
-      border: 1px solid rgba(184, 152, 90, 0.35);
-      padding: 48px 48px 44px;
-      text-align: center;
+    html, body {
       width: 100%;
-      max-width: 420px;
+      min-height: 100vh;
+    }
+
+    body {
+      background-color: #f9f5ee;
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 70px 50px 80px;
+      color: #3a3028;
       position: relative;
     }
-    .card::before, .card::after {
-      content: '';
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      border-color: #b8985a;
-      border-style: solid;
-      opacity: 0.5;
-    }
-    .card::before { top: 8px; left: 8px; border-width: 1px 0 0 1px; }
-    .card::after  { bottom: 8px; right: 8px; border-width: 0 1px 1px 0; }
 
-    .eyebrow {
-      font-size: 9px;
+    /* page corner brackets */
+    .c { position: fixed; width: 56px; height: 56px; }
+    .c-tl { top: 18px; left: 18px; border-top: 1px solid #c4a05a; border-left: 1px solid #c4a05a; }
+    .c-tr { top: 18px; right: 18px; border-top: 1px solid #c4a05a; border-right: 1px solid #c4a05a; }
+    .c-bl { bottom: 18px; left: 18px; border-bottom: 1px solid #c4a05a; border-left: 1px solid #c4a05a; }
+    .c-br { bottom: 18px; right: 18px; border-bottom: 1px solid #c4a05a; border-right: 1px solid #c4a05a; }
+
+    /* top label */
+    .top-label {
+      font-family: 'Montserrat', sans-serif;
       font-weight: 200;
-      letter-spacing: 0.4em;
-      color: #7a6a5a;
+      font-size: 9.5px;
+      letter-spacing: 0.38em;
+      color: #7a6a58;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    hr.rule {
+      border: none;
+      border-top: 1px solid #c4a05a;
+      width: 80px;
+      margin: 0 auto 12px;
+      opacity: 0.65;
+    }
+
+    /* venue label */
+    .venue-label {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 200;
+      font-size: 8.5px;
+      letter-spacing: 0.38em;
+      color: #c4a05a;
       text-transform: uppercase;
       margin-bottom: 2px;
     }
 
-    .names {
+    /* names in script */
+    .name {
       font-family: 'Great Vibes', cursive;
-      font-size: clamp(48px, 8vw, 72px);
-      color: #3a3028;
-      line-height: 1.1;
+      font-size: 68px;
+      color: #2a221a;
+      line-height: 1.05;
+      display: block;
     }
 
     .amp {
       font-family: 'Great Vibes', cursive;
-      font-size: clamp(32px, 5vw, 48px);
-      color: #b8985a;
+      font-size: 46px;
+      color: #c4a05a;
       display: block;
-      line-height: 1.2;
+      line-height: 1.15;
     }
 
-    .divider {
-      width: 50px;
-      height: 1px;
-      background: #b8985a;
-      margin: 16px auto;
-      opacity: 0.7;
-    }
-
-    .table-label {
-      font-size: 9px;
-      font-weight: 200;
-      letter-spacing: 0.4em;
-      color: #b8985a;
-      text-transform: uppercase;
-      margin-bottom: 2px;
-    }
-
-    .table-number {
+    /* table number like the "26" */
+    .table-num {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: 72px;
-      color: #3a3028;
-      line-height: 1;
+      font-size: 96px;
+      color: #c4a05a;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
     }
 
+    .table-sub {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 200;
+      font-size: 9px;
+      letter-spacing: 0.45em;
+      color: #7a6a58;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    /* guest list */
     .guests {
       list-style: none;
+      width: 100%;
+      max-width: 340px;
       margin-top: 4px;
     }
 
     .guests li {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: 18px;
-      color: #4a3f35;
-      padding: 6px 0;
-      border-bottom: 1px solid rgba(184, 152, 90, 0.15);
-      letter-spacing: 0.02em;
+      font-size: 19px;
+      color: #3a3028;
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(196, 160, 90, 0.18);
+      letter-spacing: 0.01em;
+      text-align: center;
     }
 
     .guests li:last-child { border-bottom: none; }
 
-    .guests li span {
-      font-size: 10px;
-      color: #b8985a;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 300;
-      margin-right: 8px;
-      letter-spacing: 0.05em;
-    }
-
     @media print {
-      body { background: #f5f0e8; }
-      .corner { display: none; }
+      .c { position: fixed; }
+      body { background-color: #f9f5ee; }
     }
   </style>
 </head>
 <body>
-  <div class="corner corner--tl"></div>
-  <div class="corner corner--tr"></div>
-  <div class="corner corner--bl"></div>
-  <div class="corner corner--br"></div>
 
-  <div class="card">
-    <div class="names">Александра<span class="amp">&amp;</span>Петар</div>
-    <div class="divider"></div>
-    <p class="table-label">Сто</p>
-    <div class="table-number">1</div>
-    <div class="divider"></div>
-    <ul class="guests">
-      <li><span>01</span>Miljan Denić</li>
-      <li><span>02</span>Stefan Cvetković</li>
-      <li><span>03</span>Aleksandar Jakovljević</li>
-      <li><span>04</span>Predrag Krstić</li>
-      <li><span>05</span>Miša Živanović</li>
-      <li><span>06</span>Jelena Živanović</li>
-      <li><span>07</span>Veljko Ivanović</li>
-      <li><span>08</span>Anja Ivanović</li>
-      <li><span>09</span>Dejana Vujačić</li>
-      <li><span>10</span>Nikola Vujačić</li>
-      <li><span>11</span>Milena Mitić</li>
-      <li><span>12</span>Borislav Dobranić</li>
-      <li><span>13</span>Kristina Lukić</li>
-    </ul>
-  </div>
+  <div class="c c-tl"></div>
+  <div class="c c-tr"></div>
+  <div class="c c-bl"></div>
+  <div class="c c-br"></div>
+
+  <p class="top-label">Венчање</p>
+
+  <hr class="rule" />
+
+  <p class="venue-label">Распоред седења</p>
+
+  <span class="name">Петар</span>
+  <span class="amp">&amp;</span>
+  <span class="name">Александра</span>
+
+  <hr class="rule" style="margin-top:18px; margin-bottom:18px; width:110px;" />
+
+  <p class="venue-label" style="margin-bottom:0;">Сто</p>
+  <div class="table-num">1</div>
+  <p class="table-sub">Ресторан Пасент · 26. Мај 2026</p>
+
+  <hr class="rule" style="margin-top:18px; margin-bottom:18px; width:110px;" />
+
+  <ul class="guests">
+    <li>Miljan Denić</li>
+    <li>Stefan Cvetković</li>
+    <li>Aleksandar Jakovljević</li>
+    <li>Predrag Krstić</li>
+    <li>Miša Živanović</li>
+    <li>Jelena Živanović</li>
+    <li>Veljko Ivanović</li>
+    <li>Anja Ivanović</li>
+    <li>Dejana Vujačić</li>
+    <li>Nikola Vujačić</li>
+    <li>Milena Mitić</li>
+    <li>Borislav Dobranić</li>
+    <li>Kristina Lukić</li>
+  </ul>
+
 </body>
 </html>

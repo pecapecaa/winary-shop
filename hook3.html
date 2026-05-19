@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hook — Сто 3</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Pinyon+Script&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @page { size: A4 landscape; margin: 0; }
+
+    body {
+      background: #f9f5ee;
+      font-family: 'Montserrat', sans-serif;
+      width: 297mm;
+      height: 210mm;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+
+    .front {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 14mm 12mm;
+      border-right: 0.5px dashed rgba(196,160,90,0.4);
+      position: relative;
+      text-align: center;
+    }
+
+    .c { position: absolute; width: 10mm; height: 10mm; }
+    .c-tl { top: 6mm; left: 6mm; border-top: 0.5px solid #c4a05a; border-left: 0.5px solid #c4a05a; }
+    .c-tr { top: 6mm; right: 6mm; border-top: 0.5px solid #c4a05a; border-right: 0.5px solid #c4a05a; }
+    .c-bl { bottom: 6mm; left: 6mm; border-bottom: 0.5px solid #c4a05a; border-left: 0.5px solid #c4a05a; }
+    .c-br { bottom: 6mm; right: 6mm; border-bottom: 0.5px solid #c4a05a; border-right: 0.5px solid #c4a05a; }
+
+    .label {
+      font-weight: 200;
+      font-size: 6.5pt;
+      letter-spacing: 0.4em;
+      color: #7a6a58;
+      text-transform: uppercase;
+      margin-bottom: 2mm;
+    }
+
+    hr.rule {
+      border: none;
+      border-top: 0.4px solid #c4a05a;
+      width: 22mm;
+      margin: 0 auto 2mm;
+      opacity: 0.65;
+    }
+
+    .names {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 38pt;
+      color: #2a221a;
+      line-height: 1.0;
+      display: block;
+    }
+
+    .amp {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 26pt;
+      color: #c4a05a;
+      display: block;
+      line-height: 1.1;
+    }
+
+    .table-label {
+      font-weight: 200;
+      font-size: 6pt;
+      letter-spacing: 0.44em;
+      color: #c4a05a;
+      text-transform: uppercase;
+      margin-top: 3mm;
+    }
+
+    .table-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 80pt;
+      color: #c4a05a;
+      line-height: 0.85;
+    }
+
+    .date {
+      font-weight: 200;
+      font-size: 6pt;
+      letter-spacing: 0.38em;
+      color: #7a6a58;
+      text-transform: uppercase;
+      margin-top: 2mm;
+    }
+
+    .back {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10mm 14mm;
+      text-align: center;
+      transform: rotate(180deg);
+      position: relative;
+    }
+
+    .guests {
+      list-style: none;
+      margin-top: 2mm;
+      columns: 2;
+      column-gap: 8mm;
+      text-align: center;
+    }
+
+    .guests li {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: 11pt;
+      color: #3a3028;
+      padding: 1.2mm 0;
+      border-bottom: 0.4px solid rgba(196,160,90,0.18);
+      break-inside: avoid;
+    }
+
+    .guests li:last-child { border-bottom: none; }
+
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="front">
+    <div class="c c-tl"></div><div class="c c-tr"></div>
+    <div class="c c-bl"></div><div class="c c-br"></div>
+
+    <p class="label">Венчање</p>
+    <hr class="rule" />
+    <span class="names">Александра</span>
+    <span class="amp">&amp;</span>
+    <span class="names">Петар</span>
+    <hr class="rule" style="margin-top:3mm;" />
+    <p class="table-label">Сто</p>
+    <div class="table-num">3</div>
+    <p class="date">26. Мај 2026 · Ресторан Пасент</p>
+  </div>
+
+  <div class="back">
+    <div class="c c-tl"></div><div class="c c-tr"></div>
+    <div class="c c-bl"></div><div class="c c-br"></div>
+
+    <p class="label" style="margin-bottom:1mm;">Гости — Сто 3</p>
+    <hr class="rule" />
+    <ul class="guests">
+      <li>Vladimir Vasiljević</li>
+      <li>Pavle Vasiljević</li>
+      <li>Jelena Lukić</li>
+      <li>Snežana Lukić</li>
+      <li>Žaklina Nikolić</li>
+      <li>Zorica Vasiljević</li>
+      <li>Dragan Vasiljević</li>
+      <li>Dragan Kostić</li>
+      <li>Violeta Radovanović</li>
+      <li>Goran Radovanović</li>
+      <li>Miljana Mitić</li>
+      <li>Dobrivoje Mitić</li>
+    </ul>
+  </div>
+
+</body>
+</html>

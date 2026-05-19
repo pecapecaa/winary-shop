@@ -8,103 +8,113 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    @page {
+      size: A3 landscape;
+      margin: 0;
+    }
+
     body {
       background-color: #f9f5ee;
       font-family: 'Montserrat', sans-serif;
+      width: 420mm;
+      min-height: 297mm;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 60px 40px 70px;
+      padding: 18mm 20mm 18mm;
       color: #3a3028;
+      position: relative;
     }
 
-    .c { position: fixed; width: 56px; height: 56px; }
-    .c-tl { top: 18px; left: 18px; border-top: 1px solid #c4a05a; border-left: 1px solid #c4a05a; }
-    .c-tr { top: 18px; right: 18px; border-top: 1px solid #c4a05a; border-right: 1px solid #c4a05a; }
-    .c-bl { bottom: 18px; left: 18px; border-bottom: 1px solid #c4a05a; border-left: 1px solid #c4a05a; }
-    .c-br { bottom: 18px; right: 18px; border-bottom: 1px solid #c4a05a; border-right: 1px solid #c4a05a; }
+    .c { position: absolute; width: 14mm; height: 14mm; }
+    .c-tl { top: 8mm; left: 8mm; border-top: 0.4px solid #c4a05a; border-left: 0.4px solid #c4a05a; }
+    .c-tr { top: 8mm; right: 8mm; border-top: 0.4px solid #c4a05a; border-right: 0.4px solid #c4a05a; }
+    .c-bl { bottom: 8mm; left: 8mm; border-bottom: 0.4px solid #c4a05a; border-left: 0.4px solid #c4a05a; }
+    .c-br { bottom: 8mm; right: 8mm; border-bottom: 0.4px solid #c4a05a; border-right: 0.4px solid #c4a05a; }
 
     /* ── header ── */
     .header {
       text-align: center;
-      margin-bottom: 6px;
+      margin-bottom: 8mm;
     }
 
     .top-label {
       font-weight: 200;
-      font-size: 9px;
+      font-size: 8pt;
       letter-spacing: 0.42em;
       color: #7a6a58;
       text-transform: uppercase;
-      margin-bottom: 10px;
+      margin-bottom: 3mm;
     }
 
     hr.rule {
       border: none;
-      border-top: 1px solid #c4a05a;
-      width: 80px;
-      margin: 0 auto 10px;
-      opacity: 0.65;
+      border-top: 0.4px solid #c4a05a;
+      width: 30mm;
+      margin: 0 auto 3mm;
+      opacity: 0.7;
     }
 
     .venue-label {
       font-weight: 200;
-      font-size: 8px;
+      font-size: 7pt;
       letter-spacing: 0.38em;
       color: #c4a05a;
       text-transform: uppercase;
-      margin-bottom: 2px;
+      margin-bottom: 1mm;
     }
 
     .names {
       font-family: 'Pinyon Script', cursive;
-      font-size: 64px;
+      font-size: 52pt;
       color: #2a221a;
-      line-height: 1.0;
+      line-height: 1.05;
     }
 
     .amp {
       font-family: 'Pinyon Script', cursive;
-      font-size: 44px;
+      font-size: 36pt;
       color: #c4a05a;
     }
 
-    /* ── tables grid ── */
+    /* ── grid ── */
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
+      gap: 12mm;
       width: 100%;
-      max-width: 1100px;
-      margin-top: 36px;
     }
 
-    .col {
-      text-align: center;
+    /* vertical gold separator */
+    .col:not(:last-child) {
+      border-right: 0.4px solid rgba(196, 160, 90, 0.35);
+      padding-right: 12mm;
+    }
+
+    .col { text-align: center; }
+
+    .col-label {
+      font-weight: 200;
+      font-size: 7pt;
+      letter-spacing: 0.44em;
+      color: #7a6a58;
+      text-transform: uppercase;
+      margin-bottom: 0;
     }
 
     .col-num {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: 80px;
+      font-size: 72pt;
       color: #c4a05a;
-      line-height: 0.9;
-    }
-
-    .col-label {
-      font-weight: 200;
-      font-size: 8px;
-      letter-spacing: 0.42em;
-      color: #7a6a58;
-      text-transform: uppercase;
-      margin-bottom: 2px;
+      line-height: 0.85;
     }
 
     hr.col-rule {
       border: none;
-      border-top: 1px solid #c4a05a;
-      width: 50px;
-      margin: 14px auto;
+      border-top: 0.4px solid #c4a05a;
+      width: 18mm;
+      margin: 3mm auto;
       opacity: 0.55;
     }
 
@@ -116,18 +126,20 @@
       font-family: 'Cormorant Garamond', serif;
       font-weight: 400;
       font-style: italic;
-      font-size: 17px;
+      font-size: 13pt;
       color: #3a3028;
-      padding: 4px 0;
-      border-bottom: 1px solid rgba(196, 160, 90, 0.15);
+      padding: 1.8mm 0;
+      border-bottom: 0.4px solid rgba(196, 160, 90, 0.18);
       letter-spacing: 0.01em;
     }
 
     .guests li:last-child { border-bottom: none; }
 
     @media print {
-      body { background-color: #f9f5ee; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-      .c { position: fixed; }
+      body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
     }
   </style>
 </head>
@@ -147,13 +159,12 @@
       <span class="amp"> &amp; </span>
       <span class="names">Петар</span>
     </div>
-    <hr class="rule" style="margin-top:14px; width:110px;" />
-    <p class="venue-label" style="margin-top:8px;">Ресторан Пасент · 26. Мај 2026</p>
+    <hr class="rule" style="margin-top:3mm; width:38mm;" />
+    <p class="venue-label" style="margin-top:1.5mm;">Ресторан Пасент &nbsp;·&nbsp; 26. Мај 2026</p>
   </div>
 
   <div class="grid">
 
-    <!-- STO 1 -->
     <div class="col">
       <p class="col-label">Сто</p>
       <div class="col-num">1</div>
@@ -175,7 +186,6 @@
       </ul>
     </div>
 
-    <!-- STO 2 -->
     <div class="col">
       <p class="col-label">Сто</p>
       <div class="col-num">2</div>
@@ -196,7 +206,6 @@
       </ul>
     </div>
 
-    <!-- STO 3 -->
     <div class="col">
       <p class="col-label">Сто</p>
       <div class="col-num">3</div>

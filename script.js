@@ -2,27 +2,27 @@
 const WINES = [
   {
     id: 'zilavka-hercegovina',
-    name: { sr: 'Hercegovačka Žilavka', en: 'Herzegovinian Žilavka' },
-    subtitle: { sr: 'Bijelo vino • Autohtona sorta', en: 'White Wine • Indigenous Variety' },
-    type: { sr: 'Bijelo', en: 'White' },
+    name: { sr: 'Žilavka Čitluk 1L', en: 'Žilavka Čitluk 1L' },
+    subtitle: { sr: 'Belo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
+    type: { sr: 'Belo', en: 'White' },
     desc: {
-      sr: 'Rijetka autohtona sorta uzgojena na karstu Hercegovine. Zlatno-žuta boja, bogata mineralna struktura, note zrele jabuke, breskve i mediteranskog bilja. Vino koje ostavlja trag.',
+      sr: 'Retka autohtona sorta uzgojena na karstu Hercegovine. Zlatno-žuta boja, bogata mineralna struktura, note zrele jabuke, breskve i mediteranskog bilja. Vino koje ostavlja trag.',
       en: 'A rare indigenous variety grown on the Herzegovina karst. Golden-yellow, rich mineral structure, notes of ripe apple, peach and Mediterranean herbs. A wine that leaves a mark.'
     },
-    price: 22,
-    img: 'images/zilavka-hercegovina.jpg'
+    price: 890,
+    img: 'images/zilavka-hercegovina.PNG'
   },
   {
     id: 'zilavka-mostar',
-    name: { sr: 'Žilavka Mostar', en: 'Žilavka Mostar' },
-    subtitle: { sr: 'Bijelo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
-    type: { sr: 'Bijelo', en: 'White' },
+    name: { sr: 'Žilavka Čitluk 0.75L', en: 'Žilavka Čitluk 0.75L' },
+    subtitle: { sr: 'Belo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
+    type: { sr: 'Belo', en: 'White' },
     desc: {
-      sr: 'Elegantna Žilavka iz čuvene Vinarije Čitluk uz rijeku Neretvu. Svježa kiselina, voćna kompleksnost i dug, svilenkast završetak. Najprepoznatljivije bijelo vino BiH.',
+      sr: 'Elegantna Žilavka iz čuvene Vinarije Čitluk uz reku Neretvu. Sveža kiselina, voćna kompleksnost i dug, svilenkast završetak. Najprepoznatljivije belo vino BiH.',
       en: 'Elegant Žilavka from the renowned Vinarija Čitluk along the Neretva. Fresh acidity, fruity complexity and a long, silky finish. The most recognised white wine of BiH.'
     },
-    price: 18,
-    img: 'images/zilavka-mostar.jpg'
+    price: 1290,
+    img: 'images/zilavka-mostar.PNG'
   },
   {
     id: 'blatina-citluk',
@@ -33,67 +33,82 @@ const WINES = [
       sr: 'Jedinstven autohtoni crveni kultivar, uzgojen isključivo u Hercegovini. Tamno rubinska boja, arome višnje, šljive i začina. Srednji tanini, mek i savršeno balansiran.',
       en: 'A uniquely indigenous red cultivar, grown exclusively in Herzegovina. Dark ruby, aromas of cherry, plum and spice. Medium tannins, soft and perfectly balanced.'
     },
-    price: 20,
-    img: 'images/blatina-citluk.jpg'
+    price: 1490,
+    img: 'images/blatina-citluk.PNG'
   },
   {
     id: 'tvrdos-2022',
-    name: { sr: 'Tvrdoš 2022', en: 'Tvrdoš 2022' },
-    subtitle: { sr: 'Crveno vino • Manastir Tvrdoš, Trebinje', en: 'Red Wine • Monastery Tvrdoš, Trebinje' },
+    name: { sr: 'Manastir Tvrdoš Vranac', en: 'Monastery Tvrdoš Vranac' },
+    subtitle: { sr: 'Crveno vino • Manastir Tvrdоš, Trebinje', en: 'Red Wine • Monastery Tvrdоš, Trebinje' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
-      sr: 'Vino iz manastirskih vinograda na stjenovitim padinama iznad Trebinja. Monaška tradicija utkana u svaki gutljaj — kompleksno, dostojanstveno, duboko, za momente koji ostaju u sjećanju.',
+      sr: 'Vino iz manastirskih vinograda na stenovitim padinama iznad Trebinja. Monaška tradicija utkana u svaki gutljaj — kompleksno, dostojanstveno, duboko, za momente koji ostaju u sećanju.',
       en: 'Wine from monastery vineyards on rocky slopes above Trebinje. Monastic tradition woven into every sip — complex, dignified, deep, for moments that stay in memory.'
     },
-    price: 28,
-    img: 'images/tvrdos-2022.jpg'
+    price: 2090,
+    img: 'images/tvrdos-2022.PNG'
+  },
+  {
+    id: 'andjelic-hercegovina',
+    name: { sr: 'Anđelić Tribun', en: 'Anđelić Tribun' },
+    subtitle: { sr: 'Crveno vino • Vinarija Anđelić', en: 'Red Wine • Vinarija Anđelić' },
+    type: { sr: 'Crveno', en: 'Red' },
+    desc: {
+      sr: 'Vrhunsko crveno vino iz podruma vinarije Anđelić. Bogata tamna boja, arome zrelog voća, crnih ribizla i blage vanilije. Dugo odležano, baršunasti tanini i izuzetno dug završetak.',
+      en: 'Premium red wine from the Anđelić winery cellar. Rich dark colour, aromas of ripe fruit, blackcurrant and gentle vanilla. Long-aged, velvety tannins and an exceptionally long finish.'
+    },
+    price: 2290,
+    img: 'images/andjelic-hercegovina.PNG'
   }
 ];
 
 // ===== Bundles Data =====
 const BUNDLES = [
   {
-    id: 'bundle-duo',
-    name: { sr: 'Duo Paket', en: 'Duo Bundle' },
-    subtitle: { sr: '2 flase — bijelo i crveno', en: '2 bottles — white and red' },
+    id: 'bundle-starter',
+    name: { sr: 'Starter', en: 'Starter' },
+    subtitle: { sr: '2 flaše — Žilavka 0.75 + Blatina', en: '2 bottles — Žilavka 0.75 + Blatina' },
     desc: {
-      sr: 'Žilavka Mostar i Blatina Čitluk. Savršena kombinacija autohtone bijele i crvene sorte za posebnu večer.',
-      en: 'Žilavka Mostar and Blatina Čitluk. The perfect pairing of indigenous white and red for a special evening.'
+      sr: 'Žilavka Čitluk 0.75L i Blatina Čitluk. Savršena kombinacija autohtone bele i crvene sorte za posebnu večer.',
+      en: 'Žilavka Čitluk 0.75L and Blatina Čitluk. The perfect pairing of indigenous white and red for a special evening.'
     },
     wines: ['zilavka-mostar', 'blatina-citluk'],
     count: 2,
-    originalPrice: 38,
-    price: 30,
-    saving: 8
+    originalPrice: 2780,
+    price: 2490,
+    saving: 290,
+    img: 'images/zilavka-mostar.PNG'
   },
   {
-    id: 'bundle-trio',
-    name: { sr: 'Trio Paket', en: 'Trio Bundle' },
-    subtitle: { sr: '3 premium hercegovačka vina', en: '3 premium Herzegovinian wines' },
+    id: 'bundle-herceg-box',
+    name: { sr: 'Herceg Box', en: 'Herceg Box' },
+    subtitle: { sr: '3 premium vina Hercegovine', en: '3 premium wines of Herzegovina' },
     desc: {
-      sr: 'Hercegovačka Žilavka, Blatina Čitluk i Tvrdoš 2022 — kompletna degustacija Hercegovine u jednoj kutiji.',
-      en: 'Herzegovinian Žilavka, Blatina Čitluk and Tvrdoš 2022 — the complete Herzegovina tasting experience in one box.'
+      sr: 'Blatina Čitluk, Manastir Tvrdoš Vranac i Anđelić Tribun — moćna trijada crnih vina Hercegovine u jednoj kutiji.',
+      en: 'Blatina Čitluk, Monastery Tvrdoš Vranac and Anđelić Tribun — a powerful trio of Herzegovinian reds in one box.'
     },
-    wines: ['zilavka-hercegovina', 'blatina-citluk', 'tvrdos-2022'],
+    wines: ['blatina-citluk', 'tvrdos-2022', 'andjelic-hercegovina'],
     count: 3,
-    originalPrice: 70,
-    price: 56,
-    saving: 14,
-    featured: true
+    originalPrice: 5870,
+    price: 5490,
+    saving: 380,
+    featured: true,
+    img: 'images/tvrdos-2022.PNG'
   },
   {
-    id: 'bundle-grande',
-    name: { sr: 'Grande Kolekcija', en: 'Grande Collection' },
-    subtitle: { sr: 'Sva 4 ekskluzivna vina Hercegovine', en: 'All 4 exclusive wines of Herzegovina' },
+    id: 'bundle-full-herceg',
+    name: { sr: 'Full Herceg', en: 'Full Herceg' },
+    subtitle: { sr: 'Svih 5 vina Hercegovine', en: 'All 5 wines of Herzegovina' },
     desc: {
-      sr: 'Kompletna kolekcija — Žilavka Hercegovina, Žilavka Mostar, Blatina Čitluk i Tvrdoš 2022. Savršen poklon za poznavaoce.',
-      en: 'The complete collection — Žilavka Herzegovina, Žilavka Mostar, Blatina Čitluk and Tvrdoš 2022. The perfect gift for connoisseurs.'
+      sr: 'Kompletna kolekcija — Žilavka 1L, Žilavka 0.75L, Blatina Čitluk, Manastir Tvrdoš Vranac i Anđelić Tribun. Savršen poklon za poznavaoce.',
+      en: 'The complete collection — Žilavka 1L, Žilavka 0.75L, Blatina Čitluk, Monastery Tvrdoš Vranac and Anđelić Tribun. The perfect gift for connoisseurs.'
     },
-    wines: ['zilavka-hercegovina', 'zilavka-mostar', 'blatina-citluk', 'tvrdos-2022'],
-    count: 4,
-    originalPrice: 88,
-    price: 68,
-    saving: 20
+    wines: ['zilavka-hercegovina', 'zilavka-mostar', 'blatina-citluk', 'tvrdos-2022', 'andjelic-hercegovina'],
+    count: 5,
+    originalPrice: 8050,
+    price: 6990,
+    saving: 1060,
+    img: 'images/IMG_9969.png'
   }
 ];
 
@@ -113,15 +128,15 @@ function renderWines() {
   grid.innerHTML = list.map(wine => `
     <div class="wine-card fade-up">
       <div class="wine-img-wrap">
+        <span class="wine-type-badge">${wine.type[currentLang]}</span>
         <img src="${wine.img}" alt="${wine.name[currentLang]}" loading="lazy">
       </div>
       <div class="wine-card-body">
-        <span class="wine-type-badge">${wine.type[currentLang]}</span>
         <h3>${wine.name[currentLang]}</h3>
         <div class="wine-srb">${wine.subtitle[currentLang]}</div>
         <p class="wine-desc">${wine.desc[currentLang]}</p>
         <div class="wine-footer">
-          <span class="wine-price">${wine.price} EUR</span>
+          <span class="wine-price">${wine.price} RSD</span>
           <button class="wine-add" data-id="${wine.id}">${currentLang === 'sr' ? 'Dodaj u listu' : 'Add to list'}</button>
         </div>
       </div>
@@ -138,36 +153,45 @@ function renderBundles() {
   const grid = document.getElementById('bundlesGrid');
   if (!grid) return;
   const isSr = currentLang === 'sr';
-  let html = '';
-  BUNDLES.forEach(function(bundle) {
-    const saving = isSr ? ('Uštedite ' + bundle.saving + ' EUR') : ('Save ' + bundle.saving + ' EUR');
+  grid.innerHTML = BUNDLES.map(function(bundle) {
+    const saving = isSr ? ('Uštedite ' + bundle.saving + ' RSD') : ('Save ' + bundle.saving + ' RSD');
     const featured = bundle.featured ? ' bundle-card--featured' : '';
-    const topBadge = bundle.featured ? ('<div class="bundle-top-badge">' + (isSr ? 'Najpopularnije' : 'Most popular') + '</div>') : '';
-    const bottleIcons = bundle.wines.map(function(wid) {
-      const w = WINES.find(function(x) { return x.id === wid; });
-      return '<div class="bundle-mini-bottle" style="background:' + (w ? w.color : '#722f37') + '"></div>';
-    }).join('');
-    const countLabel = bundle.count + ' ' + (isSr ? 'flase' : 'bottles');
+    const topBadge = bundle.featured
+      ? '<div class="bundle-top-badge">' + (isSr ? 'Najpopularnije' : 'Most popular') + '</div>'
+      : '';
+    const countLabel = bundle.count + (isSr ? (bundle.count >= 5 ? ' flaša' : ' flaše') : ' btl.');
     const btnLabel = isSr ? 'Dodaj paket u listu' : 'Add bundle to list';
-    html += '<div class="bundle-card' + featured + '">';
-    html += topBadge;
-    html += '<div class="bundle-saving-tag">' + saving + '</div>';
-    html += '<div class="bundle-bottles">' + bottleIcons + '</div>';
-    html += '<div class="bundle-count">' + countLabel + '</div>';
-    html += '<h3 class="bundle-name">' + bundle.name[currentLang] + '</h3>';
-    html += '<p class="bundle-subtitle">' + bundle.subtitle[currentLang] + '</p>';
-    html += '<p class="bundle-desc">' + bundle.desc[currentLang] + '</p>';
-    html += '<div class="bundle-pricing">';
-    html += '<span class="bundle-original">' + bundle.originalPrice + ' EUR</span>';
-    html += '<span class="bundle-price">' + bundle.price + ' EUR</span>';
-    html += '</div>';
-    html += '<button class="bundle-add" data-bundle-id="' + bundle.id + '">' + btnLabel + '</button>';
-    html += '</div>';
-  });
-  grid.innerHTML = html;
+    const bottleImgs = bundle.wines.map(function(wid) {
+      const w = WINES.find(function(x) { return x.id === wid; });
+      return w ? '<img src="' + w.img + '" alt="' + w.name.sr + '" loading="lazy">' : '';
+    }).join('');
+    return [
+      '<div class="wine-card ' + bundle.id + featured + ' fade-up">',
+        '<div class="wine-img-wrap">',
+          '<span class="wine-type-badge">' + countLabel + '</span>',
+          '<div class="bundle-img-row bundle-img-count-' + bundle.count + '">' + bottleImgs + '</div>',
+        '</div>',
+        topBadge,
+        '<div class="bundle-saving-tag">' + saving + '</div>',
+        '<div class="wine-card-body">',
+          '<h3>' + bundle.name[currentLang] + '</h3>',
+          '<div class="wine-srb">' + bundle.subtitle[currentLang] + '</div>',
+          '<p class="wine-desc">' + bundle.desc[currentLang] + '</p>',
+          '<div class="wine-footer">',
+            '<div class="bundle-pricing">',
+              '<span class="bundle-original">' + bundle.originalPrice + ' RSD</span>',
+              '<span class="wine-price">' + bundle.price + ' RSD</span>',
+            '</div>',
+            '<button class="bundle-add" data-bundle-id="' + bundle.id + '">' + btnLabel + '</button>',
+          '</div>',
+        '</div>',
+      '</div>'
+    ].join('');
+  }).join('');
   grid.querySelectorAll('.bundle-add').forEach(function(btn) {
     btn.addEventListener('click', function() { addBundleToCart(btn.dataset.bundleId); });
   });
+  observeFadeElements();
 }
 
 // ===== Cart Logic =====
@@ -273,14 +297,14 @@ function renderCart() {
       const bundle = BUNDLES.find(b => b.id === item.id);
       const thumbs = bundle.wines.map(wid => {
         const w = WINES.find(x => x.id === wid);
-        return `<div style="width:22px;display:inline-block;">${w ? bottleSVG(w.color) : ''}</div>`;
+        return w ? `<img src="${w.img}" alt="${w.name.sr}" style="height:44px;width:auto;object-fit:contain;">` : '';
       }).join('');
       return `
         <div class="cart-item cart-item--bundle">
           <div class="cart-bundle-thumbs">${thumbs}</div>
           <div class="cart-item-info">
             <h4>${bundle.name[currentLang]} <span class="cart-bundle-label">${currentLang === 'sr' ? 'Paket' : 'Bundle'}</span></h4>
-            <div class="cart-item-price">${price * item.qty} EUR</div>
+            <div class="cart-item-price">${price * item.qty} RSD</div>
             <div class="cart-item-controls">
               <button class="qty-btn" onclick="updateQty('${item.id}', -1)">−</button>
               <span class="qty-val">${item.qty}</span>
@@ -294,10 +318,10 @@ function renderCart() {
     const wine = WINES.find(w => w.id === item.id);
     return `
       <div class="cart-item">
-        <div style="width:60px;">${bottleSVG(wine.color)}</div>
+        <img src="${wine.img}" alt="${wine.name[currentLang]}" style="width:52px;height:70px;object-fit:contain;background:#f5ede0;flex-shrink:0;">
         <div class="cart-item-info">
           <h4>${wine.name[currentLang]}</h4>
-          <div class="cart-item-price">${price * item.qty} EUR</div>
+          <div class="cart-item-price">${price * item.qty} RSD</div>
           <div class="cart-item-controls">
             <button class="qty-btn" onclick="updateQty('${item.id}', -1)">−</button>
             <span class="qty-val">${item.qty}</span>
@@ -308,7 +332,7 @@ function renderCart() {
       </div>
     `;
   }).join('');
-  document.getElementById('cartTotal').textContent = getCartTotal() + ' EUR';
+  document.getElementById('cartTotal').textContent = getCartTotal() + ' RSD';
   footerEl.style.display = 'block';
 }
 
@@ -333,9 +357,9 @@ function populateSummary() {
       const label = item.isBundle
         ? `${BUNDLES.find(b => b.id === item.id).name[currentLang]} (${currentLang === 'sr' ? 'paket' : 'bundle'})`
         : WINES.find(w => w.id === item.id).name[currentLang];
-      return `<div class="checkout-summary-item"><span>${label} × ${item.qty}</span><span>${price * item.qty} EUR</span></div>`;
+      return `<div class="checkout-summary-item"><span>${label} × ${item.qty}</span><span>${price * item.qty} RSD</span></div>`;
     }).join('')}
-    <div class="checkout-summary-total"><span>${currentLang === 'sr' ? 'Ukupno' : 'Total'}</span><span>${getCartTotal()} EUR</span></div>
+    <div class="checkout-summary-total"><span>${currentLang === 'sr' ? 'Ukupno' : 'Total'}</span><span>${getCartTotal()} RSD</span></div>
   `;
 }
 
@@ -357,7 +381,7 @@ function goToStep2() {
   document.getElementById('checkoutStep1').style.display = 'none';
   document.getElementById('checkoutStep2').style.display = 'block';
   document.getElementById('checkoutStepTitle').textContent = currentLang === 'sr' ? 'Pregled rezervacije' : 'Reservation review';
-  document.getElementById('checkoutStepDesc').textContent = currentLang === 'sr' ? 'Provjerite detalje i potvrdite.' : 'Review the details and confirm.';
+  document.getElementById('checkoutStepDesc').textContent = currentLang === 'sr' ? 'Proverite detalje i potvrdite.' : 'Review the details and confirm.';
   updateProgress(2);
   document.getElementById('checkoutModal').scrollTop = 0;
 }
@@ -406,7 +430,7 @@ async function submitOrder(e) {
       const wine = WINES.find(w => w.id === item.id);
       label = wine ? wine.name.sr : item.id;
     }
-    orderLines += label + ' × ' + item.qty + ' = ' + (price * item.qty) + ' EUR\n';
+    orderLines += label + ' × ' + item.qty + ' = ' + (price * item.qty) + ' RSD\n';
   });
 
   const timestamp = new Date().toLocaleString('sr-RS', {
@@ -425,22 +449,15 @@ async function submitOrder(e) {
   try {
     await fetch(FORMSUBMIT_ENDPOINT, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
-        _subject: `Herceg Wines — Nova rezervacija — ${name} — ${getCartTotal()} EUR`,
+        _subject: `Herceg Wines — Nova rezervacija — ${name} — ${getCartTotal()} RSD`,
         _template: 'table',
         _captcha: 'false',
-        _autoresponse: `Poštovani ${name},\n\nhvala Vam što ste odabrali Herceg Wines.\n\nVaša rezervacija je uspješno primljena i obrađujemo je po redoslijedu prispijeća. Kontaktiraćemo Vas u roku od 2–3 radna dana sa svim detaljima.\n\nKao zahvalnost na strpljenju, pripremili smo za Vas ekskluzivni kod:\n\n  ★  HERCEG10  ★\n\n10% popusta na narednu narudžbu.\nKod unesite pri sljedećoj kupovini na pecapecaa.github.io\n\n——————————————————\n\nS poštovanjem,\nHerceg Wines tim\n\nTrebinje, Hercegovina\ninfo@hercegwines.com\n+387 36 640 123\n\n——————————————————\nHerceg Wines • Hercegovačka vina. Online. • Est. 2021`,
+        _autoresponse: `Poštovani ${name},\n\nhvala Vam što ste odabrali Herceg Wines.\n\nVaša rezervacija je uspešno primljena. Kontaktiraćemo Vas u roku od 2–3 radna dana.\n\n★ HERCEG10 ★\n10% popusta na narednu narudžbu.\n\nHerceg Wines tim`,
         datum_i_vrijeme: timestamp,
-        name: name,
-        email: email,
-        phone: phone,
-        city: city,
-        address: address,
-        total: `${getCartTotal()} EUR`,
+        name, email, phone, city, address,
+        total: `${getCartTotal()} RSD`,
         order: orderLines
       })
     });
@@ -455,10 +472,7 @@ async function submitOrder(e) {
   saveCart();
   renderCart();
   document.getElementById('checkoutForm').reset();
-  if (submitBtn) {
-    submitBtn.disabled = false;
-    submitBtn.textContent = originalBtnText;
-  }
+  if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalBtnText; }
 }
 
 // ===== Language Toggle =====
@@ -543,12 +557,7 @@ function animateCounters() {
 
 // ===== Staggered Scroll Animations =====
 function observeFadeElements() {
-  const groups = [
-    '.wine-card',
-    '.visit-card',
-    '.vf-item',
-    '.about-stat'
-  ];
+  const groups = ['.wine-card', '.visit-card', '.vf-item', '.about-stat'];
   groups.forEach(selector => {
     const items = document.querySelectorAll(selector);
     items.forEach((el, i) => {
@@ -576,7 +585,6 @@ function observeFadeElements() {
 function initParallax() {
   const vineyard = document.querySelector('.section-vineyard');
   if (!vineyard) return;
-  const bg = vineyard.querySelector(':before');
   window.addEventListener('scroll', () => {
     const rect = vineyard.getBoundingClientRect();
     const windowH = window.innerHeight;
@@ -590,11 +598,8 @@ function initParallax() {
 
 // ===== Init =====
 document.addEventListener('DOMContentLoaded', () => {
-  // Age Gate
   const ageGate = document.getElementById('ageGate');
-  if (!sessionStorage.getItem('ageVerified')) {
-    document.body.style.overflow = 'hidden';
-  }
+  if (!sessionStorage.getItem('ageVerified')) document.body.style.overflow = 'hidden';
   document.getElementById('ageYes').addEventListener('click', () => {
     sessionStorage.setItem('ageVerified', '1');
     ageGate.classList.add('age-gate--hidden');
@@ -605,12 +610,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('ageDenied').style.display = 'block';
   });
 
-  // Scroll progress bar
   const scrollProgress = document.createElement('div');
   scrollProgress.className = 'scroll-progress';
   document.body.appendChild(scrollProgress);
 
-  // Navbar scroll + progress update
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 50);
@@ -618,7 +621,6 @@ document.addEventListener('DOMContentLoaded', () => {
     scrollProgress.style.width = Math.min(pct * 100, 100) + '%';
   }, { passive: true });
 
-  // Mobile nav
   document.getElementById('navToggle').addEventListener('click', () => {
     document.getElementById('navLinks').classList.toggle('active');
   });
@@ -626,12 +628,10 @@ document.addEventListener('DOMContentLoaded', () => {
     a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('active'));
   });
 
-  // Language toggle
   document.getElementById('langToggle').addEventListener('click', () => {
     switchLanguage(currentLang === 'sr' ? 'en' : 'sr');
   });
 
-  // Cart UI
   document.getElementById('cartBtn').addEventListener('click', () => {
     document.getElementById('cartOverlay').classList.add('active');
     document.getElementById('cartSidebar').classList.add('active');
@@ -645,7 +645,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('cartSidebar').classList.remove('active');
   });
 
-  // Checkout
   document.getElementById('checkoutBtn').addEventListener('click', openCheckout);
   document.getElementById('checkoutNext').addEventListener('click', goToStep2);
   document.getElementById('checkoutBack').addEventListener('click', goToStep1);
@@ -663,37 +662,20 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('successCloseBtn').addEventListener('click', closeCheckout);
   document.getElementById('checkoutForm').addEventListener('submit', submitOrder);
 
-  // Contact form
   document.getElementById('contactForm').addEventListener('submit', async e => {
     e.preventDefault();
     const name = document.getElementById('cName').value;
     const email = document.getElementById('cEmail').value;
     const subject = document.getElementById('cSubject').value || 'Poruka sa sajta';
     const message = document.getElementById('cMessage').value;
-
     const submitBtn = e.target.querySelector('button[type="submit"]');
     const originalBtnText = submitBtn ? submitBtn.textContent : '';
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = currentLang === 'sr' ? 'Slanje...' : 'Sending...';
-    }
-
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = currentLang === 'sr' ? 'Slanje...' : 'Sending...'; }
     try {
       const res = await fetch(FORMSUBMIT_ENDPOINT, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          _subject: `Kontakt - ${subject}`,
-          _template: 'table',
-          _captcha: 'false',
-          name: name,
-          email: email,
-          subject: subject,
-          message: message
-        })
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ _subject: `Kontakt - ${subject}`, _template: 'table', _captcha: 'false', name, email, subject, message })
       });
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const data = await res.json();
@@ -704,26 +686,18 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error('Contact submission failed:', err);
       showToast(currentLang === 'sr' ? 'Greška pri slanju poruke.' : 'Failed to send message.', false);
     } finally {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalBtnText;
-      }
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalBtnText; }
     }
   });
 
-  // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const target = document.querySelector(a.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
     });
   });
 
   currentLang = 'sr';
-
   renderWines();
   renderBundles();
   renderCart();
@@ -733,7 +707,6 @@ document.addEventListener('DOMContentLoaded', () => {
   animateCounters();
   initParallax();
 
-  // Wine type filters
   document.getElementById('wineFilters').addEventListener('click', function(e) {
     const btn = e.target.closest('.wf-btn');
     if (!btn) return;
@@ -742,37 +715,30 @@ document.addEventListener('DOMContentLoaded', () => {
     activeWineFilter = btn.dataset.filter;
     renderWines();
   });
-
-
 });
 
-// Expose for inline handlers
 window.updateQty = updateQty;
 window.removeFromCart = removeFromCart;
 
-// ===== Hero Video — play once then show background image =====
+// ===== Hero Video =====
 (function() {
   var tag = document.createElement('script');
   tag.src = 'https://www.youtube.com/iframe_api';
   document.head.appendChild(tag);
-
   var ytPlayer;
   window.onYouTubeIframeAPIReady = function() {
     ytPlayer = new YT.Player('heroVideo', {
       events: {
         onReady: function(e) {
           e.target.setPlaybackRate(0.75);
-
-          // Poll every 500ms — start fade 2.5s before video ends
           var faded = false;
           var poll = setInterval(function() {
             try {
               var duration = ytPlayer.getDuration();
-              var current  = ytPlayer.getCurrentTime();
+              var current = ytPlayer.getCurrentTime();
               if (duration > 0 && current >= duration - 2.5 && !faded) {
                 faded = true;
                 clearInterval(poll);
-                // Fade in background image while video still playing
                 var bg = document.getElementById('heroBgFallback');
                 if (bg) bg.classList.add('visible');
               }
@@ -781,12 +747,8 @@ window.removeFromCart = removeFromCart;
         },
         onStateChange: function(e) {
           if (e.data === YT.PlayerState.ENDED) {
-            // Image already fading in — now hide video instantly
             var wrap = document.getElementById('heroVideoWrap');
-            if (wrap) {
-              wrap.style.transition = 'opacity 0.3s ease';
-              wrap.style.opacity = '0';
-            }
+            if (wrap) { wrap.style.transition = 'opacity 0.3s ease'; wrap.style.opacity = '0'; }
             var bg = document.getElementById('heroBgFallback');
             if (bg) bg.classList.add('visible');
           }

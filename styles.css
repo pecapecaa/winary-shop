@@ -1011,16 +1011,21 @@ button {
   display: none !important;
 }
 
-/* Bundle single image - centered, no overflow tricks */
+/* Bundle single image - show full photo, no cropping */
 .bundle-img-wrap img {
   height: 100% !important;
   width: 100% !important;
   max-width: 100% !important;
-  object-fit: cover !important;
-  object-position: center 20% !important;
+  object-fit: contain !important;
+  object-position: center center !important;
   transform: none !important;
   opacity: 1 !important;
   padding: 0 !important;
+}
+
+/* Disable hover zoom on bundle cards - group photo shouldn't pan */
+.wine-card:hover .bundle-img-wrap img {
+  transform: none !important;
 }
 
 .bundle-bottles {

@@ -165,7 +165,7 @@ function renderBundles() {
       '<div class="wine-card ' + bundle.id + featured + ' fade-up">',
         '<div class="wine-img-wrap bundle-img-wrap">',
           '<span class="wine-type-badge">' + countLabel + '</span>',
-          '<img src="' + bundle.img + '?v=30" alt="' + bundle.name[currentLang] + '" loading="lazy">',
+          '<img src="' + bundle.img + '?v=31" alt="' + bundle.name[currentLang] + '" loading="lazy">',
         '</div>',
         topBadge,
         '<div class="bundle-saving-tag">' + saving + '</div>',

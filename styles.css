@@ -1006,25 +1006,16 @@ button {
   backdrop-filter: blur(8px);
 }
 
-/* Bundle multi-bottle image row */
-.bundle-img-row {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-  padding: 8% 6% 4%;
-  gap: 4px;
-}
-
-.bundle-img-row img {
-  flex: 1 1 0;
-  min-width: 0;
-  height: 100%;
-  max-height: 100%;
-  width: auto;
-  object-fit: contain;
-  object-position: bottom center;
+/* Bundle single image - centered, full quality */
+.bundle-img-wrap img {
+  height: 100% !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  transform: none !important;
+  opacity: 1 !important;
+  padding: 6% 8% 30%;
 }
 
 .bundle-bottles {

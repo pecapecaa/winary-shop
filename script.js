@@ -93,7 +93,7 @@ const BUNDLES = [
     price: 5490,
     saving: 380,
     featured: true,
-    img: 'images/tvrdos-2022.PNG'
+    img: 'images/IMG_9968.png'
   },
   {
     id: 'bundle-full-herceg',
@@ -161,15 +161,11 @@ function renderBundles() {
       : '';
     const countLabel = bundle.count + (isSr ? (bundle.count >= 5 ? ' flaša' : ' flaše') : ' btl.');
     const btnLabel = isSr ? 'Dodaj paket u listu' : 'Add bundle to list';
-    const bottleImgs = bundle.wines.map(function(wid) {
-      const w = WINES.find(function(x) { return x.id === wid; });
-      return w ? '<img src="' + w.img + '" alt="' + w.name.sr + '" loading="lazy">' : '';
-    }).join('');
     return [
       '<div class="wine-card ' + bundle.id + featured + ' fade-up">',
-        '<div class="wine-img-wrap">',
+        '<div class="wine-img-wrap bundle-img-wrap">',
           '<span class="wine-type-badge">' + countLabel + '</span>',
-          '<div class="bundle-img-row bundle-img-count-' + bundle.count + '">' + bottleImgs + '</div>',
+          '<img src="' + bundle.img + '" alt="' + bundle.name[currentLang] + '" loading="lazy">',
         '</div>',
         topBadge,
         '<div class="bundle-saving-tag">' + saving + '</div>',

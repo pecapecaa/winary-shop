@@ -1016,10 +1016,6 @@ button {
   );
 }
 
-.bundles-grid .wine-card:hover .wine-img-wrap img {
-  transform: none !important;
-}
-
 .bundles-grid .wine-img-wrap img {
   position: absolute !important;
   inset: 0 !important;
@@ -1028,6 +1024,18 @@ button {
   max-width: 100% !important;
   object-fit: contain !important;
   opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Starter: landscape 2-bottle photo — cover fills the card height like the 3-bottle portrait */
+.bundle-starter .wine-img-wrap img {
+  object-fit: cover !important;
+}
+
+/* Full Herceg: landscape 5-bottle photo — slight zoom so bottles appear bigger */
+.bundle-full-herceg .wine-img-wrap img,
+.bundle-full-herceg.wine-card:hover .wine-img-wrap img {
+  transform: scale(1.3) !important;
 }
 
 .bundle-bottles {

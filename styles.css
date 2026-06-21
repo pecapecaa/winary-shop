@@ -1007,7 +1007,13 @@ button {
 }
 
 .bundles-grid .wine-img-wrap::after {
-  display: none;
+  height: 58%;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(8, 2, 4, 0.6) 42%,
+    rgba(8, 2, 4, 0.96) 100%
+  );
 }
 
 .bundles-grid .wine-card:hover .wine-img-wrap img {

@@ -1006,16 +1006,21 @@ button {
   backdrop-filter: blur(8px);
 }
 
-/* Bundle single image - centered, full quality */
+/* Bundle image wrap: hide dark gradient overlay */
+.bundle-img-wrap::after {
+  display: none !important;
+}
+
+/* Bundle single image - centered, no overflow tricks */
 .bundle-img-wrap img {
   height: 100% !important;
   width: 100% !important;
   max-width: 100% !important;
-  object-fit: contain !important;
-  object-position: center center !important;
+  object-fit: cover !important;
+  object-position: center 20% !important;
   transform: none !important;
   opacity: 1 !important;
-  padding: 6% 8% 30%;
+  padding: 0 !important;
 }
 
 .bundle-bottles {

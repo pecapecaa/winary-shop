@@ -1006,11 +1006,22 @@ button {
   backdrop-filter: blur(8px);
 }
 
+.bundles-grid .wine-img-wrap::after {
+  display: none;
+}
+
+.bundles-grid .wine-card:hover .wine-img-wrap img {
+  transform: none !important;
+}
+
 .bundles-grid .wine-img-wrap img {
-  height: 100%;
-  width: 100%;
-  max-width: none;
-  object-fit: cover;
+  position: absolute !important;
+  inset: 0 !important;
+  height: 100% !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+  opacity: 1 !important;
 }
 
 .bundle-bottles {

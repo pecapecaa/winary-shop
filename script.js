@@ -93,7 +93,7 @@ const BUNDLES = [
     price: 5490,
     saving: 380,
     featured: true,
-    img: 'images/tvrdos-2022.PNG'
+    img: 'images/IMG_9968.png'
   },
   {
     id: 'bundle-full-herceg',

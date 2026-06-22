@@ -30,8 +30,8 @@ const WINES = [
     subtitle: { sr: 'Crveno vino • Vinarija Čitluk', en: 'Red Wine • Vinarija Čitluk' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
-      sr: 'Jedinstven autohtoni crveni kultivar, uzgojen isključivo u Hercegovini. Tamno rubinska boja, arome višnje, šljive i začina. Srednji tanini, mek i savršeno balansiran.',
-      en: 'A uniquely indigenous red cultivar, grown exclusively in Herzegovina. Dark ruby, aromas of cherry, plum and spice. Medium tannins, soft and perfectly balanced.'
+      sr: 'Jedinstven autohtoni crveni kultivar, uzgojen isključivo u Hercegovini. Tamno rubinska boja, arome višnje, šljive i začina. Srednji tanini, meki i savršeno balansirani.',
+      en: 'A unique indigenous red cultivar, grown exclusively in Herzegovina. Dark ruby, aromas of cherry, plum and spice. Medium tannins, soft and perfectly balanced.'
     },
     price: 1490,
     img: 'images/blatina-citluk.PNG'
@@ -67,7 +67,7 @@ const BUNDLES = [
   {
     id: 'bundle-starter',
     name: { sr: 'Starter', en: 'Starter' },
-    subtitle: { sr: '2 flaše — Žilavka 0.75 + Blatina', en: '2 bottles — Žilavka 0.75 + Blatina' },
+    subtitle: { sr: '2 flaše — Žilavka 0.75L + Blatina Čitluk', en: '2 bottles — Žilavka 0.75L + Blatina Čitluk' },
     desc: {
       sr: 'Žilavka Čitluk 0.75L i Blatina Čitluk. Savršena kombinacija autohtone bele i crvene sorte za posebnu večer.',
       en: 'Žilavka Čitluk 0.75L and Blatina Čitluk. The perfect pairing of indigenous white and red for a special evening.'
@@ -98,7 +98,7 @@ const BUNDLES = [
   {
     id: 'bundle-full-herceg',
     name: { sr: 'Full Herceg', en: 'Full Herceg' },
-    subtitle: { sr: 'Svih 5 vina Hercegovine', en: 'All 5 wines of Herzegovina' },
+    subtitle: { sr: 'Svih 5 vina iz naše ponude', en: 'All 5 wines from our collection' },
     desc: {
       sr: 'Kompletna kolekcija — Žilavka 1L, Žilavka 0.75L, Blatina Čitluk, Manastir Tvrdoš Vranac i Anđelić Tribun. Savršen poklon za poznavaoce.',
       en: 'The complete collection — Žilavka 1L, Žilavka 0.75L, Blatina Čitluk, Monastery Tvrdoš Vranac and Anđelić Tribun. The perfect gift for connoisseurs.'

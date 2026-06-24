@@ -2,7 +2,8 @@
 const WINES = [
   {
     id: 'zilavka-hercegovina',
-    name: { sr: 'Žilavka Čitluk 1L', en: 'Žilavka Čitluk 1L' },
+    name: { sr: 'Žilavka Čitluk', en: 'Žilavka Čitluk' },
+    volume: '1L',
     subtitle: { sr: 'Belo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
     type: { sr: 'Belo', en: 'White' },
     desc: {
@@ -14,7 +15,8 @@ const WINES = [
   },
   {
     id: 'zilavka-mostar',
-    name: { sr: 'Žilavka Čitluk 0.75L', en: 'Žilavka Čitluk 0.75L' },
+    name: { sr: 'Žilavka Čitluk', en: 'Žilavka Čitluk' },
+    volume: '0.75L',
     subtitle: { sr: 'Belo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
     type: { sr: 'Belo', en: 'White' },
     desc: {
@@ -26,7 +28,8 @@ const WINES = [
   },
   {
     id: 'blatina-citluk',
-    name: { sr: 'Blatina Čitluk 0.75L', en: 'Blatina Čitluk 0.75L' },
+    name: { sr: 'Blatina Čitluk', en: 'Blatina Čitluk' },
+    volume: '0.75L',
     subtitle: { sr: 'Crveno vino • Vinarija Čitluk', en: 'Red Wine • Vinarija Čitluk' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
@@ -38,7 +41,8 @@ const WINES = [
   },
   {
     id: 'tvrdos-2022',
-    name: { sr: 'Manastir Tvrdoš Vranac 0.75L', en: 'Monastery Tvrdoš Vranac 0.75L' },
+    name: { sr: 'Manastir Tvrdoš Vranac', en: 'Monastery Tvrdoš Vranac' },
+    volume: '0.75L',
     subtitle: { sr: 'Crveno vino • Manastir Tvrdоš, Trebinje', en: 'Red Wine • Monastery Tvrdоš, Trebinje' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
@@ -50,7 +54,8 @@ const WINES = [
   },
   {
     id: 'andjelic-hercegovina',
-    name: { sr: 'Anđelić Tribun 0.75L', en: 'Anđelić Tribun 0.75L' },
+    name: { sr: 'Anđelić Tribun', en: 'Anđelić Tribun' },
+    volume: '0.75L',
     subtitle: { sr: 'Crveno vino • Vinarija Anđelić', en: 'Red Wine • Vinarija Anđelić' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
@@ -136,7 +141,7 @@ function renderWines() {
         <div class="wine-srb">${wine.subtitle[currentLang]}</div>
         <p class="wine-desc">${wine.desc[currentLang]}</p>
         <div class="wine-footer">
-          <span class="wine-price">${wine.price} RSD</span>
+          <div class="wine-price-row"><span class="wine-price">${wine.price} RSD</span><span class="wine-volume">${wine.volume}</span></div>
           <button class="wine-add" data-id="${wine.id}">${currentLang === 'sr' ? 'Dodaj u listu' : 'Add to list'}</button>
         </div>
       </div>
@@ -316,7 +321,7 @@ function renderCart() {
       <div class="cart-item">
         <div class="cart-item-img"><img src="${wine.img}" alt="${wine.name[currentLang]}"></div>
         <div class="cart-item-info">
-          <h4>${wine.name[currentLang]}</h4>
+          <h4>${wine.name[currentLang]} <span class="cart-volume">${wine.volume}</span></h4>
           <div class="cart-item-price">${price * item.qty} RSD</div>
           <div class="cart-item-controls">
             <button class="qty-btn" onclick="updateQty('${item.id}', -1)">−</button>
@@ -350,9 +355,10 @@ function populateSummary() {
     <h4>${currentLang === 'sr' ? 'Vaša rezervacija' : 'Your reservation'}</h4>
     ${cart.map(item => {
       const price = getItemPrice(item);
+      const wine = !item.isBundle ? WINES.find(w => w.id === item.id) : null;
       const label = item.isBundle
         ? `${BUNDLES.find(b => b.id === item.id).name[currentLang]} (${currentLang === 'sr' ? 'paket' : 'bundle'})`
-        : WINES.find(w => w.id === item.id).name[currentLang];
+        : `${wine.name[currentLang]} ${wine.volume}`;
       return `<div class="checkout-summary-item"><span>${label} × ${item.qty}</span><span>${price * item.qty} RSD</span></div>`;
     }).join('')}
     <div class="checkout-summary-total"><span>${currentLang === 'sr' ? 'Ukupno' : 'Total'}</span><span>${getCartTotal()} RSD</span></div>
@@ -424,7 +430,7 @@ async function submitOrder(e) {
       label = bundle ? bundle.name.sr + ' (paket)' : item.id;
     } else {
       const wine = WINES.find(w => w.id === item.id);
-      label = wine ? wine.name.sr : item.id;
+      label = wine ? wine.name.sr + ' ' + wine.volume : item.id;
     }
     orderLines += label + ' × ' + item.qty + ' = ' + (price * item.qty) + ' RSD\n';
   });

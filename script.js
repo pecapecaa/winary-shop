@@ -732,6 +732,8 @@ window.removeFromCart = removeFromCart;
     ytPlayer = new YT.Player('heroVideo', {
       events: {
         onReady: function(e) {
+          e.target.mute();
+          e.target.playVideo();
           e.target.setPlaybackRate(0.75);
           var faded = false;
           var poll = setInterval(function() {

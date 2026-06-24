@@ -724,6 +724,10 @@ window.removeFromCart = removeFromCart;
 
 // ===== Hero Video =====
 (function() {
+  // Set src dynamically so YouTube never renders thumbnail before cover is ready
+  var iframe = document.getElementById('heroVideo');
+  if (iframe) iframe.src = iframe.getAttribute('data-src');
+
   var tag = document.createElement('script');
   tag.src = 'https://www.youtube.com/iframe_api';
   document.head.appendChild(tag);

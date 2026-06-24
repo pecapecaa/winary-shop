@@ -314,7 +314,7 @@ function renderCart() {
     const wine = WINES.find(w => w.id === item.id);
     return `
       <div class="cart-item">
-        <img src="${wine.img}" alt="${wine.name[currentLang]}" style="width:52px;height:70px;object-fit:contain;background:#f5ede0;flex-shrink:0;">
+        <div class="cart-item-img"><img src="${wine.img}" alt="${wine.name[currentLang]}"></div>
         <div class="cart-item-info">
           <h4>${wine.name[currentLang]}</h4>
           <div class="cart-item-price">${price * item.qty} RSD</div>

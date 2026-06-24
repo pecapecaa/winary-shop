@@ -26,7 +26,7 @@ const WINES = [
   },
   {
     id: 'blatina-citluk',
-    name: { sr: 'Blatina Čitluk', en: 'Blatina Čitluk' },
+    name: { sr: 'Blatina Čitluk 0.75L', en: 'Blatina Čitluk 0.75L' },
     subtitle: { sr: 'Crveno vino • Vinarija Čitluk', en: 'Red Wine • Vinarija Čitluk' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
@@ -38,7 +38,7 @@ const WINES = [
   },
   {
     id: 'tvrdos-2022',
-    name: { sr: 'Manastir Tvrdoš Vranac', en: 'Monastery Tvrdoš Vranac' },
+    name: { sr: 'Manastir Tvrdoš Vranac 0.75L', en: 'Monastery Tvrdoš Vranac 0.75L' },
     subtitle: { sr: 'Crveno vino • Manastir Tvrdоš, Trebinje', en: 'Red Wine • Monastery Tvrdоš, Trebinje' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
@@ -50,7 +50,7 @@ const WINES = [
   },
   {
     id: 'andjelic-hercegovina',
-    name: { sr: 'Anđelić Tribun', en: 'Anđelić Tribun' },
+    name: { sr: 'Anđelić Tribun 0.75L', en: 'Anđelić Tribun 0.75L' },
     subtitle: { sr: 'Crveno vino • Vinarija Anđelić', en: 'Red Wine • Vinarija Anđelić' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
@@ -67,10 +67,10 @@ const BUNDLES = [
   {
     id: 'bundle-starter',
     name: { sr: 'Starter', en: 'Starter' },
-    subtitle: { sr: '2 flaše — Žilavka 0.75L + Blatina Čitluk', en: '2 bottles — Žilavka 0.75L + Blatina Čitluk' },
+    subtitle: { sr: '2 flaše — Žilavka + Blatina Čitluk', en: '2 bottles — Žilavka + Blatina Čitluk' },
     desc: {
-      sr: 'Žilavka Čitluk 0.75L i Blatina Čitluk. Savršena kombinacija autohtone bele i crvene sorte za posebnu večer.',
-      en: 'Žilavka Čitluk 0.75L and Blatina Čitluk. The perfect pairing of indigenous white and red for a special evening.'
+      sr: 'Žilavka Čitluk 0.75L i Blatina Čitluk 0.75L. Savršena kombinacija autohtone bele i crvene sorte za posebnu večer.',
+      en: 'Žilavka Čitluk 0.75L and Blatina Čitluk 0.75L. The perfect pairing of indigenous white and red for a special evening.'
     },
     wines: ['zilavka-mostar', 'blatina-citluk'],
     count: 2,
@@ -84,13 +84,13 @@ const BUNDLES = [
     name: { sr: 'Herceg Box', en: 'Herceg Box' },
     subtitle: { sr: '3 premium vina Hercegovine', en: '3 premium wines of Herzegovina' },
     desc: {
-      sr: 'Blatina Čitluk, Manastir Tvrdoš Vranac i Anđelić Tribun — moćna trijada crnih vina Hercegovine u jednoj kutiji.',
-      en: 'Blatina Čitluk, Monastery Tvrdoš Vranac and Anđelić Tribun — a powerful trio of Herzegovinian reds in one box.'
+      sr: 'Blatina Čitluk, Žilavka Čitluk 0.75L i Anđelić Tribun — savršen trio belog i crvenog vina Hercegovine u jednoj kutiji.',
+      en: 'Blatina Čitluk, Žilavka Čitluk 0.75L and Anđelić Tribun — the perfect trio of white and red Herzegovinian wines in one box.'
     },
-    wines: ['blatina-citluk', 'tvrdos-2022', 'andjelic-hercegovina'],
+    wines: ['blatina-citluk', 'zilavka-mostar', 'andjelic-hercegovina'],
     count: 3,
-    originalPrice: 5870,
-    price: 5490,
+    originalPrice: 5070,
+    price: 4690,
     saving: 380,
     featured: true,
     img: 'images/IMG_9968.png'
@@ -100,8 +100,8 @@ const BUNDLES = [
     name: { sr: 'Full Herceg', en: 'Full Herceg' },
     subtitle: { sr: 'Svih 5 vina iz naše ponude', en: 'All 5 wines from our collection' },
     desc: {
-      sr: 'Kompletna kolekcija — Žilavka 1L, Žilavka 0.75L, Blatina Čitluk, Manastir Tvrdoš Vranac i Anđelić Tribun. Savršen poklon za poznavaoce.',
-      en: 'The complete collection — Žilavka 1L, Žilavka 0.75L, Blatina Čitluk, Monastery Tvrdoš Vranac and Anđelić Tribun. The perfect gift for connoisseurs.'
+      sr: 'Kompletna kolekcija — Žilavka 1L, Žilavka 0.75L, Blatina Čitluk 0.75L, Manastir Tvrdoš Vranac 0.75L i Anđelić Tribun 0.75L. Savršen poklon za poznavaoce.',
+      en: 'The complete collection — Žilavka 1L, Žilavka 0.75L, Blatina Čitluk 0.75L, Monastery Tvrdoš Vranac 0.75L and Anđelić Tribun 0.75L. The perfect gift for connoisseurs.'
     },
     wines: ['zilavka-hercegovina', 'zilavka-mostar', 'blatina-citluk', 'tvrdos-2022', 'andjelic-hercegovina'],
     count: 5,

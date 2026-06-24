@@ -240,6 +240,20 @@ button {
   pointer-events: none;
 }
 
+.hero-video-cover {
+  position: absolute;
+  inset: 0;
+  background: #100205;
+  z-index: 1;
+  opacity: 1;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+}
+
+.hero-video-cover.hidden {
+  opacity: 0;
+}
+
 .hero-bg {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;

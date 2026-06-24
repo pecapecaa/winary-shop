@@ -750,6 +750,10 @@ window.removeFromCart = removeFromCart;
           }, 500);
         },
         onStateChange: function(e) {
+          if (e.data === YT.PlayerState.PLAYING) {
+            var cover = document.getElementById('heroVideoCover');
+            if (cover) cover.classList.add('hidden');
+          }
           if (e.data === YT.PlayerState.ENDED) {
             var wrap = document.getElementById('heroVideoWrap');
             if (wrap) { wrap.style.transition = 'opacity 0.3s ease'; wrap.style.opacity = '0'; }

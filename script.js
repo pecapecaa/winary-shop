@@ -754,9 +754,19 @@ window.removeFromCart = removeFromCart;
           }, 500);
         },
         onStateChange: function(e) {
-          if (e.data === YT.PlayerState.PLAYING) {
-            var cover = document.getElementById('heroVideoCover');
-            if (cover) cover.classList.add('hidden');
+          if (e.data === YT.PlayerState.PLAYING && !window.__heroCoverLifted) {
+            // YouTube shows its control icons during the first ~15s of playback.
+            // Keep the dark cover up until they are gone, then fade the video in.
+            window.__heroCoverLifted = true;
+            var coverPoll = setInterval(function() {
+              try {
+                if (ytPlayer.getCurrentTime() >= 16) {
+                  clearInterval(coverPoll);
+                  var cover = document.getElementById('heroVideoCover');
+                  if (cover) cover.classList.add('hidden');
+                }
+              } catch(err) {}
+            }, 500);
           }
           if (e.data === YT.PlayerState.ENDED) {
             var wrap = document.getElementById('heroVideoWrap');

@@ -243,11 +243,18 @@ button {
 .hero-video-cover {
   position: absolute;
   inset: 0;
-  background: #100205;
+  background: #100205 url('https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
   z-index: 1;
   opacity: 1;
-  transition: opacity 0.8s ease;
+  transition: opacity 2s ease;
   pointer-events: none;
+}
+
+.hero-video-cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(16, 2, 5, 0.55);
 }
 
 .hero-video-cover.hidden {

@@ -240,6 +240,20 @@ button {
   pointer-events: none;
 }
 
+.hero-video-native {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* Revealed only once the file has actually started playing. */
+.hero-video-native.active { visibility: visible; }
+
 .hero-video-cover {
   position: absolute;
   inset: 0;

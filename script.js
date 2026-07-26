@@ -785,7 +785,50 @@ window.updateQty = updateQty;
 window.removeFromCart = removeFromCart;
 
 // ===== Hero Video =====
+// Prefers the self-hosted file at videos/hero.mp4. If that file is not in the
+// repository (or the browser cannot play it), this falls back to the YouTube
+// embed automatically — so dropping the file in is the only step required.
 (function() {
+  var native = document.getElementById('heroVideoNative');
+  var settled = false;
+
+  function useNative() {
+    if (settled) return;
+    settled = true;
+    native.classList.add('active');
+    var wrap = document.getElementById('heroVideoWrap');
+    if (wrap) wrap.remove();              // YouTube is never loaded at all
+    var cover = document.getElementById('heroVideoCover');
+    if (cover) cover.classList.add('hidden');
+  }
+
+  function useYouTube() {
+    if (settled) return;
+    settled = true;
+    if (native) native.remove();
+    startYouTube();
+  }
+
+  if (native) {
+    // A missing file does not raise <video> error promptly, which would leave
+    // the hero dark for seconds. Probing first keeps the decision immediate.
+    fetch(native.dataset.src, { method: 'HEAD' })
+      .then(function(res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        native.addEventListener('playing', useNative, { once: true });
+        native.addEventListener('error', useYouTube, { once: true });
+        if (native.dataset.poster) native.poster = native.dataset.poster;
+        native.src = native.dataset.src;
+        var attempt = native.play();
+        if (attempt && attempt.catch) attempt.catch(function() { useYouTube(); });
+        setTimeout(function() { if (!settled) useYouTube(); }, 5000);
+      })
+      .catch(useYouTube);
+  } else {
+    useYouTube();
+  }
+
+function startYouTube() {
   // Set src dynamically so YouTube never renders thumbnail before cover is ready
   var iframe = document.getElementById('heroVideo');
   if (iframe) iframe.src = iframe.getAttribute('data-src');
@@ -830,4 +873,5 @@ window.removeFromCart = removeFromCart;
       }
     });
   };
+}
 })();

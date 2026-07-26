@@ -11,7 +11,7 @@ const WINES = [
       en: 'A rare indigenous variety grown on the Herzegovina karst. Golden-yellow, rich mineral structure, notes of ripe apple, peach and Mediterranean herbs. A wine that leaves a mark.'
     },
     price: 890,
-    img: 'images/zilavka-hercegovina.PNG'
+    img: 'images/zilavka-hercegovina.webp'
   },
   {
     id: 'zilavka-mostar',
@@ -24,7 +24,7 @@ const WINES = [
       en: 'Elegant Žilavka from the renowned Vinarija Čitluk along the Neretva. Fresh acidity, fruity complexity and a long, silky finish. The most recognised white wine of BiH.'
     },
     price: 1290,
-    img: 'images/zilavka-mostar.PNG'
+    img: 'images/zilavka-mostar.webp'
   },
   {
     id: 'blatina-citluk',
@@ -37,7 +37,7 @@ const WINES = [
       en: 'A unique indigenous red cultivar, grown exclusively in Herzegovina. Dark ruby, aromas of cherry, plum and spice. Medium tannins, soft and perfectly balanced.'
     },
     price: 1490,
-    img: 'images/blatina-citluk.PNG'
+    img: 'images/blatina-citluk.webp'
   },
   {
     id: 'tvrdos-2022',
@@ -50,7 +50,7 @@ const WINES = [
       en: 'Wine from monastery vineyards on rocky slopes above Trebinje. Monastic tradition woven into every sip — complex, dignified, deep, for moments that stay in memory.'
     },
     price: 2090,
-    img: 'images/tvrdos-2022.PNG'
+    img: 'images/tvrdos-2022.webp'
   },
   {
     id: 'andjelic-hercegovina',
@@ -63,7 +63,7 @@ const WINES = [
       en: 'Premium red wine from the Anđelić winery cellar. Rich dark colour, aromas of ripe fruit, blackcurrant and gentle vanilla. Long-aged, velvety tannins and an exceptionally long finish.'
     },
     price: 2290,
-    img: 'images/andjelic-hercegovina.PNG'
+    img: 'images/andjelic-hercegovina.webp'
   }
 ];
 
@@ -82,7 +82,7 @@ const BUNDLES = [
     originalPrice: 2780,
     price: 2490,
     saving: 290,
-    img: 'images/IMG_9965.png'
+    img: 'images/IMG_9965.webp'
   },
   {
     id: 'bundle-herceg-box',
@@ -98,7 +98,7 @@ const BUNDLES = [
     price: 4690,
     saving: 380,
     featured: true,
-    img: 'images/IMG_9968.png'
+    img: 'images/IMG_9968.webp'
   },
   {
     id: 'bundle-full-herceg',
@@ -113,7 +113,7 @@ const BUNDLES = [
     originalPrice: 8050,
     price: 6990,
     saving: 1060,
-    img: 'images/IMG_9969.png'
+    img: 'images/IMG_9969.webp'
   }
 ];
 

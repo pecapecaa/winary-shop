@@ -230,10 +230,13 @@ button {
   pointer-events: all;
 }
 
+/* YouTube draws its own chrome (watermark, share/watch-later buttons, control
+   bar) at the edges of the iframe, and nothing outside the frame can style it.
+   Oversizing the iframe pushes those edges beyond the visible area instead. */
 .hero-video {
   position: absolute;
   top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(1.45);
   width: max(100vw, calc(100vh * 9 / 16));
   height: max(100vh, calc(100vw * 16 / 9));
   border: 0;

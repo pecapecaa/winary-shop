@@ -153,7 +153,7 @@ function renderWines() {
         <p class="wine-desc">${wine.desc[currentLang]}</p>
         <div class="wine-footer">
           <div class="wine-price-row"><span class="wine-price">${wine.price} RSD</span><span class="wine-volume">${wine.volume}</span></div>
-          <button class="wine-add" data-id="${wine.id}">${currentLang === 'sr' ? 'Dodaj u listu' : 'Add to list'}</button>
+          <button type="button" class="wine-add" data-id="${wine.id}">${currentLang === 'sr' ? 'Dodaj u listu' : 'Add to list'}</button>
         </div>
       </div>
     </div>
@@ -194,7 +194,7 @@ function renderBundles() {
               '<span class="bundle-original">' + bundle.originalPrice + ' RSD</span>',
               '<span class="wine-price">' + bundle.price + ' RSD</span>',
             '</div>',
-            '<button class="bundle-add" data-bundle-id="' + bundle.id + '">' + btnLabel + '</button>',
+            '<button type="button" class="bundle-add" data-bundle-id="' + bundle.id + '">' + btnLabel + '</button>',
           '</div>',
         '</div>',
       '</div>'
@@ -327,10 +327,10 @@ function renderCart() {
             <h4>${bundle.name[currentLang]} <span class="cart-bundle-label">${currentLang === 'sr' ? 'Paket' : 'Bundle'}</span></h4>
             <div class="cart-item-price">${price * item.qty} RSD</div>
             <div class="cart-item-controls">
-              <button class="qty-btn" onclick="updateQty('${item.id}', -1)">−</button>
+              <button type="button" class="qty-btn" onclick="updateQty('${item.id}', -1)">−</button>
               <span class="qty-val">${item.qty}</span>
-              <button class="qty-btn" onclick="updateQty('${item.id}', 1)">+</button>
-              <button class="remove-btn" onclick="removeFromCart('${item.id}')">${currentLang === 'sr' ? 'Ukloni' : 'Remove'}</button>
+              <button type="button" class="qty-btn" onclick="updateQty('${item.id}', 1)">+</button>
+              <button type="button" class="remove-btn" onclick="removeFromCart('${item.id}')">${currentLang === 'sr' ? 'Ukloni' : 'Remove'}</button>
             </div>
           </div>
         </div>
@@ -344,10 +344,10 @@ function renderCart() {
           <h4>${wine.name[currentLang]} <span class="cart-volume">${wine.volume}</span></h4>
           <div class="cart-item-price">${price * item.qty} RSD</div>
           <div class="cart-item-controls">
-            <button class="qty-btn" onclick="updateQty('${item.id}', -1)">−</button>
+            <button type="button" class="qty-btn" onclick="updateQty('${item.id}', -1)">−</button>
             <span class="qty-val">${item.qty}</span>
-            <button class="qty-btn" onclick="updateQty('${item.id}', 1)">+</button>
-            <button class="remove-btn" onclick="removeFromCart('${item.id}')">${currentLang === 'sr' ? 'Ukloni' : 'Remove'}</button>
+            <button type="button" class="qty-btn" onclick="updateQty('${item.id}', 1)">+</button>
+            <button type="button" class="remove-btn" onclick="removeFromCart('${item.id}')">${currentLang === 'sr' ? 'Ukloni' : 'Remove'}</button>
           </div>
         </div>
       </div>
@@ -438,6 +438,22 @@ function goToStep1() {
   document.getElementById('checkoutModal').scrollTop = 0;
 }
 
+// A panel that is visually hidden must also leave the tab order, or keyboard
+// and screen-reader users keep landing inside it.
+function setPanelOpen(id, open) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.toggle('active', open);
+  if (open) el.removeAttribute('inert');
+  else el.setAttribute('inert', '');
+}
+
+function setCartOpen(open) {
+  setPanelOpen('cartOverlay', open);
+  setPanelOpen('cartSidebar', open);
+  if (open) document.getElementById('cartClose').focus();
+}
+
 function openCheckout() {
   if (cart.length === 0) {
     showToast(currentLang === 'sr' ? 'Lista je prazna' : 'Your list is empty', false);
@@ -448,9 +464,9 @@ function openCheckout() {
   document.getElementById('checkoutStepTitle').textContent = currentLang === 'sr' ? 'Vaši podaci' : 'Your Details';
   document.getElementById('checkoutStepDesc').textContent = currentLang === 'sr' ? 'Popunite sve informacije za rezervaciju.' : 'Fill in all details for your reservation.';
   updateProgress(1);
-  document.getElementById('cartOverlay').classList.remove('active');
-  document.getElementById('cartSidebar').classList.remove('active');
-  document.getElementById('checkoutOverlay').classList.add('active');
+  setCartOpen(false);
+  setPanelOpen('checkoutOverlay', true);
+  document.getElementById('checkoutClose').focus();
 }
 
 async function submitOrder(e) {
@@ -657,7 +673,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('ageYes').addEventListener('click', () => {
     sessionStorage.setItem('ageVerified', '1');
     ageGate.classList.add('age-gate--hidden');
+    ageGate.setAttribute('inert', '');
     document.body.style.overflow = '';
+    // Focus would otherwise stay on the now-hidden gate button, stranding
+    // keyboard users mid-page; hand it back to the top of the content.
+    document.getElementById('main').focus();
   });
   document.getElementById('ageNo').addEventListener('click', () => {
     document.getElementById('ageBtns').style.display = 'none';
@@ -687,23 +707,20 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('cartBtn').addEventListener('click', () => {
-    document.getElementById('cartOverlay').classList.add('active');
-    document.getElementById('cartSidebar').classList.add('active');
+    setCartOpen(true);
   });
   document.getElementById('cartClose').addEventListener('click', () => {
-    document.getElementById('cartOverlay').classList.remove('active');
-    document.getElementById('cartSidebar').classList.remove('active');
+    setCartOpen(false);
   });
   document.getElementById('cartOverlay').addEventListener('click', () => {
-    document.getElementById('cartOverlay').classList.remove('active');
-    document.getElementById('cartSidebar').classList.remove('active');
+    setCartOpen(false);
   });
 
   document.getElementById('checkoutBtn').addEventListener('click', openCheckout);
   document.getElementById('checkoutNext').addEventListener('click', goToStep2);
   document.getElementById('checkoutBack').addEventListener('click', goToStep1);
   function closeCheckout() {
-    document.getElementById('checkoutOverlay').classList.remove('active');
+    setPanelOpen('checkoutOverlay', false);
     document.getElementById('checkoutFormWrap').style.display = '';
     document.getElementById('checkoutSuccess').style.display = 'none';
     document.getElementById('checkoutStep1').style.display = 'block';
@@ -721,8 +738,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('checkoutOverlay').classList.contains('active')) {
       closeCheckout();
     } else if (document.getElementById('cartSidebar').classList.contains('active')) {
-      document.getElementById('cartOverlay').classList.remove('active');
-      document.getElementById('cartSidebar').classList.remove('active');
+      setCartOpen(false);
     }
   });
 
@@ -757,7 +773,13 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const target = document.querySelector(a.getAttribute('href'));
-      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth' });
+      // Smooth scrolling alone leaves the keyboard focus behind, so the next
+      // Tab would resume from the link instead of the section jumped to.
+      if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+      target.focus({ preventScroll: true });
     });
   });
 
@@ -809,7 +831,27 @@ window.removeFromCart = removeFromCart;
     startYouTube();
   }
 
-  if (native) {
+  // Neither video source is worth several megabytes to someone who asked for
+  // less motion or less data — the still background carries the hero instead.
+  function useStatic() {
+    if (settled) return;
+    settled = true;
+    if (native) native.remove();
+    var wrap = document.getElementById('heroVideoWrap');
+    if (wrap) wrap.remove();
+    var bg = document.getElementById('heroBgFallback');
+    if (bg) bg.classList.add('visible');
+    var cover = document.getElementById('heroVideoCover');
+    if (cover) cover.classList.add('hidden');
+  }
+
+  var wantsLessMotion = window.matchMedia
+    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var wantsLessData = navigator.connection && navigator.connection.saveData;
+
+  if (native && (wantsLessMotion || wantsLessData)) {
+    useStatic();
+  } else if (native) {
     // Chrome/Firefox take the WebM, Safari the H.264 MP4.
     var probe = document.createElement('video');
     var chosen = (native.dataset.srcWebm && probe.canPlayType('video/webm; codecs="vp9"'))

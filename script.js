@@ -810,15 +810,21 @@ window.removeFromCart = removeFromCart;
   }
 
   if (native) {
+    // Chrome/Firefox take the WebM, Safari the H.264 MP4.
+    var probe = document.createElement('video');
+    var chosen = (native.dataset.srcWebm && probe.canPlayType('video/webm; codecs="vp9"'))
+      ? native.dataset.srcWebm
+      : native.dataset.src;
+
     // A missing file does not raise <video> error promptly, which would leave
     // the hero dark for seconds. Probing first keeps the decision immediate.
-    fetch(native.dataset.src, { method: 'HEAD' })
+    fetch(chosen, { method: 'HEAD' })
       .then(function(res) {
         if (!res.ok) throw new Error('HTTP ' + res.status);
         native.addEventListener('playing', useNative, { once: true });
         native.addEventListener('error', useYouTube, { once: true });
         if (native.dataset.poster) native.poster = native.dataset.poster;
-        native.src = native.dataset.src;
+        native.src = chosen;
         var attempt = native.play();
         if (attempt && attempt.catch) attempt.catch(function() { useYouTube(); });
         setTimeout(function() { if (!settled) useYouTube(); }, 5000);

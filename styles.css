@@ -257,6 +257,16 @@ button {
 /* Revealed only once the file has actually started playing. */
 .hero-video-native.active { visibility: visible; }
 
+/* The source is a 9:16 phone clip. On wide screens it must be scaled up and
+   cropped hard, which reads as soft — a slight blur turns that into a
+   deliberate depth-of-field instead. Phones show the frame untouched. */
+@media (min-width: 900px) {
+  .hero-video-native {
+    filter: blur(4px) saturate(1.08);
+    transform: scale(1.06);
+  }
+}
+
 .hero-video-cover {
   position: absolute;
   inset: 0;

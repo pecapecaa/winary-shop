@@ -117,8 +117,8 @@ const BUNDLES = [
   }
 ];
 
-const RECIPIENT_EMAIL = 'pecav96@gmail.com';
-const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/pecav96@gmail.com';
+const RECIPIENT_EMAIL = 'hercegwines@gmail.com';
+const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/hercegwines@gmail.com';
 let currentLang = 'sr';
 let cart = JSON.parse(sessionStorage.getItem('hercegCart') || '[]');
 

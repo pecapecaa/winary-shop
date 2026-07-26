@@ -120,7 +120,18 @@ const BUNDLES = [
 const RECIPIENT_EMAIL = 'hercegwines@gmail.com';
 const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/hercegwines@gmail.com';
 let currentLang = 'sr';
-let cart = JSON.parse(sessionStorage.getItem('hercegCart') || '[]');
+
+// Corrupt or unavailable storage must never take the whole page down.
+function loadCart() {
+  try {
+    const raw = localStorage.getItem('hercegCart') || sessionStorage.getItem('hercegCart');
+    const parsed = JSON.parse(raw || '[]');
+    return Array.isArray(parsed) ? parsed.filter(i => i && typeof i.id === 'string' && i.qty > 0) : [];
+  } catch (err) {
+    return [];
+  }
+}
+let cart = loadCart();
 
 // ===== Render Wines =====
 let activeWineFilter = 'all';
@@ -266,9 +277,17 @@ function updateQty(id, delta) {
   setTimeout(() => { _cartBusy = false; }, 300);
 }
 
-function saveCart() {
-  sessionStorage.setItem('hercegCart', JSON.stringify(cart));
+function updateCartCount() {
   document.getElementById('cartCount').textContent = cart.reduce((s, i) => s + i.qty, 0);
+}
+
+function saveCart() {
+  try {
+    localStorage.setItem('hercegCart', JSON.stringify(cart));
+  } catch (err) {
+    // Private mode / quota exceeded — the cart still works for this session.
+  }
+  updateCartCount();
 }
 
 function getItemPrice(item) {
@@ -287,6 +306,7 @@ function getCartTotal() {
 function renderCart() {
   const itemsEl = document.getElementById('cartItems');
   const footerEl = document.getElementById('cartFooter');
+  updateCartCount();
   if (cart.length === 0) {
     itemsEl.innerHTML = `<p class="cart-empty">${currentLang === 'sr' ? 'Lista je prazna' : 'Your list is empty'}</p>`;
     footerEl.style.display = 'none';
@@ -365,6 +385,19 @@ function populateSummary() {
   `;
 }
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
+
+function renderConfirmLines(elId, lines) {
+  const el = document.getElementById(elId);
+  el.textContent = '';
+  const p = document.createElement('p');
+  lines.forEach((line, i) => {
+    if (i) p.appendChild(document.createElement('br'));
+    p.appendChild(document.createTextNode(line));
+  });
+  el.appendChild(p);
+}
+
 function goToStep2() {
   const name    = document.getElementById('oName').value.trim();
   const email   = document.getElementById('oEmail').value.trim();
@@ -375,10 +408,18 @@ function goToStep2() {
     showToast(currentLang === 'sr' ? 'Popunite sva polja' : 'Please fill in all fields', false);
     return;
   }
-  document.getElementById('confirmContact').innerHTML =
-    `<p>${name}<br>${email}<br>${phone}</p>`;
-  document.getElementById('confirmDelivery').innerHTML =
-    `<p>${city}<br>${address}</p>`;
+  if (!EMAIL_RE.test(email)) {
+    showToast(currentLang === 'sr' ? 'Unesite ispravnu email adresu' : 'Please enter a valid email address', false);
+    document.getElementById('oEmail').focus();
+    return;
+  }
+  if (phone.replace(/\D/g, '').length < 8) {
+    showToast(currentLang === 'sr' ? 'Unesite ispravan broj telefona' : 'Please enter a valid phone number', false);
+    document.getElementById('oPhone').focus();
+    return;
+  }
+  renderConfirmLines('confirmContact', [name, email, phone]);
+  renderConfirmLines('confirmDelivery', [city, address]);
   populateSummary();
   document.getElementById('checkoutStep1').style.display = 'none';
   document.getElementById('checkoutStep2').style.display = 'block';
@@ -449,13 +490,14 @@ async function submitOrder(e) {
   }
 
   try {
-    await fetch(FORMSUBMIT_ENDPOINT, {
+    const res = await fetch(FORMSUBMIT_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
         _subject: `Herceg Wines — Nova rezervacija — ${name} — ${getCartTotal()} RSD`,
         _template: 'table',
         _captcha: 'false',
+        _replyto: email,
         _autoresponse: `Poštovani ${name},\n\nhvala Vam što ste odabrali Herceg Wines.\n\nVaša rezervacija je uspešno primljena. Kontaktiraćemo Vas u roku od 2–3 radna dana.\n\n★ HERCEG10 ★\n10% popusta na narednu narudžbu.\n\nHerceg Wines tim`,
         datum_i_vrijeme: timestamp,
         name, email, phone, city, address,
@@ -463,8 +505,18 @@ async function submitOrder(e) {
         order: orderLines
       })
     });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    if (data.success !== 'true' && data.success !== true) throw new Error('FormSubmit error');
   } catch (err) {
-    console.error('FormSubmit send attempt:', err);
+    // Never claim success we cannot verify — the cart stays intact so the
+    // customer can retry instead of losing the order silently.
+    console.error('Order submission failed:', err);
+    showToast(currentLang === 'sr'
+      ? 'Slanje nije uspelo. Pokušajte ponovo ili nas kontaktirajte telefonom.'
+      : 'Sending failed. Please try again or contact us by phone.', false);
+    if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalBtnText; }
+    return;
   }
 
   document.getElementById('checkoutFormWrap').style.display = 'none';
@@ -663,6 +715,16 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('checkoutClose').addEventListener('click', closeCheckout);
   document.getElementById('successCloseBtn').addEventListener('click', closeCheckout);
   document.getElementById('checkoutForm').addEventListener('submit', submitOrder);
+
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    if (document.getElementById('checkoutOverlay').classList.contains('active')) {
+      closeCheckout();
+    } else if (document.getElementById('cartSidebar').classList.contains('active')) {
+      document.getElementById('cartOverlay').classList.remove('active');
+      document.getElementById('cartSidebar').classList.remove('active');
+    }
+  });
 
   document.getElementById('contactForm').addEventListener('submit', async e => {
     e.preventDefault();

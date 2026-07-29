@@ -78,10 +78,7 @@ const BUNDLES = [
       en: 'One white and one red — the perfect introduction to indigenous Herzegovina varieties.'
     },
     wines: ['zilavka-mostar', 'blatina-citluk'],
-    count: 2,
-    originalPrice: 2780,
     price: 2490,
-    saving: 290,
     img: 'images/IMG_9965.webp'
   },
   {
@@ -93,10 +90,7 @@ const BUNDLES = [
       en: 'Three wines, three characters — white, red and a premium cuvée in one box.'
     },
     wines: ['blatina-citluk', 'zilavka-mostar', 'andjelic-hercegovina'],
-    count: 3,
-    originalPrice: 5070,
     price: 4690,
-    saving: 380,
     featured: true,
     img: 'images/IMG_9968.webp'
   },
@@ -109,13 +103,32 @@ const BUNDLES = [
       en: 'The complete collection — Žilavka, Blatina, Tvrdoš Vranac and Anđelić Tribun. The perfect gift for connoisseurs.'
     },
     wines: ['zilavka-hercegovina', 'zilavka-mostar', 'blatina-citluk', 'tvrdos-2022', 'andjelic-hercegovina'],
-    count: 5,
-    originalPrice: 8050,
     price: 6990,
-    saving: 1060,
     img: 'images/IMG_9969.webp'
   }
 ];
+
+// A bundle stores only its discounted price and which wines it contains. The
+// full price, the saving and the bottle count are derived from WINES on every
+// load, so changing a wine's price can never leave a bundle advertising a
+// saving that no longer adds up.
+(function deriveBundleTotals() {
+  const priceOf = id => {
+    const wine = WINES.find(w => w.id === id);
+    if (!wine) throw new Error('Paket se poziva na nepoznato vino: ' + id);
+    return wine.price;
+  };
+  BUNDLES.forEach(bundle => {
+    bundle.count = bundle.wines.length;
+    bundle.originalPrice = bundle.wines.reduce((sum, id) => sum + priceOf(id), 0);
+    bundle.saving = bundle.originalPrice - bundle.price;
+    if (bundle.saving < 0) {
+      console.warn(
+        `Paket "${bundle.name.sr}" je skuplji od zbira pojedinačnih cena ` +
+        `(${bundle.price} > ${bundle.originalPrice}).`);
+    }
+  });
+})();
 
 const RECIPIENT_EMAIL = 'hercegwines@gmail.com';
 const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/hercegwines@gmail.com';
@@ -170,7 +183,17 @@ function renderBundles() {
   if (!grid) return;
   const isSr = currentLang === 'sr';
   grid.innerHTML = BUNDLES.map(function(bundle) {
-    const saving = isSr ? ('Uštedite ' + bundle.saving + ' RSD') : ('Save ' + bundle.saving + ' RSD');
+    // With no real saving left, the tag and the struck-through price would be
+    // claiming a discount that is not there — drop both instead.
+    const hasSaving = bundle.saving > 0;
+    const savingTag = hasSaving
+      ? '<div class="bundle-saving-tag">'
+        + (isSr ? 'Uštedite ' + bundle.saving + ' RSD' : 'Save ' + bundle.saving + ' RSD')
+        + '</div>'
+      : '';
+    const originalPrice = hasSaving
+      ? '<span class="bundle-original">' + bundle.originalPrice + ' RSD</span>'
+      : '';
     const featured = bundle.featured ? ' bundle-card--featured' : '';
     const topBadge = bundle.featured
       ? '<div class="bundle-top-badge">' + (isSr ? 'Najpopularnije' : 'Most popular') + '</div>'
@@ -184,14 +207,14 @@ function renderBundles() {
           '<img src="' + bundle.img + '" alt="' + bundle.name[currentLang] + '" loading="lazy">',
         '</div>',
         topBadge,
-        '<div class="bundle-saving-tag">' + saving + '</div>',
+        savingTag,
         '<div class="wine-card-body">',
           '<h3>' + bundle.name[currentLang] + '</h3>',
           '<div class="wine-srb">' + bundle.subtitle[currentLang] + '</div>',
           '<p class="wine-desc">' + bundle.desc[currentLang] + '</p>',
           '<div class="wine-footer">',
             '<div class="bundle-pricing">',
-              '<span class="bundle-original">' + bundle.originalPrice + ' RSD</span>',
+              originalPrice,
               '<span class="wine-price">' + bundle.price + ' RSD</span>',
             '</div>',
             '<button type="button" class="bundle-add" data-bundle-id="' + bundle.id + '">' + btnLabel + '</button>',

@@ -43,7 +43,7 @@ const WINES = [
     id: 'tvrdos-2022',
     name: { sr: 'Manastir Tvrdoš Vranac', en: 'Monastery Tvrdoš Vranac' },
     volume: '0.75L',
-    subtitle: { sr: 'Crveno vino • Manastir Tvrdоš, Trebinje', en: 'Red Wine • Monastery Tvrdоš, Trebinje' },
+    subtitle: { sr: 'Crveno vino • Manastir Tvrdoš, Trebinje', en: 'Red Wine • Monastery Tvrdoš, Trebinje' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
       sr: 'Vino iz manastirskih vinograda na stenovitim padinama iznad Trebinja. Monaška tradicija utkana u svaki gutljaj — kompleksno, dostojanstveno, duboko, za momente koji ostaju u sećanju.',
@@ -534,8 +534,8 @@ async function submitOrder(e) {
         _template: 'table',
         _captcha: 'false',
         _replyto: email,
-        _autoresponse: `Poštovani ${name},\n\nhvala Vam što ste odabrali Herceg Wines.\n\nVaša rezervacija je uspešno primljena. Kontaktiraćemo Vas u roku od 2–3 radna dana.\n\n★ HERCEG10 ★\n10% popusta na narednu narudžbu.\n\nHerceg Wines tim`,
-        datum_i_vrijeme: timestamp,
+        _autoresponse: `Poštovani ${name},\n\nhvala Vam što ste odabrali Herceg Wines.\n\nVaša rezervacija je uspešno primljena. Kontaktiraćemo Vas u roku od 2–3 radna dana.\n\n★ HERCEG10 ★\n10% popusta na narednu porudžbinu.\n\nHerceg Wines tim`,
+        datum_i_vreme: timestamp,
         name, email, phone, city, address,
         total: `${getCartTotal()} RSD`,
         order: orderLines

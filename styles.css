@@ -768,12 +768,20 @@ button {
   transition: all 0.25s;
 }
 
-.wf-btn:hover {
-  border-color: var(--gold);
-  color: var(--wine-deep);
+/* Touch browsers leave :hover stuck on the last tapped element, so this is
+   gated to devices that can genuinely hover. */
+@media (hover: hover) {
+  .wf-btn:hover {
+    border-color: var(--gold);
+    color: var(--wine-deep);
+  }
 }
 
-.wf-btn--active {
+/* :hover is one class more specific than the active class, so without the
+   second selector it repaints the selected pill's label in that pill's own
+   background colour and the text vanishes. */
+.wf-btn--active,
+.wf-btn--active:hover {
   background: var(--wine-deep);
   border-color: var(--wine-deep);
   color: #fff;

@@ -139,7 +139,11 @@ function loadCart() {
   try {
     const raw = localStorage.getItem('hercegCart') || sessionStorage.getItem('hercegCart');
     const parsed = JSON.parse(raw || '[]');
-    return Array.isArray(parsed) ? parsed.filter(i => i && typeof i.id === 'string' && i.qty > 0) : [];
+    if (!Array.isArray(parsed)) return [];
+    // A saved cart outlives the catalogue now that it sits in localStorage, so
+    // drop anything that no longer exists rather than rendering a broken row.
+    const known = id => WINES.some(w => w.id === id) || BUNDLES.some(b => b.id === id);
+    return parsed.filter(i => i && typeof i.id === 'string' && i.qty > 0 && known(i.id));
   } catch (err) {
     return [];
   }
@@ -335,36 +339,29 @@ function renderCart() {
     footerEl.style.display = 'none';
     return;
   }
+  // Wines and bundles share one row: a bundle has its own photo, so stacking
+  // its member bottles here only overflowed the thumbnail box and pushed the
+  // quantity buttons on top of the images.
   itemsEl.innerHTML = cart.map(item => {
+    const source = item.isBundle
+      ? BUNDLES.find(b => b.id === item.id)
+      : WINES.find(w => w.id === item.id);
+    if (!source) return '';
     const price = getItemPrice(item);
-    if (item.isBundle) {
-      const bundle = BUNDLES.find(b => b.id === item.id);
-      const thumbs = bundle.wines.map(wid => {
-        const w = WINES.find(x => x.id === wid);
-        return w ? `<img src="${w.img}" alt="${w.name.sr}" style="height:44px;width:auto;object-fit:contain;">` : '';
-      }).join('');
-      return `
-        <div class="cart-item cart-item--bundle">
-          <div class="cart-bundle-thumbs">${thumbs}</div>
-          <div class="cart-item-info">
-            <h4>${bundle.name[currentLang]} <span class="cart-bundle-label">${currentLang === 'sr' ? 'Paket' : 'Bundle'}</span></h4>
-            <div class="cart-item-price">${price * item.qty} RSD</div>
-            <div class="cart-item-controls">
-              <button type="button" class="qty-btn" onclick="updateQty('${item.id}', -1)">−</button>
-              <span class="qty-val">${item.qty}</span>
-              <button type="button" class="qty-btn" onclick="updateQty('${item.id}', 1)">+</button>
-              <button type="button" class="remove-btn" onclick="removeFromCart('${item.id}')">${currentLang === 'sr' ? 'Ukloni' : 'Remove'}</button>
-            </div>
-          </div>
-        </div>
-      `;
-    }
-    const wine = WINES.find(w => w.id === item.id);
+    const label = item.isBundle
+      ? `<span class="cart-bundle-label">${currentLang === 'sr' ? 'Paket' : 'Bundle'}</span>`
+      : `<span class="cart-volume">${source.volume}</span>`;
+    const note = item.isBundle
+      ? `<div class="cart-item-note">${source.count} ${currentLang === 'sr'
+          ? (source.count >= 5 ? 'flaša' : 'flaše')
+          : 'bottles'}</div>`
+      : '';
     return `
       <div class="cart-item">
-        <div class="cart-item-img"><img src="${wine.img}" alt="${wine.name[currentLang]}"></div>
+        <div class="cart-item-img"><img src="${source.img}" alt="${source.name[currentLang]}"></div>
         <div class="cart-item-info">
-          <h4>${wine.name[currentLang]} <span class="cart-volume">${wine.volume}</span></h4>
+          <h4>${source.name[currentLang]} ${label}</h4>
+          ${note}
           <div class="cart-item-price">${price * item.qty} RSD</div>
           <div class="cart-item-controls">
             <button type="button" class="qty-btn" onclick="updateQty('${item.id}', -1)">−</button>

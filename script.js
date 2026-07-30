@@ -77,8 +77,8 @@ const BUNDLES = [
       sr: 'Jedno belo i jedno crveno — savršen uvod u autohtone sorte Hercegovine.',
       en: 'One white and one red — the perfect introduction to indigenous Herzegovina varieties.'
     },
-    wines: ['zilavka-mostar', 'blatina-citluk'],
-    price: 2490,
+    wines: ['zilavka-hercegovina', 'blatina-citluk'],
+    price: 2190,
     img: 'images/IMG_9965.webp'
   },
   {
@@ -89,8 +89,8 @@ const BUNDLES = [
       sr: 'Tri vina, tri karaktera — belo, crveno i premium cuvée u jednoj kutiji.',
       en: 'Three wines, three characters — white, red and a premium cuvée in one box.'
     },
-    wines: ['blatina-citluk', 'zilavka-mostar', 'andjelic-hercegovina'],
-    price: 4690,
+    wines: ['blatina-citluk', 'zilavka-hercegovina', 'andjelic-hercegovina'],
+    price: 4290,
     featured: true,
     img: 'images/IMG_9968.webp'
   },
@@ -103,7 +103,7 @@ const BUNDLES = [
       en: 'The complete collection — Žilavka, Blatina, Tvrdoš Vranac and Anđelić Tribun. The perfect gift for connoisseurs.'
     },
     wines: ['zilavka-hercegovina', 'zilavka-mostar', 'blatina-citluk', 'tvrdos-2022', 'andjelic-hercegovina'],
-    price: 6990,
+    price: 7190,
     img: 'images/IMG_9969.webp'
   }
 ];

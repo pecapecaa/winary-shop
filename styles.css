@@ -2477,7 +2477,9 @@ button {
   .footer-grid { grid-template-columns: 1fr; gap: 30px; }
   .form-row { grid-template-columns: 1fr; }
   .cart-sidebar { width: 100%; }
-  .checkout-modal { padding: 28px 20px; }
+  /* Top padding must stay clear of the close button, which is absolutely
+     positioned at the top-right and would otherwise sit on the step-2 circle. */
+  .checkout-modal { padding: 58px 20px 28px; }
   .contact-form { padding: 28px 20px; }
   .container { padding: 0 20px; }
   .hero-buttons { flex-direction: column; align-items: center; }

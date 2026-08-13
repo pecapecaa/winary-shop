@@ -83,7 +83,7 @@ const BUNDLES = [
   },
   {
     id: 'bundle-herceg-box',
-    name: { sr: 'Herceg Box', en: 'Herceg Box' },
+    name: { sr: 'Hercz Box', en: 'Hercz Box' },
     subtitle: { sr: 'Blatina + Žilavka + Anđelić Tribun', en: 'Blatina + Žilavka + Anđelić Tribun' },
     desc: {
       sr: 'Tri vina, tri karaktera — belo, crveno i premium cuvée u jednoj kutiji.',
@@ -96,7 +96,7 @@ const BUNDLES = [
   },
   {
     id: 'bundle-full-herceg',
-    name: { sr: 'Full Herceg', en: 'Full Herceg' },
+    name: { sr: 'Full Hercz', en: 'Full Hercz' },
     subtitle: { sr: 'Svih 5 vina iz naše ponude', en: 'All 5 wines from our collection' },
     desc: {
       sr: 'Kompletna kolekcija — Žilavka, Blatina, Tvrdoš Vranac i Anđelić Tribun. Savršen poklon za poznavaoce.',
@@ -530,11 +530,11 @@ async function submitOrder(e) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
-        _subject: `Herceg Wines — Nova rezervacija — ${name} — ${getCartTotal()} RSD`,
+        _subject: `Hercz Wines — Nova rezervacija — ${name} — ${getCartTotal()} RSD`,
         _template: 'table',
         _captcha: 'false',
         _replyto: email,
-        _autoresponse: `Poštovani ${name},\n\nhvala Vam što ste odabrali Herceg Wines.\n\nVaša rezervacija je uspešno primljena. Kontaktiraćemo Vas u roku od 2–3 radna dana.\n\n★ HERCEG10 ★\n10% popusta na narednu porudžbinu.\n\nHerceg Wines tim`,
+        _autoresponse: `Poštovani ${name},\n\nhvala Vam što ste odabrali Hercz Wines.\n\nVaša rezervacija je uspešno primljena. Kontaktiraćemo Vas u roku od 2–3 radna dana.\n\n★ HERCZ10 ★\n10% popusta na narednu porudžbinu.\n\nHercz Wines tim`,
         datum_i_vreme: timestamp,
         name, email, phone, city, address,
         total: `${getCartTotal()} RSD`,

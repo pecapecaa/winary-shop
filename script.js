@@ -130,8 +130,8 @@ const BUNDLES = [
   });
 })();
 
-const RECIPIENT_EMAIL = 'hercegwines@gmail.com';
-const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/hercegwines@gmail.com';
+const RECIPIENT_EMAIL = 'herczwines@gmail.com';
+const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/herczwines@gmail.com';
 let currentLang = 'sr';
 
 // Corrupt or unavailable storage must never take the whole page down.

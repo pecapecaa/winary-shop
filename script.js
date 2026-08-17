@@ -134,16 +134,40 @@ const RECIPIENT_EMAIL = 'herczwines@gmail.com';
 const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/herczwines@gmail.com';
 let currentLang = 'sr';
 
+// A cart still sitting there the next day reads as a glitch, not a courtesy.
+// Six hours covers "let me think it over and come back tonight"; older than
+// that gets dropped. The clock restarts on every change, so a long browsing
+// session never expires while someone is still shopping.
+const CART_TTL_MS = 6 * 60 * 60 * 1000;
+
+function clearStoredCart() {
+  try {
+    localStorage.removeItem('hercegCart');
+    sessionStorage.removeItem('hercegCart');
+  } catch (err) {
+    // Storage unavailable — there is nothing to clear.
+  }
+}
+
 // Corrupt or unavailable storage must never take the whole page down.
 function loadCart() {
   try {
     const raw = localStorage.getItem('hercegCart') || sessionStorage.getItem('hercegCart');
-    const parsed = JSON.parse(raw || '[]');
-    if (!Array.isArray(parsed)) return [];
+    const parsed = JSON.parse(raw || 'null');
+    // Carts written before the expiry existed are bare arrays with no
+    // timestamp — those are exactly the stale ones this is meant to clear.
+    const fresh = parsed
+      && Array.isArray(parsed.items)
+      && typeof parsed.savedAt === 'number'
+      && Date.now() - parsed.savedAt <= CART_TTL_MS;
+    if (!fresh) {
+      clearStoredCart();
+      return [];
+    }
     // A saved cart outlives the catalogue now that it sits in localStorage, so
     // drop anything that no longer exists rather than rendering a broken row.
     const known = id => WINES.some(w => w.id === id) || BUNDLES.some(b => b.id === id);
-    return parsed.filter(i => i && typeof i.id === 'string' && i.qty > 0 && known(i.id));
+    return parsed.items.filter(i => i && typeof i.id === 'string' && i.qty > 0 && known(i.id));
   } catch (err) {
     return [];
   }
@@ -310,7 +334,7 @@ function updateCartCount() {
 
 function saveCart() {
   try {
-    localStorage.setItem('hercegCart', JSON.stringify(cart));
+    localStorage.setItem('hercegCart', JSON.stringify({ items: cart, savedAt: Date.now() }));
   } catch (err) {
     // Private mode / quota exceeded — the cart still works for this session.
   }

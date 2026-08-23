@@ -1,3 +1,26 @@
+/* Cinzel builds Đ and đ as a D with a combining macron parked above it, not a
+   stroke through the stem — the result is a letter Serbian does not have. These
+   two glyphs are Cinzel's own D and d with a proper stroke cut through them,
+   subset to just those codepoints so every other character still comes from
+   Cinzel itself. Modified Cinzel, SIL OFL 1.1 — see fonts/OFL.txt. */
+@font-face {
+  font-family: 'HerczDj';
+  src: url('fonts/hercz-dj-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0110, U+0111;
+}
+
+@font-face {
+  font-family: 'HerczDj';
+  src: url('fonts/hercz-dj-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0110, U+0111;
+}
+
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
@@ -25,7 +48,7 @@ body {
 }
 
 h1, h2, h3, h4 {
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   line-height: 1.2;
   font-weight: 700;
   text-rendering: optimizeLegibility;
@@ -609,7 +632,7 @@ button {
 .about-stat { text-align: center; }
 
 .stat-num {
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   font-size: 2.2rem;
   font-weight: 700;
   color: var(--wine);
@@ -813,14 +836,14 @@ button {
 }
 
 .wine-price {
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   font-size: 1.4rem;
   font-weight: 700;
   color: var(--gold);
 }
 
 .wine-volume {
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 1.5px;
@@ -832,7 +855,7 @@ button {
 }
 
 .cart-volume {
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   font-size: 0.55rem;
   font-weight: 600;
   letter-spacing: 1px;
@@ -879,7 +902,7 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   font-size: 0.72rem;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -888,7 +911,7 @@ button {
 }
 
 .bundles-title {
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   font-size: 2rem;
   font-weight: 700;
   color: var(--wine-deep);
@@ -951,7 +974,7 @@ button {
   z-index: 5;
   background: linear-gradient(90deg, #b8933a, #e8c96a, #b8933a);
   color: #1a0508;
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 2px;
@@ -1053,7 +1076,7 @@ button {
 .bundle-card:hover .bundle-mini-bottle:nth-child(even) { transform: translateY(4px); }
 
 .bundle-count {
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   font-size: 0.68rem;
   letter-spacing: 2.5px;
   text-transform: uppercase;
@@ -1062,7 +1085,7 @@ button {
 }
 
 .bundle-name {
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   font-size: 1.4rem;
   font-weight: 700;
   color: #f5ede0;
@@ -1100,7 +1123,7 @@ button {
 }
 
 .bundle-price {
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   font-size: 1.9rem;
   font-weight: 700;
   color: var(--gold);
@@ -1112,7 +1135,7 @@ button {
   border: 1.5px solid var(--gold);
   color: var(--gold);
   padding: 13px 20px;
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 1.5px;
@@ -1220,7 +1243,7 @@ button {
 .vf-item { text-align: center; }
 
 .vf-num {
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   font-size: 2.6rem;
   font-weight: 700;
   color: var(--gold);
@@ -1302,7 +1325,7 @@ button {
 }
 
 .visit-price {
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   font-size: 1.4rem;
   font-weight: 700;
   color: var(--wine);
@@ -1384,7 +1407,7 @@ button {
 
 .contact-item strong {
   display: block;
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   font-size: 0.8rem;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -1629,7 +1652,7 @@ button {
 }
 
 .cart-item-price {
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   color: var(--wine);
   font-weight: 700;
   font-size: 0.95rem;
@@ -1700,7 +1723,7 @@ button {
 .cart-total {
   display: flex;
   justify-content: space-between;
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   font-size: 1.2rem;
   font-weight: 700;
   color: var(--wine-deep);
@@ -1805,7 +1828,7 @@ button {
   padding-top: 10px;
   margin-top: 8px;
   border-top: 1px solid rgba(139, 115, 85, 0.3);
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   font-weight: 700;
   color: var(--wine);
   font-size: 1.15rem;
@@ -1848,7 +1871,7 @@ button {
   border: 1px solid var(--gold);
   padding: 16px 20px;
   margin: 20px 0 24px;
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   font-size: 0.9rem;
   font-weight: 700;
   color: var(--wine);
@@ -1881,7 +1904,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   font-size: 0.8rem;
   font-weight: 700;
   transition: background 0.35s, color 0.35s, transform 0.35s;
@@ -1940,7 +1963,7 @@ button {
 }
 
 .confirm-section h4 {
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   font-size: 0.68rem;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -1998,7 +2021,7 @@ button {
   z-index: 9999;
   opacity: 0;
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s;
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   font-size: 0.82rem;
   font-weight: 600;
   letter-spacing: 0.5px;
@@ -2122,7 +2145,7 @@ button {
 
 .checkout-delivery-info strong {
   display: block;
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   font-size: 0.75rem;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -2249,7 +2272,7 @@ button {
 }
 
 .age-gate-badge {
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   font-size: 5rem;
   font-weight: 900;
   color: var(--gold);
@@ -2260,7 +2283,7 @@ button {
 }
 
 .age-gate-title {
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   font-size: 1.35rem;
   color: #fff;
   font-weight: 600;
@@ -2406,7 +2429,7 @@ button {
   padding: 10px 18px;
   background: var(--gold);
   color: #1f0508;
-  font-family: 'Cinzel', serif;
+  font-family: 'HerczDj', 'Cinzel', serif;
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 1px;

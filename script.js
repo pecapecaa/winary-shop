@@ -46,8 +46,8 @@ const WINES = [
     subtitle: { sr: 'Crveno vino • Manastir Tvrdoš, Trebinje', en: 'Red Wine • Monastery Tvrdoš, Trebinje' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
-      sr: 'Vino iz manastirskih vinograda na stenovitim padinama iznad Trebinja. Monaška tradicija utkana u svaki gutljaj — kompleksno, dostojanstveno, duboko, za momente koji ostaju u sećanju.',
-      en: 'Wine from monastery vineyards on rocky slopes above Trebinje. Monastic tradition woven into every sip — complex, dignified, deep, for moments that stay in memory.'
+      sr: 'Vino iz manastirskih vinograda na stenovitim padinama iznad Trebinja. Monaška tradicija utkana u svaki gutljaj – kompleksno, dostojanstveno, duboko, za momente koji ostaju u sećanju.',
+      en: 'Wine from monastery vineyards on rocky slopes above Trebinje. Monastic tradition woven into every sip – complex, dignified, deep, for moments that stay in memory.'
     },
     price: 2090,
     img: 'images/tvrdos-2022.webp'
@@ -74,8 +74,8 @@ const BUNDLES = [
     name: { sr: 'Starter', en: 'Starter' },
     subtitle: { sr: 'Žilavka + Blatina • Vinarija Čitluk', en: 'Žilavka + Blatina • Vinarija Čitluk' },
     desc: {
-      sr: 'Jedno belo i jedno crveno — savršen uvod u autohtone sorte Hercegovine.',
-      en: 'One white and one red — the perfect introduction to indigenous Herzegovina varieties.'
+      sr: 'Jedno belo i jedno crveno – savršen uvod u autohtone sorte Hercegovine.',
+      en: 'One white and one red – the perfect introduction to indigenous Herzegovina varieties.'
     },
     wines: ['zilavka-hercegovina', 'blatina-citluk'],
     price: 2190,
@@ -86,8 +86,8 @@ const BUNDLES = [
     name: { sr: 'Hercz Box', en: 'Hercz Box' },
     subtitle: { sr: 'Blatina + Žilavka + Anđelić Tribun', en: 'Blatina + Žilavka + Anđelić Tribun' },
     desc: {
-      sr: 'Tri vina, tri karaktera — belo, crveno i premium cuvée u jednoj kutiji.',
-      en: 'Three wines, three characters — white, red and a premium cuvée in one box.'
+      sr: 'Tri vina, tri karaktera – belo, crveno i premium cuvée u jednoj kutiji.',
+      en: 'Three wines, three characters – white, red and a premium cuvée in one box.'
     },
     wines: ['blatina-citluk', 'zilavka-hercegovina', 'andjelic-hercegovina'],
     price: 4290,
@@ -99,8 +99,8 @@ const BUNDLES = [
     name: { sr: 'Full Hercz', en: 'Full Hercz' },
     subtitle: { sr: 'Svih 5 vina iz naše ponude', en: 'All 5 wines from our collection' },
     desc: {
-      sr: 'Kompletna kolekcija — Žilavka, Blatina, Tvrdoš Vranac i Anđelić Tribun. Savršen poklon za poznavaoce.',
-      en: 'The complete collection — Žilavka, Blatina, Tvrdoš Vranac and Anđelić Tribun. The perfect gift for connoisseurs.'
+      sr: 'Kompletna kolekcija – Žilavka, Blatina, Tvrdoš Vranac i Anđelić Tribun. Savršen poklon za poznavaoce.',
+      en: 'The complete collection – Žilavka, Blatina, Tvrdoš Vranac and Anđelić Tribun. The perfect gift for connoisseurs.'
     },
     wines: ['zilavka-hercegovina', 'zilavka-mostar', 'blatina-citluk', 'tvrdos-2022', 'andjelic-hercegovina'],
     price: 7190,
@@ -554,7 +554,7 @@ async function submitOrder(e) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
-        _subject: `Hercz Wines — Nova rezervacija — ${name} — ${getCartTotal()} RSD`,
+        _subject: `Hercz Wines – Nova rezervacija – ${name} – ${getCartTotal()} RSD`,
         _template: 'table',
         _captcha: 'false',
         _replyto: email,

@@ -629,13 +629,6 @@ button {
   border-top: 1px solid rgba(107, 31, 42, 0.2);
 }
 
-.about-local {
-  margin-top: 24px;
-  margin-bottom: 0;
-  font-style: italic;
-  opacity: 0.85;
-}
-
 .about-stat { text-align: center; }
 
 .stat-num {

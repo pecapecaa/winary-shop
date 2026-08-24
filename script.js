@@ -10,7 +10,7 @@ const WINES = [
       sr: 'Retka autohtona sorta uzgojena na karstu Hercegovine. Zlatno-žuta boja, bogata mineralna struktura, note zrele jabuke, breskve i mediteranskog bilja. Vino koje ostavlja trag.',
       en: 'A rare indigenous variety grown on the Herzegovina karst. Golden-yellow, rich mineral structure, notes of ripe apple, peach and Mediterranean herbs. A wine that leaves a mark.'
     },
-    price: 890,
+    price: 990,
     img: 'images/zilavka-hercegovina.webp'
   },
   {
@@ -23,7 +23,7 @@ const WINES = [
       sr: 'Elegantna Žilavka iz čuvene Vinarije Čitluk uz reku Neretvu. Sveža kiselina, voćna kompleksnost i dug, svilenkast završetak. Najprepoznatljivije belo vino BiH.',
       en: 'Elegant Žilavka from the renowned Vinarija Čitluk along the Neretva. Fresh acidity, fruity complexity and a long, silky finish. The most recognised white wine of BiH.'
     },
-    price: 1290,
+    price: 1490,
     img: 'images/zilavka-mostar.webp'
   },
   {
@@ -36,7 +36,7 @@ const WINES = [
       sr: 'Jedinstven autohtoni crveni kultivar, uzgojen isključivo u Hercegovini. Tamno rubinska boja, arome višnje, šljive i začina. Srednji tanini, meki i savršeno balansirani.',
       en: 'A unique indigenous red cultivar, grown exclusively in Herzegovina. Dark ruby, aromas of cherry, plum and spice. Medium tannins, soft and perfectly balanced.'
     },
-    price: 1490,
+    price: 1690,
     img: 'images/blatina-citluk.webp'
   },
   {
@@ -49,7 +49,7 @@ const WINES = [
       sr: 'Vino iz manastirskih vinograda na stenovitim padinama iznad Trebinja. Monaška tradicija utkana u svaki gutljaj – kompleksno, dostojanstveno, duboko, za momente koji ostaju u sećanju.',
       en: 'Wine from monastery vineyards on rocky slopes above Trebinje. Monastic tradition woven into every sip – complex, dignified, deep, for moments that stay in memory.'
     },
-    price: 2090,
+    price: 1790,
     img: 'images/tvrdos-2022.webp'
   },
   {
@@ -62,7 +62,7 @@ const WINES = [
       sr: 'Vrhunsko crveno vino iz podruma vinarije Anđelić. Bogata tamna boja, arome zrelog voća, crnih ribizla i blage vanilije. Dugo odležano, baršunasti tanini i izuzetno dug završetak.',
       en: 'Premium red wine from the Anđelić winery cellar. Rich dark colour, aromas of ripe fruit, blackcurrant and gentle vanilla. Long-aged, velvety tannins and an exceptionally long finish.'
     },
-    price: 2290,
+    price: 2490,
     img: 'images/andjelic-hercegovina.webp'
   }
 ];
@@ -78,7 +78,7 @@ const BUNDLES = [
       en: 'One white and one red – the perfect introduction to indigenous Herzegovina varieties.'
     },
     wines: ['zilavka-hercegovina', 'blatina-citluk'],
-    price: 2190,
+    price: 2490,
     img: 'images/IMG_9965.webp'
   },
   {
@@ -90,7 +90,7 @@ const BUNDLES = [
       en: 'Three wines, three characters – white, red and a premium cuvée in one box.'
     },
     wines: ['blatina-citluk', 'zilavka-hercegovina', 'andjelic-hercegovina'],
-    price: 4290,
+    price: 4790,
     featured: true,
     img: 'images/IMG_9968.webp'
   },
@@ -103,7 +103,7 @@ const BUNDLES = [
       en: 'The complete collection – Žilavka, Blatina, Tvrdoš Vranac and Anđelić Tribun. The perfect gift for connoisseurs.'
     },
     wines: ['zilavka-hercegovina', 'zilavka-mostar', 'blatina-citluk', 'tvrdos-2022', 'andjelic-hercegovina'],
-    price: 7190,
+    price: 7590,
     img: 'images/IMG_9969.webp'
   }
 ];

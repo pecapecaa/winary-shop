@@ -49,7 +49,7 @@ const WINES = [
       sr: 'Vino iz manastirskih vinograda na stenovitim padinama iznad Trebinja. Monaška tradicija utkana u svaki gutljaj – kompleksno, dostojanstveno, duboko, za momente koji ostaju u sećanju.',
       en: 'Wine from monastery vineyards on rocky slopes above Trebinje. Monastic tradition woven into every sip – complex, dignified, deep, for moments that stay in memory.'
     },
-    price: 1790,
+    price: 1990,
     img: 'images/tvrdos-2022.webp'
   },
   {
@@ -103,7 +103,7 @@ const BUNDLES = [
       en: 'The complete collection – Žilavka, Blatina, Tvrdoš Vranac and Anđelić Tribun. The perfect gift for connoisseurs.'
     },
     wines: ['zilavka-hercegovina', 'zilavka-mostar', 'blatina-citluk', 'tvrdos-2022', 'andjelic-hercegovina'],
-    price: 7590,
+    price: 7790,
     img: 'images/IMG_9969.webp'
   }
 ];

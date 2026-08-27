@@ -2396,7 +2396,27 @@ button {
   .nav-links.active { display: flex; }
   .nav-toggle { display: flex; }
   .section { padding: 70px 0; }
-  .wines-grid, .visit-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+  .wines-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .visit-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+
+  /* Two to a row leaves each card about 170px wide. Nothing about how the card
+     looks changes; these are the adjustments that stop it breaking at that
+     width. The photos are landscape, so a narrower card scales the bottle down
+     by its width and strands it in empty black — a shorter card and a wider
+     image put the bottle back in proportion. */
+  .wines-grid .wine-card { min-height: 400px; }
+  .wines-grid .wine-img-wrap img { height: 210%; max-width: 260%; }
+  .wines-grid .wine-card-body { padding: 0 15px 18px; }
+  .wines-grid .wine-card h3 { font-size: 1.05rem; }
+  .wines-grid .wine-srb { font-size: 0.82rem; margin-bottom: 8px; }
+  .wines-grid .wine-desc { font-size: 0.92rem; -webkit-line-clamp: 2; margin-bottom: 10px; }
+  /* The footer has to stop being one row, or the price wraps onto two lines and
+     the button runs off the card edge. */
+  .wines-grid .wine-footer { flex-direction: column; align-items: stretch; gap: 9px; }
+  .wines-grid .wine-price-row { justify-content: space-between; }
+  .wines-grid .wine-price { font-size: 1.15rem; }
+  .wines-grid .wine-add { width: 100%; padding: 9px 6px; font-size: 0.6rem; letter-spacing: 1px; }
+  .wines-grid .bundle-pricing { align-items: flex-start; }
   .vineyard-features { grid-template-columns: 1fr; }
   .about-stats { grid-template-columns: repeat(3, 1fr); gap: 12px; }
   .stat-num { font-size: 1.6rem; }

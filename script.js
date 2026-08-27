@@ -1,33 +1,111 @@
 // ===== Wines Data =====
 const WINES = [
   {
-    id: 'zilavka-hercegovina',
-    name: { sr: 'Žilavka Čitluk', en: 'Žilavka Čitluk' },
-    volume: '1L',
-    subtitle: { sr: 'Belo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
-    type: { sr: 'Belo', en: 'White' },
-    desc: {
-      sr: 'Retka autohtona sorta uzgojena na karstu Hercegovine. Zlatno-žuta boja, bogata mineralna struktura, note zrele jabuke, breskve i mediteranskog bilja. Vino koje ostavlja trag.',
-      en: 'A rare indigenous variety grown on the Herzegovina karst. Golden-yellow, rich mineral structure, notes of ripe apple, peach and Mediterranean herbs. A wine that leaves a mark.'
-    },
-    price: 990,
-    img: 'images/zilavka-hercegovina.webp'
-  },
-  {
-    id: 'zilavka-mostar',
-    name: { sr: 'Žilavka Čitluk', en: 'Žilavka Čitluk' },
+    id: 'tvrdos-vranac',
+    name: { sr: 'Tvrdoš Vranac', en: 'Tvrdoš Vranac' },
     volume: '0.75L',
-    subtitle: { sr: 'Belo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
-    type: { sr: 'Belo', en: 'White' },
+    subtitle: { sr: 'Crveno vino • Manastir Tvrdoš, Trebinje', en: 'Red Wine • Manastir Tvrdoš, Trebinje' },
+    type: { sr: 'Crveno', en: 'Red' },
     desc: {
-      sr: 'Elegantna Žilavka iz čuvene Vinarije Čitluk uz reku Neretvu. Sveža kiselina, voćna kompleksnost i dug, svilenkast završetak. Najprepoznatljivije belo vino BiH.',
-      en: 'Elegant Žilavka from the renowned Vinarija Čitluk along the Neretva. Fresh acidity, fruity complexity and a long, silky finish. The most recognised white wine of BiH.'
+      sr: 'Vino iz manastirskih vinograda na stenovitim padinama iznad Trebinja. Monaška tradicija utkana u svaki gutljaj, kompleksno, dostojanstveno, duboko, za momente koji ostaju u sećanju.',
+      en: 'Wine from monastery vineyards on rocky slopes above Trebinje. Monastic tradition woven into every sip, complex, dignified, deep, for moments that stay in memory.'
     },
-    price: 1490,
-    img: 'images/zilavka-mostar.webp'
+    price: 1990,
+    img: 'images/tvrdos-2022.webp'
   },
   {
-    id: 'blatina-citluk',
+    id: 'tvrdos-zilavka',
+    name: { sr: 'Tvrdoš Žilavka', en: 'Tvrdoš Žilavka' },
+    volume: '0.75L',
+    subtitle: { sr: 'Belo vino • Manastir Tvrdoš, Trebinje', en: 'White Wine • Manastir Tvrdoš, Trebinje' },
+    type: { sr: 'Belo', en: 'White' },
+    desc: {
+      sr: '[opis vina, dopuniti pre objave]',
+      en: '[wine description, to be written before launch]'
+    },
+    price: 2390,
+    img: 'images/tvrdos-2022.webp'
+  },
+  {
+    id: 'tamjanika-galerija',
+    name: { sr: 'Tamjanika Galerija', en: 'Tamjanika Galerija' },
+    volume: '0.75L',
+    subtitle: { sr: 'Belo vino • [vinarija]', en: 'White Wine • [vinarija]' },
+    type: { sr: 'Belo', en: 'White' },
+    desc: {
+      sr: '[opis vina, dopuniti pre objave]',
+      en: '[wine description, to be written before launch]'
+    },
+    price: 1890,
+    img: 'images/tvrdos-2022.webp'
+  },
+  {
+    id: 'tvrdos-metoh-vranac',
+    name: { sr: 'Tvrdoš Metoh Vranac', en: 'Tvrdoš Metoh Vranac' },
+    volume: '0.75L',
+    subtitle: { sr: 'Crveno vino • Manastir Tvrdoš, Trebinje', en: 'Red Wine • Manastir Tvrdoš, Trebinje' },
+    type: { sr: 'Crveno', en: 'Red' },
+    desc: {
+      sr: '[opis vina, dopuniti pre objave]',
+      en: '[wine description, to be written before launch]'
+    },
+    price: 1590,
+    img: 'images/tvrdos-2022.webp'
+  },
+  {
+    id: 'primavera-roze',
+    name: { sr: 'Primavera cuvee roze', en: 'Primavera cuvee roze' },
+    volume: '0.75L',
+    subtitle: { sr: 'Rosé vino • [vinarija]', en: 'Rosé Wine • [vinarija]' },
+    type: { sr: 'Rosé', en: 'Rosé' },
+    desc: {
+      sr: '[opis vina, dopuniti pre objave]',
+      en: '[wine description, to be written before launch]'
+    },
+    price: 1890,
+    img: 'images/tvrdos-2022.webp'
+  },
+  {
+    id: 'tvrdos-izba-merlot',
+    name: { sr: 'Tvrdoš Izba Merlot', en: 'Tvrdoš Izba Merlot' },
+    volume: '0.75L',
+    subtitle: { sr: 'Crveno vino • Manastir Tvrdoš, Trebinje', en: 'Red Wine • Manastir Tvrdoš, Trebinje' },
+    type: { sr: 'Crveno', en: 'Red' },
+    desc: {
+      sr: '[opis vina, dopuniti pre objave]',
+      en: '[wine description, to be written before launch]'
+    },
+    price: 1590,
+    img: 'images/tvrdos-2022.webp'
+  },
+  {
+    id: 'zlatna-selekcija-bijelo',
+    name: { sr: 'Zlatna Selekcija Bijelo', en: 'Zlatna Selekcija Bijelo' },
+    volume: '0.75L',
+    subtitle: { sr: 'Belo vino • [vinarija]', en: 'White Wine • [vinarija]' },
+    type: { sr: 'Belo', en: 'White' },
+    desc: {
+      sr: '[opis vina, dopuniti pre objave]',
+      en: '[wine description, to be written before launch]'
+    },
+    price: 4490,
+    img: 'images/tvrdos-2022.webp'
+  },
+  {
+    id: 'vranac-reserve',
+    name: { sr: 'Vranac Reserve', en: 'Vranac Reserve' },
+    volume: '0.75L',
+    subtitle: { sr: 'Crveno vino • [vinarija]', en: 'Red Wine • [vinarija]' },
+    type: { sr: 'Crveno', en: 'Red' },
+    desc: {
+      sr: '[opis vina, dopuniti pre objave]',
+      en: '[wine description, to be written before launch]'
+    },
+    price: 4490,
+    img: 'images/tvrdos-2022.webp'
+  },
+  {
+    id: 'blatina-citluk-075',
     name: { sr: 'Blatina Čitluk', en: 'Blatina Čitluk' },
     volume: '0.75L',
     subtitle: { sr: 'Crveno vino • Vinarija Čitluk', en: 'Red Wine • Vinarija Čitluk' },
@@ -36,34 +114,60 @@ const WINES = [
       sr: 'Jedinstven autohtoni crveni kultivar, uzgojen isključivo u Hercegovini. Tamno rubinska boja, arome višnje, šljive i začina. Srednji tanini, meki i savršeno balansirani.',
       en: 'A unique indigenous red cultivar, grown exclusively in Herzegovina. Dark ruby, aromas of cherry, plum and spice. Medium tannins, soft and perfectly balanced.'
     },
-    price: 1690,
+    price: 1390,
     img: 'images/blatina-citluk.webp'
   },
   {
-    id: 'tvrdos-2022',
-    name: { sr: 'Manastir Tvrdoš Vranac', en: 'Monastery Tvrdoš Vranac' },
+    id: 'zilavka-citluk-075',
+    name: { sr: 'Žilavka Čitluk', en: 'Žilavka Čitluk' },
     volume: '0.75L',
-    subtitle: { sr: 'Crveno vino • Manastir Tvrdoš, Trebinje', en: 'Red Wine • Monastery Tvrdoš, Trebinje' },
-    type: { sr: 'Crveno', en: 'Red' },
+    subtitle: { sr: 'Belo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
+    type: { sr: 'Belo', en: 'White' },
     desc: {
-      sr: 'Vino iz manastirskih vinograda na stenovitim padinama iznad Trebinja. Monaška tradicija utkana u svaki gutljaj: kompleksno, dostojanstveno, duboko, za momente koji ostaju u sećanju.',
-      en: 'Wine from monastery vineyards on rocky slopes above Trebinje. Monastic tradition woven into every sip: complex, dignified, deep, for moments that stay in memory.'
+      sr: 'Elegantna Žilavka iz čuvene Vinarije Čitluk uz reku Neretvu. Sveža kiselina, voćna kompleksnost i dug, svilenkast završetak. Najprepoznatljivije belo vino BiH.',
+      en: 'Elegant Žilavka from the renowned Vinarija Čitluk along the Neretva. Fresh acidity, fruity complexity and a long, silky finish. The most recognised white wine of BiH.'
     },
-    price: 1990,
-    img: 'images/tvrdos-2022.webp'
+    price: 1190,
+    img: 'images/zilavka-mostar.webp'
   },
   {
-    id: 'andjelic-hercegovina',
-    name: { sr: 'Anđelić Tribun', en: 'Anđelić Tribun' },
-    volume: '0.75L',
-    subtitle: { sr: 'Crveno vino • Vinarija Anđelić', en: 'Red Wine • Vinarija Anđelić' },
+    id: 'blatina-citluk-1l',
+    name: { sr: 'Blatina Čitluk', en: 'Blatina Čitluk' },
+    volume: '1L',
+    subtitle: { sr: 'Crveno vino • Vinarija Čitluk', en: 'Red Wine • Vinarija Čitluk' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
-      sr: 'Vrhunsko crveno vino iz podruma vinarije Anđelić. Bogata tamna boja, arome zrelog voća, crnih ribizla i blage vanilije. Dugo odležano, baršunasti tanini i izuzetno dug završetak.',
-      en: 'Premium red wine from the Anđelić winery cellar. Rich dark colour, aromas of ripe fruit, blackcurrant and gentle vanilla. Long-aged, velvety tannins and an exceptionally long finish.'
+      sr: '[opis vina, dopuniti pre objave]',
+      en: '[wine description, to be written before launch]'
     },
-    price: 2490,
-    img: 'images/andjelic-hercegovina.webp'
+    price: 690,
+    img: 'images/blatina-citluk.webp'
+  },
+  {
+    id: 'zilavka-citluk-1l',
+    name: { sr: 'Žilavka Čitluk', en: 'Žilavka Čitluk' },
+    volume: '1L',
+    subtitle: { sr: 'Belo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
+    type: { sr: 'Belo', en: 'White' },
+    desc: {
+      sr: 'Retka autohtona sorta uzgojena na karstu Hercegovine. Zlatno-žuta boja, bogata mineralna struktura, note zrele jabuke, breskve i mediteranskog bilja.',
+      en: 'A rare indigenous variety grown on the Herzegovina karst. Golden-yellow, rich mineral structure, notes of ripe apple, peach and Mediterranean herbs.'
+    },
+    price: 690,
+    img: 'images/zilavka-hercegovina.webp'
+  },
+  {
+    id: 'tribunija-bijelo',
+    name: { sr: 'Tribunija bijelo', en: 'Tribunija bijelo' },
+    volume: '0.75L',
+    subtitle: { sr: 'Belo vino • Podrumi Vukoje, Trebinje', en: 'White Wine • Podrumi Vukoje, Trebinje' },
+    type: { sr: 'Belo', en: 'White' },
+    desc: {
+      sr: '[opis vina, dopuniti pre objave]',
+      en: '[wine description, to be written before launch]'
+    },
+    price: 1890,
+    img: 'images/tvrdos-2022.webp'
   }
 ];
 
@@ -77,33 +181,33 @@ const BUNDLES = [
       sr: 'Jedno belo i jedno crveno, savršen uvod u autohtone sorte Hercegovine.',
       en: 'One white and one red, the perfect introduction to indigenous Herzegovina varieties.'
     },
-    wines: ['zilavka-hercegovina', 'blatina-citluk'],
-    price: 2490,
+    wines: ['zilavka-citluk-075', 'blatina-citluk-075'],
+    price: 2390,
     img: 'images/IMG_9965.webp'
   },
   {
     id: 'bundle-herceg-box',
     name: { sr: 'Hercz Box', en: 'Hercz Box' },
-    subtitle: { sr: 'Blatina + Žilavka + Anđelić Tribun', en: 'Blatina + Žilavka + Anđelić Tribun' },
+    subtitle: { sr: 'Blatina + Žilavka + Tvrdoš Vranac', en: 'Blatina + Žilavka + Tvrdoš Vranac' },
     desc: {
       sr: 'Tri vina, tri karaktera: belo, crveno i premium cuvée u jednoj kutiji.',
       en: 'Three wines, three characters: white, red and a premium cuvée in one box.'
     },
-    wines: ['blatina-citluk', 'zilavka-hercegovina', 'andjelic-hercegovina'],
-    price: 4790,
+    wines: ['blatina-citluk-075', 'zilavka-citluk-075', 'tvrdos-vranac'],
+    price: 4190,
     featured: true,
     img: 'images/IMG_9968.webp'
   },
   {
     id: 'bundle-full-herceg',
     name: { sr: 'Full Hercz', en: 'Full Hercz' },
-    subtitle: { sr: 'Svih 5 vina iz naše ponude', en: 'All 5 wines from our collection' },
+    subtitle: { sr: 'Izbor od 5 vina iz naše ponude', en: 'A selection of 5 wines from our range' },
     desc: {
-      sr: 'Kompletna kolekcija: Žilavka, Blatina, Tvrdoš Vranac i Anđelić Tribun. Savršen poklon za poznavaoce.',
-      en: 'The complete collection: Žilavka, Blatina, Tvrdoš Vranac and Anđelić Tribun. The perfect gift for connoisseurs.'
+      sr: 'Žilavka u dve zapremine, Blatina, Tvrdoš Vranac i Tvrdoš Žilavka. Savršen poklon za poznavaoce.',
+      en: 'Žilavka in two sizes, Blatina, Tvrdoš Vranac and Tvrdoš Žilavka. The perfect gift for connoisseurs.'
     },
-    wines: ['zilavka-hercegovina', 'zilavka-mostar', 'blatina-citluk', 'tvrdos-2022', 'andjelic-hercegovina'],
-    price: 7790,
+    wines: ['zilavka-citluk-075', 'zilavka-citluk-1l', 'blatina-citluk-075', 'tvrdos-vranac', 'tvrdos-zilavka'],
+    price: 6890,
     img: 'images/IMG_9969.webp'
   }
 ];
@@ -547,7 +651,9 @@ function openDetail(id) {
   vol.textContent = wine ? wine.volume : '';
   vol.style.display = wine ? '' : 'none';
 
-  document.getElementById('detailAdd').textContent = wine
+  // Only the label, never the button: its cart icon is a sibling of this span
+  // and setting textContent on the button would wipe the icon out.
+  document.getElementById('detailAddText').textContent = wine
     ? (isSr ? 'Dodaj u listu' : 'Add to list')
     : (isSr ? 'Dodaj paket u listu' : 'Add bundle to list');
 

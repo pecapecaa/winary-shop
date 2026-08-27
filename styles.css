@@ -1880,11 +1880,20 @@ button {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  font-size: 1.5rem;
-  line-height: 1;
-  color: #f5ede0;
+  color: var(--gold);
   background: rgba(8, 2, 4, 0.7);
   border: 1px solid rgba(201, 169, 97, 0.4);
+}
+
+.detail-close svg { display: block; }
+
+/* Carries the same cart glyph as the card, so the buy action wears one face
+   throughout; the words stay because there is room for them here. */
+.detail-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 /* The card crops its photo on purpose — text sits over it. Here the bottle is
@@ -2593,12 +2602,20 @@ button {
      it animates. That was the drift on the way down to this section, and it
      left the row resting 44px off its first card. Moving the card's contents
      instead gives the same arrival without the snap engine ever seeing it. */
-  .wines-grid .fade-up { transform: none; }
+     Kept brisk on purpose: in a vertical page the entrance plays once as you
+     arrive, but here it fires on every card you swipe to, so a slow one makes
+     the row feel like it is lagging behind your thumb. The staggered delays
+     are dropped for the same reason. */
+  .wines-grid .fade-up {
+    transform: none;
+    transition-duration: 0.3s;
+    transition-delay: 0s;
+  }
   .wines-grid .fade-up > .wine-img-wrap,
   .wines-grid .fade-up > .wine-card-body,
   .wines-grid .fade-up > .wine-more {
-    transform: translateX(38px);
-    transition: transform 0.7s ease;
+    transform: translateX(30px);
+    transition: transform 0.3s ease;
   }
   .wines-grid .fade-up.visible > .wine-img-wrap,
   .wines-grid .fade-up.visible > .wine-card-body,

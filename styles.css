@@ -2586,9 +2586,25 @@ button {
   .wines-grid .wine-price { font-size: 1.28rem; white-space: nowrap; }
 
   /* The cards travel sideways here, so they should arrive from the side too —
-     sliding up out of a row that scrolls across reads as the wrong direction. */
-  .wines-grid .fade-up { transform: translateX(44px); }
-  .wines-grid .fade-up.visible { transform: none; }
+     sliding up out of a row that scrolls across reads as the wrong direction.
+
+     But the entrance must not touch the card's own box: that box is what the
+     scroller snaps to, and under mandatory snapping the rail chases it while
+     it animates. That was the drift on the way down to this section, and it
+     left the row resting 44px off its first card. Moving the card's contents
+     instead gives the same arrival without the snap engine ever seeing it. */
+  .wines-grid .fade-up { transform: none; }
+  .wines-grid .fade-up > .wine-img-wrap,
+  .wines-grid .fade-up > .wine-card-body,
+  .wines-grid .fade-up > .wine-more {
+    transform: translateX(38px);
+    transition: transform 0.7s ease;
+  }
+  .wines-grid .fade-up.visible > .wine-img-wrap,
+  .wines-grid .fade-up.visible > .wine-card-body,
+  .wines-grid .fade-up.visible > .wine-more {
+    transform: none;
+  }
   .vineyard-features { grid-template-columns: 1fr; }
   .about-stats { grid-template-columns: repeat(3, 1fr); gap: 12px; }
   .stat-num { font-size: 1.6rem; }

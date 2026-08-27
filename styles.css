@@ -894,6 +894,29 @@ button {
 
 .wine-add svg { display: block; }
 
+/* Sits opposite the type badge, so the two top corners read as a pair: what
+   this is on the left, look closer on the right. Deliberately its own control
+   rather than the whole card, so nothing opens by accident on a touch screen
+   while swiping through the row. */
+.wine-more {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 4;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--gold);
+  background: rgba(8, 2, 4, 0.65);
+  border: 1px solid rgba(201, 169, 97, 0.45);
+  transition: background 0.25s, border-color 0.25s;
+}
+
+.wine-more svg { display: block; }
+
 .wine-add:hover {
   background: var(--gold);
   color: var(--wine-deep);
@@ -1864,9 +1887,11 @@ button {
   border: 1px solid rgba(201, 169, 97, 0.4);
 }
 
+/* The card crops its photo on purpose — text sits over it. Here the bottle is
+   the point, so the frame keeps its full height and is only widened past the
+   panel, which crops nothing but the black margins at either side. */
 .detail-photo {
   position: relative;
-  height: 300px;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -1874,10 +1899,10 @@ button {
 }
 
 .detail-photo img {
-  height: 190%;
-  width: auto;
-  max-width: 190%;
-  object-fit: contain;
+  width: 142%;
+  max-width: none;
+  height: auto;
+  flex: 0 0 auto;
 }
 
 .detail-photo::after {
@@ -2534,18 +2559,23 @@ button {
   .wines-grid {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: 88%;
+    grid-auto-columns: 82%;
     grid-template-columns: none;
     gap: 14px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    padding: 4px 20px 16px;
-    margin: 0 -20px;
+    padding: 4px 24px 16px;
+    margin: 0 -24px;
+    scroll-padding-left: 24px;
     scrollbar-width: none;
   }
   .wines-grid::-webkit-scrollbar { display: none; }
-  .wines-grid > * { scroll-snap-align: center; }
+  /* Snapping to centre put the first card in the middle of the screen with
+     nothing either side of it, so the row looked like a single card and the
+     rest of the range was invisible. Snapping to the start keeps a slice of
+     the next card in view, which is the only thing telling anyone to swipe. */
+  .wines-grid > * { scroll-snap-align: start; }
 
   /* The photo is landscape, so at card width it renders well short of the
      card's height and leaves a band of empty black above the bottle. Bring the

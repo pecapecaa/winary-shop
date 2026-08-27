@@ -134,6 +134,14 @@ const RECIPIENT_EMAIL = 'herczwines@gmail.com';
 const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/herczwines@gmail.com';
 let currentLang = 'sr';
 
+// Four corners pushing outward: the panel it opens is the card at full size.
+const MORE_ICON =
+  '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+  + 'stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'
+  + '<polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/>'
+  + '<line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>'
+  + '</svg>';
+
 // The same basket drawn in the header, so the two read as one action.
 const CART_ICON =
   '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
@@ -194,11 +202,12 @@ function renderWines() {
   const addLabel = currentLang === 'sr' ? 'Dodaj u listu' : 'Add to list';
   const moreLabel = currentLang === 'sr' ? 'Prikaži detalje' : 'Show details';
   grid.innerHTML = list.map(wine => `
-    <div class="wine-card fade-up" role="button" tabindex="0" aria-label="${wine.name[currentLang]}, ${moreLabel}" data-detail-id="${wine.id}">
+    <div class="wine-card fade-up">
       <div class="wine-img-wrap">
         <span class="wine-type-badge">${wine.type[currentLang]}</span>
         <img src="${wine.img}" alt="${wine.name[currentLang]}" loading="lazy">
       </div>
+      <button type="button" class="wine-more" data-detail-id="${wine.id}" aria-label="${wine.name[currentLang]}: ${moreLabel}" title="${moreLabel}">${MORE_ICON}</button>
       <div class="wine-card-body">
         <h3>${wine.name[currentLang]}</h3>
         <div class="wine-srb">${wine.subtitle[currentLang]}</div>
@@ -211,12 +220,7 @@ function renderWines() {
     </div>
   `).join('');
   document.querySelectorAll('.wine-add').forEach(btn => {
-    btn.addEventListener('click', e => {
-      // The whole card opens the detail panel, so the button has to keep its
-      // click to itself or adding to the list would also open the panel.
-      e.stopPropagation();
-      addToCart(btn.dataset.id);
-    });
+    btn.addEventListener('click', () => addToCart(btn.dataset.id));
   });
   observeFadeElements();
 }
@@ -246,13 +250,14 @@ function renderBundles() {
     const btnLabel = isSr ? 'Dodaj paket u listu' : 'Add bundle to list';
     const moreLabel = isSr ? 'Prikaži detalje' : 'Show details';
     return [
-      '<div class="wine-card ' + bundle.id + featured + ' fade-up" role="button" tabindex="0"'
-        + ' aria-label="' + bundle.name[currentLang] + ', ' + moreLabel + '"'
-        + ' data-detail-id="' + bundle.id + '">',
+      '<div class="wine-card ' + bundle.id + featured + ' fade-up">',
         '<div class="wine-img-wrap">',
           '<span class="wine-type-badge">' + countLabel + '</span>',
           '<img src="' + bundle.img + '" alt="' + bundle.name[currentLang] + '" loading="lazy">',
         '</div>',
+        '<button type="button" class="wine-more" data-detail-id="' + bundle.id + '"'
+          + ' aria-label="' + bundle.name[currentLang] + ': ' + moreLabel + '"'
+          + ' title="' + moreLabel + '">' + MORE_ICON + '</button>',
         topBadge,
         savingTag,
         '<div class="wine-card-body">',
@@ -271,10 +276,7 @@ function renderBundles() {
     ].join('');
   }).join('');
   grid.querySelectorAll('.bundle-add').forEach(function(btn) {
-    btn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      addBundleToCart(btn.dataset.bundleId);
-    });
+    btn.addEventListener('click', function() { addBundleToCart(btn.dataset.bundleId); });
   });
   observeFadeElements();
 }
@@ -578,17 +580,11 @@ function initDetail() {
   });
 
   // Delegated, because both grids re-render whenever the filter or language
-  // changes and per-card listeners would be lost with them.
+  // changes and per-button listeners would be lost with them. A real button
+  // needs no key handling of its own — Enter and Space already fire a click.
   document.addEventListener('click', e => {
-    const card = e.target.closest('[data-detail-id]');
-    if (card) openDetail(card.dataset.detailId);
-  });
-  document.addEventListener('keydown', e => {
-    if (e.key !== 'Enter' && e.key !== ' ') return;
-    const card = e.target.closest && e.target.closest('[data-detail-id]');
-    if (!card) return;
-    e.preventDefault();
-    openDetail(card.dataset.detailId);
+    const btn = e.target.closest('[data-detail-id]');
+    if (btn) openDetail(btn.dataset.detailId);
   });
 }
 

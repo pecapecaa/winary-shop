@@ -2396,27 +2396,40 @@ button {
   .nav-links.active { display: flex; }
   .nav-toggle { display: flex; }
   .section { padding: 70px 0; }
-  .wines-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .visit-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
 
-  /* Two to a row leaves each card about 170px wide. Nothing about how the card
-     looks changes; these are the adjustments that stop it breaking at that
-     width. The photos are landscape, so a narrower card scales the bottle down
-     by its width and strands it in empty black — a shorter card and a wider
-     image put the bottle back in proportion. */
-  .wines-grid .wine-card { min-height: 400px; }
-  .wines-grid .wine-img-wrap img { height: 210%; max-width: 260%; }
-  .wines-grid .wine-card-body { padding: 0 15px 18px; }
-  .wines-grid .wine-card h3 { font-size: 1.05rem; }
-  .wines-grid .wine-srb { font-size: 0.82rem; margin-bottom: 8px; }
-  .wines-grid .wine-desc { font-size: 0.92rem; -webkit-line-clamp: 2; margin-bottom: 10px; }
-  /* The footer has to stop being one row, or the price wraps onto two lines and
-     the button runs off the card edge. */
-  .wines-grid .wine-footer { flex-direction: column; align-items: stretch; gap: 9px; }
-  .wines-grid .wine-price-row { justify-content: space-between; }
-  .wines-grid .wine-price { font-size: 1.15rem; }
-  .wines-grid .wine-add { width: 100%; padding: 9px 6px; font-size: 0.6rem; letter-spacing: 1px; }
-  .wines-grid .bundle-pricing { align-items: flex-start; }
+  /* Stacking the catalogue vertically on a phone makes the page enormous;
+     halving the card width to fit two across cramps the bottle. Neither is
+     worth it, so on phones the catalogue scrolls sideways instead: the card
+     keeps its full width and the whole range costs one screen of height.
+     The row is pulled out to the screen edges so a card bleeds off the right,
+     which is what tells the eye there is more to swipe to. */
+  .wines-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 88%;
+    grid-template-columns: none;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px 20px 16px;
+    margin: 0 -20px;
+    scrollbar-width: none;
+  }
+  .wines-grid::-webkit-scrollbar { display: none; }
+  .wines-grid > * { scroll-snap-align: center; }
+
+  /* The photo is landscape, so at card width it renders well short of the
+     card's height and leaves a band of empty black above the bottle. Bring the
+     card in and the image up until the bottle fills it. */
+  .wines-grid .wine-card { min-height: 460px; }
+  .wines-grid .wine-img-wrap img { height: 190%; max-width: 190%; }
+
+  /* A four-digit price is wide enough to break the footer onto two lines while
+     a three-digit one fits, so pin both halves against wrapping. */
+  .wines-grid .wine-price { font-size: 1.28rem; white-space: nowrap; }
+  .wines-grid .wine-add { white-space: nowrap; padding: 8px 13px; }
   .vineyard-features { grid-template-columns: 1fr; }
   .about-stats { grid-template-columns: repeat(3, 1fr); gap: 12px; }
   .stat-num { font-size: 1.6rem; }

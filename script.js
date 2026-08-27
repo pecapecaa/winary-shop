@@ -134,6 +134,15 @@ const RECIPIENT_EMAIL = 'herczwines@gmail.com';
 const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/herczwines@gmail.com';
 let currentLang = 'sr';
 
+// The same basket drawn in the header, so the two read as one action.
+const CART_ICON =
+  '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+  + 'stroke-width="1.8" aria-hidden="true" focusable="false">'
+  + '<path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>'
+  + '<line x1="3" y1="6" x2="21" y2="6"/>'
+  + '<path d="M16 10a4 4 0 01-8 0"/>'
+  + '</svg>';
+
 // A cart still sitting there the next day reads as a glitch, not a courtesy.
 // Six hours covers "let me think it over and come back tonight"; older than
 // that gets dropped. The clock restarts on every change, so a long browsing
@@ -182,8 +191,10 @@ function renderWines() {
   const list = activeWineFilter === 'all'
     ? WINES
     : WINES.filter(w => w.type.sr === activeWineFilter);
+  const addLabel = currentLang === 'sr' ? 'Dodaj u listu' : 'Add to list';
+  const moreLabel = currentLang === 'sr' ? 'Prikaži detalje' : 'Show details';
   grid.innerHTML = list.map(wine => `
-    <div class="wine-card fade-up">
+    <div class="wine-card fade-up" role="button" tabindex="0" aria-label="${wine.name[currentLang]}, ${moreLabel}" data-detail-id="${wine.id}">
       <div class="wine-img-wrap">
         <span class="wine-type-badge">${wine.type[currentLang]}</span>
         <img src="${wine.img}" alt="${wine.name[currentLang]}" loading="lazy">
@@ -194,13 +205,18 @@ function renderWines() {
         <p class="wine-desc">${wine.desc[currentLang]}</p>
         <div class="wine-footer">
           <div class="wine-price-row"><span class="wine-price">${wine.price} RSD</span><span class="wine-volume">${wine.volume}</span></div>
-          <button type="button" class="wine-add" data-id="${wine.id}">${currentLang === 'sr' ? 'Dodaj u listu' : 'Add to list'}</button>
+          <button type="button" class="wine-add" data-id="${wine.id}" aria-label="${addLabel}" title="${addLabel}">${CART_ICON}</button>
         </div>
       </div>
     </div>
   `).join('');
   document.querySelectorAll('.wine-add').forEach(btn => {
-    btn.addEventListener('click', () => addToCart(btn.dataset.id));
+    btn.addEventListener('click', e => {
+      // The whole card opens the detail panel, so the button has to keep its
+      // click to itself or adding to the list would also open the panel.
+      e.stopPropagation();
+      addToCart(btn.dataset.id);
+    });
   });
   observeFadeElements();
 }
@@ -228,8 +244,11 @@ function renderBundles() {
       : '';
     const countLabel = bundle.count + (isSr ? (bundle.count >= 5 ? ' flaša' : ' flaše') : ' btl.');
     const btnLabel = isSr ? 'Dodaj paket u listu' : 'Add bundle to list';
+    const moreLabel = isSr ? 'Prikaži detalje' : 'Show details';
     return [
-      '<div class="wine-card ' + bundle.id + featured + ' fade-up">',
+      '<div class="wine-card ' + bundle.id + featured + ' fade-up" role="button" tabindex="0"'
+        + ' aria-label="' + bundle.name[currentLang] + ', ' + moreLabel + '"'
+        + ' data-detail-id="' + bundle.id + '">',
         '<div class="wine-img-wrap">',
           '<span class="wine-type-badge">' + countLabel + '</span>',
           '<img src="' + bundle.img + '" alt="' + bundle.name[currentLang] + '" loading="lazy">',
@@ -252,7 +271,10 @@ function renderBundles() {
     ].join('');
   }).join('');
   grid.querySelectorAll('.bundle-add').forEach(function(btn) {
-    btn.addEventListener('click', function() { addBundleToCart(btn.dataset.bundleId); });
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      addBundleToCart(btn.dataset.bundleId);
+    });
   });
   observeFadeElements();
 }
@@ -490,6 +512,84 @@ function setPanelOpen(id, open) {
   el.classList.toggle('active', open);
   if (open) el.removeAttribute('inert');
   else el.setAttribute('inert', '');
+}
+
+// ===== Wine Detail =====
+// The card clamps its description and hides the volume behind a small pill.
+// This shows the whole thing without leaving the catalogue, so a shopper never
+// loses their scroll position to a product page.
+let _detailItemId = null;
+
+function openDetail(id) {
+  const wine = WINES.find(w => w.id === id);
+  const bundle = wine ? null : BUNDLES.find(b => b.id === id);
+  const item = wine || bundle;
+  if (!item) return;
+  _detailItemId = id;
+
+  const isSr = currentLang === 'sr';
+  const badge = wine
+    ? wine.type[currentLang]
+    : item.count + (isSr ? (item.count >= 5 ? ' flaša' : ' flaše') : ' btl.');
+
+  document.getElementById('detailBadge').textContent = badge;
+  const img = document.getElementById('detailImg');
+  img.src = item.img;
+  img.alt = item.name[currentLang];
+  document.getElementById('detailName').textContent = item.name[currentLang];
+  document.getElementById('detailSub').textContent = item.subtitle[currentLang];
+  document.getElementById('detailDesc').textContent = item.desc[currentLang];
+  document.getElementById('detailPrice').textContent = item.price + ' RSD';
+
+  const vol = document.getElementById('detailVol');
+  vol.textContent = wine ? wine.volume : '';
+  vol.style.display = wine ? '' : 'none';
+
+  document.getElementById('detailAdd').textContent = wine
+    ? (isSr ? 'Dodaj u listu' : 'Add to list')
+    : (isSr ? 'Dodaj paket u listu' : 'Add bundle to list');
+
+  setPanelOpen('wineDetail', true);
+  document.getElementById('detailClose').focus();
+}
+
+function closeDetail() {
+  setPanelOpen('wineDetail', false);
+  // Send focus back to the card that opened it, so keyboard users are not
+  // dumped at the top of the document.
+  if (_detailItemId) {
+    const card = document.querySelector('[data-detail-id="' + _detailItemId + '"]');
+    if (card) card.focus();
+  }
+  _detailItemId = null;
+}
+
+function initDetail() {
+  document.getElementById('detailClose').addEventListener('click', closeDetail);
+  document.getElementById('wineDetail').addEventListener('click', e => {
+    if (e.target.id === 'wineDetail') closeDetail();
+  });
+  document.getElementById('detailAdd').addEventListener('click', () => {
+    const id = _detailItemId;
+    if (!id) return;
+    if (WINES.some(w => w.id === id)) addToCart(id);
+    else addBundleToCart(id);
+    closeDetail();
+  });
+
+  // Delegated, because both grids re-render whenever the filter or language
+  // changes and per-card listeners would be lost with them.
+  document.addEventListener('click', e => {
+    const card = e.target.closest('[data-detail-id]');
+    if (card) openDetail(card.dataset.detailId);
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const card = e.target.closest && e.target.closest('[data-detail-id]');
+    if (!card) return;
+    e.preventDefault();
+    openDetail(card.dataset.detailId);
+  });
 }
 
 function setCartOpen(open) {
@@ -779,7 +879,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.addEventListener('keydown', e => {
     if (e.key !== 'Escape') return;
-    if (document.getElementById('checkoutOverlay').classList.contains('active')) {
+    if (document.getElementById('wineDetail').classList.contains('active')) {
+      closeDetail();
+    } else if (document.getElementById('checkoutOverlay').classList.contains('active')) {
       closeCheckout();
     } else if (document.getElementById('cartSidebar').classList.contains('active')) {
       setCartOpen(false);
@@ -831,6 +933,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderWines();
   renderBundles();
   renderCart();
+  initDetail();
   switchLanguage(currentLang);
   observeFadeElements();
   createHeroParticles();

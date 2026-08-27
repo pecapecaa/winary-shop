@@ -875,17 +875,24 @@ button {
   vertical-align: middle;
 }
 
+/* An icon, not a label: at card width the words cost more room than they earn,
+   and a cart glyph is read faster than "Dodaj u listu". The accessible name
+   still carries the words for anyone not going by sight. */
 .wine-add {
   background: transparent;
   color: var(--gold);
   border: 1px solid rgba(201, 169, 97, 0.55);
-  padding: 8px 16px;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
+  border-radius: 8px;
+  width: 46px;
+  height: 46px;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.3s;
 }
+
+.wine-add svg { display: block; }
 
 .wine-add:hover {
   background: var(--gold);
@@ -1795,6 +1802,126 @@ button {
   color: var(--wine-deep);
 }
 
+/* ===== WINE DETAIL ===== */
+/* Deliberately the card's own materials — same near-black, same gold hairline,
+   same radius — so opening one reads as the card growing, not as arriving
+   somewhere new. */
+.detail-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(10, 3, 5, 0.82);
+  backdrop-filter: blur(3px);
+  z-index: 1300;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.28s, visibility 0.28s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.detail-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.detail-modal {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  max-height: 92vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: #080204;
+  border: 1px solid rgba(201, 169, 97, 0.3);
+  border-radius: 14px;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.65);
+  transform: translateY(14px) scale(0.97);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.detail-overlay.active .detail-modal { transform: none; }
+
+.detail-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 6;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #f5ede0;
+  background: rgba(8, 2, 4, 0.7);
+  border: 1px solid rgba(201, 169, 97, 0.4);
+}
+
+.detail-photo {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-photo img {
+  height: 190%;
+  width: auto;
+  max-width: 190%;
+  object-fit: contain;
+}
+
+.detail-photo::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 45%;
+  background: linear-gradient(to bottom, transparent, rgba(8, 2, 4, 0.95));
+  pointer-events: none;
+}
+
+.detail-photo .wine-type-badge { top: 16px; left: 16px; }
+
+.detail-body { padding: 4px 24px 26px; }
+
+.detail-body h3 {
+  font-family: 'HerczDj', 'Cinzel', serif;
+  font-size: 1.45rem;
+  color: #f5ede0;
+  margin-bottom: 4px;
+}
+
+/* The card clamps this to three lines; here it runs in full, which is the
+   whole reason the panel exists. */
+.detail-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.65;
+  color: rgba(245, 237, 224, 0.78);
+  margin: 12px 0 20px;
+}
+
+.detail-foot {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(201, 169, 97, 0.22);
+}
+
+.detail-foot .wine-price-row { justify-content: flex-start; }
+.detail-foot .wine-price { font-size: 1.6rem; }
+
 .checkout-modal h2 {
   font-size: 1.7rem;
   color: var(--wine-deep);
@@ -2426,10 +2553,12 @@ button {
   .wines-grid .wine-card { min-height: 460px; }
   .wines-grid .wine-img-wrap img { height: 190%; max-width: 190%; }
 
-  /* A four-digit price is wide enough to break the footer onto two lines while
-     a three-digit one fits, so pin both halves against wrapping. */
   .wines-grid .wine-price { font-size: 1.28rem; white-space: nowrap; }
-  .wines-grid .wine-add { white-space: nowrap; padding: 8px 13px; }
+
+  /* The cards travel sideways here, so they should arrive from the side too —
+     sliding up out of a row that scrolls across reads as the wrong direction. */
+  .wines-grid .fade-up { transform: translateX(44px); }
+  .wines-grid .fade-up.visible { transform: none; }
   .vineyard-features { grid-template-columns: 1fr; }
   .about-stats { grid-template-columns: repeat(3, 1fr); gap: 12px; }
   .stat-num { font-size: 1.6rem; }

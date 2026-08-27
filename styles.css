@@ -2564,7 +2564,9 @@ button {
     gap: 14px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
+    /* No -webkit-overflow-scrolling: touch here. That legacy momentum scroller
+       overrides snapping on iOS, so the row coasted to wherever it ran out of
+       speed and the cards never came to rest in the same place twice. */
     padding: 4px 24px 16px;
     margin: 0 -24px;
     scroll-padding-left: 24px;
@@ -2575,7 +2577,13 @@ button {
      nothing either side of it, so the row looked like a single card and the
      rest of the range was invisible. Snapping to the start keeps a slice of
      the next card in view, which is the only thing telling anyone to swipe. */
-  .wines-grid > * { scroll-snap-align: start; }
+  /* scroll-snap-stop keeps a fast flick from skating past four cards at once:
+     each swipe advances exactly one. That is what makes the row feel like
+     turning pages rather than shoving a loose tray around. */
+  .wines-grid > * {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
 
   /* The photo is landscape, so at card width it renders well short of the
      card's height and leaves a band of empty black above the bottle. Bring the
@@ -2614,14 +2622,6 @@ button {
   .wines-grid .fade-up > .wine-more {
     transform: translateX(30px);
     transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-    will-change: transform;
-  }
-  /* Dropped once the card has arrived: a standing will-change on every card
-     in a thirteen-card row is a layer the browser has to keep for nothing. */
-  .wines-grid .fade-up.visible > .wine-img-wrap,
-  .wines-grid .fade-up.visible > .wine-card-body,
-  .wines-grid .fade-up.visible > .wine-more {
-    will-change: auto;
   }
   .wines-grid .fade-up.visible > .wine-img-wrap,
   .wines-grid .fade-up.visible > .wine-card-body,

@@ -1166,19 +1166,10 @@ button {
   color: var(--gold);
 }
 
+/* Wears the same cart button as a wine card; only the label behind it differs,
+   naming the whole bundle rather than a bottle. */
 .bundle-add {
-  width: 100%;
-  background: transparent;
-  border: 1.5px solid var(--gold);
-  color: var(--gold);
-  padding: 13px 20px;
-  font-family: 'HerczDj', 'Cinzel', serif;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.3s, color 0.3s;
 }
 
 .bundle-add:hover {
@@ -2606,16 +2597,31 @@ button {
      arrive, but here it fires on every card you swipe to, so a slow one makes
      the row feel like it is lagging behind your thumb. The staggered delays
      are dropped for the same reason. */
+     Quick, but eased out rather than cut short: a plain 0.3s ease arrives
+     abruptly, which is why shortening it lost the smoothness the slow version
+     had. This curve covers most of the distance early and settles gently, so
+     it reads as fast without the jolt. The layer promotion keeps it off the
+     main thread, which is what actually matters while a finger is dragging
+     the row. */
   .wines-grid .fade-up {
     transform: none;
-    transition-duration: 0.3s;
+    transition-duration: 0.45s;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
     transition-delay: 0s;
   }
   .wines-grid .fade-up > .wine-img-wrap,
   .wines-grid .fade-up > .wine-card-body,
   .wines-grid .fade-up > .wine-more {
     transform: translateX(30px);
-    transition: transform 0.3s ease;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+  /* Dropped once the card has arrived: a standing will-change on every card
+     in a thirteen-card row is a layer the browser has to keep for nothing. */
+  .wines-grid .fade-up.visible > .wine-img-wrap,
+  .wines-grid .fade-up.visible > .wine-card-body,
+  .wines-grid .fade-up.visible > .wine-more {
+    will-change: auto;
   }
   .wines-grid .fade-up.visible > .wine-img-wrap,
   .wines-grid .fade-up.visible > .wine-card-body,

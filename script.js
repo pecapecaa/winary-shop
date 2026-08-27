@@ -373,7 +373,8 @@ function renderBundles() {
               originalPrice,
               '<span class="wine-price">' + bundle.price + ' RSD</span>',
             '</div>',
-            '<button type="button" class="bundle-add" data-bundle-id="' + bundle.id + '">' + btnLabel + '</button>',
+            '<button type="button" class="wine-add bundle-add" data-bundle-id="' + bundle.id + '"'
+              + ' aria-label="' + btnLabel + '" title="' + btnLabel + '">' + CART_ICON + '</button>',
           '</div>',
         '</div>',
       '</div>'
@@ -651,11 +652,11 @@ function openDetail(id) {
   vol.textContent = wine ? wine.volume : '';
   vol.style.display = wine ? '' : 'none';
 
-  // Only the label, never the button: its cart icon is a sibling of this span
-  // and setting textContent on the button would wipe the icon out.
-  document.getElementById('detailAddText').textContent = wine
+  // The button shows only the cart, so the words live in its accessible name —
+  // setting textContent here would replace the icon with them.
+  document.getElementById('detailAdd').setAttribute('aria-label', wine
     ? (isSr ? 'Dodaj u listu' : 'Add to list')
-    : (isSr ? 'Dodaj paket u listu' : 'Add bundle to list');
+    : (isSr ? 'Dodaj paket u listu' : 'Add bundle to list'));
 
   setPanelOpen('wineDetail', true);
   document.getElementById('detailClose').focus();

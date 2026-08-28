@@ -2619,39 +2619,11 @@ button {
     scroll-snap-stop: always;
   }
 
-  /* The photo is landscape, so at card width it renders well short of the
-     card's height and leaves a band of empty black above the bottle. Bring the
-     card in and the image up until the bottle fills it. */
-  .wines-grid .wine-card { min-height: 460px; }
-  /* Filling the frame, not sitting in it with a moat of empty card around it —
-     that reads as small and distant, the opposite of what a wine card is for.
-     object-fit:cover computed against these proportions crops only the sides
-     of the landscape source, not the top or bottom: scaling the photo to
-     cover the card's full height already brings its width past the card's,
-     so the excess gets trimmed evenly off both edges and the bottle keeps its
-     full height, cap to base, centred. No margin math, no room for it to
-     drift off top or side the way explicit height/width figures kept doing. */
-  .wines-grid .wine-img-wrap img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    max-width: none;
-    object-fit: cover;
-    object-position: center center;
-  }
-  /* Reaches full black well before the first line of text rather than fading
-     out under it. */
-  .wines-grid .wine-img-wrap::after {
-    height: 62%;
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      rgba(8, 2, 4, 0.88) 38%,
-      rgba(8, 2, 4, 0.99) 62%,
-      #080204 100%
-    );
-  }
+  /* No photo or gradient overrides here on purpose: the rail's cards use the
+     exact same image treatment as every other card on the site (160% height,
+     contain, centred) — same crop, same closeness, same feel. The only thing
+     that changes for the rail is layout — how the cards are arranged and
+     scrolled — never how a card looks. */
 
   .wines-grid .wine-price { font-size: 1.28rem; white-space: nowrap; }
 

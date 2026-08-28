@@ -2589,6 +2589,14 @@ button {
     grid-template-columns: none;
     gap: 14px;
     overflow-x: auto;
+    /* Locked to one axis. Setting overflow-x alone makes the browser compute
+       overflow-y to auto as well, so the row was free to drift up and down —
+       invisible today only because every card happens to be the same height,
+       and live the moment one title wraps to a third line. */
+    overflow-y: hidden;
+    /* Keeps an over-swipe at either end inside the row instead of rubber-
+       banding the page behind it or arming the back gesture. */
+    overscroll-behavior-inline: contain;
     scroll-snap-type: x mandatory;
     /* No -webkit-overflow-scrolling: touch here. That legacy momentum scroller
        overrides snapping on iOS, so the row coasted to wherever it ran out of

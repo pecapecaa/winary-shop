@@ -525,10 +525,12 @@ button {
   border-color: var(--gold);
 }
 
-.btn-primary:hover {
-  background: transparent;
-  color: var(--gold);
-  transform: translateY(-2px);
+@media (hover: hover) {
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--gold);
+    transform: translateY(-2px);
+  }
 }
 
 .btn-outline {
@@ -537,10 +539,12 @@ button {
   border-color: rgba(255, 255, 255, 0.5);
 }
 
-.btn-outline:hover {
-  background: #fff;
-  color: var(--wine-deep);
-  border-color: #fff;
+@media (hover: hover) {
+  .btn-outline:hover {
+    background: #fff;
+    color: var(--wine-deep);
+    border-color: #fff;
+  }
 }
 
 .btn-full { width: 100%; }
@@ -730,10 +734,16 @@ button {
   cursor: pointer;
 }
 
-.wine-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.55);
-  border-color: var(--gold);
+/* Behind a real pointer. On a phone there is nothing to un-hover, so the last
+   card touched stayed lifted and glowing — and in the swipe row it is the
+   card's own box the scroller snaps to, so a stuck lift moved the snap point
+   too. Half of why the cards read as floating. */
+@media (hover: hover) {
+  .wine-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.55);
+    border-color: var(--gold);
+  }
 }
 
 .wine-img-wrap {
@@ -771,9 +781,11 @@ button {
   opacity: 0.9;
 }
 
-.wine-card:hover .wine-img-wrap img {
-  transform: scale(1.07) translateY(-18px);
-  opacity: 1;
+@media (hover: hover) {
+  .wine-card:hover .wine-img-wrap img {
+    transform: scale(1.07) translateY(-18px);
+    opacity: 1;
+  }
 }
 
 .wine-type-badge {
@@ -917,10 +929,15 @@ button {
 
 .wine-more svg { display: block; }
 
-.wine-add:hover {
-  background: var(--gold);
-  color: var(--wine-deep);
-  border-color: var(--gold);
+/* Gated on a real pointer. A touch screen has no way to un-hover, so on a phone
+   this filled state latched on after a tap and the button sat there gold long
+   after the bottle was already in the list. */
+@media (hover: hover) {
+  .wine-add:hover {
+    background: var(--gold);
+    color: var(--wine-deep);
+    border-color: var(--gold);
+  }
 }
 
 /* ===== BUNDLES ===== */
@@ -1060,8 +1077,10 @@ button {
   transition: transform 0.45s ease !important;
 }
 
-.bundles-grid .wine-card:hover .wine-img-wrap img {
-  transform: scale(1.07) !important;
+@media (hover: hover) {
+  .bundles-grid .wine-card:hover .wine-img-wrap img {
+    transform: scale(1.07) !important;
+  }
 }
 
 /* Starter: landscape 2-bottle photo */
@@ -1074,8 +1093,10 @@ button {
   transform: scale(1.3) !important;
 }
 
-.bundle-full-herceg.wine-card:hover .wine-img-wrap img {
-  transform: scale(1.38) !important;
+@media (hover: hover) {
+  .bundle-full-herceg.wine-card:hover .wine-img-wrap img {
+    transform: scale(1.38) !important;
+  }
 }
 
 .bundle-bottles {
@@ -1172,19 +1193,20 @@ button {
   cursor: pointer;
 }
 
-.bundle-add:hover {
-  background: var(--gold);
-  color: #1a0508;
-}
-
 .bundle-card--featured .bundle-add {
   background: var(--gold);
   color: #1a0508;
   border-color: var(--gold);
 }
 
-.bundle-card--featured .bundle-add:hover {
-  background: #e8c96a;
+@media (hover: hover) {
+  .bundle-add:hover {
+    background: var(--gold);
+    color: #1a0508;
+  }
+  .bundle-card--featured .bundle-add:hover {
+    background: #e8c96a;
+  }
 }
 
 /* Cart bundle item */
@@ -1404,9 +1426,11 @@ button {
   color: var(--gold);
 }
 
-.tour-banner .btn-outline:hover {
-  background: var(--gold);
-  color: var(--wine-deep);
+@media (hover: hover) {
+  .tour-banner .btn-outline:hover {
+    background: var(--gold);
+    color: var(--wine-deep);
+  }
 }
 
 /* ===== CONTACT ===== */
@@ -1707,8 +1731,6 @@ button {
   align-items: center;
   justify-content: center;
 }
-  transition: all 0.2s;
-}
 
 .qty-btn:hover {
   background: var(--wine);
@@ -1878,13 +1900,16 @@ button {
 
 .detail-close svg { display: block; }
 
-/* Carries the same cart glyph as the card, so the buy action wears one face
-   throughout; the words stay because there is room for them here. */
-.detail-add {
+/* The same cart button as on a card, at the same size. Stretched across the
+   panel it was a gold bar with a small mark adrift in it. */
+.detail-add.btn.btn-full {
+  width: 52px;
+  height: 52px;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  border-radius: 10px;
 }
 
 /* The card crops its photo on purpose — text sits over it. Here the bottle is
@@ -1938,7 +1963,8 @@ button {
 
 .detail-foot {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   gap: 14px;
   padding-top: 16px;
   border-top: 1px solid rgba(201, 169, 97, 0.22);
@@ -2589,28 +2615,43 @@ button {
      card's height and leaves a band of empty black above the bottle. Bring the
      card in and the image up until the bottle fills it. */
   .wines-grid .wine-card { min-height: 460px; }
-  .wines-grid .wine-img-wrap img { height: 190%; max-width: 190%; }
+  /* Lifted clear of the copy. Enlarging the bottle to fill the card pushed it
+     down into the text, so the description was printing straight across the
+     label and both were harder to read for it. It now sits in the upper half
+     and the words get their own ground. */
+  .wines-grid .wine-img-wrap img {
+    height: 175%;
+    max-width: 175%;
+    transform: translateY(-13%);
+  }
+  /* Reaches full black well before the first line of text rather than fading
+     out under it. */
+  .wines-grid .wine-img-wrap::after {
+    height: 62%;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(8, 2, 4, 0.88) 38%,
+      rgba(8, 2, 4, 0.99) 62%,
+      #080204 100%
+    );
+  }
 
   .wines-grid .wine-price { font-size: 1.28rem; white-space: nowrap; }
 
-  /* The cards travel sideways here, so they should arrive from the side too —
-     sliding up out of a row that scrolls across reads as the wrong direction.
+  /* The cards travel sideways here, so they arrive from the side: sliding up
+     out of a row that scrolls across reads as the wrong direction.
 
-     But the entrance must not touch the card's own box: that box is what the
-     scroller snaps to, and under mandatory snapping the rail chases it while
-     it animates. That was the drift on the way down to this section, and it
-     left the row resting 44px off its first card. Moving the card's contents
-     instead gives the same arrival without the snap engine ever seeing it. */
-     Kept brisk on purpose: in a vertical page the entrance plays once as you
-     arrive, but here it fires on every card you swipe to, so a slow one makes
-     the row feel like it is lagging behind your thumb. The staggered delays
-     are dropped for the same reason. */
-     Quick, but eased out rather than cut short: a plain 0.3s ease arrives
-     abruptly, which is why shortening it lost the smoothness the slow version
-     had. This curve covers most of the distance early and settles gently, so
-     it reads as fast without the jolt. The layer promotion keeps it off the
-     main thread, which is what actually matters while a finger is dragging
-     the row. */
+     The entrance must not touch the card's own box, though — that box is what
+     the scroller snaps to, and under mandatory snapping the rail chases it
+     while it animates. Moving the card's contents instead gives the same
+     arrival without the snap engine ever seeing it.
+
+     Brisk, and eased out rather than cut short. In a vertical page the
+     entrance plays once on arrival; here it fires on every card swiped to, so
+     a slow one feels like the row is lagging behind a thumb — but a plain
+     short ease lands abruptly. This curve covers most of the distance early
+     and settles gently. Staggered delays are dropped for the same reason. */
   .wines-grid .fade-up {
     transform: none;
     transition-duration: 0.45s;

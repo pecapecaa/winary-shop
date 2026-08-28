@@ -2623,25 +2623,22 @@ button {
      card's height and leaves a band of empty black above the bottle. Bring the
      card in and the image up until the bottle fills it. */
   .wines-grid .wine-card { min-height: 460px; }
-  /* Anchored to the top with its own headroom, rather than the base card's
-     centre-and-oversize treatment pushed further up by a transform. Stacking
-     that push on top of centering did clear the copy, but it drove the
-     bottle to the very top of the frame with nothing above it — cropped
-     tight against the edge instead of sitting in it.
-
-     Sized by width with height left to auto rather than the other way round:
-     an explicit height forces object-fit:contain to fit the photo by
-     whichever axis is tighter, which can leave it far smaller than the box
-     and adrift inside it — that's what put a bottle behind the text. Width
-     with auto height renders the photo at exactly that size, no slack.
-     Checked against the settled, post-entrance state (the transition target,
-     not a mid-animation frame): 15px clear on both sides, 23px clear on top,
-     nothing touching any edge. */
-  .wines-grid .wine-img-wrap { align-items: flex-start; justify-content: center; padding-top: 22px; }
+  /* Filling the frame, not sitting in it with a moat of empty card around it —
+     that reads as small and distant, the opposite of what a wine card is for.
+     object-fit:cover computed against these proportions crops only the sides
+     of the landscape source, not the top or bottom: scaling the photo to
+     cover the card's full height already brings its width past the card's,
+     so the excess gets trimmed evenly off both edges and the bottle keeps its
+     full height, cap to base, centred. No margin math, no room for it to
+     drift off top or side the way explicit height/width figures kept doing. */
   .wines-grid .wine-img-wrap img {
-    height: auto;
-    width: 90%;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     max-width: none;
+    object-fit: cover;
+    object-position: center center;
   }
   /* Reaches full black well before the first line of text rather than fading
      out under it. */

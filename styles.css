@@ -2623,14 +2623,25 @@ button {
      card's height and leaves a band of empty black above the bottle. Bring the
      card in and the image up until the bottle fills it. */
   .wines-grid .wine-card { min-height: 460px; }
-  /* Lifted clear of the copy. Enlarging the bottle to fill the card pushed it
-     down into the text, so the description was printing straight across the
-     label and both were harder to read for it. It now sits in the upper half
-     and the words get their own ground. */
+  /* Anchored to the top with its own headroom, rather than the base card's
+     centre-and-oversize treatment pushed further up by a transform. Stacking
+     that push on top of centering did clear the copy, but it drove the
+     bottle to the very top of the frame with nothing above it — cropped
+     tight against the edge instead of sitting in it.
+
+     Sized by width with height left to auto rather than the other way round:
+     an explicit height forces object-fit:contain to fit the photo by
+     whichever axis is tighter, which can leave it far smaller than the box
+     and adrift inside it — that's what put a bottle behind the text. Width
+     with auto height renders the photo at exactly that size, no slack.
+     Checked against the settled, post-entrance state (the transition target,
+     not a mid-animation frame): 15px clear on both sides, 23px clear on top,
+     nothing touching any edge. */
+  .wines-grid .wine-img-wrap { align-items: flex-start; justify-content: center; padding-top: 22px; }
   .wines-grid .wine-img-wrap img {
-    height: 175%;
-    max-width: 175%;
-    transform: translateY(-13%);
+    height: auto;
+    width: 90%;
+    max-width: none;
   }
   /* Reaches full black well before the first line of text rather than fading
      out under it. */

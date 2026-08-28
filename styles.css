@@ -2632,13 +2632,11 @@ button {
      a narrower card renders a proportionally smaller bottle even though the
      percentage is identical — a 287px rail card and a 350px single-column
      card produce the same crop at a different absolute size, measured at
-     456px and 557px of actual bottle width for the same 160%. This scales
-     that back up so the rail's bottle matches production's absolute size,
-     not just its percentage: 194% of a 287px card lands at the same ~557px
-     a 350px card gets at 160%. Everything else about the photo — the crop,
-     the centring, the gradient — is still untouched. */
+     456px and 557px of actual bottle width for the same 160%. 194% matched
+     production's absolute size on the rail's narrower card; asked for a
+     further 20% on top of that once seen on a real phone, landing here. */
   .wines-grid .wine-img-wrap img {
-    max-width: 194%;
+    max-width: 233%;
   }
 
   .wines-grid .wine-price { font-size: 1.28rem; white-space: nowrap; }

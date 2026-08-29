@@ -313,7 +313,10 @@ let activeWineFilter = 'all';
 // Independent of the type filter — a shopper can combine "Nešto drugačije"
 // with "Belo" and land on exactly the one wine that is both, same as the
 // two rows read as separate questions in the design.
-let activeQuickFilter = 'all';
+// Matches the pill already marked wf-btn--active in the markup — the two
+// have to agree, or the button shows selected while the grid renders
+// everything, or the wines section opens twice as tall as it needs to.
+let activeQuickFilter = 'preporuka';
 
 function renderWines() {
   const grid = document.getElementById('winesGrid');

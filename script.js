@@ -402,40 +402,47 @@ function wineCountLabel(n, lang) {
 // Thirteen wines spread over four quick tags x three types leaves about one
 // wine per cell, so empty combinations are arithmetic rather than accident:
 // four of the twelve are empty, three of them because there is exactly one
-// rose in the catalogue. Rather than let anyone tap into an empty grid, each
-// pill carries the number it would actually show, and a pill reading zero is
-// disabled — the dead end stops existing instead of being explained.
+// rose in the catalogue.
 //
-// The number on a pill is its own value combined with the OTHER row's current
-// selection, which is what makes "0 means disabled" honest: it is the count
-// you would land on, not the count the tag has in isolation.
+// The two rows are not peers. The quick row is the primary choice — picking
+// one is a fresh look at the catalogue — and the type row refines whatever it
+// selected. That ranking does the work:
+//
+//   - Choosing a quick tag clears the type filter (see the click handler), so
+//     a quick pill always lands on that tag's whole group. Every group has
+//     wines, so the quick row can never reach an empty grid and never needs
+//     disabling. It stays fully tappable, which is what a primary control
+//     should be.
+//   - Only the type row can produce an empty combination, so only it disables
+//     its zeroes.
+//
+// Either way the number on a pill is exactly what tapping it would show, which
+// is what makes a 0 both the count and the reason the pill is unavailable.
 function updateFilterCounts() {
   const quickRow = document.getElementById('quickFilters');
   const typeRow = document.getElementById('wineFilters');
   if (!quickRow || !typeRow) return;
 
-  const apply = (btn, n) => {
-    const el = btn.querySelector('.wf-count');
-    if (el) el.textContent = n;
-    // The active pill is never disabled even at zero. Disabling it would trap
-    // the selection with nothing left to tap out of.
-    btn.disabled = n === 0 && !btn.classList.contains('wf-btn--active');
-  };
-
   typeRow.querySelectorAll('.wf-btn').forEach(btn => {
     const t = btn.dataset.filter;
-    apply(btn, WINES.filter(w =>
+    const n = WINES.filter(w =>
       (t === 'all' || w.type.sr === t) &&
       (activeQuickFilter === 'all' || w.quickTag === activeQuickFilter)
-    ).length);
+    ).length;
+    const el = btn.querySelector('.wf-count');
+    if (el) el.textContent = n;
+    // The active pill is never disabled even at zero — that would trap the
+    // selection with nothing left to tap out of.
+    btn.disabled = n === 0 && !btn.classList.contains('wf-btn--active');
   });
 
   quickRow.querySelectorAll('.wf-btn').forEach(btn => {
-    const q = btn.dataset.quick;
-    apply(btn, WINES.filter(w =>
-      w.quickTag === q &&
-      (activeWineFilter === 'all' || w.type.sr === activeWineFilter)
-    ).length);
+    // Its full total, not a count narrowed by the type row: tapping it drops
+    // the type filter, so the total is genuinely where you land.
+    const n = WINES.filter(w => w.quickTag === btn.dataset.quick).length;
+    const el = btn.querySelector('.wf-count');
+    if (el) el.textContent = n;
+    btn.disabled = false;
   });
 }
 
@@ -1226,6 +1233,16 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.classList.add('wf-btn--active');
       activeQuickFilter = btn.dataset.quick;
     }
+    // This row outranks the type row: choosing a quick tag is a fresh look at
+    // the catalogue, not a refinement of the last one. Carrying the old type
+    // over is what used to strand people on an empty grid ("Rosé" held from a
+    // group that had one, into a group that has none). Clearing it also means
+    // this row can never land on nothing, so it never has to disable a pill.
+    activeWineFilter = 'all';
+    const typeRow = document.getElementById('wineFilters');
+    typeRow.querySelectorAll('.wf-btn').forEach(b => b.classList.remove('wf-btn--active'));
+    const allBtn = typeRow.querySelector('[data-filter="all"]');
+    if (allBtn) allBtn.classList.add('wf-btn--active');
     renderWines();
     resetRailScroll();
   });

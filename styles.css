@@ -686,13 +686,49 @@ button {
   margin-bottom: 44px;
 }
 
-/* Icon sits inline with the label rather than as a separate flex child, so
-   the same .wf-btn markup works whether a button carries one or not. */
-.wf-btn svg {
-  display: inline-block;
-  vertical-align: -2px;
-  margin-right: 6px;
+/* A pill is icon-badge + label, laid out as flex so a plain text pill (no
+   badge markup at all) still centres correctly without special-casing it. */
+.wf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
 }
+
+/* The coloured circle behind each icon — a soft tint of the icon's own
+   accent colour, not a flat brand gold, so four/six different categories
+   read as different things at a glance instead of one repeated mark. Colour
+   itself is set per pill below; this is only the shared shape. */
+.wf-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: rgba(139, 115, 85, 0.16); /* fallback if color-mix() is unsupported */
+  background: color-mix(in srgb, var(--pill-accent) 16%, transparent);
+  color: var(--pill-accent);
+  transition: background 0.25s;
+}
+
+.wf-btn--active .wf-icon {
+  background: rgba(139, 115, 85, 0.32);
+  background: color-mix(in srgb, var(--pill-accent) 32%, transparent);
+}
+
+.wf-icon svg { display: block; }
+
+/* Warm-toned family throughout — no hue reads as a generic app icon; each
+   is a shade already related to the gold/wine palette elsewhere on the
+   site, just distinguished enough to tell the four or six apart. */
+[data-quick="svakodnevno"] { --pill-accent: #d4a24c; }
+[data-quick="preporuka"]   { --pill-accent: #c9a961; }
+[data-quick="drugacije"]   { --pill-accent: #7a9b6e; }
+[data-quick="premium"]     { --pill-accent: #b8933a; }
+[data-filter="Belo"]       { --pill-accent: #7a9b6e; }
+[data-filter="Crveno"]     { --pill-accent: #8b2035; }
+[data-filter="Rosé"]       { --pill-accent: #c98a92; }
 
 .quick-filters {
   margin-bottom: 18px;
@@ -716,11 +752,15 @@ button {
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  padding: 10px 26px;
+  padding: 10px 22px 10px 10px;
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.25s;
 }
+
+/* A plain text pill with no icon badge (only "Sva vina") still needs the
+   label's own left breathing room the badge would otherwise provide. */
+.wf-btn:not(:has(.wf-icon)) { padding-left: 22px; }
 
 /* Touch browsers leave :hover stuck on the last tapped element, so this is
    gated to devices that can genuinely hover. */
@@ -2615,6 +2655,21 @@ button {
   .nav-toggle { display: flex; }
   .section { padding: 70px 0; }
   .visit-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+
+  /* A deliberate 2x2 block rather than organic flex-wrap, which could just
+     as easily land three pills on the first line and strand one alone on
+     the second. Desktop keeps the single centred row — there's room for it
+     there, and forcing a grid would only waste vertical space. */
+  .wine-filters, .quick-filters {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .wine-filters { margin-bottom: 32px; }
+  .wf-btn { justify-content: center; }
 
   /* Stacking the catalogue vertically on a phone makes the page enormous;
      halving the card width to fit two across cramps the bottle. Neither is

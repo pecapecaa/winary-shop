@@ -3,7 +3,8 @@ const WINES = [
   {
     id: 'tvrdos-vranac',
     quickTag: 'preporuka',
-    tag: { sr: 'Naša preporuka', en: 'Our pick' },
+    tag: { sr: 'Duboko i staloženo', en: 'Deep and composed' },
+    tag2: { sr: 'Manastirsko nasleđe', en: 'Monastery heritage' },
     name: { sr: 'Tvrdoš Vranac', en: 'Tvrdoš Vranac' },
     volume: '0.75L',
     subtitle: { sr: 'Crveno vino • Manastir Tvrdoš, Trebinje', en: 'Red Wine • Manastir Tvrdoš, Trebinje' },
@@ -19,6 +20,7 @@ const WINES = [
     id: 'tvrdos-zilavka',
     quickTag: 'preporuka',
     tag: { sr: 'Sveže i mineralno', en: 'Fresh and mineral' },
+    tag2: { sr: 'Uz ribu i plodove mora', en: 'Pairs with fish & seafood' },
     name: { sr: 'Tvrdoš Žilavka', en: 'Tvrdoš Žilavka' },
     volume: '0.75L',
     subtitle: { sr: 'Belo vino • Manastir Tvrdoš, Trebinje', en: 'White Wine • Manastir Tvrdoš, Trebinje' },
@@ -34,6 +36,7 @@ const WINES = [
     id: 'tamjanika-galerija',
     quickTag: 'drugacije',
     tag: { sr: 'Aromatično', en: 'Aromatic' },
+    tag2: { sr: 'Sjajan aperitiv', en: 'Great as an aperitif' },
     name: { sr: 'Tamjanika Galerija', en: 'Tamjanika Galerija' },
     volume: '0.75L',
     subtitle: { sr: 'Belo vino • [vinarija]', en: 'White Wine • [vinarija]' },
@@ -49,6 +52,7 @@ const WINES = [
     id: 'tvrdos-metoh-vranac',
     quickTag: 'preporuka',
     tag: { sr: 'Opušteno i pitko', en: 'Relaxed and easy' },
+    tag2: { sr: 'Vino za svaki dan', en: 'An everyday wine' },
     name: { sr: 'Tvrdoš Metoh Vranac', en: 'Tvrdoš Metoh Vranac' },
     volume: '0.75L',
     subtitle: { sr: 'Crveno vino • Manastir Tvrdoš, Trebinje', en: 'Red Wine • Manastir Tvrdoš, Trebinje' },
@@ -64,6 +68,7 @@ const WINES = [
     id: 'primavera-roze',
     quickTag: 'drugacije',
     tag: { sr: 'Osvežavajuće leto', en: 'Refreshing summer' },
+    tag2: { sr: 'Za letnje druženje', en: 'For summer gatherings' },
     name: { sr: 'Primavera cuvee roze', en: 'Primavera cuvee roze' },
     volume: '0.75L',
     subtitle: { sr: 'Rosé vino • [vinarija]', en: 'Rosé Wine • [vinarija]' },
@@ -79,6 +84,7 @@ const WINES = [
     id: 'tvrdos-izba-merlot',
     quickTag: 'preporuka',
     tag: { sr: 'Mekše crveno', en: 'Softer red' },
+    tag2: { sr: 'Odličan izbor za početnike', en: 'A great pick for beginners' },
     name: { sr: 'Tvrdoš Izba Merlot', en: 'Tvrdoš Izba Merlot' },
     volume: '0.75L',
     subtitle: { sr: 'Crveno vino • Manastir Tvrdoš, Trebinje', en: 'Red Wine • Manastir Tvrdoš, Trebinje' },
@@ -94,6 +100,7 @@ const WINES = [
     id: 'zlatna-selekcija-bijelo',
     quickTag: 'premium',
     tag: { sr: 'Bogato i slojevito', en: 'Rich and layered' },
+    tag2: { sr: 'Za posebne prilike', en: 'For special occasions' },
     name: { sr: 'Zlatna Selekcija Bijelo', en: 'Zlatna Selekcija Bijelo' },
     volume: '0.75L',
     subtitle: { sr: 'Belo vino • [vinarija]', en: 'White Wine • [vinarija]' },
@@ -109,6 +116,7 @@ const WINES = [
     id: 'vranac-reserve',
     quickTag: 'premium',
     tag: { sr: 'Baršunasto i začinjeno', en: 'Velvety and spiced' },
+    tag2: { sr: 'Za slavlja i poklone', en: 'For celebrations & gifts' },
     name: { sr: 'Vranac Reserve', en: 'Vranac Reserve' },
     volume: '0.75L',
     subtitle: { sr: 'Crveno vino • [vinarija]', en: 'Red Wine • [vinarija]' },
@@ -124,6 +132,7 @@ const WINES = [
     id: 'blatina-citluk-075',
     quickTag: 'svakodnevno',
     tag: { sr: 'Snažno i domaće', en: 'Bold and homegrown' },
+    tag2: { sr: 'Uz roštilj i pečenje', en: 'Pairs with grilled & roasted meat' },
     name: { sr: 'Blatina Čitluk', en: 'Blatina Čitluk' },
     volume: '0.75L',
     subtitle: { sr: 'Crveno vino • Vinarija Čitluk', en: 'Red Wine • Vinarija Čitluk' },
@@ -139,6 +148,7 @@ const WINES = [
     id: 'zilavka-citluk-075',
     quickTag: 'svakodnevno',
     tag: { sr: 'Laka klasika', en: 'Easy classic' },
+    tag2: { sr: 'Svakodnevni izbor', en: 'An everyday favourite' },
     name: { sr: 'Žilavka Čitluk', en: 'Žilavka Čitluk' },
     volume: '0.75L',
     subtitle: { sr: 'Belo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
@@ -154,6 +164,7 @@ const WINES = [
     id: 'blatina-citluk-1l',
     quickTag: 'svakodnevno',
     tag: { sr: 'Snažno i domaće', en: 'Bold and homegrown' },
+    tag2: { sr: 'Uz roštilj i pečenje', en: 'Pairs with grilled & roasted meat' },
     name: { sr: 'Blatina Čitluk', en: 'Blatina Čitluk' },
     volume: '1L',
     subtitle: { sr: 'Crveno vino • Vinarija Čitluk', en: 'Red Wine • Vinarija Čitluk' },
@@ -169,6 +180,7 @@ const WINES = [
     id: 'zilavka-citluk-1l',
     quickTag: 'svakodnevno',
     tag: { sr: 'Laka klasika', en: 'Easy classic' },
+    tag2: { sr: 'Svakodnevni izbor', en: 'An everyday favourite' },
     name: { sr: 'Žilavka Čitluk', en: 'Žilavka Čitluk' },
     volume: '1L',
     subtitle: { sr: 'Belo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
@@ -184,6 +196,7 @@ const WINES = [
     id: 'tribunija-bijelo',
     quickTag: 'preporuka',
     tag: { sr: 'Elegantno i lako', en: 'Elegant and easy' },
+    tag2: { sr: 'Laka večernja čaša', en: 'An easy evening glass' },
     name: { sr: 'Tribunija bijelo', en: 'Tribunija bijelo' },
     volume: '0.75L',
     subtitle: { sr: 'Belo vino • Podrumi Vukoje, Trebinje', en: 'White Wine • Podrumi Vukoje, Trebinje' },
@@ -288,6 +301,20 @@ function tagChip(wine, lang) {
     + '<span class="wf-icon">' + icon + '</span>' + wine.tag[lang] + '</span>';
 }
 
+// A second, plainer line under the taste tag: who to serve it to, what to
+// serve it with, or its story — one neutral icon rather than the four
+// category colours above, since this isn't tied to a filter bucket.
+const PAIRING_ICON =
+  '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+  + '<path d="M8 2v7a2 2 0 002 2h0a2 2 0 002-2V2M10 11v11M16 2c-2 2-2 5-2 7 0 1 1 2 2 2s2-1 2-2c0-2 0-5-2-7z"/>'
+  + '</svg>';
+
+function tag2Chip(wine, lang) {
+  if (!wine.tag2) return '';
+  return '<span class="wine-tag wine-tag--secondary">'
+    + '<span class="wf-icon">' + PAIRING_ICON + '</span>' + wine.tag2[lang] + '</span>';
+}
+
 // The same basket drawn in the header, so the two read as one action.
 const CART_ICON =
   '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
@@ -377,7 +404,7 @@ function renderWines() {
         <h3>${wine.name[currentLang]}</h3>
         <div class="wine-srb">${wine.subtitle[currentLang]}</div>
         <p class="wine-desc">${wine.desc[currentLang]}</p>
-        ${tagChip(wine, currentLang)}
+        <div class="wine-tags">${tagChip(wine, currentLang)}${tag2Chip(wine, currentLang)}</div>
         <div class="wine-footer">
           <div class="wine-price-row"><span class="wine-price">${wine.price} RSD</span><span class="wine-volume">${wine.volume}</span></div>
           <button type="button" class="wine-add" data-id="${wine.id}" aria-label="${addLabel}" title="${addLabel}">${CART_ICON}</button>
@@ -710,7 +737,7 @@ function openDetail(id) {
   document.getElementById('detailDesc').textContent = item.desc[currentLang];
   document.getElementById('detailPrice').textContent = item.price + ' RSD';
   // Only wines carry a quickTag; bundles show no chip here.
-  document.getElementById('detailTag').innerHTML = wine ? tagChip(wine, currentLang) : '';
+  document.getElementById('detailTag').innerHTML = wine ? tagChip(wine, currentLang) + tag2Chip(wine, currentLang) : '';
 
   const vol = document.getElementById('detailVol');
   vol.textContent = wine ? wine.volume : '';

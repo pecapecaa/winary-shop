@@ -1,0 +1,615 @@
+/* ===== Product page =====
+   Loaded after styles.css and only on vino.html, so it inherits every colour
+   token, font and shared component (buttons, cart, footer, wine cards) and
+   only adds what the detail page itself needs. Nothing here is redefined for
+   the sake of it — where the site already has a look, that look is reused. */
+
+/* The homepage navbar starts transparent over the hero video. This page has
+   no video behind it, so it needs a solid bar from the first pixel. */
+.navbar--solid {
+  background: var(--wine-deep);
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.25);
+}
+
+.page-wine { background: var(--cream); }
+
+/* ---------------------------------------------------------------- hero */
+.wp-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--wine-deep);
+  padding: 108px 0 68px;
+}
+
+/* The bottle photo again, blown up and pushed far out of focus — the card
+   is nearly black, so a flat panel behind it read as a void. This picks up
+   the wine's own colour without competing with the bottle in front. */
+.wp-hero-bg {
+  position: absolute;
+  inset: -12%;
+  background-size: cover;
+  background-position: center;
+  filter: blur(58px) saturate(1.25);
+  opacity: 0.42;
+  transform: scale(1.15);
+  pointer-events: none;
+}
+
+.wp-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 80% at 30% 20%, rgba(31, 5, 8, 0.25), rgba(31, 5, 8, 0.92) 70%),
+    linear-gradient(180deg, rgba(31, 5, 8, 0.6), rgba(31, 5, 8, 0.95));
+  pointer-events: none;
+}
+
+.wp-hero > .container { position: relative; z-index: 2; }
+
+.wp-crumbs {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+  color: rgba(245, 237, 224, 0.5);
+  margin-bottom: 34px;
+}
+
+.wp-crumbs a { color: rgba(245, 237, 224, 0.72); text-decoration: none; transition: color 0.25s; }
+.wp-crumbs a:hover { color: var(--gold-light); }
+.wp-crumbs-current { color: var(--gold); }
+
+.wp-hero-grid {
+  display: grid;
+  grid-template-columns: 0.92fr 1.08fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.wp-photo-frame {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #080204;
+  border: 1px solid rgba(201, 169, 97, 0.22);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Same trick the catalogue card uses: the source photos are wide, with the
+   bottle small in the middle, so the image is oversized and cropped rather
+   than fitted — otherwise the bottle sits tiny in a sea of black. */
+.wp-photo-frame img {
+  height: 128%;
+  width: auto;
+  max-width: 260%;
+  object-fit: contain;
+}
+
+.wp-eyebrow {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.wp-title {
+  font-family: 'HerczDj', 'Cinzel', serif;
+  font-size: clamp(2.1rem, 4.4vw, 3.3rem);
+  font-weight: 700;
+  line-height: 1.08;
+  color: #f7f0e4;
+  margin: 0 0 10px;
+  letter-spacing: 0.5px;
+}
+
+.wp-producer {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.12rem;
+  color: var(--gold-light);
+  margin: 0 0 20px;
+}
+
+.wp-tags { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-bottom: 22px; }
+.wp-tags .wine-tag { margin-bottom: 0; }
+
+.wp-lead {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.24rem;
+  line-height: 1.62;
+  color: rgba(245, 237, 224, 0.86);
+  margin: 0 0 30px;
+  max-width: 56ch;
+}
+
+/* A definition list rather than prose: these are the five things a shopper
+   scans for, and a wine that has no known vintage simply shows five rows
+   instead of six rather than an invented one. */
+/* Flex rather than grid so the last row stretches to fill. On a grid, six
+   facts across four columns left two dead cells sitting there looking like
+   missing data — and the count genuinely varies, since a wine with no known
+   vintage shows five. */
+.wp-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  background: rgba(201, 169, 97, 0.16);
+  border: 1px solid rgba(201, 169, 97, 0.16);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.wp-fact {
+  flex: 1 1 132px;
+  background: rgba(8, 2, 4, 0.55);
+  padding: 13px 16px;
+}
+
+.wp-fact dt {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: rgba(201, 169, 97, 0.72);
+  margin-bottom: 5px;
+}
+
+.wp-fact dd {
+  margin: 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.04rem;
+  color: #f0e7d8;
+  line-height: 1.3;
+}
+
+.wp-buy {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  flex-wrap: wrap;
+  padding: 20px 0 22px;
+  border-top: 1px solid rgba(201, 169, 97, 0.2);
+  border-bottom: 1px solid rgba(201, 169, 97, 0.2);
+  margin-bottom: 20px;
+}
+
+.wp-price-block { display: flex; align-items: baseline; gap: 12px; }
+
+.wp-price {
+  font-family: 'HerczDj', 'Cinzel', serif;
+  font-size: 2.05rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.5px;
+}
+
+.wp-volume {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.74rem;
+  letter-spacing: 1.4px;
+  color: rgba(245, 237, 224, 0.6);
+  border: 1px solid rgba(201, 169, 97, 0.35);
+  border-radius: 40px;
+  padding: 4px 12px;
+}
+
+.wp-add { display: inline-flex; align-items: center; gap: 10px; }
+
+.wp-assurances {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 26px;
+}
+
+.wp-assurances li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.76rem;
+  letter-spacing: 0.4px;
+  color: rgba(245, 237, 224, 0.66);
+}
+
+.wp-assurances svg { color: var(--gold); flex-shrink: 0; }
+
+/* ------------------------------------------------------------ sections */
+.wp-section { padding: 74px 0; }
+.wp-section .section-header { margin-bottom: 42px; }
+
+.wp-sub {
+  font-family: 'HerczDj', 'Cinzel', serif;
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--wine);
+  margin: 0 0 20px;
+}
+
+.wp-disclaimer {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.94rem;
+  line-height: 1.5;
+  color: var(--text-light);
+  margin: 18px 0 0;
+}
+
+.wp-disclaimer--center { text-align: center; max-width: 46ch; margin-inline: auto; }
+
+/* ---------------------------------------------------------------- taste */
+.wp-taste { background: var(--stone); }
+
+.wp-taste-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 52px;
+  align-items: start;
+}
+
+.wp-aroma-list { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.wp-aroma {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.06rem;
+  color: var(--text);
+  background: var(--cream);
+  border: 1px solid rgba(139, 115, 85, 0.28);
+  border-radius: 40px;
+  padding: 8px 18px;
+}
+
+.wp-note {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.14rem;
+  line-height: 1.55;
+  color: var(--wine);
+  margin: 24px 0 0;
+  padding-left: 16px;
+  border-left: 2px solid var(--gold);
+}
+
+.wp-bar { margin-bottom: 20px; }
+
+.wp-bar-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+  gap: 12px;
+}
+
+.wp-bar-label {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-light);
+}
+
+.wp-bar-word {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.04rem;
+  color: var(--wine);
+}
+
+/* Five dots rather than a filled bar: a bar invites reading a precise value
+   off it, and this is a judgement, not a measurement. */
+.wp-dots { display: flex; gap: 6px; }
+
+.wp-dot {
+  flex: 1;
+  height: 5px;
+  border-radius: 40px;
+  background: rgba(139, 115, 85, 0.22);
+}
+
+.wp-dot--on { background: var(--wine); }
+
+/* ------------------------------------------------------------- serving */
+.wp-serve-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.wp-serve-card {
+  background: var(--cream);
+  border: 1px solid rgba(139, 115, 85, 0.2);
+  border-radius: 14px;
+  padding: 26px 22px;
+  text-align: center;
+}
+
+.wp-serve-icon {
+  width: 46px;
+  height: 46px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(107, 31, 42, 0.08);
+  color: var(--wine);
+}
+
+.wp-serve-label {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 8px;
+}
+
+.wp-serve-value {
+  font-family: 'HerczDj', 'Cinzel', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--wine);
+  margin-bottom: 8px;
+}
+
+.wp-serve-note {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.98rem;
+  line-height: 1.42;
+  color: var(--text-light);
+}
+
+/* ------------------------------------------------------------- pairing */
+.wp-pairing-sec { background: var(--stone); }
+
+.wp-pairing {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 16px;
+}
+
+.wp-pair {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  background: var(--cream);
+  border: 1px solid rgba(139, 115, 85, 0.2);
+  border-left: 3px solid var(--gold);
+  border-radius: 10px;
+  padding: 17px 20px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+.wp-pair svg { color: var(--wine); flex-shrink: 0; }
+
+/* --------------------------------------------------------------- story */
+.wp-story { background: var(--wine-deep); }
+
+.wp-story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.wp-story-card {
+  background: rgba(8, 2, 4, 0.55);
+  border: 1px solid rgba(201, 169, 97, 0.2);
+  border-radius: 16px;
+  padding: 38px 36px;
+}
+
+.wp-story-kicker {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 2.6px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.wp-story-title {
+  font-family: 'HerczDj', 'Cinzel', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #f7f0e4;
+  margin: 0 0 6px;
+}
+
+.wp-story-place {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--gold-light);
+  margin-bottom: 4px;
+}
+
+.wp-story-card .divider { margin: 16px 0 18px; }
+
+.wp-story-card p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.12rem;
+  line-height: 1.68;
+  color: rgba(245, 237, 224, 0.8);
+  margin: 0;
+}
+
+/* ------------------------------------------------------------- related */
+.wp-related-sec .wines-grid {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* Four across makes each card far narrower than the homepage's two, and the
+   bottle is sized as a percentage of the card — so at the base 160% it came
+   out a third of the size it has anywhere else. Scaled back up to land at a
+   comparable absolute width. */
+.wp-related-sec .wine-img-wrap img { max-width: 250%; }
+
+.wine-card--link { text-decoration: none; }
+
+.wine-more-link {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+.wp-related-more { text-align: center; margin-top: 38px; }
+
+/* .btn-outline is white-on-transparent, written for the dark hero. Here it
+   sits on cream and was invisible, so it takes the wine palette instead. */
+.wp-related-more .btn-outline {
+  color: var(--wine);
+  border-color: rgba(107, 31, 42, 0.45);
+}
+
+@media (hover: hover) {
+  .wp-related-more .btn-outline:hover {
+    background: var(--wine);
+    border-color: var(--wine);
+    color: var(--cream);
+  }
+}
+
+/* -------------------------------------------------------------- sticky */
+.wp-sticky {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 90;
+  background: rgba(31, 5, 8, 0.97);
+  border-top: 1px solid rgba(201, 169, 97, 0.28);
+  padding: 12px 0 calc(12px + env(safe-area-inset-bottom, 0px));
+  box-shadow: 0 -8px 34px rgba(0, 0, 0, 0.4);
+}
+
+.wp-sticky[hidden] { display: none; }
+
+.wp-sticky-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.wp-sticky-info { display: flex; flex-direction: column; min-width: 0; }
+
+.wp-sticky-name {
+  font-family: 'HerczDj', 'Cinzel', serif;
+  font-size: 0.86rem;
+  color: #f0e7d8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wp-sticky-price {
+  font-family: 'HerczDj', 'Cinzel', serif;
+  font-size: 1.14rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.wp-sticky-btn { padding: 12px 26px; white-space: nowrap; }
+
+/* ----------------------------------------------------------------- 404 */
+.wine-404 { padding: 170px 0 120px; text-align: center; }
+.wine-404-inner { max-width: 34rem; margin: 0 auto; }
+.wine-404 p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.16rem;
+  color: var(--text-light);
+  margin: 0 0 28px;
+}
+
+/* ------------------------------------------------------------- tablet */
+@media (max-width: 980px) {
+  .wp-hero-grid { grid-template-columns: 1fr; gap: 36px; }
+  .wp-photo { max-width: 380px; margin: 0 auto; width: 100%; }
+  .wp-taste-grid { grid-template-columns: 1fr; gap: 40px; }
+  .wp-story-grid { grid-template-columns: 1fr; }
+  .wp-related-sec .wines-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* -------------------------------------------------------------- phone */
+@media (max-width: 768px) {
+  .wp-hero { padding: 92px 0 48px; }
+  .wp-crumbs { margin-bottom: 22px; font-size: 0.66rem; gap: 7px; }
+  .wp-section { padding: 52px 0; }
+  .wp-section .section-header { margin-bottom: 30px; }
+
+  .wp-photo { max-width: 300px; }
+  .wp-photo-frame { aspect-ratio: 4 / 5; }
+
+  .wp-lead { font-size: 1.12rem; margin-bottom: 24px; }
+  .wp-facts { grid-template-columns: repeat(2, 1fr); }
+  .wp-buy { gap: 16px; }
+  .wp-price { font-size: 1.72rem; }
+  .wp-add { flex: 1; justify-content: center; }
+  .wp-assurances { gap: 10px 18px; }
+  .wp-assurances li { font-size: 0.72rem; }
+
+  .wp-story-card { padding: 28px 22px; }
+  .wp-serve-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .wp-serve-card { padding: 20px 14px; }
+  .wp-serve-icon { width: 40px; height: 40px; margin-bottom: 10px; }
+  .wp-pairing { grid-template-columns: 1fr; gap: 10px; }
+
+  /* The related row reuses the catalogue's swipe rail, so it needs the same
+     left-edge clearance: iOS keeps that strip for its back gesture, and a
+     scroller sitting under it steals the swipe. */
+  .wp-related-sec .wines-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 82%;
+    grid-template-columns: none;
+    gap: 14px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x mandatory;
+    padding: 4px 24px 14px 0;
+    margin: 0 -20px 0 0;
+    scrollbar-width: none;
+  }
+  .wp-related-sec .wines-grid::-webkit-scrollbar { display: none; }
+  .wp-related-sec .wines-grid > * { scroll-snap-align: start; scroll-snap-stop: always; }
+  .wp-related-sec .wine-img-wrap img { max-width: 256%; }
+  .wp-related-sec .wine-desc { -webkit-line-clamp: 1; }
+
+  /* The sticky bar covers the corner the floating buttons sit in. */
+  .wp-sticky-inner { padding: 0 18px; }
+  .wp-sticky-btn { padding: 11px 20px; font-size: 0.74rem; }
+}
+
+/* The floating WhatsApp/phone pair sits exactly where the sticky bar lands,
+   so it is lifted clear while the bar is on screen. */
+@media (max-width: 768px) {
+  body:has(.wp-sticky:not([hidden])) .fab-buttons { bottom: 86px; }
+}

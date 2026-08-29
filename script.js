@@ -78,7 +78,10 @@ const WINES = [
       en: 'A pale rosé the colour of rose petals, with aromas of strawberry and wild blackberry. Light, fresh and effortless to drink, pairs with everything from a summer gathering to the first dinner on the terrace.'
     },
     price: 1890,
-    img: 'images/tvrdos-2022.webp'
+    // PRIVREMENO: ovo je fotografija Tamjanike, ne roze — stavljena ovde samo
+    // da se uporedi kvalitet uživo na sajtu. Vrati na pravu roze sliku kad
+    // stigne, ili na 'images/tvrdos-2022.webp' ako se odustane od poređenja.
+    img: 'images/tamjanika-galerija-v2.webp'
   },
   {
     id: 'tvrdos-izba-merlot',

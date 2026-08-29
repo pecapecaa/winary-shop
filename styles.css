@@ -731,6 +731,7 @@ button {
 [data-quick="preporuka"]   { --pill-accent: #c9a961; }
 [data-quick="drugacije"]   { --pill-accent: #7a9b6e; }
 [data-quick="premium"]     { --pill-accent: #b8933a; }
+[data-filter="all"]        { --pill-accent: #7d5a8a; }
 [data-filter="Belo"]       { --pill-accent: #7a9b6e; }
 [data-filter="Crveno"]     { --pill-accent: #8b2035; }
 [data-filter="Rosé"]       { --pill-accent: #c98a92; }

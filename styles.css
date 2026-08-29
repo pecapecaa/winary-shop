@@ -2839,7 +2839,7 @@ button {
      and settles gently. Staggered delays are dropped for the same reason. */
   .wines-grid .fade-up {
     transform: none;
-    transition-duration: 0.45s;
+    transition-duration: 0.54s;
     transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
     transition-delay: 0s;
   }
@@ -2847,12 +2847,20 @@ button {
   .wines-grid .fade-up > .wine-card-body,
   .wines-grid .fade-up > .wine-more {
     transform: translateX(30px);
-    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.54s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .wines-grid .fade-up.visible > .wine-img-wrap,
   .wines-grid .fade-up.visible > .wine-card-body,
   .wines-grid .fade-up.visible > .wine-more {
     transform: none;
+  }
+
+  /* Bundles stack into one column here, so each card arrives on its own as
+     the page scrolls down rather than swiped to like the wine rail — 20%
+     quicker than the site-wide 0.7s default keeps a single-column scroll
+     from feeling like it's waiting on each card. */
+  .bundles-grid .fade-up {
+    transition: opacity 0.56s ease, transform 0.56s ease;
   }
   .vineyard-features { grid-template-columns: 1fr; }
   .about-stats { grid-template-columns: repeat(3, 1fr); gap: 12px; }

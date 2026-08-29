@@ -46,7 +46,7 @@ const WINES = [
       en: 'A strikingly fragrant white with aromas of flowering meadow, grapes and a hint of honey. Easy to drink and refreshing, perfect for anyone who likes to taste a wine with their nose first.'
     },
     price: 1890,
-    img: 'images/tvrdos-2022.webp'
+    img: 'images/tamjanika-galerija.webp'
   },
   {
     id: 'tvrdos-metoh-vranac',

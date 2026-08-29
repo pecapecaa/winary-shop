@@ -35,7 +35,10 @@
   --text-light: #6b5d50;
 }
 
-html { scroll-behavior: smooth; }
+/* overflow-x on body alone doesn't reliably stop iOS Safari from letting the
+   whole page pan sideways — it has to be on html too, or a swipe near the
+   edge shifts the entire viewport left, past the page's own content. */
+html { scroll-behavior: smooth; overflow-x: hidden; }
 
 body {
   font-family: 'Lato', sans-serif;
@@ -2633,10 +2636,10 @@ button {
      percentage is identical — a 287px rail card and a 350px single-column
      card produce the same crop at a different absolute size, measured at
      456px and 557px of actual bottle width for the same 160%. 194% matched
-     production's absolute size on the rail's narrower card; asked for a
-     further 20% on top of that once seen on a real phone, landing here. */
+     production's absolute size on the rail's narrower card; +20% then +10%
+     requested on top of that after seeing it on a real phone. */
   .wines-grid .wine-img-wrap img {
-    max-width: 233%;
+    max-width: 256%;
   }
 
   .wines-grid .wine-price { font-size: 1.28rem; white-space: nowrap; }

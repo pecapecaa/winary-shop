@@ -30,7 +30,7 @@
       href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Lato:wght@300;400;700&display=swap">
   </noscript>
   <link rel="stylesheet" href="styles.css?v=116">
-  <link rel="stylesheet" href="vino.css?v=1">
+  <link rel="stylesheet" href="vino.css?v=6">
 
   <!-- Microsoft Clarity: session recordings and click heatmaps, project "Hercz Wines". -->
   <script type="text/javascript">
@@ -72,6 +72,21 @@
     </div>
   </nav>
 
+  <!-- How far through the page you are. Long page, and the bar is the only
+       thing that says so without taking any layout space. -->
+  <div class="wp-progress" aria-hidden="true"><span id="wpProgressBar"></span></div>
+
+  <!-- Section index. Hidden on phones, where the page is a single column and
+       the dots would just be another thing under the thumb. -->
+  <nav class="wp-rail" id="wpRail" aria-label="Sekcije stranice">
+    <a href="#vrh" data-rail="vrh"><i></i><em>Vino</em></a>
+    <a href="#ukus" data-rail="ukus"><i></i><em>Ukus</em></a>
+    <a href="#serviranje" data-rail="serviranje"><i></i><em>Serviranje</em></a>
+    <a href="#uz-sta" data-rail="uz-sta"><i></i><em>Uz hranu</em></a>
+    <a href="#prica" data-rail="prica"><i></i><em>Priča</em></a>
+    <a href="#slicna" data-rail="slicna"><i></i><em>Još vina</em></a>
+  </nav>
+
   <main id="main" tabindex="-1">
     <!-- Everything below is written by vino.js from the wine id in the URL.
          A wrong or missing id renders the not-found block instead. -->
@@ -90,8 +105,10 @@
     <article id="wineArticle" hidden>
 
       <!-- ===== Hero: the bottle and the decision ===== -->
-      <section class="wp-hero">
+      <section class="wp-hero" id="vrh">
         <div class="wp-hero-bg" id="wpHeroBg"></div>
+        <div class="wp-hero-glow"></div>
+        <div class="wp-grain" aria-hidden="true"></div>
         <div class="container">
           <nav class="wp-crumbs" aria-label="Putanja">
             <a href="index.html#hero">Početna</a>
@@ -102,14 +119,19 @@
           </nav>
 
           <div class="wp-hero-grid">
-            <div class="wp-photo">
-              <div class="wp-photo-frame">
-                <span class="wine-type-badge" id="wpType"></span>
-                <img id="wpImg" src="" alt="">
-              </div>
+            <!-- No frame around the bottle. The photographs are shot on true
+                 black, so the image is blended into the page instead of boxed
+                 on it, and the bottle reads as standing in the page rather
+                 than inside a card. -->
+            <div class="wp-stage" id="wpStage">
+              <span class="wp-ghost" id="wpGhost" aria-hidden="true"></span>
+              <span class="wp-stage-line" aria-hidden="true"></span>
+              <img id="wpImg" class="wp-bottle" src="" alt="">
+              <span class="wp-reflection" id="wpReflection" aria-hidden="true"></span>
             </div>
 
             <div class="wp-intro">
+              <div class="wp-type-mark" id="wpType"></div>
               <div class="wp-eyebrow" id="wpEyebrow"></div>
               <h1 class="wp-title" id="wpName"></h1>
               <p class="wp-producer" id="wpProducer"></p>
@@ -152,6 +174,11 @@
             </div>
           </div>
         </div>
+
+        <a class="wp-cue" href="#ukus" aria-label="Nastavi niže">
+          <span class="wp-cue-text">Zavirite u vino</span>
+          <span class="wp-cue-line"></span>
+        </a>
       </section>
 
       <!-- ===== Taste ===== -->
@@ -324,6 +351,6 @@
 
   <script src="data.js?v=1"></script>
   <script src="wine-details.js?v=1"></script>
-  <script src="vino.js?v=1"></script>
+  <script src="vino.js?v=6"></script>
 </body>
 </html>

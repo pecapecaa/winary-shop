@@ -35,10 +35,16 @@
   --text-light: #6b5d50;
 }
 
-/* overflow-x on body alone doesn't reliably stop iOS Safari from letting the
-   whole page pan sideways — it has to be on html too, or a swipe near the
-   edge shifts the entire viewport left, past the page's own content. */
-html { scroll-behavior: smooth; overflow-x: hidden; }
+/* overflow-x alone didn't stop it: that governs CSS scrolling, not Safari's
+   own edge-swipe-to-navigate gesture, which drags the page regardless of
+   whether anything actually overflows. overscroll-behavior-x is the property
+   for that — it tells the browser this page handles its own scrolling and
+   the gesture shouldn't reach past it. */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
+}
 
 body {
   font-family: 'Lato', sans-serif;
@@ -46,6 +52,7 @@ body {
   background: var(--cream);
   line-height: 1.6;
   overflow-x: hidden;
+  overscroll-behavior-x: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

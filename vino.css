@@ -124,16 +124,16 @@
   padding: 132px 0 96px;
 }
 
-/* The bottle photo again, blown far out of focus. It gives the stage the
-   wine's own colour — a Vranac page glows differently from a Žilavka page —
-   without any of it reading as a second image. */
+/* The bottle photo again, blown far out of focus, giving the stage a trace
+   of the wine's own colour. Held well back: at half opacity it tinted the
+   bottle in front of it, which is exactly what it must not do. */
 .wp-hero-bg {
   position: absolute;
   inset: -18%;
   background-size: cover;
   background-position: center;
-  filter: blur(80px) saturate(1.5);
-  opacity: 0.5;
+  filter: blur(96px) saturate(1.15);
+  opacity: 0.26;
   transform: scale(1.2);
   pointer-events: none;
 }
@@ -149,8 +149,10 @@
   z-index: 1;
 }
 
-/* A single warm pool of light behind where the bottle stands, so the bottle
-   looks lit rather than pasted. */
+/* A pool of light behind where the bottle stands, kept faint on purpose.
+   At full strength it washed warm colour across the glass itself, so the
+   photograph stopped looking like a photograph — the stage should be lit,
+   not the bottle. */
 .wp-hero-glow {
   position: absolute;
   left: 20%;
@@ -161,9 +163,9 @@
   max-height: 620px;
   transform: translate(-50%, -50%);
   background: radial-gradient(circle,
-    rgba(201, 169, 97, 0.2) 0%,
-    rgba(139, 32, 53, 0.14) 38%,
-    rgba(31, 5, 8, 0) 68%);
+    rgba(201, 169, 97, 0.085) 0%,
+    rgba(139, 32, 53, 0.05) 40%,
+    rgba(31, 5, 8, 0) 70%);
   z-index: 2;
   pointer-events: none;
 }
@@ -256,18 +258,10 @@
   pointer-events: none;
 }
 
-.wp-reflection {
-  position: absolute;
-  z-index: 1;
-  left: 50%;
-  bottom: 6%;
-  width: 46%;
-  height: 26px;
-  transform: translateX(-50%);
-  background: radial-gradient(ellipse at center,
-    rgba(201, 169, 97, 0.2) 0%, rgba(201, 169, 97, 0) 70%);
-  pointer-events: none;
-}
+/* The photograph already contains the bottle's reflection on the studio
+   floor, and the cut-out keeps it. A second painted one underneath was two
+   reflections at slightly different angles. */
+.wp-reflection { display: none; }
 
 /* ----------------------------------------------------------- the words */
 .wp-intro { position: relative; }
@@ -1124,4 +1118,35 @@
   .wp-hero-parallax .wp-stage,
   .wp-hero-parallax .wp-ghost { transform: none !important; opacity: 1 !important; }
   .wp-cue-line::after { animation: none; }
+}
+
+/* ===================================================== consistency pass */
+
+/* styles.css caps every .btn at 280px wide on phones — a rule written for
+   the homepage hero, where the buttons stack. Inherited here it made the
+   sticky bar's button a fixed slab narrower than its own bar, and left its
+   icon and label sitting off-centre inside it. Both product-page buttons
+   size to their own content and centre it explicitly. */
+.wp-add,
+.wp-sticky-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  width: auto;
+  max-width: none;
+}
+
+.wp-sticky-inner { gap: 16px; }
+
+.wp-sticky-info { flex: 1 1 auto; min-width: 0; }
+
+.wp-sticky-btn { flex: 0 0 auto; }
+
+@media (max-width: 768px) {
+  .wp-add { width: 100%; }
+  .wp-sticky-btn { padding: 13px 22px; }
+  /* The name is the first thing to give up room — the price and the button
+     are what the bar is for. */
+  .wp-sticky-name { font-size: 0.8rem; }
 }

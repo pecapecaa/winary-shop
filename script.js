@@ -318,12 +318,23 @@ let activeWineFilter = 'all';
 // everything, or the wines section opens twice as tall as it needs to.
 let activeQuickFilter = 'preporuka';
 
+// Serbian only turns singular at exactly n1, n21, n31... (never n11) — every
+// other count, including 2 through 4, still takes the same plural "vina" a
+// count of 13 does, so this only has one real branch to get right.
+function wineCountLabel(n, lang) {
+  if (lang !== 'sr') return n + ' ' + (n === 1 ? 'wine' : 'wines');
+  const singular = n % 10 === 1 && n % 100 !== 11;
+  return n + ' ' + (singular ? 'vino' : 'vina');
+}
+
 function renderWines() {
   const grid = document.getElementById('winesGrid');
   const list = WINES.filter(w =>
     (activeWineFilter === 'all' || w.type.sr === activeWineFilter) &&
     (activeQuickFilter === 'all' || w.quickTag === activeQuickFilter)
   );
+  const countEl = document.getElementById('wineCount');
+  if (countEl) countEl.textContent = wineCountLabel(list.length, currentLang);
   const addLabel = currentLang === 'sr' ? 'Dodaj u listu' : 'Add to list';
   const moreLabel = currentLang === 'sr' ? 'Prikaži detalje' : 'Show details';
   grid.innerHTML = list.map(wine => `

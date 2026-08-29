@@ -797,10 +797,41 @@ button {
    label's own left breathing room the badge would otherwise provide. */
 .wf-btn:not(:has(.wf-icon)) { padding-left: 22px; }
 
+/* How many wines the pill would show if tapped. Deliberately quiet: lighter
+   weight, no uppercase tracking, and pulled in tight against the label so it
+   reads as a footnote to it rather than a second badge answering the icon on
+   the far side. Tabular figures keep the pill from twitching in width as the
+   number changes with the other row's selection. */
+.wf-count {
+  font-size: 0.86em;
+  font-weight: 400;
+  letter-spacing: 0;
+  opacity: 0.45;
+  margin-left: -3px;
+  font-variant-numeric: tabular-nums;
+}
+
+.wf-btn--active .wf-count { opacity: 0.7; }
+
+/* A pill reading 0 leads to an empty grid, so it is put out of reach rather
+   than left tappable. Faded rather than hidden: the 0 is the explanation for
+   why it cannot be pressed, and a pill that vanished would shift every pill
+   after it sideways mid-scroll. */
+.wf-btn:disabled {
+  opacity: 0.32;
+  cursor: default;
+  border-color: rgba(139, 115, 85, 0.18);
+}
+
+.wf-btn:disabled .wf-icon {
+  background: rgba(139, 115, 85, 0.08);
+}
+
 /* Touch browsers leave :hover stuck on the last tapped element, so this is
-   gated to devices that can genuinely hover. */
+   gated to devices that can genuinely hover. The :enabled guard keeps a
+   disabled pill from lighting up under the cursor as if it were pressable. */
 @media (hover: hover) {
-  .wf-btn:hover {
+  .wf-btn:enabled:hover {
     border-color: var(--gold);
     color: var(--wine-deep);
   }

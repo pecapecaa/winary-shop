@@ -399,6 +399,46 @@ function wineCountLabel(n, lang) {
   return n + ' ' + (singular ? 'vino' : 'vina');
 }
 
+// Thirteen wines spread over four quick tags x three types leaves about one
+// wine per cell, so empty combinations are arithmetic rather than accident:
+// four of the twelve are empty, three of them because there is exactly one
+// rose in the catalogue. Rather than let anyone tap into an empty grid, each
+// pill carries the number it would actually show, and a pill reading zero is
+// disabled — the dead end stops existing instead of being explained.
+//
+// The number on a pill is its own value combined with the OTHER row's current
+// selection, which is what makes "0 means disabled" honest: it is the count
+// you would land on, not the count the tag has in isolation.
+function updateFilterCounts() {
+  const quickRow = document.getElementById('quickFilters');
+  const typeRow = document.getElementById('wineFilters');
+  if (!quickRow || !typeRow) return;
+
+  const apply = (btn, n) => {
+    const el = btn.querySelector('.wf-count');
+    if (el) el.textContent = n;
+    // The active pill is never disabled even at zero. Disabling it would trap
+    // the selection with nothing left to tap out of.
+    btn.disabled = n === 0 && !btn.classList.contains('wf-btn--active');
+  };
+
+  typeRow.querySelectorAll('.wf-btn').forEach(btn => {
+    const t = btn.dataset.filter;
+    apply(btn, WINES.filter(w =>
+      (t === 'all' || w.type.sr === t) &&
+      (activeQuickFilter === 'all' || w.quickTag === activeQuickFilter)
+    ).length);
+  });
+
+  quickRow.querySelectorAll('.wf-btn').forEach(btn => {
+    const q = btn.dataset.quick;
+    apply(btn, WINES.filter(w =>
+      w.quickTag === q &&
+      (activeWineFilter === 'all' || w.type.sr === activeWineFilter)
+    ).length);
+  });
+}
+
 function renderWines() {
   const grid = document.getElementById('winesGrid');
   const list = WINES.filter(w =>
@@ -407,6 +447,7 @@ function renderWines() {
   );
   const countEl = document.getElementById('wineCount');
   if (countEl) countEl.textContent = wineCountLabel(list.length, currentLang);
+  updateFilterCounts();
   const addLabel = currentLang === 'sr' ? 'Dodaj u listu' : 'Add to list';
   const moreLabel = currentLang === 'sr' ? 'Prikaži detalje' : 'Show details';
   grid.innerHTML = list.map(wine => `

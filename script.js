@@ -18,7 +18,7 @@ const WINES = [
   {
     id: 'tvrdos-zilavka',
     quickTag: 'preporuka',
-    tag: { sr: 'Mineralna elegancija', en: 'Mineral elegance' },
+    tag: { sr: 'Sveže i mineralno', en: 'Fresh and mineral' },
     name: { sr: 'Tvrdoš Žilavka', en: 'Tvrdoš Žilavka' },
     volume: '0.75L',
     subtitle: { sr: 'Belo vino • Manastir Tvrdoš, Trebinje', en: 'White Wine • Manastir Tvrdoš, Trebinje' },
@@ -93,7 +93,7 @@ const WINES = [
   {
     id: 'zlatna-selekcija-bijelo',
     quickTag: 'premium',
-    tag: { sr: 'Kad želiš više', en: 'When you want more' },
+    tag: { sr: 'Bogato i slojevito', en: 'Rich and layered' },
     name: { sr: 'Zlatna Selekcija Bijelo', en: 'Zlatna Selekcija Bijelo' },
     volume: '0.75L',
     subtitle: { sr: 'Belo vino • [vinarija]', en: 'White Wine • [vinarija]' },
@@ -108,7 +108,7 @@ const WINES = [
   {
     id: 'vranac-reserve',
     quickTag: 'premium',
-    tag: { sr: 'Za posebne prilike', en: 'For special occasions' },
+    tag: { sr: 'Baršunasto i začinjeno', en: 'Velvety and spiced' },
     name: { sr: 'Vranac Reserve', en: 'Vranac Reserve' },
     volume: '0.75L',
     subtitle: { sr: 'Crveno vino • [vinarija]', en: 'Red Wine • [vinarija]' },
@@ -153,7 +153,7 @@ const WINES = [
   {
     id: 'blatina-citluk-1l',
     quickTag: 'svakodnevno',
-    tag: { sr: 'Za veće društvo', en: 'For a bigger crowd' },
+    tag: { sr: 'Snažno i domaće', en: 'Bold and homegrown' },
     name: { sr: 'Blatina Čitluk', en: 'Blatina Čitluk' },
     volume: '1L',
     subtitle: { sr: 'Crveno vino • Vinarija Čitluk', en: 'Red Wine • Vinarija Čitluk' },
@@ -168,7 +168,7 @@ const WINES = [
   {
     id: 'zilavka-citluk-1l',
     quickTag: 'svakodnevno',
-    tag: { sr: 'Za deljenje', en: 'For sharing' },
+    tag: { sr: 'Laka klasika', en: 'Easy classic' },
     name: { sr: 'Žilavka Čitluk', en: 'Žilavka Čitluk' },
     volume: '1L',
     subtitle: { sr: 'Belo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },

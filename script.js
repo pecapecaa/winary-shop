@@ -39,7 +39,7 @@ const WINES = [
     tagIcon: 'flower',
     name: { sr: 'Tamjanika Galerija', en: 'Tamjanika Galerija' },
     volume: '0.75L',
-    subtitle: { sr: 'Belo vino • [vinarija]', en: 'White Wine • [vinarija]' },
+    subtitle: { sr: 'Belo vino • Podrumi Vukoje, Trebinje', en: 'White Wine • Podrumi Vukoje, Trebinje' },
     type: { sr: 'Belo', en: 'White' },
     desc: {
       sr: 'Izrazito mirisno belo vino sa aromama cvetne livade, grožđa i blagog meda. Pitko i osvežavajuće, savršeno za one koji vole da vino prvo osete nosom, pa tek onda ukusom.',
@@ -71,7 +71,7 @@ const WINES = [
     tagIcon: 'sun',
     name: { sr: 'Primavera cuvee roze', en: 'Primavera cuvee roze' },
     volume: '0.75L',
-    subtitle: { sr: 'Rosé vino • [vinarija]', en: 'Rosé Wine • [vinarija]' },
+    subtitle: { sr: 'Rosé vino • Podrumi Vukoje, Trebinje', en: 'Rosé Wine • Podrumi Vukoje, Trebinje' },
     type: { sr: 'Rosé', en: 'Rosé' },
     desc: {
       sr: 'Svetlo rozé vino boje latica ruže, sa mirisom jagode i divlje kupine. Lagano, sveže i lako se pije, ide uz sve, od letnjeg druženja do prve večere na terasi.',
@@ -103,7 +103,7 @@ const WINES = [
     tagIcon: 'layers',
     name: { sr: 'Zlatna Selekcija Bijelo', en: 'Zlatna Selekcija Bijelo' },
     volume: '0.75L',
-    subtitle: { sr: 'Belo vino • [vinarija]', en: 'White Wine • [vinarija]' },
+    subtitle: { sr: 'Belo vino • Podrumi Vukoje, Trebinje', en: 'White Wine • Podrumi Vukoje, Trebinje' },
     type: { sr: 'Belo', en: 'White' },
     desc: {
       sr: 'Vrhunsko belo vino iz posebne selekcije, negovano sa više pažnje i vremena. Bogat, slojevit ukus zrelog voća i suptilne vanile, za trenutke kada želite da počastite sebe ili nekog drugog.',
@@ -119,7 +119,7 @@ const WINES = [
     tagIcon: 'flame',
     name: { sr: 'Vranac Reserve', en: 'Vranac Reserve' },
     volume: '0.75L',
-    subtitle: { sr: 'Crveno vino • [vinarija]', en: 'Red Wine • [vinarija]' },
+    subtitle: { sr: 'Crveno vino • Podrumi Vukoje, Trebinje', en: 'Red Wine • Podrumi Vukoje, Trebinje' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
       sr: 'Vranac u svom najboljem izdanju, odležao duže od ostalih da uhvati punu dubinu ukusa. Tamni bobičasti plodovi, začini i baršunasta struktura, vino za slavlje i posebne trenutke.',

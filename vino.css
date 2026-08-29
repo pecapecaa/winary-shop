@@ -13,25 +13,128 @@
 
 .page-wine { background: var(--cream); }
 
+/* ================================================================ chrome */
+
+/* Reading progress. Two pixels, fixed under the navbar — the page is long
+   and nothing else tells you how much of it is left. */
+.wp-progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  z-index: 120;
+  background: rgba(201, 169, 97, 0.12);
+  pointer-events: none;
+}
+
+.wp-progress span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--wine), var(--gold));
+  transition: width 0.12s linear;
+}
+
+/* Section index down the right edge. The label only appears on hover, so at
+   rest it is six quiet marks rather than a menu competing with the page. */
+.wp-rail {
+  position: fixed;
+  right: 26px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s;
+}
+
+.wp-rail--ready { opacity: 1; visibility: visible; }
+
+.wp-rail a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.wp-rail i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(139, 115, 85, 0.4);
+  transition: background 0.35s, transform 0.35s, box-shadow 0.35s;
+  flex-shrink: 0;
+}
+
+.wp-rail em {
+  font-family: 'Lato', sans-serif;
+  font-style: normal;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--text-light);
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity 0.3s, transform 0.3s;
+  white-space: nowrap;
+}
+
+.wp-rail a:hover em { opacity: 1; transform: none; }
+.wp-rail a:hover i { background: var(--wine); }
+
+.wp-rail a.is-active i {
+  background: var(--gold);
+  transform: scale(1.5);
+  box-shadow: 0 0 0 4px rgba(201, 169, 97, 0.16);
+}
+
+/* Over the dark hero and the dark story band the marks need the inverse
+   palette or they vanish into the background. */
+.wp-rail--dark i { background: rgba(201, 169, 97, 0.32); }
+.wp-rail--dark em { color: rgba(245, 237, 224, 0.75); }
+.wp-rail--dark a:hover i { background: var(--gold-light); }
+
+/* A film of noise over the hero. Flat dark panels band badly on phone
+   screens, and this is what keeps the gradient looking like a photograph
+   rather than a fill. */
+.wp-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.22;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
 /* ---------------------------------------------------------------- hero */
 .wp-hero {
   position: relative;
   overflow: hidden;
   background: var(--wine-deep);
-  padding: 108px 0 68px;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 132px 0 96px;
 }
 
-/* The bottle photo again, blown up and pushed far out of focus — the card
-   is nearly black, so a flat panel behind it read as a void. This picks up
-   the wine's own colour without competing with the bottle in front. */
+/* The bottle photo again, blown far out of focus. It gives the stage the
+   wine's own colour — a Vranac page glows differently from a Žilavka page —
+   without any of it reading as a second image. */
 .wp-hero-bg {
   position: absolute;
-  inset: -12%;
+  inset: -18%;
   background-size: cover;
   background-position: center;
-  filter: blur(58px) saturate(1.25);
-  opacity: 0.42;
-  transform: scale(1.15);
+  filter: blur(80px) saturate(1.5);
+  opacity: 0.5;
+  transform: scale(1.2);
   pointer-events: none;
 }
 
@@ -40,173 +143,296 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(120% 80% at 30% 20%, rgba(31, 5, 8, 0.25), rgba(31, 5, 8, 0.92) 70%),
-    linear-gradient(180deg, rgba(31, 5, 8, 0.6), rgba(31, 5, 8, 0.95));
+    radial-gradient(90% 70% at 28% 42%, rgba(31, 5, 8, 0.05), rgba(31, 5, 8, 0.88) 68%),
+    linear-gradient(180deg, rgba(31, 5, 8, 0.94), rgba(31, 5, 8, 0.72) 40%, rgba(31, 5, 8, 0.97));
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* A single warm pool of light behind where the bottle stands, so the bottle
+   looks lit rather than pasted. */
+.wp-hero-glow {
+  position: absolute;
+  left: 20%;
+  top: 46%;
+  width: 46vw;
+  height: 46vw;
+  max-width: 620px;
+  max-height: 620px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle,
+    rgba(201, 169, 97, 0.2) 0%,
+    rgba(139, 32, 53, 0.14) 38%,
+    rgba(31, 5, 8, 0) 68%);
+  z-index: 2;
   pointer-events: none;
 }
 
-.wp-hero > .container { position: relative; z-index: 2; }
+.wp-hero > .container { position: relative; z-index: 4; }
 
 .wp-crumbs {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 10px;
   font-family: 'Lato', sans-serif;
-  font-size: 0.72rem;
-  letter-spacing: 1.3px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  color: rgba(245, 237, 224, 0.5);
-  margin-bottom: 34px;
+  color: rgba(245, 237, 224, 0.38);
+  margin-bottom: 52px;
 }
 
-.wp-crumbs a { color: rgba(245, 237, 224, 0.72); text-decoration: none; transition: color 0.25s; }
+.wp-crumbs a { color: rgba(245, 237, 224, 0.62); text-decoration: none; transition: color 0.3s; }
 .wp-crumbs a:hover { color: var(--gold-light); }
 .wp-crumbs-current { color: var(--gold); }
 
 .wp-hero-grid {
   display: grid;
-  grid-template-columns: 0.92fr 1.08fr;
-  gap: 56px;
+  grid-template-columns: 0.86fr 1.14fr;
+  gap: 68px;
   align-items: center;
 }
 
-.wp-photo-frame {
+/* --------------------------------------------------------- the bottle */
+.wp-stage {
   position: relative;
-  aspect-ratio: 3 / 4;
-  border-radius: 18px;
-  overflow: hidden;
-  background: #080204;
-  border: 1px solid rgba(201, 169, 97, 0.22);
-  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 62vh;
 }
 
-/* Same trick the catalogue card uses: the source photos are wide, with the
-   bottle small in the middle, so the image is oversized and cropped rather
-   than fitted — otherwise the bottle sits tiny in a sea of black. */
-.wp-photo-frame img {
-  height: 128%;
+/* The whole point of the redesign: no frame, no card, no visible edge — the
+   bottle simply stands in the page. It is a pre-cut image with a real alpha
+   channel rather than a blend mode, because mix-blend-mode blends against
+   its own stacking context and .container has a z-index, so the bottle would
+   have blended against nothing and kept its black rectangle. */
+.wp-bottle {
+  position: relative;
+  z-index: 2;
+  height: 76vh;
+  max-height: 760px;
   width: auto;
-  max-width: 260%;
+  max-width: 106%;
   object-fit: contain;
+  will-change: transform;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  filter: drop-shadow(0 34px 46px rgba(0, 0, 0, 0.5));
+}
+
+/* The variety or the vintage, set enormous and almost invisible behind the
+   glass. It gives the composition a background layer to sit against, and
+   rewards anyone who looks twice. */
+.wp-ghost {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 46%;
+  transform: translate(-50%, -50%);
+  font-family: 'HerczDj', 'Cinzel', serif;
+  font-weight: 900;
+  font-size: clamp(7rem, 15vw, 15rem);
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  color: rgba(245, 237, 224, 0.055);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* A hairline the bottle stands on, fading out at both ends. */
+.wp-stage-line {
+  position: absolute;
+  z-index: 1;
+  left: 8%;
+  right: 8%;
+  bottom: 8%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    rgba(201, 169, 97, 0) 0%,
+    rgba(201, 169, 97, 0.34) 50%,
+    rgba(201, 169, 97, 0) 100%);
+  pointer-events: none;
+}
+
+.wp-reflection {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: 6%;
+  width: 46%;
+  height: 26px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center,
+    rgba(201, 169, 97, 0.2) 0%, rgba(201, 169, 97, 0) 70%);
+  pointer-events: none;
+}
+
+/* ----------------------------------------------------------- the words */
+.wp-intro { position: relative; }
+
+/* A hairline down the left of the text column, anchoring it to the bottle.
+   It used to carry the wine type set sideways, which put a third "Crveno" on
+   screen under an eyebrow already reading "Crveno vino" — the rule does the
+   anchoring on its own and says nothing twice. */
+.wp-type-mark {
+  position: absolute;
+  left: -34px;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  font-size: 0;
+  background: linear-gradient(180deg,
+    rgba(201, 169, 97, 0.42) 0%,
+    rgba(201, 169, 97, 0.14) 42%,
+    rgba(201, 169, 97, 0) 100%);
 }
 
 .wp-eyebrow {
   font-family: 'Lato', sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.66rem;
   font-weight: 700;
-  letter-spacing: 3px;
+  letter-spacing: 4px;
   text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 14px;
+  margin-bottom: 20px;
 }
 
 .wp-title {
   font-family: 'HerczDj', 'Cinzel', serif;
-  font-size: clamp(2.1rem, 4.4vw, 3.3rem);
+  font-size: clamp(2.4rem, 5.2vw, 4.2rem);
   font-weight: 700;
-  line-height: 1.08;
-  color: #f7f0e4;
-  margin: 0 0 10px;
-  letter-spacing: 0.5px;
+  line-height: 1.02;
+  color: #fbf6ec;
+  margin: 0 0 14px;
+  letter-spacing: -0.01em;
 }
 
 .wp-producer {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
-  font-size: 1.12rem;
+  font-size: 1.2rem;
   color: var(--gold-light);
-  margin: 0 0 20px;
+  margin: 0 0 26px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
-.wp-tags { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-bottom: 22px; }
+.wp-producer::before {
+  content: '';
+  width: 30px;
+  height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+.wp-tags { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-bottom: 26px; }
 .wp-tags .wine-tag { margin-bottom: 0; }
 
 .wp-lead {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.24rem;
-  line-height: 1.62;
-  color: rgba(245, 237, 224, 0.86);
-  margin: 0 0 30px;
-  max-width: 56ch;
+  font-size: 1.3rem;
+  line-height: 1.68;
+  color: rgba(245, 237, 224, 0.84);
+  margin: 0 0 34px;
+  max-width: 54ch;
 }
 
-/* A definition list rather than prose: these are the five things a shopper
-   scans for, and a wine that has no known vintage simply shows five rows
-   instead of six rather than an invented one. */
-/* Flex rather than grid so the last row stretches to fill. On a grid, six
-   facts across four columns left two dead cells sitting there looking like
-   missing data — and the count genuinely varies, since a wine with no known
-   vintage shows five. */
+/* Facts as a hairline row, not a boxed table — the box read as a spec sheet
+   pasted into an otherwise atmospheric page. Flex so the last row stretches:
+   the count varies, since a wine with no known vintage shows five not six. */
 .wp-facts {
   display: flex;
   flex-wrap: wrap;
-  gap: 1px;
-  background: rgba(201, 169, 97, 0.16);
-  border: 1px solid rgba(201, 169, 97, 0.16);
-  border-radius: 12px;
-  overflow: hidden;
-  margin-bottom: 30px;
+  gap: 22px 0;
+  padding: 26px 0;
+  border-top: 1px solid rgba(201, 169, 97, 0.18);
+  border-bottom: 1px solid rgba(201, 169, 97, 0.18);
+  margin-bottom: 34px;
 }
 
 .wp-fact {
-  flex: 1 1 132px;
-  background: rgba(8, 2, 4, 0.55);
-  padding: 13px 16px;
+  flex: 1 1 122px;
+  padding-right: 18px;
+  border-right: 1px solid rgba(201, 169, 97, 0.13);
 }
+
+.wp-fact:last-child { border-right: none; }
 
 .wp-fact dt {
   font-family: 'Lato', sans-serif;
-  font-size: 0.62rem;
+  font-size: 0.58rem;
   font-weight: 700;
-  letter-spacing: 1.6px;
+  letter-spacing: 2.2px;
   text-transform: uppercase;
-  color: rgba(201, 169, 97, 0.72);
-  margin-bottom: 5px;
+  color: rgba(201, 169, 97, 0.62);
+  margin-bottom: 7px;
 }
 
 .wp-fact dd {
   margin: 0;
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.04rem;
-  color: #f0e7d8;
-  line-height: 1.3;
+  font-size: 1.08rem;
+  color: #f2eade;
+  line-height: 1.28;
 }
 
 .wp-buy {
   display: flex;
   align-items: center;
-  gap: 26px;
+  gap: 30px;
   flex-wrap: wrap;
-  padding: 20px 0 22px;
-  border-top: 1px solid rgba(201, 169, 97, 0.2);
-  border-bottom: 1px solid rgba(201, 169, 97, 0.2);
-  margin-bottom: 20px;
+  margin-bottom: 26px;
 }
 
-.wp-price-block { display: flex; align-items: baseline; gap: 12px; }
+.wp-price-block { display: flex; align-items: baseline; gap: 13px; }
 
 .wp-price {
   font-family: 'HerczDj', 'Cinzel', serif;
-  font-size: 2.05rem;
+  font-size: 2.35rem;
   font-weight: 700;
   color: var(--gold);
   letter-spacing: 0.5px;
+  line-height: 1;
 }
 
 .wp-volume {
   font-family: 'Lato', sans-serif;
-  font-size: 0.74rem;
-  letter-spacing: 1.4px;
-  color: rgba(245, 237, 224, 0.6);
-  border: 1px solid rgba(201, 169, 97, 0.35);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  color: rgba(245, 237, 224, 0.55);
+  border: 1px solid rgba(201, 169, 97, 0.3);
   border-radius: 40px;
-  padding: 4px 12px;
+  padding: 5px 13px;
 }
 
-.wp-add { display: inline-flex; align-items: center; gap: 10px; }
+/* The one gold button on a dark page — it should not need a second look to
+   find. The sheen sweeps once on hover. */
+.wp-add {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  padding: 15px 34px;
+}
+
+.wp-add::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.34), transparent);
+  transition: left 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) {
+  .wp-add:hover::after { left: 130%; }
+}
 
 .wp-assurances {
   list-style: none;
@@ -214,24 +440,130 @@
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 12px 26px;
+  gap: 12px 28px;
 }
 
 .wp-assurances li {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
   font-family: 'Lato', sans-serif;
-  font-size: 0.76rem;
-  letter-spacing: 0.4px;
-  color: rgba(245, 237, 224, 0.66);
+  font-size: 0.73rem;
+  letter-spacing: 0.5px;
+  color: rgba(245, 237, 224, 0.6);
 }
 
 .wp-assurances svg { color: var(--gold); flex-shrink: 0; }
 
+/* --------------------------------------------------------- scroll cue */
+.wp-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 26px;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+/* On a short window the hero content already reaches the bottom edge and the
+   cue lands on top of the assurances row. It is an invitation, not a
+   control — nothing is lost by leaving it out when there is no room. */
+@media (max-height: 860px) {
+  .wp-cue { display: none; }
+}
+
+.wp-cue-text {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(245, 237, 224, 0.42);
+  transition: color 0.3s;
+}
+
+.wp-cue:hover .wp-cue-text { color: var(--gold-light); }
+
+/* A line that fills downward on a loop, rather than a bouncing chevron. */
+.wp-cue-line {
+  width: 1px;
+  height: 44px;
+  background: rgba(201, 169, 97, 0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+.wp-cue-line::after {
+  content: '';
+  position: absolute;
+  left: 0; top: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, var(--gold));
+  animation: wpCue 2.1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+@keyframes wpCue {
+  0%   { top: -100%; }
+  60%  { top: 100%; }
+  100% { top: 100%; }
+}
+
+/* Entrance. The hero assembles itself once rather than everything arriving
+   at the same instant — it is the difference between a page loading and a
+   page opening. */
+.wp-reveal > * {
+  opacity: 0;
+  transform: translateY(22px);
+}
+
+.wp-reveal.is-in > * {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.wp-reveal.is-in > *:nth-child(1) { transition-delay: 0.05s; }
+.wp-reveal.is-in > *:nth-child(2) { transition-delay: 0.12s; }
+.wp-reveal.is-in > *:nth-child(3) { transition-delay: 0.19s; }
+.wp-reveal.is-in > *:nth-child(4) { transition-delay: 0.26s; }
+.wp-reveal.is-in > *:nth-child(5) { transition-delay: 0.33s; }
+.wp-reveal.is-in > *:nth-child(6) { transition-delay: 0.40s; }
+.wp-reveal.is-in > *:nth-child(7) { transition-delay: 0.47s; }
+.wp-reveal.is-in > *:nth-child(8) { transition-delay: 0.54s; }
+
+.wp-stage .wp-bottle { opacity: 0; transform: translateY(38px) scale(0.97); }
+.wp-stage.is-in .wp-bottle {
+  opacity: 1;
+  transform: none;
+  transition: opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.wp-stage .wp-ghost,
+.wp-stage .wp-stage-line,
+.wp-stage .wp-reflection { opacity: 0; transition: opacity 1.4s ease 0.35s; }
+.wp-stage.is-in .wp-ghost { opacity: 1; }
+.wp-stage.is-in .wp-stage-line,
+.wp-stage.is-in .wp-reflection { opacity: 1; }
+
 /* ------------------------------------------------------------ sections */
-.wp-section { padding: 74px 0; }
-.wp-section .section-header { margin-bottom: 42px; }
+.wp-section { padding: 104px 0; }
+.wp-section .section-header { margin-bottom: 56px; }
+
+/* Bigger and tighter than the homepage's, because after a full-height hero
+   a section title has to restart the page rather than continue it. */
+.wp-section .section-title {
+  font-size: clamp(2rem, 3.6vw, 2.9rem);
+  letter-spacing: -0.01em;
+}
+
+.wp-section .section-kicker { letter-spacing: 4px; }
 
 .wp-sub {
   font-family: 'HerczDj', 'Cinzel', serif;
@@ -259,35 +591,69 @@
 
 .wp-taste-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 52px;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 68px;
   align-items: start;
 }
 
-.wp-aroma-list { display: flex; flex-wrap: wrap; gap: 10px; }
+.wp-aroma-list { display: flex; flex-wrap: wrap; gap: 12px; }
 
+/* Each note gets its own weight — these are the words a shopper actually
+   repeats back ("that pear one"), so they are set to be read, not skimmed. */
 .wp-aroma {
+  position: relative;
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.06rem;
+  font-size: 1.2rem;
   color: var(--text);
   background: var(--cream);
-  border: 1px solid rgba(139, 115, 85, 0.28);
+  border: 1px solid rgba(139, 115, 85, 0.26);
   border-radius: 40px;
-  padding: 8px 18px;
+  padding: 11px 24px 11px 38px;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.35s, box-shadow 0.35s;
 }
 
+.wp-aroma::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.75;
+}
+
+@media (hover: hover) {
+  .wp-aroma:hover {
+    transform: translateY(-3px);
+    border-color: rgba(201, 169, 97, 0.75);
+    box-shadow: 0 10px 26px rgba(107, 31, 42, 0.1);
+  }
+}
+
+/* The one line on the page written as a suggestion rather than a fact —
+   given a pull-quote's weight so it reads as the voice of the shop. */
 .wp-note {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
-  font-size: 1.14rem;
-  line-height: 1.55;
+  font-size: 1.36rem;
+  line-height: 1.5;
   color: var(--wine);
-  margin: 24px 0 0;
-  padding-left: 16px;
+  margin: 38px 0 0;
+  padding-left: 22px;
   border-left: 2px solid var(--gold);
 }
 
-.wp-bar { margin-bottom: 20px; }
+.wp-bar {
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(139, 115, 85, 0.14);
+}
+
+.wp-bar:last-child { border-bottom: none; }
 
 .wp-bar-head {
   display: flex;
@@ -308,7 +674,8 @@
 
 .wp-bar-word {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.04rem;
+  font-style: italic;
+  font-size: 1.18rem;
   color: var(--wine);
 }
 
@@ -318,12 +685,27 @@
 
 .wp-dot {
   flex: 1;
-  height: 5px;
+  height: 4px;
   border-radius: 40px;
-  background: rgba(139, 115, 85, 0.22);
+  background: rgba(139, 115, 85, 0.18);
+  transform-origin: left center;
 }
 
-.wp-dot--on { background: var(--wine); }
+/* Filled marks grow in from the left as the section arrives, one after the
+   next, so the reading is watched rather than found already finished. */
+.wp-dot--on {
+  background: linear-gradient(90deg, var(--wine), #8b2035);
+  transform: scaleX(0);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.is-measured .wp-dot--on { transform: none; }
+.is-measured .wp-bar:nth-child(1) .wp-dot--on { transition-delay: 0.05s; }
+.is-measured .wp-bar:nth-child(2) .wp-dot--on { transition-delay: 0.13s; }
+.is-measured .wp-bar:nth-child(3) .wp-dot--on { transition-delay: 0.21s; }
+.is-measured .wp-bar:nth-child(4) .wp-dot--on { transition-delay: 0.29s; }
+.is-measured .wp-bar:nth-child(5) .wp-dot--on { transition-delay: 0.37s; }
+.wp-bar .wp-dot--on:nth-child(2) { transition-delay: inherit; }
 
 /* ------------------------------------------------------------- serving */
 .wp-serve-grid {
@@ -333,17 +715,43 @@
 }
 
 .wp-serve-card {
+  position: relative;
   background: var(--cream);
-  border: 1px solid rgba(139, 115, 85, 0.2);
-  border-radius: 14px;
-  padding: 26px 22px;
+  border: 1px solid rgba(139, 115, 85, 0.16);
+  border-radius: 16px;
+  padding: 34px 24px 30px;
   text-align: center;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.4s, border-color 0.4s;
+}
+
+/* A gold hairline across the top that draws itself on hover. */
+.wp-serve-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--wine));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) {
+  .wp-serve-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(201, 169, 97, 0.5);
+    box-shadow: 0 18px 44px rgba(107, 31, 42, 0.11);
+  }
+  .wp-serve-card:hover::before { transform: none; }
 }
 
 .wp-serve-icon {
-  width: 46px;
-  height: 46px;
-  margin: 0 auto 14px;
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 18px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -364,10 +772,10 @@
 
 .wp-serve-value {
   font-family: 'HerczDj', 'Cinzel', serif;
-  font-size: 1.2rem;
+  font-size: 1.34rem;
   font-weight: 700;
   color: var(--wine);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .wp-serve-note {
@@ -389,15 +797,25 @@
 .wp-pair {
   display: flex;
   align-items: center;
-  gap: 13px;
+  gap: 15px;
   background: var(--cream);
-  border: 1px solid rgba(139, 115, 85, 0.2);
+  border: 1px solid rgba(139, 115, 85, 0.16);
   border-left: 3px solid var(--gold);
-  border-radius: 10px;
-  padding: 17px 20px;
+  border-radius: 12px;
+  padding: 20px 22px;
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem;
+  font-size: 1.18rem;
   color: var(--text);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              border-left-color 0.35s, box-shadow 0.35s;
+}
+
+@media (hover: hover) {
+  .wp-pair:hover {
+    transform: translateX(5px);
+    border-left-color: var(--wine);
+    box-shadow: 0 12px 30px rgba(107, 31, 42, 0.09);
+  }
 }
 
 .wp-pair svg { color: var(--wine); flex-shrink: 0; }
@@ -549,12 +967,21 @@
 }
 
 /* ------------------------------------------------------------- tablet */
+@media (max-width: 1180px) {
+  .wp-rail { display: none; }
+}
+
 @media (max-width: 980px) {
-  .wp-hero-grid { grid-template-columns: 1fr; gap: 36px; }
-  .wp-photo { max-width: 380px; margin: 0 auto; width: 100%; }
+  .wp-hero { min-height: 0; padding: 116px 0 72px; }
+  .wp-hero-grid { grid-template-columns: 1fr; gap: 30px; }
+  .wp-stage { min-height: 44vh; }
+  .wp-bottle { height: 46vh; max-height: 430px; }
+  .wp-ghost { font-size: clamp(5rem, 24vw, 10rem); }
+  .wp-type-mark { display: none; }
   .wp-taste-grid { grid-template-columns: 1fr; gap: 40px; }
   .wp-story-grid { grid-template-columns: 1fr; }
   .wp-related-sec .wines-grid { grid-template-columns: repeat(2, 1fr); }
+  .wp-cue { display: none; }
 }
 
 /* -------------------------------------------------------------- phone */
@@ -564,11 +991,21 @@
   .wp-section { padding: 52px 0; }
   .wp-section .section-header { margin-bottom: 30px; }
 
-  .wp-photo { max-width: 300px; }
-  .wp-photo-frame { aspect-ratio: 4 / 5; }
+  .wp-stage { min-height: 38vh; }
+  .wp-bottle { height: 42vh; max-height: 360px; max-width: 92%; }
+  .wp-ghost { font-size: clamp(4.5rem, 30vw, 8rem); top: 44%; }
 
+  .wp-title { font-size: clamp(2rem, 9vw, 2.7rem); }
+  .wp-producer { font-size: 1.04rem; margin-bottom: 20px; }
+  .wp-producer::before { width: 20px; }
   .wp-lead { font-size: 1.12rem; margin-bottom: 24px; }
-  .wp-facts { grid-template-columns: repeat(2, 1fr); }
+
+  /* Two per row, and the vertical rules would cut the wrapped rows in odd
+     places, so the row divider does the separating instead. */
+  .wp-facts { gap: 18px 0; padding: 20px 0; margin-bottom: 26px; }
+  .wp-fact { flex: 0 0 50%; padding-right: 14px; border-right: none; }
+  .wp-fact:nth-child(odd) { border-right: 1px solid rgba(201, 169, 97, 0.13); }
+
   .wp-buy { gap: 16px; }
   .wp-price { font-size: 1.72rem; }
   .wp-add { flex: 1; justify-content: center; }

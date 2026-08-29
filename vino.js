@@ -255,9 +255,17 @@ function render(wine, detail) {
   // --- hero ---
   document.getElementById('wpCrumbName').textContent = wine.name.sr;
   document.getElementById('wpType').textContent = wine.type.sr;
+  // The hero uses a cut-out of the bottle — same photograph with its studio
+  // black turned into transparency (see tools-cutout.py) — so the bottle
+  // stands in the page instead of inside a rectangle of someone else's black.
+  // Only the hero: the matte makes dark glass partly transparent, which reads
+  // as glass on this dark stage and as a washed-out ghost anywhere light, so
+  // every other place on the site keeps the original photograph.
   const img = document.getElementById('wpImg');
-  img.src = wine.img;
+  const cut = wine.img.replace(/^images\//, 'images/cut/');
+  img.src = cut;
   img.alt = wine.name.sr;
+  img.addEventListener('error', () => { img.src = wine.img; }, { once: true });
   document.getElementById('wpHeroBg').style.backgroundImage = 'url("' + wine.img + '")';
 
   document.getElementById('wpEyebrow').textContent =
@@ -280,16 +288,18 @@ function render(wine, detail) {
   document.getElementById('wpTags').innerHTML = tags.join('');
   document.getElementById('wpLead').textContent = detail.lead.sr;
 
-  // Only facts we hold. A missing vintage simply means one row fewer, never
-  // a guess and never an empty "—" pretending to be data.
+  // Only facts we hold, and only ones not already said. Type and region were
+  // in here too, which put "Crveno" directly under an eyebrow reading "Crveno
+  // vino" and "Trebinje, Hercegovina" directly under the producer line that
+  // already ends in it — six cells that wrapped onto two ragged rows to
+  // repeat two things. Four facts fit one clean row; three when the vintage
+  // is unknown, which is a shorter row rather than an invented year.
   const facts = [
     ['Sorta', variety.name.sr],
-    ['Tip', wine.type.sr],
     ['Zapremina', wine.volume],
-    ['Vinarija', producer.name.sr],
-    ['Region', producer.place.sr]
+    ['Vinarija', producer.name.sr]
   ];
-  if (detail.vintage) facts.splice(3, 0, ['Berba', detail.vintage]);
+  if (detail.vintage) facts.splice(2, 0, ['Berba', detail.vintage]);
   document.getElementById('wpFacts').innerHTML = facts.map(([k, v]) =>
     '<div class="wp-fact"><dt>' + k + '</dt><dd>' + v + '</dd></div>').join('');
 
@@ -335,7 +345,105 @@ function render(wine, detail) {
   document.getElementById('wpStickyName').textContent = wine.name.sr;
   document.getElementById('wpStickyPrice').textContent = wine.price + ' RSD';
 
+  // The oversized watermark behind the bottle. The vintage where we have one,
+  // otherwise the variety — never a placeholder, since a blank slot in type
+  // that large would be the most obvious hole on the page.
+  // A vintage is four digits and a variety can be ten letters, so a single
+  // font-size cannot serve both: "2017" sat comfortably inside the stage
+  // while "Žilavka" ran out from under the bottle and across the text column.
+  // Sized from the character count instead, so every wine fills the same
+  // width whatever its watermark says.
+  const ghost = document.getElementById('wpGhost');
+  const ghostText = detail.vintage || variety.name.sr;
+  ghost.textContent = ghostText;
+  ghost.style.fontSize = 'clamp(4rem, ' + (78 / Math.max(4, ghostText.length)).toFixed(1) + 'vw, 15rem)';
+
   document.getElementById('wineArticle').hidden = false;
+}
+
+// -------------------------------------------------------------- motion
+// Everything here is decoration, so it all checks prefers-reduced-motion and
+// simply does not run when someone has asked the system for less movement.
+const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function heroMotion() {
+  const stage = document.getElementById('wpStage');
+  const intro = document.querySelector('.wp-intro');
+  const bottle = document.getElementById('wpImg');
+  const ghost = document.getElementById('wpGhost');
+  const hero = document.querySelector('.wp-hero');
+  if (!stage || !intro) return;
+
+  intro.classList.add('wp-reveal');
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    stage.classList.add('is-in');
+    intro.classList.add('is-in');
+  }));
+
+  if (REDUCED || !bottle) return;
+
+  // Pointer parallax. Deliberately small: the bottle should feel like it has
+  // weight and depth, not like it is sliding around the page.
+  let px = 0, py = 0, tx = 0, ty = 0, raf = null;
+  const drift = () => {
+    px += (tx - px) * 0.08;
+    py += (ty - py) * 0.08;
+    bottle.style.transform = 'translate3d(' + px.toFixed(2) + 'px,' + py.toFixed(2) + 'px,0)';
+    if (ghost) ghost.style.transform =
+      'translate(-50%,-50%) translate3d(' + (-px * 0.45).toFixed(2) + 'px,' + (-py * 0.45).toFixed(2) + 'px,0)';
+    raf = Math.abs(tx - px) > 0.1 || Math.abs(ty - py) > 0.1 ? requestAnimationFrame(drift) : null;
+  };
+  const kick = () => { if (!raf) raf = requestAnimationFrame(drift); };
+
+  if (window.matchMedia('(hover: hover)').matches) {
+    hero.addEventListener('pointermove', e => {
+      const r = hero.getBoundingClientRect();
+      tx = ((e.clientX - r.left) / r.width - 0.5) * 26;
+      ty = ((e.clientY - r.top) / r.height - 0.5) * 18;
+      // The transition is for the entrance; once the pointer takes over it
+      // has to go, or every frame fights an 0.5s ease and the bottle lags.
+      bottle.style.transition = 'none';
+      kick();
+    });
+    hero.addEventListener('pointerleave', () => { tx = 0; ty = 0; kick(); });
+  }
+}
+
+// Scroll-linked: progress bar, the rail's active mark, and the rail flipping
+// to its light palette over the two dark bands. One listener, one rAF.
+function scrollChrome() {
+  const bar = document.getElementById('wpProgressBar');
+  const rail = document.getElementById('wpRail');
+  const links = rail ? Array.from(rail.querySelectorAll('a')) : [];
+  const sections = links
+    .map(a => ({ a, el: document.getElementById(a.dataset.rail) }))
+    .filter(s => s.el);
+  const darkIds = ['vrh', 'prica'];
+  let ticking = false;
+
+  const update = () => {
+    ticking = false;
+    const doc = document.documentElement;
+    const max = doc.scrollHeight - window.innerHeight;
+    if (bar) bar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+
+    // Whichever section owns the middle of the viewport is the current one.
+    const mid = window.scrollY + window.innerHeight * 0.42;
+    let current = sections[0];
+    for (const s of sections) {
+      if (s.el.offsetTop <= mid) current = s;
+    }
+    if (current) {
+      links.forEach(a => a.classList.toggle('is-active', a === current.a));
+      if (rail) rail.classList.toggle('wp-rail--dark', darkIds.includes(current.a.dataset.rail));
+    }
+  };
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  update();
+  if (rail) setTimeout(() => rail.classList.add('wp-rail--ready'), 700);
 }
 
 // The card tag icons live in script.js, which this page does not load, so the
@@ -377,6 +485,8 @@ document.addEventListener('DOMContentLoaded', function() {
   render(wine, detail);
   renderCart();
   wireChrome();
+  heroMotion();
+  scrollChrome();
 
   document.getElementById('wpAdd').addEventListener('click', () => addToCart(wine.id));
   document.getElementById('wpStickyAdd').addEventListener('click', () => addToCart(wine.id));
@@ -391,6 +501,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   revealOnScroll();
+  measureOnScroll();
 });
 
 function wireChrome() {
@@ -453,6 +564,26 @@ function wireChrome() {
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
   }
+}
+
+// The five profile marks fill in when the section is reached, rather than
+// being complete before anyone looks. It is the one number-shaped thing on
+// the page, and watching it land is what makes it register as a reading.
+function measureOnScroll() {
+  const profile = document.getElementById('wpProfile');
+  if (!profile) return;
+  if (REDUCED || !('IntersectionObserver' in window)) {
+    profile.classList.add('is-measured');
+    return;
+  }
+  new IntersectionObserver((entries, obs) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        en.target.classList.add('is-measured');
+        obs.unobserve(en.target);
+      }
+    });
+  }, { threshold: 0.35 }).observe(profile);
 }
 
 function revealOnScroll() {

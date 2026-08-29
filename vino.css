@@ -976,7 +976,7 @@
   .wp-hero-grid { grid-template-columns: 1fr; gap: 30px; }
   .wp-stage { min-height: 44vh; }
   .wp-bottle { height: 46vh; max-height: 430px; }
-  .wp-ghost { font-size: clamp(5rem, 24vw, 10rem); }
+  .wp-ghost { top: 38%; }
   .wp-type-mark { display: none; }
   .wp-taste-grid { grid-template-columns: 1fr; gap: 40px; }
   .wp-story-grid { grid-template-columns: 1fr; }
@@ -991,9 +991,18 @@
   .wp-section { padding: 52px 0; }
   .wp-section .section-header { margin-bottom: 30px; }
 
-  .wp-stage { min-height: 38vh; }
-  .wp-bottle { height: 42vh; max-height: 360px; max-width: 92%; }
-  .wp-ghost { font-size: clamp(4.5rem, 30vw, 8rem); top: 44%; }
+  .wp-stage { min-height: 40vh; }
+  .wp-bottle { height: 44vh; max-height: 380px; max-width: 92%; }
+
+  /* On a phone the watermark has the bottle's own width to live in, not a
+     half-page column, so it is lifted to sit across the shoulder instead of
+     being squeezed behind the label — and faded further, because at this
+     size it is competing with the bottle rather than sitting behind it. */
+  .wp-ghost {
+    top: 34%;
+    letter-spacing: 0.04em;
+    color: rgba(245, 237, 224, 0.075);
+  }
 
   .wp-title { font-size: clamp(2rem, 9vw, 2.7rem); }
   .wp-producer { font-size: 1.04rem; margin-bottom: 20px; }
@@ -1049,4 +1058,70 @@
    so it is lifted clear while the bar is on screen. */
 @media (max-width: 768px) {
   body:has(.wp-sticky:not([hidden])) .fab-buttons { bottom: 86px; }
+}
+
+/* ==================================================== scroll behaviour */
+
+/* One reveal mechanism for the whole page. Elements declare how they should
+   arrive; the observer only adds .is-shown, so nothing depends on scroll
+   position arithmetic and nothing runs on the scroll thread. */
+[data-rise],
+[data-stagger] > * {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-rise].is-shown,
+[data-stagger].is-shown > * {
+  opacity: 1;
+  transform: none;
+}
+
+/* Children arrive in sequence rather than as a block — the difference
+   between a list appearing and a list being laid out in front of you. */
+[data-stagger].is-shown > *:nth-child(1) { transition-delay: 0.04s; }
+[data-stagger].is-shown > *:nth-child(2) { transition-delay: 0.10s; }
+[data-stagger].is-shown > *:nth-child(3) { transition-delay: 0.16s; }
+[data-stagger].is-shown > *:nth-child(4) { transition-delay: 0.22s; }
+[data-stagger].is-shown > *:nth-child(5) { transition-delay: 0.28s; }
+[data-stagger].is-shown > *:nth-child(6) { transition-delay: 0.34s; }
+
+/* The two story cards come in from their own sides, so the pair reads as a
+   spread opening rather than two boxes fading up. */
+.wp-story-grid > *:nth-child(1) { transform: translateY(26px) translateX(-22px); }
+.wp-story-grid > *:nth-child(2) { transform: translateY(26px) translateX(22px); }
+.wp-story-grid.is-shown > * { transform: none; }
+
+/* Section titles get a gold rule that draws itself under them once the
+   heading lands. */
+.wp-section .section-header .divider {
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.25s;
+}
+
+.wp-section .section-header.is-shown .divider { transform: none; }
+
+/* The hero stays put while the page moves over it — the bottle drifts up at
+   a fraction of the scroll speed and dims as the next section arrives, so
+   leaving the hero feels like walking past the bottle rather than cutting to
+   a different screen. Driven by a variable the scroll handler sets. */
+.wp-hero-parallax .wp-stage {
+  transform: translateY(calc(var(--wp-scroll, 0) * -70px));
+  opacity: calc(1 - var(--wp-scroll, 0) * 0.75);
+  will-change: transform, opacity;
+}
+
+.wp-hero-parallax .wp-ghost {
+  transform: translate(-50%, -50%) translateY(calc(var(--wp-scroll, 0) * 46px));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-rise], [data-stagger] > * { opacity: 1 !important; transform: none !important; }
+  .wp-section .section-header .divider { transform: none !important; }
+  .wp-hero-parallax .wp-stage,
+  .wp-hero-parallax .wp-ghost { transform: none !important; opacity: 1 !important; }
+  .wp-cue-line::after { animation: none; }
 }

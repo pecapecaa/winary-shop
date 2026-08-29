@@ -59,7 +59,7 @@ function renderCart() {
   updateCartCount();
   if (!itemsEl) return;
   if (cart.length === 0) {
-    itemsEl.innerHTML = '<p class="cart-empty">Lista je prazna</p>';
+    itemsEl.innerHTML = '<p class="cart-empty">Korpa je prazna</p>';
     if (footerEl) footerEl.style.display = 'none';
     return;
   }
@@ -105,7 +105,7 @@ function addToCart(id) {
   saveCart();
   renderCart();
   const wine = WINES.find(w => w.id === id);
-  showToast((wine ? wine.name.sr : 'Vino') + ' dodato u listu');
+  showToast((wine ? wine.name.sr : 'Vino') + ' dodato u korpu');
   const btn = document.getElementById('cartBtn');
   if (btn) {
     btn.classList.remove('cart-pulse');
@@ -356,7 +356,11 @@ function render(wine, detail) {
   const ghost = document.getElementById('wpGhost');
   const ghostText = detail.vintage || variety.name.sr;
   ghost.textContent = ghostText;
-  ghost.style.fontSize = 'clamp(4rem, ' + (78 / Math.max(4, ghostText.length)).toFixed(1) + 'vw, 15rem)';
+  // Narrow screens give the watermark the bottle's width rather than half a
+  // page, so it is sized against the viewport it is actually in.
+  const perChar = window.innerWidth < 980 ? 56 : 78;
+  ghost.style.fontSize =
+    'clamp(3rem, ' + (perChar / Math.max(4, ghostText.length)).toFixed(1) + 'vw, 15rem)';
 
   document.getElementById('wineArticle').hidden = false;
 }
@@ -502,6 +506,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   revealOnScroll();
   measureOnScroll();
+  arrivals();
+  heroParallax();
 });
 
 function wireChrome() {
@@ -584,6 +590,60 @@ function measureOnScroll() {
       }
     });
   }, { threshold: 0.35 }).observe(profile);
+}
+
+// Marks up what should arrive and how. Kept here rather than in the markup
+// so the HTML stays a description of the page and not of its choreography.
+const RISE = [
+  '.wp-taste .wp-aromas', '.wp-taste .wp-profile',
+  '.wp-serve-sec .wp-disclaimer', '.wp-related-more'
+];
+const STAGGER = [
+  '#wpAromas', '#wpServe', '#wpPairing', '.wp-story-grid'
+];
+
+function arrivals() {
+  document.querySelectorAll('.wp-section .section-header').forEach(e => e.dataset.rise = '');
+  RISE.forEach(sel => document.querySelectorAll(sel).forEach(e => e.dataset.rise = ''));
+  STAGGER.forEach(sel => document.querySelectorAll(sel).forEach(e => e.dataset.stagger = ''));
+
+  const targets = document.querySelectorAll('[data-rise], [data-stagger]');
+  if (REDUCED || !('IntersectionObserver' in window)) {
+    targets.forEach(e => e.classList.add('is-shown'));
+    return;
+  }
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        en.target.classList.add('is-shown');
+        obs.unobserve(en.target);
+      }
+    });
+    // rootMargin lifts the trigger line off the very bottom edge, so things
+    // are already moving by the time they are properly in view rather than
+    // starting the instant they clip the fold.
+  }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+  targets.forEach(e => io.observe(e));
+}
+
+// Hands the scroll position to CSS as a 0-1 value across the first screen.
+// A custom property rather than inline styles keeps the whole parallax
+// declarative, and the handler stays a single variable write per frame.
+function heroParallax() {
+  const hero = document.querySelector('.wp-hero');
+  if (!hero || REDUCED) return;
+  document.body.classList.add('wp-hero-parallax');
+  let ticking = false;
+  const set = () => {
+    ticking = false;
+    const h = hero.offsetHeight || window.innerHeight;
+    document.body.style.setProperty('--wp-scroll',
+      Math.min(1, Math.max(0, window.scrollY / h)).toFixed(4));
+  };
+  window.addEventListener('scroll', () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(set); }
+  }, { passive: true });
+  set();
 }
 
 function revealOnScroll() {

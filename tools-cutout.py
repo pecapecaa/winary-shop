@@ -26,7 +26,7 @@ from PIL import Image
 CENTRE, HALF_W = 0.50, 0.22
 TOP, BOTTOM = 0.02, 0.97
 
-def cutout(src, dst, gain=1.9, gamma=0.82, solid_at=64):
+def cutout(src, dst, gain=1.45, gamma=0.88, solid_at=70, dim=0.84):
     im = Image.open(src).convert('RGB')
     a = np.asarray(im).astype(np.float32)
     lum = 0.299*a[:,:,0] + 0.587*a[:,:,1] + 0.114*a[:,:,2]
@@ -56,7 +56,13 @@ def cutout(src, dst, gain=1.9, gamma=0.82, solid_at=64):
     al[:, L:L+edge] *= ramp[None, :]
     al[:, R-edge:R] *= ramp[::-1][None, :]
 
-    out = Image.fromarray(a.astype(np.uint8), 'RGB').convert('RGBA')
+    # The ramp lifts the whole bottle, halo included, so the cut-outs came
+    # back brighter than the photographs they were made from and read as lit
+    # from the front rather than standing in a dark room. `dim` puts the
+    # exposure back where the original had it.
+    a = a * dim
+
+    out = Image.fromarray(np.clip(a, 0, 255).astype(np.uint8), 'RGB').convert('RGBA')
     out.putalpha(Image.fromarray((al*255).astype(np.uint8), 'L'))
     out = out.crop((L, T, R, B))
     out.save(dst, 'WEBP', quality=92, method=6, exact=True)

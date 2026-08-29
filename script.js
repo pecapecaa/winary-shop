@@ -4,7 +4,7 @@ const WINES = [
     id: 'tvrdos-vranac',
     quickTag: 'preporuka',
     tag: { sr: 'Duboko i staloženo', en: 'Deep and composed' },
-    tag2: { sr: 'Manastirsko nasleđe', en: 'Monastery heritage' },
+    tagIcon: 'barrel',
     name: { sr: 'Tvrdoš Vranac', en: 'Tvrdoš Vranac' },
     volume: '0.75L',
     subtitle: { sr: 'Crveno vino • Manastir Tvrdoš, Trebinje', en: 'Red Wine • Manastir Tvrdoš, Trebinje' },
@@ -20,7 +20,7 @@ const WINES = [
     id: 'tvrdos-zilavka',
     quickTag: 'preporuka',
     tag: { sr: 'Sveže i mineralno', en: 'Fresh and mineral' },
-    tag2: { sr: 'Uz ribu i plodove mora', en: 'Pairs with fish & seafood' },
+    tagIcon: 'droplet',
     name: { sr: 'Tvrdoš Žilavka', en: 'Tvrdoš Žilavka' },
     volume: '0.75L',
     subtitle: { sr: 'Belo vino • Manastir Tvrdoš, Trebinje', en: 'White Wine • Manastir Tvrdoš, Trebinje' },
@@ -36,7 +36,7 @@ const WINES = [
     id: 'tamjanika-galerija',
     quickTag: 'drugacije',
     tag: { sr: 'Aromatično', en: 'Aromatic' },
-    tag2: { sr: 'Sjajan aperitiv', en: 'Great as an aperitif' },
+    tagIcon: 'flower',
     name: { sr: 'Tamjanika Galerija', en: 'Tamjanika Galerija' },
     volume: '0.75L',
     subtitle: { sr: 'Belo vino • [vinarija]', en: 'White Wine • [vinarija]' },
@@ -52,7 +52,7 @@ const WINES = [
     id: 'tvrdos-metoh-vranac',
     quickTag: 'preporuka',
     tag: { sr: 'Opušteno i pitko', en: 'Relaxed and easy' },
-    tag2: { sr: 'Vino za svaki dan', en: 'An everyday wine' },
+    tagIcon: 'glass',
     name: { sr: 'Tvrdoš Metoh Vranac', en: 'Tvrdoš Metoh Vranac' },
     volume: '0.75L',
     subtitle: { sr: 'Crveno vino • Manastir Tvrdoš, Trebinje', en: 'Red Wine • Manastir Tvrdoš, Trebinje' },
@@ -68,7 +68,7 @@ const WINES = [
     id: 'primavera-roze',
     quickTag: 'drugacije',
     tag: { sr: 'Osvežavajuće leto', en: 'Refreshing summer' },
-    tag2: { sr: 'Za letnje druženje', en: 'For summer gatherings' },
+    tagIcon: 'sun',
     name: { sr: 'Primavera cuvee roze', en: 'Primavera cuvee roze' },
     volume: '0.75L',
     subtitle: { sr: 'Rosé vino • [vinarija]', en: 'Rosé Wine • [vinarija]' },
@@ -84,7 +84,7 @@ const WINES = [
     id: 'tvrdos-izba-merlot',
     quickTag: 'preporuka',
     tag: { sr: 'Mekše crveno', en: 'Softer red' },
-    tag2: { sr: 'Odličan izbor za početnike', en: 'A great pick for beginners' },
+    tagIcon: 'heart',
     name: { sr: 'Tvrdoš Izba Merlot', en: 'Tvrdoš Izba Merlot' },
     volume: '0.75L',
     subtitle: { sr: 'Crveno vino • Manastir Tvrdoš, Trebinje', en: 'Red Wine • Manastir Tvrdoš, Trebinje' },
@@ -100,7 +100,7 @@ const WINES = [
     id: 'zlatna-selekcija-bijelo',
     quickTag: 'premium',
     tag: { sr: 'Bogato i slojevito', en: 'Rich and layered' },
-    tag2: { sr: 'Za posebne prilike', en: 'For special occasions' },
+    tagIcon: 'layers',
     name: { sr: 'Zlatna Selekcija Bijelo', en: 'Zlatna Selekcija Bijelo' },
     volume: '0.75L',
     subtitle: { sr: 'Belo vino • [vinarija]', en: 'White Wine • [vinarija]' },
@@ -116,7 +116,7 @@ const WINES = [
     id: 'vranac-reserve',
     quickTag: 'premium',
     tag: { sr: 'Baršunasto i začinjeno', en: 'Velvety and spiced' },
-    tag2: { sr: 'Za slavlja i poklone', en: 'For celebrations & gifts' },
+    tagIcon: 'flame',
     name: { sr: 'Vranac Reserve', en: 'Vranac Reserve' },
     volume: '0.75L',
     subtitle: { sr: 'Crveno vino • [vinarija]', en: 'Red Wine • [vinarija]' },
@@ -132,7 +132,7 @@ const WINES = [
     id: 'blatina-citluk-075',
     quickTag: 'svakodnevno',
     tag: { sr: 'Snažno i domaće', en: 'Bold and homegrown' },
-    tag2: { sr: 'Uz roštilj i pečenje', en: 'Pairs with grilled & roasted meat' },
+    tagIcon: 'house',
     name: { sr: 'Blatina Čitluk', en: 'Blatina Čitluk' },
     volume: '0.75L',
     subtitle: { sr: 'Crveno vino • Vinarija Čitluk', en: 'Red Wine • Vinarija Čitluk' },
@@ -148,7 +148,7 @@ const WINES = [
     id: 'zilavka-citluk-075',
     quickTag: 'svakodnevno',
     tag: { sr: 'Laka klasika', en: 'Easy classic' },
-    tag2: { sr: 'Svakodnevni izbor', en: 'An everyday favourite' },
+    tagIcon: 'feather',
     name: { sr: 'Žilavka Čitluk', en: 'Žilavka Čitluk' },
     volume: '0.75L',
     subtitle: { sr: 'Belo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
@@ -164,7 +164,7 @@ const WINES = [
     id: 'blatina-citluk-1l',
     quickTag: 'svakodnevno',
     tag: { sr: 'Snažno i domaće', en: 'Bold and homegrown' },
-    tag2: { sr: 'Uz roštilj i pečenje', en: 'Pairs with grilled & roasted meat' },
+    tagIcon: 'house',
     name: { sr: 'Blatina Čitluk', en: 'Blatina Čitluk' },
     volume: '1L',
     subtitle: { sr: 'Crveno vino • Vinarija Čitluk', en: 'Red Wine • Vinarija Čitluk' },
@@ -180,7 +180,7 @@ const WINES = [
     id: 'zilavka-citluk-1l',
     quickTag: 'svakodnevno',
     tag: { sr: 'Laka klasika', en: 'Easy classic' },
-    tag2: { sr: 'Svakodnevni izbor', en: 'An everyday favourite' },
+    tagIcon: 'feather',
     name: { sr: 'Žilavka Čitluk', en: 'Žilavka Čitluk' },
     volume: '1L',
     subtitle: { sr: 'Belo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
@@ -196,7 +196,7 @@ const WINES = [
     id: 'tribunija-bijelo',
     quickTag: 'preporuka',
     tag: { sr: 'Elegantno i lako', en: 'Elegant and easy' },
-    tag2: { sr: 'Laka večernja čaša', en: 'An easy evening glass' },
+    tagIcon: 'ribbon',
     name: { sr: 'Tribunija bijelo', en: 'Tribunija bijelo' },
     volume: '0.75L',
     subtitle: { sr: 'Belo vino • Podrumi Vukoje, Trebinje', en: 'White Wine • Podrumi Vukoje, Trebinje' },
@@ -285,34 +285,30 @@ const MORE_ICON =
   + '<line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>'
   + '</svg>';
 
-// The same four glyphs as the "Brzi izbor" filter row, so a card's tag reads
-// as that same category rather than a fifth icon language of its own.
-const QUICK_TAG_ICONS = {
-  svakodnevno: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
-  preporuka: '<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>',
-  drugacije: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 4 13V6a1 1 0 0 1 1-1h7a7 7 0 0 1 7 7 7 7 0 0 1-7 7z"/><path d="M4 13c8 0 10-6 16-6"/></svg>',
-  premium: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M5 20l-1.5-9L8 15l4-8 4 8 4.5-4L19 20"/></svg>'
+// The four "Brzi izbor" glyphs (sun/star/leaf/crown) only say which bucket a
+// wine sits in, not what it actually tastes like. The card's own tag speaks
+// for the wine itself, so each gets an icon drawn from its own tag's theme —
+// two wines only ever share an icon when they also share the exact same tag
+// text (the 0.75L/1L sibling pairs).
+const TAG_THEME_ICONS = {
+  barrel: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h12l1.2 8L18 20H6l-1.2-8L6 4z"/><path d="M5.3 9h13.4M5.6 15h12.8"/></svg>',
+  droplet: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c4 5 7 9.5 7 13a7 7 0 01-14 0c0-3.5 3-8 7-13z"/></svg>',
+  flower: '<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="2.6"/><circle cx="12" cy="5.5" r="2.6"/><circle cx="12" cy="18.5" r="2.6"/><circle cx="5.5" cy="12" r="2.6"/><circle cx="18.5" cy="12" r="2.6"/></svg>',
+  glass: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10l-1 7.5a4 4 0 01-8 0L7 3z"/><path d="M12 14.5V21M8 21h8"/></svg>',
+  sun: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
+  heart: '<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.4-4.6-10-9.2C.4 8 2.3 4 6.2 4c2.2 0 3.8 1.2 5.8 3.6C14 5.2 15.6 4 17.8 4c3.9 0 5.8 4 4.2 7.8-2.6 4.6-10 9.2-10 9.2z"/></svg>',
+  layers: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg>',
+  flame: '<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c4 0 7-2.8 7-6.7 0-3.4-2.3-5.7-3.5-8.3-.8 2-1.5 3-1.5 4.7 0-2.6-1.2-4.4-2-5.7-2.6 2.6-4 5.3-4 7.6C8 19.2 9.6 22 12 22z"/></svg>',
+  house: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7"/><path d="M6 10v10h12V10"/></svg>',
+  feather: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4c-6.5 0-15 4-16 13.5C6 15.5 9 13 12 12.5"/><line x1="20" y1="4" x2="7" y2="17"/></svg>',
+  ribbon: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12L4 5.5v13L12 12z"/><path d="M12 12l8-6.5v13L12 12z"/></svg>'
 };
 
 function tagChip(wine, lang) {
   if (!wine.tag || !wine.quickTag) return '';
-  const icon = QUICK_TAG_ICONS[wine.quickTag] || '';
+  const icon = TAG_THEME_ICONS[wine.tagIcon] || '';
   return '<span class="wine-tag" data-quick="' + wine.quickTag + '">'
     + '<span class="wf-icon">' + icon + '</span>' + wine.tag[lang] + '</span>';
-}
-
-// A second, plainer line under the taste tag: who to serve it to, what to
-// serve it with, or its story — one neutral icon rather than the four
-// category colours above, since this isn't tied to a filter bucket.
-const PAIRING_ICON =
-  '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
-  + '<path d="M8 2v7a2 2 0 002 2h0a2 2 0 002-2V2M10 11v11M16 2c-2 2-2 5-2 7 0 1 1 2 2 2s2-1 2-2c0-2 0-5-2-7z"/>'
-  + '</svg>';
-
-function tag2Chip(wine, lang) {
-  if (!wine.tag2) return '';
-  return '<span class="wine-tag wine-tag--secondary">'
-    + '<span class="wf-icon">' + PAIRING_ICON + '</span>' + wine.tag2[lang] + '</span>';
 }
 
 // The same basket drawn in the header, so the two read as one action.
@@ -404,7 +400,7 @@ function renderWines() {
         <h3>${wine.name[currentLang]}</h3>
         <div class="wine-srb">${wine.subtitle[currentLang]}</div>
         <p class="wine-desc">${wine.desc[currentLang]}</p>
-        <div class="wine-tags">${tagChip(wine, currentLang)}${tag2Chip(wine, currentLang)}</div>
+        ${tagChip(wine, currentLang)}
         <div class="wine-footer">
           <div class="wine-price-row"><span class="wine-price">${wine.price} RSD</span><span class="wine-volume">${wine.volume}</span></div>
           <button type="button" class="wine-add" data-id="${wine.id}" aria-label="${addLabel}" title="${addLabel}">${CART_ICON}</button>
@@ -737,7 +733,7 @@ function openDetail(id) {
   document.getElementById('detailDesc').textContent = item.desc[currentLang];
   document.getElementById('detailPrice').textContent = item.price + ' RSD';
   // Only wines carry a quickTag; bundles show no chip here.
-  document.getElementById('detailTag').innerHTML = wine ? tagChip(wine, currentLang) + tag2Chip(wine, currentLang) : '';
+  document.getElementById('detailTag').innerHTML = wine ? tagChip(wine, currentLang) : '';
 
   const vol = document.getElementById('detailVol');
   vol.textContent = wine ? wine.volume : '';

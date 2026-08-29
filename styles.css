@@ -951,13 +951,6 @@ button {
    glyph as a category before ever landing on the card itself. Sits on a
    near-black card rather than the cream filter row, so its badge needs a
    stronger tint than the 16%/32% pair reads as elsewhere to stay legible. */
-.wine-tags {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  margin-bottom: 12px;
-}
-
 .wine-tag {
   display: inline-flex;
   align-items: center;
@@ -968,6 +961,7 @@ button {
   letter-spacing: 0.6px;
   text-transform: uppercase;
   color: var(--pill-accent, var(--gold));
+  margin-bottom: 12px;
 }
 
 .wine-tag .wf-icon {
@@ -975,24 +969,6 @@ button {
   height: 18px;
   background: rgba(201, 169, 97, 0.22);
   background: color-mix(in srgb, var(--pill-accent) 26%, transparent);
-}
-
-/* The second line — pairing, occasion, story — reads as a quieter aside
-   under the taste tag, not a second category, so it drops the per-quickTag
-   colour and the uppercase weight instead of just repeating the look. */
-.wine-tag--secondary {
-  color: var(--stone);
-  font-weight: 600;
-  text-transform: none;
-  letter-spacing: 0.2px;
-  font-size: 0.72rem;
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-}
-
-.wine-tag--secondary .wf-icon {
-  background: rgba(232, 223, 208, 0.14);
-  color: var(--stone);
 }
 
 .wine-footer {

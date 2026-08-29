@@ -686,6 +686,27 @@ button {
   margin-bottom: 44px;
 }
 
+/* Icon sits inline with the label rather than as a separate flex child, so
+   the same .wf-btn markup works whether a button carries one or not. */
+.wf-btn svg {
+  display: inline-block;
+  vertical-align: -2px;
+  margin-right: 6px;
+}
+
+.quick-filters {
+  margin-bottom: 18px;
+}
+
+.quick-filters-label {
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--text-light);
+  margin-bottom: 14px;
+}
+
 .wf-btn {
   background: transparent;
   border: 1.5px solid rgba(139, 115, 85, 0.35);

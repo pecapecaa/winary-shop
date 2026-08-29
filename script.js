@@ -2,6 +2,7 @@
 const WINES = [
   {
     id: 'tvrdos-vranac',
+    quickTag: 'preporuka',
     name: { sr: 'Tvrdoš Vranac', en: 'Tvrdoš Vranac' },
     volume: '0.75L',
     subtitle: { sr: 'Crveno vino • Manastir Tvrdoš, Trebinje', en: 'Red Wine • Manastir Tvrdoš, Trebinje' },
@@ -15,6 +16,7 @@ const WINES = [
   },
   {
     id: 'tvrdos-zilavka',
+    quickTag: 'preporuka',
     name: { sr: 'Tvrdoš Žilavka', en: 'Tvrdoš Žilavka' },
     volume: '0.75L',
     subtitle: { sr: 'Belo vino • Manastir Tvrdoš, Trebinje', en: 'White Wine • Manastir Tvrdoš, Trebinje' },
@@ -28,6 +30,7 @@ const WINES = [
   },
   {
     id: 'tamjanika-galerija',
+    quickTag: 'drugacije',
     name: { sr: 'Tamjanika Galerija', en: 'Tamjanika Galerija' },
     volume: '0.75L',
     subtitle: { sr: 'Belo vino • [vinarija]', en: 'White Wine • [vinarija]' },
@@ -41,6 +44,7 @@ const WINES = [
   },
   {
     id: 'tvrdos-metoh-vranac',
+    quickTag: 'preporuka',
     name: { sr: 'Tvrdoš Metoh Vranac', en: 'Tvrdoš Metoh Vranac' },
     volume: '0.75L',
     subtitle: { sr: 'Crveno vino • Manastir Tvrdoš, Trebinje', en: 'Red Wine • Manastir Tvrdoš, Trebinje' },
@@ -54,6 +58,7 @@ const WINES = [
   },
   {
     id: 'primavera-roze',
+    quickTag: 'drugacije',
     name: { sr: 'Primavera cuvee roze', en: 'Primavera cuvee roze' },
     volume: '0.75L',
     subtitle: { sr: 'Rosé vino • [vinarija]', en: 'Rosé Wine • [vinarija]' },
@@ -67,6 +72,7 @@ const WINES = [
   },
   {
     id: 'tvrdos-izba-merlot',
+    quickTag: 'preporuka',
     name: { sr: 'Tvrdoš Izba Merlot', en: 'Tvrdoš Izba Merlot' },
     volume: '0.75L',
     subtitle: { sr: 'Crveno vino • Manastir Tvrdoš, Trebinje', en: 'Red Wine • Manastir Tvrdoš, Trebinje' },
@@ -80,6 +86,7 @@ const WINES = [
   },
   {
     id: 'zlatna-selekcija-bijelo',
+    quickTag: 'premium',
     name: { sr: 'Zlatna Selekcija Bijelo', en: 'Zlatna Selekcija Bijelo' },
     volume: '0.75L',
     subtitle: { sr: 'Belo vino • [vinarija]', en: 'White Wine • [vinarija]' },
@@ -93,6 +100,7 @@ const WINES = [
   },
   {
     id: 'vranac-reserve',
+    quickTag: 'premium',
     name: { sr: 'Vranac Reserve', en: 'Vranac Reserve' },
     volume: '0.75L',
     subtitle: { sr: 'Crveno vino • [vinarija]', en: 'Red Wine • [vinarija]' },
@@ -106,6 +114,7 @@ const WINES = [
   },
   {
     id: 'blatina-citluk-075',
+    quickTag: 'svakodnevno',
     name: { sr: 'Blatina Čitluk', en: 'Blatina Čitluk' },
     volume: '0.75L',
     subtitle: { sr: 'Crveno vino • Vinarija Čitluk', en: 'Red Wine • Vinarija Čitluk' },
@@ -119,6 +128,7 @@ const WINES = [
   },
   {
     id: 'zilavka-citluk-075',
+    quickTag: 'svakodnevno',
     name: { sr: 'Žilavka Čitluk', en: 'Žilavka Čitluk' },
     volume: '0.75L',
     subtitle: { sr: 'Belo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
@@ -132,6 +142,7 @@ const WINES = [
   },
   {
     id: 'blatina-citluk-1l',
+    quickTag: 'svakodnevno',
     name: { sr: 'Blatina Čitluk', en: 'Blatina Čitluk' },
     volume: '1L',
     subtitle: { sr: 'Crveno vino • Vinarija Čitluk', en: 'Red Wine • Vinarija Čitluk' },
@@ -145,6 +156,7 @@ const WINES = [
   },
   {
     id: 'zilavka-citluk-1l',
+    quickTag: 'svakodnevno',
     name: { sr: 'Žilavka Čitluk', en: 'Žilavka Čitluk' },
     volume: '1L',
     subtitle: { sr: 'Belo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
@@ -158,6 +170,7 @@ const WINES = [
   },
   {
     id: 'tribunija-bijelo',
+    quickTag: 'preporuka',
     name: { sr: 'Tribunija bijelo', en: 'Tribunija bijelo' },
     volume: '0.75L',
     subtitle: { sr: 'Belo vino • Podrumi Vukoje, Trebinje', en: 'White Wine • Podrumi Vukoje, Trebinje' },
@@ -297,12 +310,17 @@ let cart = loadCart();
 
 // ===== Render Wines =====
 let activeWineFilter = 'all';
+// Independent of the type filter — a shopper can combine "Nešto drugačije"
+// with "Belo" and land on exactly the one wine that is both, same as the
+// two rows read as separate questions in the design.
+let activeQuickFilter = 'all';
 
 function renderWines() {
   const grid = document.getElementById('winesGrid');
-  const list = activeWineFilter === 'all'
-    ? WINES
-    : WINES.filter(w => w.type.sr === activeWineFilter);
+  const list = WINES.filter(w =>
+    (activeWineFilter === 'all' || w.type.sr === activeWineFilter) &&
+    (activeQuickFilter === 'all' || w.quickTag === activeQuickFilter)
+  );
   const addLabel = currentLang === 'sr' ? 'Dodaj u listu' : 'Add to list';
   const moreLabel = currentLang === 'sr' ? 'Prikaži detalje' : 'Show details';
   grid.innerHTML = list.map(wine => `
@@ -1043,13 +1061,43 @@ document.addEventListener('DOMContentLoaded', () => {
   animateCounters();
   initParallax();
 
+  // The rail keeps whatever horizontal position a previous filter left it
+  // at, which can show nothing at all once a new filter narrows the list —
+  // scrolled to card 9 of 13, then filtered down to 3. Every filter change
+  // resets the rail to its first card.
+  function resetRailScroll() {
+    const grid = document.getElementById('winesGrid');
+    if (grid) grid.scrollLeft = 0;
+  }
+
   document.getElementById('wineFilters').addEventListener('click', function(e) {
     const btn = e.target.closest('.wf-btn');
     if (!btn) return;
-    document.querySelectorAll('.wf-btn').forEach(b => b.classList.remove('wf-btn--active'));
+    // Scoped to this row only — the quick-pick row keeps its own selection
+    // when this one changes, since the two filters combine rather than
+    // replace each other.
+    this.querySelectorAll('.wf-btn').forEach(b => b.classList.remove('wf-btn--active'));
     btn.classList.add('wf-btn--active');
     activeWineFilter = btn.dataset.filter;
     renderWines();
+    resetRailScroll();
+  });
+
+  document.getElementById('quickFilters').addEventListener('click', function(e) {
+    const btn = e.target.closest('.wf-btn');
+    if (!btn) return;
+    const wasActive = btn.classList.contains('wf-btn--active');
+    this.querySelectorAll('.wf-btn').forEach(b => b.classList.remove('wf-btn--active'));
+    if (wasActive) {
+      // Row has no "all" pill of its own — clicking the active one a second
+      // time is how it clears back to showing every quick tag.
+      activeQuickFilter = 'all';
+    } else {
+      btn.classList.add('wf-btn--active');
+      activeQuickFilter = btn.dataset.quick;
+    }
+    renderWines();
+    resetRailScroll();
   });
 });
 

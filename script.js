@@ -72,13 +72,15 @@ function tag2Chip(wine, lang) {
     + '<span class="wf-icon wf-icon--mini">' + GROUP_ICON + '</span>' + wine.tag2[lang] + '</span>';
 }
 
-// The same basket drawn in the header, so the two read as one action.
+// The same trolley the header and the product page use. It was a shopping
+// bag here and a trolley there, which put two glyphs for one basket on the
+// same journey — the trolley wins because it is the one people read as "buy"
+// without looking.
 const CART_ICON =
   '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
-  + 'stroke-width="1.8" aria-hidden="true" focusable="false">'
-  + '<path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>'
-  + '<line x1="3" y1="6" x2="21" y2="6"/>'
-  + '<path d="M16 10a4 4 0 01-8 0"/>'
+  + 'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'
+  + '<circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/>'
+  + '<path d="M1.5 2h2.6l2.5 12.1a1.8 1.8 0 001.8 1.4h8.9a1.8 1.8 0 001.8-1.4L21 6H5.2"/>'
   + '</svg>';
 
 // Bundles at or above this carry the free-delivery mark.
@@ -202,7 +204,7 @@ function renderWines() {
   // The rail always ends with the bundle card below, so it can never hold a
   // single card any more — the lone-card width rule it used to need is gone
   // with it.
-  const addLabel = currentLang === 'sr' ? 'Dodaj u listu' : 'Add to list';
+  const addLabel = currentLang === 'sr' ? 'Dodaj u korpu' : 'Add to cart';
   const moreLabel = currentLang === 'sr' ? 'Prikaži detalje' : 'Show details';
   grid.innerHTML = list.map(wine => `
     <div class="wine-card fade-up" data-wine-page="${wineHref(wine.id)}">
@@ -294,7 +296,7 @@ function renderBundles() {
         + '">' + bundle.badge[currentLang] + '</div>'
       : '';
     const countLabel = bundle.count + (isSr ? (bundle.count >= 5 ? ' flaša' : ' flaše') : ' btl.');
-    const btnLabel = isSr ? 'Dodaj paket u listu' : 'Add bundle to list';
+    const btnLabel = isSr ? 'Dodaj paket u korpu' : 'Add bundle to cart';
     const moreLabel = isSr ? 'Prikaži detalje' : 'Show details';
 
     // Free delivery is called out from this threshold up.
@@ -355,7 +357,7 @@ function addBundleToCart(bundleId) {
   }
   saveCart();
   renderCart();
-  showToast(currentLang === 'sr' ? `${bundle.name.sr} dodat u listu` : `${bundle.name.en} added to list`);
+  showToast(currentLang === 'sr' ? `${bundle.name.sr} dodat u korpu` : `${bundle.name.en} added to cart`);
   const cartBtn = document.getElementById('cartBtn');
   cartBtn.classList.remove('cart-pulse');
   void cartBtn.offsetWidth;
@@ -375,7 +377,7 @@ function addToCart(id) {
   saveCart();
   renderCart();
   const wine = WINES.find(w => w.id === id);
-  showToast(currentLang === 'sr' ? `${wine.name.sr} dodato u listu` : `${wine.name.en} added to list`);
+  showToast(currentLang === 'sr' ? `${wine.name.sr} dodato u korpu` : `${wine.name.en} added to cart`);
   const cartBtn = document.getElementById('cartBtn');
   cartBtn.classList.remove('cart-pulse');
   void cartBtn.offsetWidth;
@@ -441,7 +443,7 @@ function renderCart() {
   const footerEl = document.getElementById('cartFooter');
   updateCartCount();
   if (cart.length === 0) {
-    itemsEl.innerHTML = `<p class="cart-empty">${currentLang === 'sr' ? 'Lista je prazna' : 'Your list is empty'}</p>`;
+    itemsEl.innerHTML = `<p class="cart-empty">${currentLang === 'sr' ? 'Korpa je prazna' : 'Your cart is empty'}</p>`;
     footerEl.style.display = 'none';
     return;
   }
@@ -636,8 +638,8 @@ function openDetail(id) {
   // The button shows only the cart, so the words live in its accessible name —
   // setting textContent here would replace the icon with them.
   document.getElementById('detailAdd').setAttribute('aria-label', wine
-    ? (isSr ? 'Dodaj u listu' : 'Add to list')
-    : (isSr ? 'Dodaj paket u listu' : 'Add bundle to list'));
+    ? (isSr ? 'Dodaj u korpu' : 'Add to cart')
+    : (isSr ? 'Dodaj paket u korpu' : 'Add bundle to cart'));
 
   setPanelOpen('wineDetail', true);
   document.getElementById('detailClose').focus();
@@ -694,7 +696,7 @@ function setCartOpen(open) {
 
 function openCheckout() {
   if (cart.length === 0) {
-    showToast(currentLang === 'sr' ? 'Lista je prazna' : 'Your list is empty', false);
+    showToast(currentLang === 'sr' ? 'Korpa je prazna' : 'Your cart is empty', false);
     return;
   }
   document.getElementById('checkoutStep1').style.display = 'block';
@@ -1073,6 +1075,15 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCart();
   initDetail();
   switchLanguage(currentLang);
+
+  // A product page has no checkout of its own, so its cart panel sends people
+  // back here with ?korpa=1 and the panel opens on arrival. Without this the
+  // button said "continue to reservation" and quietly dropped them at the top
+  // of the wine list with their cart closed.
+  if (new URLSearchParams(location.search).get('korpa') === '1') {
+    setCartOpen(true);
+    history.replaceState(null, '', location.pathname + location.hash);
+  }
   observeFadeElements();
   createHeroParticles();
   animateCounters();

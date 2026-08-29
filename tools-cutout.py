@@ -26,7 +26,7 @@ from PIL import Image
 CENTRE, HALF_W = 0.50, 0.22
 TOP, BOTTOM = 0.02, 0.97
 
-def cutout(src, dst, gain=1.45, gamma=0.88, solid_at=70, dim=0.84):
+def cutout(src, dst, gain=1.5, gamma=1.4, solid_at=58, dim=0.88):
     im = Image.open(src).convert('RGB')
     a = np.asarray(im).astype(np.float32)
     lum = 0.299*a[:,:,0] + 0.587*a[:,:,1] + 0.114*a[:,:,2]

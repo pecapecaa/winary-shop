@@ -65,11 +65,10 @@
         <button type="button" class="lang-toggle" id="langToggle" aria-label="Jezik / Language">
           <span class="lang-active">SR</span> / <span>EN</span>
         </button>
-        <button type="button" class="cart-btn" id="cartBtn" aria-label="Cart">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-            <line x1="3" y1="6" x2="21" y2="6"/>
-            <path d="M16 10a4 4 0 01-8 0"/>
+        <button type="button" class="cart-btn" id="cartBtn" aria-label="Korpa">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/>
+            <path d="M1.5 2h2.6l2.5 12.1a1.8 1.8 0 001.8 1.4h8.9a1.8 1.8 0 001.8-1.4L21 6H5.2"/>
           </svg>
           <span class="cart-count" id="cartCount">0</span>
         </button>
@@ -383,13 +382,13 @@
   </footer>
 
   <div class="cart-overlay" id="cartOverlay"></div>
-  <aside class="cart-sidebar" id="cartSidebar" aria-label="Lista za rezervaciju" inert>
+  <aside class="cart-sidebar" id="cartSidebar" aria-label="Korpa" inert>
     <div class="cart-header">
-      <h3 data-sr="Lista za rezervaciju" data-en="Reservation List">Lista za rezervaciju</h3>
+      <h3 data-sr="Korpa" data-en="Reservation List">Korpa</h3>
       <button type="button" class="cart-close" id="cartClose">&times;</button>
     </div>
     <div class="cart-items" id="cartItems">
-      <p class="cart-empty" data-sr="Lista je prazna" data-en="Your list is empty">Lista je prazna</p>
+      <p class="cart-empty" data-sr="Korpa je prazna" data-en="Your cart is empty">Korpa je prazna</p>
     </div>
     <div class="cart-footer" id="cartFooter" style="display:none;">
       <div class="cart-ship" id="cartShip"></div>
@@ -487,7 +486,7 @@
             <span class="wine-price" id="detailPrice"></span>
             <span class="wine-volume" id="detailVol"></span>
           </div>
-          <button type="button" class="btn btn-primary btn-full detail-add" id="detailAdd" aria-label="Dodaj u listu">
+          <button type="button" class="btn btn-primary btn-full detail-add" id="detailAdd" aria-label="Dodaj u korpu">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
               <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
               <line x1="3" y1="6" x2="21" y2="6"/>

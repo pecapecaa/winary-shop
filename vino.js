@@ -353,8 +353,16 @@ function render(wine, detail) {
   // while "Žilavka" ran out from under the bottle and across the text column.
   // Sized from the character count instead, so every wine fills the same
   // width whatever its watermark says.
+  // The watermark is the vintage where we know it. Where we do not, the
+  // variety stands in — but only when it is not already in the wine's name.
+  // "Tvrdoš Vranac" under a giant VRANAC was the page saying the same word
+  // twice in the same glance, which is worse than saying nothing, so in that
+  // case the watermark is simply left out.
   const ghost = document.getElementById('wpGhost');
-  const ghostText = detail.vintage || variety.name.sr;
+  const nameHasVariety = wine.name.sr.toLowerCase()
+    .includes(variety.name.sr.toLowerCase());
+  const ghostText = detail.vintage || (nameHasVariety ? '' : variety.name.sr);
+  ghost.hidden = !ghostText;
   ghost.textContent = ghostText;
   // Narrow screens give the watermark the bottle's width rather than half a
   // page, so it is sized against the viewport it is actually in.

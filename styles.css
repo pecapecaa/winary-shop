@@ -691,8 +691,13 @@ button {
 .wf-btn {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 7px;
 }
+
+/* Tightened once the label started wrapping to two lines in the narrower
+   grid pill — the default line-height left visible daylight between them
+   and made an already-compact pill read as tall instead. */
+.wf-btn span[data-sr] { line-height: 1.15; }
 
 /* The coloured circle behind each icon — a soft tint of the icon's own
    accent colour, not a flat brand gold, so four/six different categories
@@ -702,8 +707,8 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 26px;
-  height: 26px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   flex-shrink: 0;
   background: rgba(139, 115, 85, 0.16); /* fallback if color-mix() is unsupported */
@@ -756,6 +761,18 @@ button {
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.25s;
+}
+
+@media (max-width: 768px) {
+  /* Smaller everywhere the grid pills live: at two-per-row on a phone the
+     desktop sizing left them tall, mostly from the label wrapping to two
+     loose lines with a lot of air around it. */
+  .wine-filters .wf-btn, .quick-filters .wf-btn {
+    font-size: 0.66rem;
+    letter-spacing: 0.8px;
+    padding: 7px 12px 7px 7px;
+    gap: 6px;
+  }
 }
 
 /* A plain text pill with no icon badge (only "Sva vina") still needs the

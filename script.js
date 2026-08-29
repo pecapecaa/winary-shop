@@ -455,6 +455,9 @@ function renderWines() {
   const countEl = document.getElementById('wineCount');
   if (countEl) countEl.textContent = wineCountLabel(list.length, currentLang);
   updateFilterCounts();
+  // A lone card keeps the rail's 82% peek width and leaves a wide band of
+  // empty page beside it, which reads as broken rather than as a short list.
+  grid.classList.toggle('wines-grid--single', list.length === 1);
   const addLabel = currentLang === 'sr' ? 'Dodaj u listu' : 'Add to list';
   const moreLabel = currentLang === 'sr' ? 'Prikaži detalje' : 'Show details';
   grid.innerHTML = list.map(wine => `

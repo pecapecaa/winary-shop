@@ -2787,12 +2787,14 @@ button {
     overflow-x: auto;
     overscroll-behavior-inline: contain;
     gap: 10px;
-    /* Bled to the screen edge, matching .container's own 24px padding — no
-       frame around these rows any more, so this lines up with the section
-       edge directly rather than an intermediate panel. */
-    padding: 2px 24px 6px;
-    margin-left: -24px;
-    margin-right: -24px;
+    /* Left edge held at the container's padding, right edge bled off-screen —
+       same reason as the card rail below: iOS owns the leftmost strip for its
+       swipe-back gesture, so no horizontal scroller should put its surface
+       under it. The right still runs off the edge so a half-visible pill
+       shows the row continues. */
+    padding: 2px 24px 6px 0;
+    margin-left: 0;
+    margin-right: -20px;
     scrollbar-width: none;
   }
   .wine-filters::-webkit-scrollbar, .quick-filters::-webkit-scrollbar { display: none; }
@@ -2824,11 +2826,23 @@ button {
     /* No -webkit-overflow-scrolling: touch here. That legacy momentum scroller
        overrides snapping on iOS, so the row coasted to wherever it ran out of
        speed and the cards never came to rest in the same place twice. */
-    padding: 4px 24px 16px;
-    margin: 0 -24px;
-    scroll-padding-left: 24px;
+    /* Asymmetric on purpose. iOS reserves the leftmost strip of the screen for
+       its swipe-back gesture, and a website cannot turn that off — so a rail
+       that reached x=-4 put its scroll surface directly under it, and a swipe
+       begun there navigated the page instead of moving the row. The left edge
+       now stops at the container's own padding, leaving that strip as inert
+       background, while the right keeps bleeding off-screen so the next card
+       still peeks and the row still reads as swipeable. */
+    padding: 4px 24px 14px 0;
+    margin: 0 -20px 0 0;
+    scroll-padding-left: 0;
     scrollbar-width: none;
   }
+
+  /* One result would otherwise sit at 82% with a wide band of page showing
+     beside it, which reads as a layout mistake rather than a short list. With
+     nothing to swipe to, the peek has no job, so the card takes the width. */
+  .wines-grid--single { grid-auto-columns: 100%; }
   .wines-grid::-webkit-scrollbar { display: none; }
   /* Snapping to centre put the first card in the middle of the screen with
      nothing either side of it, so the row looked like a single card and the
@@ -2840,6 +2854,15 @@ button {
   .wines-grid > * {
     scroll-snap-align: start;
     scroll-snap-stop: always;
+  }
+
+  /* One line in the rail, the rest on the detail card. Three lines of body
+     copy sat over the middle of the bottle and were the single biggest thing
+     covering the photo; a first line plus the ellipsis says what kind of wine
+     it is and hands the rest of the height back to the image. */
+  .wines-grid .wine-desc {
+    -webkit-line-clamp: 1;
+    margin-bottom: 10px;
   }
 
   /* The base rule sizes the bottle at 160% of the card's OWN dimensions, so

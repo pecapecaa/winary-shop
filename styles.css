@@ -2673,20 +2673,26 @@ button {
   .section { padding: 70px 0; }
   .visit-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
 
-  /* A deliberate 2x2 block rather than organic flex-wrap, which could just
-     as easily land three pills on the first line and strand one alone on
-     the second. Desktop keeps the single centred row — there's room for it
-     there, and forcing a grid would only waste vertical space. */
+  /* One row per group, not a 2x2 block — a 2x2 grid still cost four rows
+     of vertical space between the two filter groups. Four pills at
+     readable size don't fit a phone's width, so the row scrolls sideways
+     instead of shrinking the text past comfort — the same pattern the
+     wine rail already uses below it, not a new one. */
   .wine-filters, .quick-filters {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    max-width: 420px;
-    margin-left: auto;
-    margin-right: auto;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    gap: 10px;
+    padding: 2px 24px 6px;
+    margin-left: -24px;
+    margin-right: -24px;
+    scrollbar-width: none;
   }
-  .wine-filters { margin-bottom: 32px; }
-  .wf-btn { justify-content: center; }
+  .wine-filters::-webkit-scrollbar, .quick-filters::-webkit-scrollbar { display: none; }
+  .wine-filters { margin-bottom: 24px; }
+  .wf-btn { flex-shrink: 0; }
 
   /* Stacking the catalogue vertically on a phone makes the page enormous;
      halving the card width to fit two across cramps the bottle. Neither is

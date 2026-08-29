@@ -165,6 +165,7 @@ const WINES = [
     quickTag: 'svakodnevno',
     tag: { sr: 'Snažno i domaće', en: 'Bold and homegrown' },
     tagIcon: 'house',
+    tag2: { sr: 'Za veće društvo', en: 'For a bigger crowd' },
     name: { sr: 'Blatina Čitluk', en: 'Blatina Čitluk' },
     volume: '1L',
     subtitle: { sr: 'Crveno vino • Vinarija Čitluk', en: 'Red Wine • Vinarija Čitluk' },
@@ -181,6 +182,7 @@ const WINES = [
     quickTag: 'svakodnevno',
     tag: { sr: 'Laka klasika', en: 'Easy classic' },
     tagIcon: 'feather',
+    tag2: { sr: 'Za veće društvo', en: 'For a bigger crowd' },
     name: { sr: 'Žilavka Čitluk', en: 'Žilavka Čitluk' },
     volume: '1L',
     subtitle: { sr: 'Belo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
@@ -311,6 +313,21 @@ function tagChip(wine, lang) {
     + '<span class="wf-icon">' + icon + '</span>' + wine.tag[lang] + '</span>';
 }
 
+// Only the 1L Blatina and Žilavka carry this — same wine, same taste tag as
+// their 0.75L sibling, so nothing on the card said the bigger bottle is
+// meant for a bigger table. A small second badge, not a second full tag.
+const GROUP_ICON =
+  '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+  + '<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/>'
+  + '<circle cx="17" cy="9" r="2.4"/><path d="M14.5 14.3c2.7.4 4.5 2.6 4.5 5.7"/>'
+  + '</svg>';
+
+function tag2Chip(wine, lang) {
+  if (!wine.tag2) return '';
+  return '<span class="wine-tag wine-tag--mini">'
+    + '<span class="wf-icon wf-icon--mini">' + GROUP_ICON + '</span>' + wine.tag2[lang] + '</span>';
+}
+
 // The same basket drawn in the header, so the two read as one action.
 const CART_ICON =
   '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
@@ -400,7 +417,7 @@ function renderWines() {
         <h3>${wine.name[currentLang]}</h3>
         <div class="wine-srb">${wine.subtitle[currentLang]}</div>
         <p class="wine-desc">${wine.desc[currentLang]}</p>
-        ${tagChip(wine, currentLang)}
+        <div class="wine-tag-group">${tagChip(wine, currentLang)}${tag2Chip(wine, currentLang)}</div>
         <div class="wine-footer">
           <div class="wine-price-row"><span class="wine-price">${wine.price} RSD</span><span class="wine-volume">${wine.volume}</span></div>
           <button type="button" class="wine-add" data-id="${wine.id}" aria-label="${addLabel}" title="${addLabel}">${CART_ICON}</button>
@@ -733,7 +750,7 @@ function openDetail(id) {
   document.getElementById('detailDesc').textContent = item.desc[currentLang];
   document.getElementById('detailPrice').textContent = item.price + ' RSD';
   // Only wines carry a quickTag; bundles show no chip here.
-  document.getElementById('detailTag').innerHTML = wine ? tagChip(wine, currentLang) : '';
+  document.getElementById('detailTag').innerHTML = wine ? tagChip(wine, currentLang) + tag2Chip(wine, currentLang) : '';
 
   const vol = document.getElementById('detailVol');
   vol.textContent = wine ? wine.volume : '';

@@ -2839,16 +2839,20 @@ button {
     scrollbar-width: none;
   }
 
-  /* A lone result used to be widened to fill the row, which killed the empty
-     band beside it but made the card — and the bottle inside it, sized as a
-     percentage of the card — visibly bigger than the same card in any other
-     filter. Card size has to be constant, so instead it keeps its width and
-     centres: the leftover page splits evenly and reads as deliberate framing
-     rather than a card shoved to one side with a void after it.
-     Only justify-content changes: the padding and margin stay exactly as the
-     rail's, because 82% resolves against the content box and touching either
-     one would quietly resize the card again — the very thing this fixes. */
-  .wines-grid--single { justify-content: center; }
+  /* With nothing to swipe to, the 82% peek width only leaves a band of empty
+     page beside the card, so a lone result takes the full width — the same
+     way a bundle card does further down the page.
+     The bottle has to be pinned back, though: it is sized as a percentage of
+     the card, so a card 100/82 = 1.22x wider renders it 22% larger than the
+     same wine under any other filter. Dividing the rail's 256% by that same
+     ratio gives 210%, which puts the bottle at an identical absolute size in
+     both states — and keeps it identical at every viewport, since the two
+     card widths scale from the same content box. */
+  .wines-grid--single { grid-auto-columns: 100%; }
+  /* Doubled up on the grid's own class deliberately: the 256% rule further
+     down this block has identical specificity, so a single-class selector
+     here would lose to it on source order alone. */
+  .wines-grid.wines-grid--single .wine-img-wrap img { max-width: 210%; }
   .wines-grid::-webkit-scrollbar { display: none; }
   /* Snapping to centre put the first card in the middle of the screen with
      nothing either side of it, so the row looked like a single card and the

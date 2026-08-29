@@ -954,7 +954,7 @@ button {
 .wine-tag-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   margin-bottom: 12px;
 }
 
@@ -977,22 +977,26 @@ button {
   background: color-mix(in srgb, var(--pill-accent) 26%, transparent);
 }
 
-/* The 1L-only extra badge: smaller and quieter than the taste tag above it,
-   so it reads as a footnote about the bottle size, not a second competing
-   claim about the wine itself. Fixed gold tint rather than --pill-accent —
-   this isn't a filter category, it's the same note on every bottle it
-   appears on. */
+/* The 1L-only extra badge: reads as a quiet footnote about the bottle size,
+   not a second competing claim about the wine itself — drops the taste
+   tag's uppercase/bold weight for an italic serif whisper underneath it.
+   Fixed gold tint rather than --pill-accent — this isn't a filter
+   category, it's the same note on every bottle it appears on. */
 .wine-tag--mini {
-  font-size: 0.6rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.4px;
-  color: var(--gold-light);
+  letter-spacing: 0.2px;
+  text-transform: none;
+  color: rgba(232, 201, 135, 0.65);
 }
 
 .wf-icon--mini {
-  width: 14px;
-  height: 14px;
-  background: rgba(232, 201, 135, 0.18);
+  width: 13px;
+  height: 13px;
+  background: rgba(232, 201, 135, 0.12);
+  color: rgba(232, 201, 135, 0.75);
 }
 
 .wine-footer {

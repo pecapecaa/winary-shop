@@ -113,10 +113,20 @@
 }
 
 /* ---------------------------------------------------------------- hero */
+/* The stage is the same near-black the catalogue card uses (#080204), not the
+   site's wine tone. The bottles are photographed on black, and a burgundy
+   ground turned that black burgundy — the photograph stopped being the
+   photograph. Black in the middle where the bottle stands, lifting to the
+   wine tone only at the top and bottom edges, which is what joins it to the
+   navbar above and the cream section below without a seam. */
 .wp-hero {
   position: relative;
   overflow: hidden;
-  background: var(--wine-deep);
+  background:
+    radial-gradient(78% 62% at 50% 48%,
+      #080204 0%, #080204 46%, rgba(8, 2, 4, 0) 100%),
+    linear-gradient(180deg,
+      #1c0407 0%, #0a0205 16%, #080204 50%, #0a0205 84%, #1a0407 100%);
   min-height: 100svh;
   display: flex;
   flex-direction: column;
@@ -124,35 +134,26 @@
   padding: 132px 0 96px;
 }
 
-/* The bottle photo again, blown far out of focus, giving the stage a trace
-   of the wine's own colour. Held well back: at half opacity it tinted the
-   bottle in front of it, which is exactly what it must not do. */
-.wp-hero-bg {
-  position: absolute;
-  inset: -18%;
-  background-size: cover;
-  background-position: center;
-  filter: blur(96px) saturate(1.15);
-  opacity: 0.26;
-  transform: scale(1.2);
-  pointer-events: none;
-}
+/* Retired. This was the blurred photograph tinting the stage with the wine's
+   colour, and it is precisely the ambient cast that stopped the black from
+   being the photograph's black. The stage now supplies its own ground. */
+.wp-hero-bg { display: none; }
 
 .wp-hero::after {
   content: '';
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(90% 70% at 28% 42%, rgba(31, 5, 8, 0.05), rgba(31, 5, 8, 0.88) 68%),
-    linear-gradient(180deg, rgba(31, 5, 8, 0.94), rgba(31, 5, 8, 0.72) 40%, rgba(31, 5, 8, 0.97));
+  /* Only a corner vignette now; the base gradient already carries the tone.
+     Anything stronger here reintroduces the cast the stage was cleaned of. */
+  background: radial-gradient(120% 100% at 50% 50%,
+    rgba(0, 0, 0, 0) 52%, rgba(0, 0, 0, 0.5) 100%);
   pointer-events: none;
   z-index: 1;
 }
 
-/* A pool of light behind where the bottle stands, kept faint on purpose.
-   At full strength it washed warm colour across the glass itself, so the
-   photograph stopped looking like a photograph — the stage should be lit,
-   not the bottle. */
+/* The faintest lift behind the bottle so the black has depth rather than
+   being a flat fill. Neutral rather than warm on purpose: any colour here
+   ends up on the glass, and the glass should be the colour it was shot. */
 .wp-hero-glow {
   position: absolute;
   left: 20%;
@@ -163,9 +164,9 @@
   max-height: 620px;
   transform: translate(-50%, -50%);
   background: radial-gradient(circle,
-    rgba(201, 169, 97, 0.085) 0%,
-    rgba(139, 32, 53, 0.05) 40%,
-    rgba(31, 5, 8, 0) 70%);
+    rgba(255, 246, 232, 0.028) 0%,
+    rgba(255, 246, 232, 0.012) 44%,
+    rgba(0, 0, 0, 0) 72%);
   z-index: 2;
   pointer-events: none;
 }
@@ -223,25 +224,10 @@
   filter: drop-shadow(0 34px 46px rgba(0, 0, 0, 0.5));
 }
 
-/* The variety or the vintage, set enormous and almost invisible behind the
-   glass. It gives the composition a background layer to sit against, and
-   rewards anyone who looks twice. */
-.wp-ghost {
-  position: absolute;
-  z-index: 1;
-  left: 50%;
-  top: 46%;
-  transform: translate(-50%, -50%);
-  font-family: 'HerczDj', 'Cinzel', serif;
-  font-weight: 900;
-  font-size: clamp(7rem, 15vw, 15rem);
-  line-height: 0.8;
-  letter-spacing: -0.02em;
-  white-space: nowrap;
-  color: rgba(245, 237, 224, 0.055);
-  pointer-events: none;
-  user-select: none;
-}
+/* No watermark behind the bottle. It was a vintage or a variety set large
+   and faint, and on the wine it suited least it repeated a word already in
+   the title; on the rest it was type printed across a photograph that is
+   doing the work on its own. */
 
 /* A hairline the bottle stands on, fading out at both ends. */
 .wp-stage-line {
@@ -539,10 +525,8 @@
               transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.wp-stage .wp-ghost,
 .wp-stage .wp-stage-line,
 .wp-stage .wp-reflection { opacity: 0; transition: opacity 1.4s ease 0.35s; }
-.wp-stage.is-in .wp-ghost { opacity: 1; }
 .wp-stage.is-in .wp-stage-line,
 .wp-stage.is-in .wp-reflection { opacity: 1; }
 
@@ -970,7 +954,6 @@
   .wp-hero-grid { grid-template-columns: 1fr; gap: 30px; }
   .wp-stage { min-height: 44vh; }
   .wp-bottle { height: 46vh; max-height: 430px; }
-  .wp-ghost { top: 38%; }
   .wp-type-mark { display: none; }
   .wp-taste-grid { grid-template-columns: 1fr; gap: 40px; }
   .wp-story-grid { grid-template-columns: 1fr; }
@@ -988,15 +971,6 @@
   .wp-stage { min-height: 40vh; }
   .wp-bottle { height: 44vh; max-height: 380px; max-width: 92%; }
 
-  /* On a phone the watermark has the bottle's own width to live in, not a
-     half-page column, so it is lifted to sit across the shoulder instead of
-     being squeezed behind the label — and faded further, because at this
-     size it is competing with the bottle rather than sitting behind it. */
-  .wp-ghost {
-    top: 34%;
-    letter-spacing: 0.04em;
-    color: rgba(245, 237, 224, 0.075);
-  }
 
   .wp-title { font-size: clamp(2rem, 9vw, 2.7rem); }
   .wp-producer { font-size: 1.04rem; margin-bottom: 20px; }
@@ -1108,15 +1082,11 @@
   will-change: transform, opacity;
 }
 
-.wp-hero-parallax .wp-ghost {
-  transform: translate(-50%, -50%) translateY(calc(var(--wp-scroll, 0) * 46px));
-}
 
 @media (prefers-reduced-motion: reduce) {
   [data-rise], [data-stagger] > * { opacity: 1 !important; transform: none !important; }
   .wp-section .section-header .divider { transform: none !important; }
-  .wp-hero-parallax .wp-stage,
-  .wp-hero-parallax .wp-ghost { transform: none !important; opacity: 1 !important; }
+  .wp-hero-parallax .wp-stage { transform: none !important; opacity: 1 !important; }
   .wp-cue-line::after { animation: none; }
 }
 

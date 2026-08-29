@@ -353,23 +353,6 @@ function render(wine, detail) {
   // while "Žilavka" ran out from under the bottle and across the text column.
   // Sized from the character count instead, so every wine fills the same
   // width whatever its watermark says.
-  // The watermark is the vintage where we know it. Where we do not, the
-  // variety stands in — but only when it is not already in the wine's name.
-  // "Tvrdoš Vranac" under a giant VRANAC was the page saying the same word
-  // twice in the same glance, which is worse than saying nothing, so in that
-  // case the watermark is simply left out.
-  const ghost = document.getElementById('wpGhost');
-  const nameHasVariety = wine.name.sr.toLowerCase()
-    .includes(variety.name.sr.toLowerCase());
-  const ghostText = detail.vintage || (nameHasVariety ? '' : variety.name.sr);
-  ghost.hidden = !ghostText;
-  ghost.textContent = ghostText;
-  // Narrow screens give the watermark the bottle's width rather than half a
-  // page, so it is sized against the viewport it is actually in.
-  const perChar = window.innerWidth < 980 ? 56 : 78;
-  ghost.style.fontSize =
-    'clamp(3rem, ' + (perChar / Math.max(4, ghostText.length)).toFixed(1) + 'vw, 15rem)';
-
   document.getElementById('wineArticle').hidden = false;
 }
 
@@ -382,7 +365,6 @@ function heroMotion() {
   const stage = document.getElementById('wpStage');
   const intro = document.querySelector('.wp-intro');
   const bottle = document.getElementById('wpImg');
-  const ghost = document.getElementById('wpGhost');
   const hero = document.querySelector('.wp-hero');
   if (!stage || !intro) return;
 
@@ -401,8 +383,6 @@ function heroMotion() {
     px += (tx - px) * 0.08;
     py += (ty - py) * 0.08;
     bottle.style.transform = 'translate3d(' + px.toFixed(2) + 'px,' + py.toFixed(2) + 'px,0)';
-    if (ghost) ghost.style.transform =
-      'translate(-50%,-50%) translate3d(' + (-px * 0.45).toFixed(2) + 'px,' + (-py * 0.45).toFixed(2) + 'px,0)';
     raf = Math.abs(tx - px) > 0.1 || Math.abs(ty - py) > 0.1 ? requestAnimationFrame(drift) : null;
   };
   const kick = () => { if (!raf) raf = requestAnimationFrame(drift); };

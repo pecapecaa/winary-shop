@@ -3,6 +3,7 @@ const WINES = [
   {
     id: 'tvrdos-vranac',
     quickTag: 'preporuka',
+    tag: { sr: 'Naša preporuka', en: 'Our pick' },
     name: { sr: 'Tvrdoš Vranac', en: 'Tvrdoš Vranac' },
     volume: '0.75L',
     subtitle: { sr: 'Crveno vino • Manastir Tvrdoš, Trebinje', en: 'Red Wine • Manastir Tvrdoš, Trebinje' },
@@ -17,13 +18,14 @@ const WINES = [
   {
     id: 'tvrdos-zilavka',
     quickTag: 'preporuka',
+    tag: { sr: 'Mineralna elegancija', en: 'Mineral elegance' },
     name: { sr: 'Tvrdoš Žilavka', en: 'Tvrdoš Žilavka' },
     volume: '0.75L',
     subtitle: { sr: 'Belo vino • Manastir Tvrdoš, Trebinje', en: 'White Wine • Manastir Tvrdoš, Trebinje' },
     type: { sr: 'Belo', en: 'White' },
     desc: {
-      sr: '[opis vina, dopuniti pre objave]',
-      en: '[wine description, to be written before launch]'
+      sr: 'Žilavka iz manastirskih vinograda, sa notama zrele kruške i badema. Sveža kiselina i dug, mineralan završetak, vino koje otkriva novi sloj ukusa sa svakim gutljajem.',
+      en: 'Žilavka from the monastery vineyards, with notes of ripe pear and almond. Fresh acidity and a long mineral finish, a wine that reveals a new layer with every sip.'
     },
     price: 2390,
     img: 'images/tvrdos-2022.webp'
@@ -31,13 +33,14 @@ const WINES = [
   {
     id: 'tamjanika-galerija',
     quickTag: 'drugacije',
+    tag: { sr: 'Aromatično', en: 'Aromatic' },
     name: { sr: 'Tamjanika Galerija', en: 'Tamjanika Galerija' },
     volume: '0.75L',
     subtitle: { sr: 'Belo vino • [vinarija]', en: 'White Wine • [vinarija]' },
     type: { sr: 'Belo', en: 'White' },
     desc: {
-      sr: '[opis vina, dopuniti pre objave]',
-      en: '[wine description, to be written before launch]'
+      sr: 'Izrazito mirisno belo vino sa aromama cvetne livade, grožđa i blagog meda. Pitko i osvežavajuće, savršeno za one koji vole da vino prvo osete nosom, pa tek onda ukusom.',
+      en: 'A strikingly fragrant white with aromas of flowering meadow, grapes and a hint of honey. Easy to drink and refreshing, perfect for anyone who likes to taste a wine with their nose first.'
     },
     price: 1890,
     img: 'images/tvrdos-2022.webp'
@@ -45,13 +48,14 @@ const WINES = [
   {
     id: 'tvrdos-metoh-vranac',
     quickTag: 'preporuka',
+    tag: { sr: 'Opušteno i pitko', en: 'Relaxed and easy' },
     name: { sr: 'Tvrdoš Metoh Vranac', en: 'Tvrdoš Metoh Vranac' },
     volume: '0.75L',
     subtitle: { sr: 'Crveno vino • Manastir Tvrdoš, Trebinje', en: 'Red Wine • Manastir Tvrdoš, Trebinje' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
-      sr: '[opis vina, dopuniti pre objave]',
-      en: '[wine description, to be written before launch]'
+      sr: 'Mlađi, opušteniji Vranac iz istog manastirskog podruma. Ukus zrele šljive i višnje, meki tanini bez težine, vino za svaki dan kad poželite nešto ozbiljno, ali ne zahtevno.',
+      en: 'A younger, more relaxed Vranac from the same monastery cellar. Ripe plum and cherry, soft tannins without the weight, a wine for when you want something serious but not demanding.'
     },
     price: 1590,
     img: 'images/tvrdos-2022.webp'
@@ -59,13 +63,14 @@ const WINES = [
   {
     id: 'primavera-roze',
     quickTag: 'drugacije',
+    tag: { sr: 'Osvežavajuće leto', en: 'Refreshing summer' },
     name: { sr: 'Primavera cuvee roze', en: 'Primavera cuvee roze' },
     volume: '0.75L',
     subtitle: { sr: 'Rosé vino • [vinarija]', en: 'Rosé Wine • [vinarija]' },
     type: { sr: 'Rosé', en: 'Rosé' },
     desc: {
-      sr: '[opis vina, dopuniti pre objave]',
-      en: '[wine description, to be written before launch]'
+      sr: 'Svetlo rozé vino boje latica ruže, sa mirisom jagode i divlje kupine. Lagano, sveže i lako se pije, ide uz sve, od letnjeg druženja do prve večere na terasi.',
+      en: 'A pale rosé the colour of rose petals, with aromas of strawberry and wild blackberry. Light, fresh and effortless to drink, pairs with everything from a summer gathering to the first dinner on the terrace.'
     },
     price: 1890,
     img: 'images/tvrdos-2022.webp'
@@ -73,13 +78,14 @@ const WINES = [
   {
     id: 'tvrdos-izba-merlot',
     quickTag: 'preporuka',
+    tag: { sr: 'Mekše crveno', en: 'Softer red' },
     name: { sr: 'Tvrdoš Izba Merlot', en: 'Tvrdoš Izba Merlot' },
     volume: '0.75L',
     subtitle: { sr: 'Crveno vino • Manastir Tvrdoš, Trebinje', en: 'Red Wine • Manastir Tvrdoš, Trebinje' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
-      sr: '[opis vina, dopuniti pre objave]',
-      en: '[wine description, to be written before launch]'
+      sr: 'Merlot u svom najpitomijem izdanju, baršunast, okrugao, bez oštrih ivica. Ukus zrele šljive i tamne čokolade, savršen izbor za nekoga ko tek otkriva crvena vina.',
+      en: 'Merlot at its most approachable, velvety, round, no rough edges. Ripe plum and dark chocolate, a perfect choice for someone just discovering red wine.'
     },
     price: 1590,
     img: 'images/tvrdos-2022.webp'
@@ -87,13 +93,14 @@ const WINES = [
   {
     id: 'zlatna-selekcija-bijelo',
     quickTag: 'premium',
+    tag: { sr: 'Kad želiš više', en: 'When you want more' },
     name: { sr: 'Zlatna Selekcija Bijelo', en: 'Zlatna Selekcija Bijelo' },
     volume: '0.75L',
     subtitle: { sr: 'Belo vino • [vinarija]', en: 'White Wine • [vinarija]' },
     type: { sr: 'Belo', en: 'White' },
     desc: {
-      sr: '[opis vina, dopuniti pre objave]',
-      en: '[wine description, to be written before launch]'
+      sr: 'Vrhunsko belo vino iz posebne selekcije, negovano sa više pažnje i vremena. Bogat, slojevit ukus zrelog voća i suptilne vanile, za trenutke kada želite da počastite sebe ili nekog drugog.',
+      en: 'A premium white from a special selection, given extra care and time. A rich, layered taste of ripe fruit and subtle vanilla, for moments when you want to treat yourself or someone else.'
     },
     price: 4490,
     img: 'images/tvrdos-2022.webp'
@@ -101,13 +108,14 @@ const WINES = [
   {
     id: 'vranac-reserve',
     quickTag: 'premium',
+    tag: { sr: 'Za posebne prilike', en: 'For special occasions' },
     name: { sr: 'Vranac Reserve', en: 'Vranac Reserve' },
     volume: '0.75L',
     subtitle: { sr: 'Crveno vino • [vinarija]', en: 'Red Wine • [vinarija]' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
-      sr: '[opis vina, dopuniti pre objave]',
-      en: '[wine description, to be written before launch]'
+      sr: 'Vranac u svom najboljem izdanju, odležao duže od ostalih da uhvati punu dubinu ukusa. Tamni bobičasti plodovi, začini i baršunasta struktura, vino za slavlje i posebne trenutke.',
+      en: 'Vranac at its finest, aged longer than the rest to reach full depth. Dark berry fruit, spice and a velvety structure, a wine for celebration and special moments.'
     },
     price: 4490,
     img: 'images/tvrdos-2022.webp'
@@ -115,6 +123,7 @@ const WINES = [
   {
     id: 'blatina-citluk-075',
     quickTag: 'svakodnevno',
+    tag: { sr: 'Snažno i domaće', en: 'Bold and homegrown' },
     name: { sr: 'Blatina Čitluk', en: 'Blatina Čitluk' },
     volume: '0.75L',
     subtitle: { sr: 'Crveno vino • Vinarija Čitluk', en: 'Red Wine • Vinarija Čitluk' },
@@ -129,6 +138,7 @@ const WINES = [
   {
     id: 'zilavka-citluk-075',
     quickTag: 'svakodnevno',
+    tag: { sr: 'Laka klasika', en: 'Easy classic' },
     name: { sr: 'Žilavka Čitluk', en: 'Žilavka Čitluk' },
     volume: '0.75L',
     subtitle: { sr: 'Belo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
@@ -143,13 +153,14 @@ const WINES = [
   {
     id: 'blatina-citluk-1l',
     quickTag: 'svakodnevno',
+    tag: { sr: 'Za veće društvo', en: 'For a bigger crowd' },
     name: { sr: 'Blatina Čitluk', en: 'Blatina Čitluk' },
     volume: '1L',
     subtitle: { sr: 'Crveno vino • Vinarija Čitluk', en: 'Red Wine • Vinarija Čitluk' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
-      sr: '[opis vina, dopuniti pre objave]',
-      en: '[wine description, to be written before launch]'
+      sr: 'Ista omiljena Blatina iz Vinarije Čitluk, sada u većem, praktičnom pakovanju od 1 litre. Idealna kada je društvo veće ili kada jednostavno ne želite da vam ponestane.',
+      en: 'The same beloved Blatina from Vinarija Čitluk, now in a bigger, more practical 1-litre bottle. Ideal for a larger crowd, or simply so it does not run out mid-evening.'
     },
     price: 690,
     img: 'images/blatina-citluk.webp'
@@ -157,6 +168,7 @@ const WINES = [
   {
     id: 'zilavka-citluk-1l',
     quickTag: 'svakodnevno',
+    tag: { sr: 'Za deljenje', en: 'For sharing' },
     name: { sr: 'Žilavka Čitluk', en: 'Žilavka Čitluk' },
     volume: '1L',
     subtitle: { sr: 'Belo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
@@ -171,13 +183,14 @@ const WINES = [
   {
     id: 'tribunija-bijelo',
     quickTag: 'preporuka',
+    tag: { sr: 'Elegantno i lako', en: 'Elegant and easy' },
     name: { sr: 'Tribunija bijelo', en: 'Tribunija bijelo' },
     volume: '0.75L',
     subtitle: { sr: 'Belo vino • Podrumi Vukoje, Trebinje', en: 'White Wine • Podrumi Vukoje, Trebinje' },
     type: { sr: 'Belo', en: 'White' },
     desc: {
-      sr: '[opis vina, dopuniti pre objave]',
-      en: '[wine description, to be written before launch]'
+      sr: 'Belo vino iz podruma Vukoje u Trebinju, sa mirisom svežeg voća i blagom notom cvetova. Elegantno i lako pitko, ostavlja utisak bez da ikog optereti.',
+      en: 'A white wine from the Vukoje cellars in Trebinje, with aromas of fresh fruit and a gentle floral note. Elegant and easy to drink, memorable without being demanding.'
     },
     price: 1890,
     img: 'images/tvrdos-2022.webp'
@@ -258,6 +271,22 @@ const MORE_ICON =
   + '<polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/>'
   + '<line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>'
   + '</svg>';
+
+// The same four glyphs as the "Brzi izbor" filter row, so a card's tag reads
+// as that same category rather than a fifth icon language of its own.
+const QUICK_TAG_ICONS = {
+  svakodnevno: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
+  preporuka: '<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>',
+  drugacije: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 4 13V6a1 1 0 0 1 1-1h7a7 7 0 0 1 7 7 7 7 0 0 1-7 7z"/><path d="M4 13c8 0 10-6 16-6"/></svg>',
+  premium: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M5 20l-1.5-9L8 15l4-8 4 8 4.5-4L19 20"/></svg>'
+};
+
+function tagChip(wine, lang) {
+  if (!wine.tag || !wine.quickTag) return '';
+  const icon = QUICK_TAG_ICONS[wine.quickTag] || '';
+  return '<span class="wine-tag" data-quick="' + wine.quickTag + '">'
+    + '<span class="wf-icon">' + icon + '</span>' + wine.tag[lang] + '</span>';
+}
 
 // The same basket drawn in the header, so the two read as one action.
 const CART_ICON =
@@ -348,6 +377,7 @@ function renderWines() {
         <h3>${wine.name[currentLang]}</h3>
         <div class="wine-srb">${wine.subtitle[currentLang]}</div>
         <p class="wine-desc">${wine.desc[currentLang]}</p>
+        ${tagChip(wine, currentLang)}
         <div class="wine-footer">
           <div class="wine-price-row"><span class="wine-price">${wine.price} RSD</span><span class="wine-volume">${wine.volume}</span></div>
           <button type="button" class="wine-add" data-id="${wine.id}" aria-label="${addLabel}" title="${addLabel}">${CART_ICON}</button>
@@ -679,6 +709,8 @@ function openDetail(id) {
   document.getElementById('detailSub').textContent = item.subtitle[currentLang];
   document.getElementById('detailDesc').textContent = item.desc[currentLang];
   document.getElementById('detailPrice').textContent = item.price + ' RSD';
+  // Only wines carry a quickTag; bundles show no chip here.
+  document.getElementById('detailTag').innerHTML = wine ? tagChip(wine, currentLang) : '';
 
   const vol = document.getElementById('detailVol');
   vol.textContent = wine ? wine.volume : '';

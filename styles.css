@@ -739,19 +739,8 @@ button {
   margin-bottom: 18px;
 }
 
-/* A soft-edged frame around both filter rows, separating "how to narrow
-   this" from the section title above and the results below rather than
-   leaving the pills floating loose on the page background. */
-.filters-panel {
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.55) 0%, rgba(240, 230, 210, 0.3) 100%);
-  border: 1px solid rgba(201, 169, 97, 0.25);
-  border-radius: 18px;
-  padding: 20px 18px 6px;
-  margin-bottom: 32px;
-  box-shadow: 0 6px 28px rgba(61, 16, 21, 0.06);
-}
-
 .quick-filters-head {
+  margin-top: 4px;
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -2713,17 +2702,16 @@ button {
     overflow-x: auto;
     overscroll-behavior-inline: contain;
     gap: 10px;
-    /* Bled to the panel's own edge now, not the screen's — both rows live
-       inside .filters-panel, so the offset has to match ITS padding (18px)
-       or the pills would either stop short of the frame or spill past its
-       rounded corner. */
-    padding: 2px 18px 6px;
-    margin-left: -18px;
-    margin-right: -18px;
+    /* Bled to the screen edge, matching .container's own 24px padding — no
+       frame around these rows any more, so this lines up with the section
+       edge directly rather than an intermediate panel. */
+    padding: 2px 24px 6px;
+    margin-left: -24px;
+    margin-right: -24px;
     scrollbar-width: none;
   }
   .wine-filters::-webkit-scrollbar, .quick-filters::-webkit-scrollbar { display: none; }
-  .wine-filters { margin-bottom: 8px; }
+  .wine-filters { margin-bottom: 24px; }
   .wf-btn { flex-shrink: 0; }
 
   /* Stacking the catalogue vertically on a phone makes the page enormous;

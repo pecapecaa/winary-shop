@@ -2839,10 +2839,16 @@ button {
     scrollbar-width: none;
   }
 
-  /* One result would otherwise sit at 82% with a wide band of page showing
-     beside it, which reads as a layout mistake rather than a short list. With
-     nothing to swipe to, the peek has no job, so the card takes the width. */
-  .wines-grid--single { grid-auto-columns: 100%; }
+  /* A lone result used to be widened to fill the row, which killed the empty
+     band beside it but made the card — and the bottle inside it, sized as a
+     percentage of the card — visibly bigger than the same card in any other
+     filter. Card size has to be constant, so instead it keeps its width and
+     centres: the leftover page splits evenly and reads as deliberate framing
+     rather than a card shoved to one side with a void after it.
+     Only justify-content changes: the padding and margin stay exactly as the
+     rail's, because 82% resolves against the content box and touching either
+     one would quietly resize the card again — the very thing this fixes. */
+  .wines-grid--single { justify-content: center; }
   .wines-grid::-webkit-scrollbar { display: none; }
   /* Snapping to centre put the first card in the middle of the screen with
      nothing either side of it, so the row looked like a single card and the

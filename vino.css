@@ -577,15 +577,14 @@
 /* A grid rather than wrapped flex. Left to wrap, the chips packed by their
    own text width, so a wine with five aromas ended on a lone half-width chip
    with a hole beside it and every wine broke in a different place. Two equal
-   columns give the same shape to all thirteen, and an odd last chip takes
-   the rest of its row instead of leaving the gap. */
+   columns give the same shape to all thirteen. An odd last chip keeps its
+   half of the row rather than stretching across — the point was that the
+   break lands in the same place on every wine, not that no row ends early. */
 .wp-aroma-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
 }
-
-.wp-aroma-list > :last-child:nth-child(odd) { grid-column: 1 / -1; }
 
 /* Each note gets its own weight — these are the words a shopper actually
    repeats back ("that pear one"), so they are set to be read, not skimmed. */

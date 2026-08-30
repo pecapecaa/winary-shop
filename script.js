@@ -401,15 +401,6 @@ let activeWineFilter = 'all';
 // everything, or the wines section opens twice as tall as it needs to.
 let activeQuickFilter = 'preporuka';
 
-// Serbian only turns singular at exactly n1, n21, n31... (never n11) — every
-// other count, including 2 through 4, still takes the same plural "vina" a
-// count of 13 does, so this only has one real branch to get right.
-function wineCountLabel(n, lang) {
-  if (lang !== 'sr') return n + ' ' + (n === 1 ? 'wine' : 'wines');
-  const singular = n % 10 === 1 && n % 100 !== 11;
-  return n + ' ' + (singular ? 'vino' : 'vina');
-}
-
 // Thirteen wines spread over four quick tags x three types leaves about one
 // wine per cell, so empty combinations are arithmetic rather than accident:
 // four of the twelve are empty, three of them because there is exactly one
@@ -463,8 +454,6 @@ function renderWines() {
     (activeWineFilter === 'all' || w.type.sr === activeWineFilter) &&
     (activeQuickFilter === 'all' || w.quickTag === activeQuickFilter)
   );
-  const countEl = document.getElementById('wineCount');
-  if (countEl) countEl.textContent = wineCountLabel(list.length, currentLang);
   updateFilterCounts();
   // The rail always ends with the bundle card below, so it can never hold a
   // single card any more — the lone-card width rule it used to need is gone

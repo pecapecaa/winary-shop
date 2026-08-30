@@ -740,32 +740,6 @@ button {
   margin-bottom: 18px;
 }
 
-.quick-filters-head {
-  margin-top: 4px;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  margin-bottom: 14px;
-}
-
-.quick-filters-label {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 0.95rem;
-  color: var(--text-light);
-}
-
-/* Confirms a filter actually caught something rather than the shopper
-   having to count cards themselves after a tap. */
-.wine-count {
-  font-family: 'HerczDj', 'Cinzel', serif;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  color: var(--wine);
-  white-space: nowrap;
-}
-
 .wf-btn {
   background: transparent;
   border: 1.5px solid rgba(139, 115, 85, 0.35);

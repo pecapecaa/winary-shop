@@ -3000,24 +3000,25 @@ button {
    in words; this is the number, sitting next to the total where it can be
    compared with the bottles above without scrolling back. */
 /* The bottle count and the price per bottle are one thought, so they sit
-   together in the corner rather than at opposite ends of the card. The
-   wrapper takes over the positioning the type badge used to do alone. */
+   together in the corner rather than at opposite ends of the card. Stacked
+   rather than side by side: as a row they reached across the card towards
+   the expand button, and the second line reads as following from the first
+   the way the arithmetic follows from the count. */
 .bundle-badges {
   position: absolute;
   top: 20px;
   left: 20px;
   z-index: 4;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
   max-width: calc(100% - 84px);
 }
 
-/* The featured card wears a "Najpopularnije" ribbon across its top edge.
-   The pair used to sit clear of it because the count badge alone was narrow
-   enough to stay left of centre; with the per-bottle badge beside it the row
-   reaches under the ribbon, so on that card it starts below it. */
+/* The featured card wears a "Najpopularnije" ribbon across its top edge,
+   centred, and it reaches far enough left to cross this corner. On that card
+   the badges start below it rather than beside it. */
 .bundle-card--featured .bundle-badges { top: 40px; }
 
 .bundle-badges .wine-type-badge {

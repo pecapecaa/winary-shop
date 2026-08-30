@@ -543,11 +543,12 @@ function renderBundles() {
     const btnLabel = isSr ? 'Dodaj paket u listu' : 'Add bundle to list';
     const moreLabel = isSr ? 'Prikaži detalje' : 'Show details';
 
-    // The per-bottle figure is the whole argument for a bundle, and it was
-    // being made in the header as a slogan instead of here as a number a
-    // shopper can check against the prices two sections up.
+    // The per-bottle figure is the whole argument for a bundle. It sits
+    // beside the bottle count rather than under the total, because the two
+    // are one thought — this many bottles, at this much each — and split
+    // across the card they had to be assembled by the reader.
     const perBottle = Math.round(bundle.price / bundle.count);
-    const perBottleLine = '<span class="bundle-per-bottle">'
+    const perBottleBadge = '<span class="bundle-per-bottle">'
       + perBottle + ' RSD ' + (isSr ? 'po flaši' : 'per bottle') + '</span>';
 
     // Free delivery is called out from this threshold up.
@@ -560,7 +561,10 @@ function renderBundles() {
     return [
       '<div class="wine-card ' + bundle.id + featured + ' fade-up">',
         '<div class="wine-img-wrap">',
-          '<span class="wine-type-badge">' + countLabel + '</span>',
+          '<div class="bundle-badges">',
+            '<span class="wine-type-badge">' + countLabel + '</span>',
+            perBottleBadge,
+          '</div>',
           '<img src="' + bundle.img + '" alt="' + bundle.name[currentLang] + '" loading="lazy">',
         '</div>',
         '<button type="button" class="wine-more" data-detail-id="' + bundle.id + '"'
@@ -576,7 +580,6 @@ function renderBundles() {
             '<div class="bundle-pricing">',
               originalPrice,
               '<span class="wine-price">' + bundle.price + ' RSD</span>',
-              perBottleLine,
             '</div>',
             '<button type="button" class="wine-add bundle-add" data-bundle-id="' + bundle.id + '"'
               + ' aria-label="' + btnLabel + '" title="' + btnLabel + '">' + CART_ICON + '</button>',

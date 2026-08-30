@@ -2999,17 +2999,47 @@ button {
 /* What a bundle actually costs per bottle. The header claimed a better price
    in words; this is the number, sitting next to the total where it can be
    compared with the bottles above without scrolling back. */
-/* Its own line under the total. On one line with the struck-through price
-   and the total it made three numbers in a row, and the one that matters
-   least was reading loudest. */
+/* The bottle count and the price per bottle are one thought, so they sit
+   together in the corner rather than at opposite ends of the card. The
+   wrapper takes over the positioning the type badge used to do alone. */
+.bundle-badges {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 4;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  max-width: calc(100% - 84px);
+}
+
+/* The featured card wears a "Najpopularnije" ribbon across its top edge.
+   The pair used to sit clear of it because the count badge alone was narrow
+   enough to stay left of centre; with the per-bottle badge beside it the row
+   reaches under the ribbon, so on that card it starts below it. */
+.bundle-card--featured .bundle-badges { top: 40px; }
+
+.bundle-badges .wine-type-badge {
+  position: static;
+  top: auto;
+  left: auto;
+}
+
+/* Deliberately the quieter of the pair: the count is the fact, this is the
+   arithmetic on it. Same shape and blur so they read as one group. */
 .bundle-per-bottle {
-  flex-basis: 100%;
   font-family: 'Lato', sans-serif;
-  font-size: 0.68rem;
+  font-size: 0.6rem;
   font-weight: 700;
-  letter-spacing: 0.8px;
-  color: rgba(201, 169, 97, 0.75);
-  margin-top: 3px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: rgba(232, 201, 135, 0.85);
+  background: rgba(8, 2, 4, 0.55);
+  border: 1px solid rgba(201, 169, 97, 0.28);
+  padding: 5px 12px;
+  backdrop-filter: blur(8px);
+  white-space: nowrap;
 }
 
 .bundle-ship {

@@ -113,7 +113,7 @@ const WINES = [
       en: 'A premium white from a special selection, given extra care and time. A rich, layered taste of ripe fruit and subtle vanilla, for moments when you want to treat yourself or someone else.'
     },
     price: 4490,
-    img: 'images/tvrdos-2022.webp'
+    img: 'images/zlatna-selekcija-bijelo.webp'
   },
   {
     id: 'vranac-reserve',
@@ -129,7 +129,7 @@ const WINES = [
       en: 'Vranac at its finest, aged longer than the rest to reach full depth. Dark berry fruit, spice and a velvety structure, a wine for celebration and special moments.'
     },
     price: 4490,
-    img: 'images/tvrdos-2022.webp'
+    img: 'images/vranac-reserve.webp'
   },
   {
     id: 'blatina-citluk-075',
@@ -211,7 +211,7 @@ const WINES = [
       en: 'A white wine from the Vukoje cellars in Trebinje, with aromas of fresh fruit and a gentle floral note. Elegant and easy to drink, memorable without being demanding.'
     },
     price: 1890,
-    img: 'images/tvrdos-2022.webp'
+    img: 'images/tribunija-bijelo.webp'
   }
 ];
 

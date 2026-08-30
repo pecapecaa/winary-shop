@@ -337,6 +337,20 @@ const CART_ICON =
   + '<path d="M16 10a4 4 0 01-8 0"/>'
   + '</svg>';
 
+// Bundles at or above this carry the free-delivery mark.
+const FREE_SHIPPING_FROM = 4000;
+
+// The same delivery truck the "Zašto mi" section uses, so the mark on a
+// bundle and the promise further down the page read as one claim.
+const SHIP_ICON =
+  '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+  + 'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+  + '<path d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 '
+  + '01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 '
+  + '1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 '
+  + '18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 '
+  + '1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>';
+
 // A cart still sitting there the next day reads as a glitch, not a courtesy.
 // Six hours covers "let me think it over and come back tonight"; older than
 // that gets dropped. The clock restarts on every change, so a long browsing
@@ -452,9 +466,9 @@ function renderWines() {
   const countEl = document.getElementById('wineCount');
   if (countEl) countEl.textContent = wineCountLabel(list.length, currentLang);
   updateFilterCounts();
-  // A lone card keeps the rail's 82% peek width and leaves a wide band of
-  // empty page beside it, which reads as broken rather than as a short list.
-  grid.classList.toggle('wines-grid--single', list.length === 1);
+  // The rail always ends with the bundle card below, so it can never hold a
+  // single card any more — the lone-card width rule it used to need is gone
+  // with it.
   const addLabel = currentLang === 'sr' ? 'Dodaj u listu' : 'Add to list';
   const moreLabel = currentLang === 'sr' ? 'Prikaži detalje' : 'Show details';
   grid.innerHTML = list.map(wine => `
@@ -475,11 +489,46 @@ function renderWines() {
         </div>
       </div>
     </div>
-  `).join('');
+  `).join('') + bundleTeaserCard(currentLang);
   document.querySelectorAll('.wine-add').forEach(btn => {
     btn.addEventListener('click', () => addToCart(btn.dataset.id));
   });
   observeFadeElements();
+}
+
+// The last card in the rail is not a wine. Someone who has swiped to the end
+// of the range without adding anything is, by definition, undecided — and the
+// bundles are two sections further down where they will never look. This puts
+// the offer at the moment the hesitation actually happens, inside the thing
+// they are already using, rather than behind another button on the screen.
+function bundleTeaserCard(lang) {
+  const isSr = lang === 'sr';
+  // Whichever bundle is marked featured, falling back to the first: the data
+  // decides which one is shown here, not this function.
+  const b = BUNDLES.find(x => x.featured) || BUNDLES[0];
+  if (!b) return '';
+  const best = BUNDLES.reduce((m, x) => Math.max(m, x.saving), 0);
+  return `
+    <a class="wine-card wine-card--teaser fade-up" href="#bundles">
+      <div class="wine-img-wrap">
+        <img src="${b.img}" alt="" loading="lazy">
+      </div>
+      <div class="wine-card-body">
+        <div class="teaser-kicker">${isSr ? 'Ne možete da izaberete?' : 'Cannot decide?'}</div>
+        <h3>${isSr ? 'Uzmite paket' : 'Take a bundle'}</h3>
+        <p class="wine-desc">${isSr
+          ? BUNDLES.length + ' paketa spremnih izbora, po nižoj ceni nego kad se vina kupuju pojedinačno.'
+          : BUNDLES.length + ' ready-made selections, priced below the same wines bought separately.'}</p>
+        <div class="teaser-save">${isSr ? 'Uštedite do ' + best + ' RSD' : 'Save up to ' + best + ' RSD'}</div>
+        <div class="wine-footer">
+          <span class="teaser-cta">${isSr ? 'Pogledaj pakete' : 'See the bundles'}</span>
+          <span class="teaser-arrow" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </div>
+    </a>
+  `;
 }
 
 // ===== Render Bundles =====
@@ -506,6 +555,21 @@ function renderBundles() {
     const countLabel = bundle.count + (isSr ? (bundle.count >= 5 ? ' flaša' : ' flaše') : ' btl.');
     const btnLabel = isSr ? 'Dodaj paket u listu' : 'Add bundle to list';
     const moreLabel = isSr ? 'Prikaži detalje' : 'Show details';
+
+    // The per-bottle figure is the whole argument for a bundle, and it was
+    // being made in the header as a slogan instead of here as a number a
+    // shopper can check against the prices two sections up.
+    const perBottle = Math.round(bundle.price / bundle.count);
+    const perBottleLine = '<span class="bundle-per-bottle">'
+      + perBottle + ' RSD ' + (isSr ? 'po flaši' : 'per bottle') + '</span>';
+
+    // Free delivery is called out from this threshold up.
+    const freeShip = bundle.price >= FREE_SHIPPING_FROM
+      ? '<div class="bundle-ship">'
+        + SHIP_ICON
+        + '<span>' + (isSr ? 'Besplatna dostava' : 'Free delivery') + '</span>'
+        + '</div>'
+      : '';
     return [
       '<div class="wine-card ' + bundle.id + featured + ' fade-up">',
         '<div class="wine-img-wrap">',
@@ -521,10 +585,12 @@ function renderBundles() {
           '<h3>' + bundle.name[currentLang] + '</h3>',
           '<div class="wine-srb">' + bundle.subtitle[currentLang] + '</div>',
           '<p class="wine-desc">' + bundle.desc[currentLang] + '</p>',
+          freeShip,
           '<div class="wine-footer">',
             '<div class="bundle-pricing">',
               originalPrice,
               '<span class="wine-price">' + bundle.price + ' RSD</span>',
+              perBottleLine,
             '</div>',
             '<button type="button" class="wine-add bundle-add" data-bundle-id="' + bundle.id + '"'
               + ' aria-label="' + btnLabel + '" title="' + btnLabel + '">' + CART_ICON + '</button>',

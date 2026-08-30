@@ -36,7 +36,7 @@
     <link rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Lato:wght@300;400;700&display=swap">
   </noscript>
-  <link rel="stylesheet" href="styles.css?v=116">
+  <link rel="stylesheet" href="styles.css?v=117">
 
   <!-- Microsoft Clarity: session recordings and click heatmaps, project "Hercz Wines". -->
   <script type="text/javascript">
@@ -199,7 +199,7 @@
       </div>
       <div class="wines-grid" id="winesGrid"></div>
 
-      <div class="bundles-section">
+      <div class="bundles-section" id="bundles">
         <div class="bundles-header">
           <div class="bundles-eyebrow">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="#c8a96a"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -208,6 +208,23 @@
           </div>
           <h3 class="bundles-title" data-sr="Paketi: uštedite više" data-en="Bundles: save more">Paketi: uštedite više</h3>
           <p class="bundles-sub" data-sr="Naši pažljivo birani paketi nude više vina po boljoj ceni" data-en="Our curated bundles offer more wine at a better price">Naši pažljivo birani paketi nude više vina po boljoj ceni</p>
+          <!-- The first of the three is a figure rather than a phrase: the
+               saving is real and checkable against the prices above, and a
+               number does the persuading a slogan only gestures at. -->
+          <ul class="bundle-benefits">
+            <li>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M17 6H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+              <span data-sr="Uštedite do 760 RSD" data-en="Save up to 760 RSD">Uštedite do 760 RSD</span>
+            </li>
+            <li>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+              <span data-sr="Selekcija bez razmišljanja" data-en="Chosen for you">Selekcija bez razmišljanja</span>
+            </li>
+            <li>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>
+              <span data-sr="Idealno za poklon ili druženje" data-en="Ideal as a gift or for a gathering">Idealno za poklon ili druženje</span>
+            </li>
+          </ul>
         </div>
         <div class="bundles-grid" id="bundlesGrid"></div>
       </div>
@@ -537,6 +554,6 @@
   }
   </script>
 
-  <script src="script.js?v=95"></script>
+  <script src="script.js?v=96"></script>
 </body>
 </html>

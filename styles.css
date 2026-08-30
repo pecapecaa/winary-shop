@@ -1367,9 +1367,10 @@ button {
 
 .bundle-pricing {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-start;
   align-items: baseline;
-  gap: 10px;
+  gap: 2px 10px;
 }
 
 .bundle-original {
@@ -2991,4 +2992,134 @@ button {
   .hero-particles { display: none; }
   .hero-video-native { display: none; }
   .hero-bg { opacity: 0.5 !important; }
+}
+
+/* ================================================ bundles: priority pass */
+
+/* Three reasons under the bundle heading. The first is a figure, not a
+   phrase — the saving is real and checkable against the wine prices one
+   section up, and a number persuades where a slogan only gestures. */
+.bundle-benefits {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 26px;
+}
+
+.bundle-benefits li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: var(--text-light);
+}
+
+.bundle-benefits svg { color: var(--gold); flex-shrink: 0; }
+
+/* What a bundle actually costs per bottle. The header claimed a better price
+   in words; this is the number, sitting next to the total where it can be
+   compared with the bottles above without scrolling back. */
+/* Its own line under the total. On one line with the struck-through price
+   and the total it made three numbers in a row, and the one that matters
+   least was reading loudest. */
+.bundle-per-bottle {
+  flex-basis: 100%;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: rgba(201, 169, 97, 0.75);
+  margin-top: 3px;
+}
+
+.bundle-ship {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 12px;
+  padding: 5px 12px 5px 9px;
+  border: 1px solid rgba(122, 155, 110, 0.45);
+  border-radius: 40px;
+  background: rgba(122, 155, 110, 0.12);
+  font-family: 'Lato', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: #9dbf8f;
+}
+
+.bundle-ship svg { flex-shrink: 0; }
+
+/* The last card in the wine rail is the bundles, not a wine. It borrows the
+   card's shape so it belongs in the row, and inverts the palette so nobody
+   mistakes it for a fourteenth bottle. */
+.wine-card--teaser {
+  text-decoration: none;
+  background: linear-gradient(165deg, #2d1015 0%, #1a0508 55%, #120406 100%);
+  border-color: rgba(201, 169, 97, 0.4);
+}
+
+.wine-card--teaser .wine-img-wrap { opacity: 0.32; }
+.wine-card--teaser .wine-img-wrap::after { height: 100%; }
+
+/* The rail clamps a wine's description to one line so the bottle keeps the
+   height. This card has no bottle to protect and its sentence is the offer,
+   so it gets the room to finish. */
+.wines-grid .wine-card--teaser .wine-desc { -webkit-line-clamp: 3; }
+
+.teaser-kicker {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.teaser-save {
+  display: inline-block;
+  font-family: 'HerczDj', 'Cinzel', serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  border: 1px solid rgba(201, 169, 97, 0.4);
+  border-radius: 40px;
+  padding: 5px 14px;
+  margin-bottom: 14px;
+}
+
+.teaser-cta {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: #f5ede0;
+}
+
+.teaser-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 169, 97, 0.45);
+  color: var(--gold);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), background 0.35s;
+}
+
+@media (hover: hover) {
+  .wine-card--teaser:hover .teaser-arrow {
+    transform: translateX(4px);
+    background: rgba(201, 169, 97, 0.14);
+  }
 }

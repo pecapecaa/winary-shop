@@ -3123,3 +3123,34 @@ button {
     background: rgba(201, 169, 97, 0.14);
   }
 }
+
+/* The free-delivery line in the cart. Two states, deliberately different in
+   colour: short of the threshold it is a prompt in gold, over it a
+   confirmation in green — the same green the bundle card's mark uses, so
+   the two read as one promise kept. */
+.cart-ship {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 14px;
+  margin-bottom: 14px;
+  border-radius: 10px;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+}
+
+.cart-ship svg { flex-shrink: 0; }
+
+.cart-ship--short {
+  background: rgba(201, 169, 97, 0.12);
+  border: 1px solid rgba(201, 169, 97, 0.35);
+  color: var(--gold);
+}
+
+.cart-ship--free {
+  background: rgba(122, 155, 110, 0.14);
+  border: 1px solid rgba(122, 155, 110, 0.45);
+  color: #9dbf8f;
+}

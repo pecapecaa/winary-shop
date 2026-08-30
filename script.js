@@ -537,14 +537,12 @@ function renderBundles() {
   if (!grid) return;
   const isSr = currentLang === 'sr';
   grid.innerHTML = BUNDLES.map(function(bundle) {
-    // With no real saving left, the tag and the struck-through price would be
-    // claiming a discount that is not there — drop both instead.
+    // No saving badge on the card any more. The struck-through price says the
+    // same thing in the place where the decision is made, and a discount
+    // sticker across a bottle photograph reads as a supermarket shelf.
+    // Still gated on a real saving: with none, a struck-through price would
+    // be claiming a discount that is not there.
     const hasSaving = bundle.saving > 0;
-    const savingTag = hasSaving
-      ? '<div class="bundle-saving-tag">'
-        + (isSr ? 'Uštedite ' + bundle.saving + ' RSD' : 'Save ' + bundle.saving + ' RSD')
-        + '</div>'
-      : '';
     const originalPrice = hasSaving
       ? '<span class="bundle-original">' + bundle.originalPrice + ' RSD</span>'
       : '';
@@ -580,7 +578,6 @@ function renderBundles() {
           + ' aria-label="' + bundle.name[currentLang] + ': ' + moreLabel + '"'
           + ' title="' + moreLabel + '">' + MORE_ICON + '</button>',
         topBadge,
-        savingTag,
         '<div class="wine-card-body">',
           '<h3>' + bundle.name[currentLang] + '</h3>',
           '<div class="wine-srb">' + bundle.subtitle[currentLang] + '</div>',
@@ -746,7 +743,30 @@ function renderCart() {
     `;
   }).join('');
   document.getElementById('cartTotal').textContent = getCartTotal() + ' RSD';
+  renderShippingLine(getCartTotal());
   footerEl.style.display = 'block';
+}
+
+// The threshold is stated on the "Zašto mi" card, but stating it is not the
+// same as using it. Here it can still change what someone does: a shopper
+// 600 RSD short is told exactly that, at the only moment the number is
+// actionable, and a shopper already over it gets the confirmation rather
+// than a rule they have to apply to themselves.
+function renderShippingLine(total) {
+  const el = document.getElementById('cartShip');
+  if (!el) return;
+  const isSr = currentLang === 'sr';
+  const short = FREE_SHIPPING_FROM - total;
+  if (short > 0) {
+    el.className = 'cart-ship cart-ship--short';
+    el.innerHTML = SHIP_ICON + '<span>' + (isSr
+      ? 'Još ' + short + ' RSD do besplatne dostave'
+      : short + ' RSD more for free delivery') + '</span>';
+  } else {
+    el.className = 'cart-ship cart-ship--free';
+    el.innerHTML = SHIP_ICON + '<span>' + (isSr
+      ? 'Besplatna dostava' : 'Free delivery') + '</span>';
+  }
 }
 
 // ===== Checkout =====

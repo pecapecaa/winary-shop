@@ -17,7 +17,7 @@ const WINES = [
       en: 'Wine from monastery vineyards on rocky slopes above Trebinje. Monastic tradition woven into every sip, complex, dignified, deep, for moments that stay in memory.'
     },
     price: 1990,
-    img: 'images/tvrdos-2022.webp'
+    img: 'images/tvrdos-vranac.webp'
   },
   {
     id: 'tvrdos-zilavka',
@@ -33,7 +33,7 @@ const WINES = [
       en: 'Žilavka from the monastery vineyards, with notes of ripe pear and almond. Fresh acidity and a long mineral finish, a wine that reveals a new layer with every sip.'
     },
     price: 2390,
-    img: 'images/tvrdos-2022.webp'
+    img: 'images/tvrdos-zilavka.webp'
   },
   {
     id: 'tamjanika-galerija',
@@ -65,7 +65,7 @@ const WINES = [
       en: 'A younger, more relaxed Vranac from the same monastery cellar. Ripe plum and cherry, soft tannins without the weight, a wine for when you want something serious but not demanding.'
     },
     price: 1590,
-    img: 'images/tvrdos-2022.webp'
+    img: 'images/tvrdos-metoh-vranac.webp'
   },
   {
     id: 'primavera-roze',
@@ -81,10 +81,7 @@ const WINES = [
       en: 'A pale rosé the colour of rose petals, with aromas of strawberry and wild blackberry. Light, fresh and effortless to drink, pairs with everything from a summer gathering to the first dinner on the terrace.'
     },
     price: 1890,
-    // PRIVREMENO: ovo je fotografija Tamjanike, ne roze — stavljena ovde samo
-    // da se uporedi kvalitet uživo na sajtu. Vrati na pravu roze sliku kad
-    // stigne, ili na 'images/tvrdos-2022.webp' ako se odustane od poređenja.
-    img: 'images/tamjanika-galerija-v2.webp'
+    img: 'images/primavera-roze.webp'
   },
   {
     id: 'tvrdos-izba-merlot',
@@ -100,7 +97,7 @@ const WINES = [
       en: 'Merlot at its most approachable, velvety, round, no rough edges. Ripe plum and dark chocolate, a perfect choice for someone just discovering red wine.'
     },
     price: 1590,
-    img: 'images/tvrdos-2022.webp'
+    img: 'images/tvrdos-izba-merlot.webp'
   },
   {
     id: 'zlatna-selekcija-bijelo',

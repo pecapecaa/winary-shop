@@ -502,9 +502,11 @@ function wireChrome() {
   const navToggle = document.getElementById('navToggle');
   const navLinks = document.getElementById('navLinks');
   if (navToggle && navLinks) {
+    // .active is what styles.css actually styles for this row — matches the
+    // homepage's own toggle in script.js exactly, rather than inventing a
+    // parallel class name that nothing draws.
     navToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('nav-links--open');
-      navToggle.classList.toggle('nav-toggle--open');
+      navLinks.classList.toggle('active');
     });
   }
 
@@ -512,14 +514,19 @@ function wireChrome() {
   const sidebar = document.getElementById('cartSidebar');
   const overlay = document.getElementById('cartOverlay');
   const close = document.getElementById('cartClose');
+  // Same .active class script.js's setPanelOpen() uses on the homepage. The
+  // sidebar's visibility, transform and opacity are all keyed off it in
+  // styles.css — cart-sidebar--open / cart-overlay--visible do not exist
+  // there, so the cart button previously dropped `inert` but never made the
+  // panel actually appear.
   const open = () => {
-    sidebar.classList.add('cart-sidebar--open');
-    overlay.classList.add('cart-overlay--visible');
+    sidebar.classList.add('active');
+    overlay.classList.add('active');
     sidebar.removeAttribute('inert');
   };
   const shut = () => {
-    sidebar.classList.remove('cart-sidebar--open');
-    overlay.classList.remove('cart-overlay--visible');
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
     sidebar.setAttribute('inert', '');
   };
   if (cartBtn) cartBtn.addEventListener('click', open);
@@ -552,12 +559,10 @@ function wireChrome() {
     });
   }
 
-  const nav = document.getElementById('navbar');
-  if (nav) {
-    const onScroll = () => nav.classList.toggle('navbar--scrolled', window.scrollY > 20);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  }
+  // No scroll-triggered navbar state here: .navbar--solid is applied
+  // unconditionally in the markup below, since this page has no transparent
+  // hero for the bar to start over. The homepage toggles a scrolled state
+  // for exactly that transition; this page never needs it.
 }
 
 // The five profile marks fill in when the section is reached, rather than

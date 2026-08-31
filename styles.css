@@ -3089,18 +3089,6 @@ button {
   margin-bottom: 8px;
 }
 
-.teaser-save {
-  display: inline-block;
-  font-family: 'HerczDj', 'Cinzel', serif;
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: var(--gold-light);
-  border: 1px solid rgba(201, 169, 97, 0.4);
-  border-radius: 40px;
-  padding: 5px 14px;
-  margin-bottom: 14px;
-}
-
 .teaser-cta {
   font-family: 'Lato', sans-serif;
   font-size: 0.72rem;

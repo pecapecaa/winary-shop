@@ -499,7 +499,6 @@ function bundleTeaserCard(lang) {
   // decides which one is shown here, not this function.
   const b = BUNDLES.find(x => x.featured) || BUNDLES[0];
   if (!b) return '';
-  const best = BUNDLES.reduce((m, x) => Math.max(m, x.saving), 0);
   return `
     <a class="wine-card wine-card--teaser fade-up" href="#bundles">
       <div class="wine-img-wrap">
@@ -511,7 +510,6 @@ function bundleTeaserCard(lang) {
         <p class="wine-desc">${isSr
           ? BUNDLES.length + ' paketa spremnih izbora, po nižoj ceni nego kad se vina kupuju pojedinačno.'
           : BUNDLES.length + ' ready-made selections, priced below the same wines bought separately.'}</p>
-        <div class="teaser-save">${isSr ? 'Uštedite do ' + best + ' RSD' : 'Save up to ' + best + ' RSD'}</div>
         <div class="wine-footer">
           <span class="teaser-cta">${isSr ? 'Pogledaj pakete' : 'See the bundles'}</span>
           <span class="teaser-arrow" aria-hidden="true">

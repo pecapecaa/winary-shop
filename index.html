@@ -36,7 +36,7 @@
     <link rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Lato:wght@300;400;700&display=swap">
   </noscript>
-  <link rel="stylesheet" href="styles.css?v=77">
+  <link rel="stylesheet" href="styles.css?v=124">
 
   <!-- Microsoft Clarity: session recordings and click heatmaps, project "Hercz Wines". -->
   <script type="text/javascript">
@@ -161,14 +161,41 @@
         <h2 class="section-title" data-sr="Izaberite vaše vino" data-en="Choose your wine">Izaberite vaše vino</h2>
         <div class="divider divider-center"></div>
       </div>
+      <!-- The translated label lives on an inner span, not the button: switchLanguage
+           sets textContent on every [data-sr] element, which would erase a button's
+           SVG icon along with its old text if the attribute sat on the button itself. -->
+      <div class="wine-filters quick-filters" id="quickFilters">
+        <button type="button" class="wf-btn" data-quick="svakodnevno">
+          <span class="wf-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span>
+          <span data-sr="Za svaki dan" data-en="Everyday">Za svaki dan</span><span class="wf-count"></span></button>
+        <button type="button" class="wf-btn wf-btn--active" data-quick="preporuka">
+          <span class="wf-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+          <span data-sr="Naša preporuka" data-en="Our pick">Naša preporuka</span><span class="wf-count"></span></button>
+        <button type="button" class="wf-btn" data-quick="drugacije">
+          <span class="wf-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 4 13V6a1 1 0 0 1 1-1h7a7 7 0 0 1 7 7 7 7 0 0 1-7 7z"/><path d="M4 13c8 0 10-6 16-6"/></svg></span>
+          <span data-sr="Nešto drugačije" data-en="Something different">Nešto drugačije</span><span class="wf-count"></span></button>
+        <button type="button" class="wf-btn" data-quick="premium">
+          <span class="wf-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M5 20l-1.5-9L8 15l4-8 4 8 4.5-4L19 20"/></svg></span>
+          <span data-sr="Premium" data-en="Premium">Premium</span><span class="wf-count"></span></button>
+      </div>
+
       <div class="wine-filters" id="wineFilters">
-        <button type="button" class="wf-btn wf-btn--active" data-filter="all" data-sr="Sva vina" data-en="All wines">Sva vina</button>
-        <button type="button" class="wf-btn" data-filter="Belo" data-sr="Belo" data-en="White">Belo</button>
-        <button type="button" class="wf-btn" data-filter="Crveno" data-sr="Crveno" data-en="Red">Crveno</button>
+        <button type="button" class="wf-btn wf-btn--active" data-filter="all">
+          <span class="wf-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4v5l2 2.5v10.5a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V9.5l2-2.5V2z"/><path d="M8 14h8"/></svg></span>
+          <span data-sr="Sva vina" data-en="All wines">Sva vina</span><span class="wf-count"></span></button>
+        <button type="button" class="wf-btn" data-filter="Belo">
+          <span class="wf-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 4 13V6a1 1 0 0 1 1-1h7a7 7 0 0 1 7 7 7 7 0 0 1-7 7z"/><path d="M4 13c8 0 10-6 16-6"/></svg></span>
+          <span data-sr="Belo" data-en="White">Belo</span><span class="wf-count"></span></button>
+        <button type="button" class="wf-btn" data-filter="Crveno">
+          <span class="wf-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8l-1 7a3 3 0 0 1-6 0L8 3z"/><path d="M12 13v6M9 21h6"/></svg></span>
+          <span data-sr="Crveno" data-en="Red">Crveno</span><span class="wf-count"></span></button>
+        <button type="button" class="wf-btn" data-filter="Rosé">
+          <span class="wf-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8l-1 7a3 3 0 0 1-6 0L8 3z"/><path d="M12 13v6M9 21h6"/></svg></span>
+          <span data-sr="Rosé" data-en="Rosé">Rosé</span><span class="wf-count"></span></button>
       </div>
       <div class="wines-grid" id="winesGrid"></div>
 
-      <div class="bundles-section">
+      <div class="bundles-section" id="bundles">
         <div class="bundles-header">
           <div class="bundles-eyebrow">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="#c8a96a"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -177,6 +204,26 @@
           </div>
           <h3 class="bundles-title" data-sr="Paketi: uštedite više" data-en="Bundles: save more">Paketi: uštedite više</h3>
           <p class="bundles-sub" data-sr="Naši pažljivo birani paketi nude više vina po boljoj ceni" data-en="Our curated bundles offer more wine at a better price">Naši pažljivo birani paketi nude više vina po boljoj ceni</p>
+          <!-- The first of the three is a figure rather than a phrase: the
+               saving is real and checkable against the prices above, and a
+               number does the persuading a slogan only gestures at. -->
+          <ul class="bundle-benefits">
+            <!-- The truck is the same glyph the delivery card and the cart
+                 line use, so the three places state one rule rather than
+                 three similar-sounding promises. -->
+            <li>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>
+              <span data-sr="Besplatna dostava preko 4.000 RSD" data-en="Free delivery over 4,000 RSD">Besplatna dostava preko 4.000 RSD</span>
+            </li>
+            <li>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+              <span data-sr="Selekcija bez razmišljanja" data-en="Chosen for you">Selekcija bez razmišljanja</span>
+            </li>
+            <li>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>
+              <span data-sr="Idealno za poklon ili druženje" data-en="Ideal as a gift or for a gathering">Idealno za poklon ili druženje</span>
+            </li>
+          </ul>
         </div>
         <div class="bundles-grid" id="bundlesGrid"></div>
       </div>
@@ -232,7 +279,7 @@
             <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#c8a96a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>
           </div>
           <h3 data-sr="Dostava na adresu" data-en="Home delivery">Dostava na adresu</h3>
-          <p data-sr="Naručite online, mi dostavimo širom Srbije. Brzo, sigurno, pažljivo upakovano." data-en="Order online, we deliver across Serbia. Fast, safe, carefully packed.">Naručite online, mi dostavimo širom Srbije. Brzo, sigurno, pažljivo upakovano.</p>
+          <p data-sr="Naručite online, mi dostavimo širom Srbije. Besplatno za porudžbine preko 4.000 RSD. Brzo, sigurno, pažljivo upakovano." data-en="Order online, we deliver across Serbia. Free on orders over 4,000 RSD. Fast, safe, carefully packed.">Naručite online, mi dostavimo širom Srbije. Besplatno za porudžbine preko 4.000 RSD. Brzo, sigurno, pažljivo upakovano.</p>
           <div class="visit-price" data-sr="2-4 dana" data-en="2-4 days">2-4 dana</div>
         </div>
         <div class="visit-card">
@@ -346,6 +393,7 @@
       <p class="cart-empty" data-sr="Lista je prazna" data-en="Your list is empty">Lista je prazna</p>
     </div>
     <div class="cart-footer" id="cartFooter" style="display:none;">
+      <div class="cart-ship" id="cartShip"></div>
       <div class="cart-total">
         <span data-sr="Ukupno:" data-en="Total:">Ukupno:</span>
         <span id="cartTotal">0 RSD</span>
@@ -412,6 +460,43 @@
 
   <div class="toast" id="toast"></div>
 
+  <!-- Tapping a card opens the full product here rather than on a page of its
+       own, so nobody loses their place in the catalogue. -->
+  <div class="detail-overlay" id="wineDetail" role="dialog" aria-modal="true" aria-labelledby="detailName" inert>
+    <div class="detail-modal">
+      <!-- The mirror of the corner icon that opened it: arrows going back in. -->
+      <button type="button" class="detail-close" id="detailClose" aria-label="Zatvori">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/>
+          <line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/>
+        </svg>
+      </button>
+      <div class="detail-photo">
+        <span class="wine-type-badge" id="detailBadge"></span>
+        <img id="detailImg" src="" alt="">
+      </div>
+      <div class="detail-body">
+        <h3 id="detailName"></h3>
+        <div class="wine-srb" id="detailSub"></div>
+        <p class="detail-desc" id="detailDesc"></p>
+        <div id="detailTag"></div>
+        <div class="detail-foot">
+          <div class="wine-price-row">
+            <span class="wine-price" id="detailPrice"></span>
+            <span class="wine-volume" id="detailVol"></span>
+          </div>
+          <button type="button" class="btn btn-primary btn-full detail-add" id="detailAdd" aria-label="Dodaj u listu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
+              <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <path d="M16 10a4 4 0 01-8 0"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <aside class="fab-buttons" aria-label="Brzi kontakt">
     <a href="https://wa.me/381617056465?text=Zdravo%21%20Pi%C5%A1em%20sa%20sajta%20%E2%80%94%20zanima%20me%20preporuka%20za%20vino%20%F0%9F%8D%B7" class="fab-btn fab-whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -466,6 +551,6 @@
   }
   </script>
 
-  <script src="script.js?v=79"></script>
+  <script src="script.js?v=102"></script>
 </body>
 </html>

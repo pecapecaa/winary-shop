@@ -35,7 +35,16 @@
   --text-light: #6b5d50;
 }
 
-html { scroll-behavior: smooth; }
+/* overflow-x alone didn't stop it: that governs CSS scrolling, not Safari's
+   own edge-swipe-to-navigate gesture, which drags the page regardless of
+   whether anything actually overflows. overscroll-behavior-x is the property
+   for that — it tells the browser this page handles its own scrolling and
+   the gesture shouldn't reach past it. */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
+}
 
 body {
   font-family: 'Lato', sans-serif;
@@ -43,6 +52,7 @@ body {
   background: var(--cream);
   line-height: 1.6;
   overflow-x: hidden;
+  overscroll-behavior-x: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -525,10 +535,12 @@ button {
   border-color: var(--gold);
 }
 
-.btn-primary:hover {
-  background: transparent;
-  color: var(--gold);
-  transform: translateY(-2px);
+@media (hover: hover) {
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--gold);
+    transform: translateY(-2px);
+  }
 }
 
 .btn-outline {
@@ -537,10 +549,12 @@ button {
   border-color: rgba(255, 255, 255, 0.5);
 }
 
-.btn-outline:hover {
-  background: #fff;
-  color: var(--wine-deep);
-  border-color: #fff;
+@media (hover: hover) {
+  .btn-outline:hover {
+    background: #fff;
+    color: var(--wine-deep);
+    border-color: #fff;
+  }
 }
 
 .btn-full { width: 100%; }
@@ -672,6 +686,60 @@ button {
   margin-bottom: 44px;
 }
 
+/* A pill is icon-badge + label, laid out as flex so a plain text pill (no
+   badge markup at all) still centres correctly without special-casing it. */
+.wf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+/* Tightened once the label started wrapping to two lines in the narrower
+   grid pill — the default line-height left visible daylight between them
+   and made an already-compact pill read as tall instead. */
+.wf-btn span[data-sr] { line-height: 1.15; }
+
+/* The coloured circle behind each icon — a soft tint of the icon's own
+   accent colour, not a flat brand gold, so four/six different categories
+   read as different things at a glance instead of one repeated mark. Colour
+   itself is set per pill below; this is only the shared shape. */
+.wf-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: rgba(139, 115, 85, 0.16); /* fallback if color-mix() is unsupported */
+  background: color-mix(in srgb, var(--pill-accent) 16%, transparent);
+  color: var(--pill-accent);
+  transition: background 0.25s;
+}
+
+.wf-btn--active .wf-icon {
+  background: rgba(139, 115, 85, 0.32);
+  background: color-mix(in srgb, var(--pill-accent) 32%, transparent);
+}
+
+.wf-icon svg { display: block; }
+
+/* Warm-toned family throughout — no hue reads as a generic app icon; each
+   is a shade already related to the gold/wine palette elsewhere on the
+   site, just distinguished enough to tell the four or six apart. */
+[data-quick="svakodnevno"] { --pill-accent: #d4a24c; }
+[data-quick="preporuka"]   { --pill-accent: #c9a961; }
+[data-quick="drugacije"]   { --pill-accent: #7a9b6e; }
+[data-quick="premium"]     { --pill-accent: #b8933a; }
+[data-filter="all"]        { --pill-accent: #7d5a8a; }
+[data-filter="Belo"]       { --pill-accent: #7a9b6e; }
+[data-filter="Crveno"]     { --pill-accent: #8b2035; }
+[data-filter="Rosé"]       { --pill-accent: #c98a92; }
+
+.quick-filters {
+  margin-bottom: 18px;
+}
+
 .wf-btn {
   background: transparent;
   border: 1.5px solid rgba(139, 115, 85, 0.35);
@@ -681,16 +749,63 @@ button {
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  padding: 10px 26px;
+  padding: 10px 22px 10px 10px;
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.25s;
 }
 
+@media (max-width: 768px) {
+  /* Smaller everywhere the grid pills live: at two-per-row on a phone the
+     desktop sizing left them tall, mostly from the label wrapping to two
+     loose lines with a lot of air around it. */
+  .wine-filters .wf-btn, .quick-filters .wf-btn {
+    font-size: 0.66rem;
+    letter-spacing: 0.8px;
+    padding: 7px 12px 7px 7px;
+    gap: 6px;
+  }
+}
+
+/* A plain text pill with no icon badge (only "Sva vina") still needs the
+   label's own left breathing room the badge would otherwise provide. */
+.wf-btn:not(:has(.wf-icon)) { padding-left: 22px; }
+
+/* How many wines the pill would show if tapped. Deliberately quiet: lighter
+   weight, no uppercase tracking, and pulled in tight against the label so it
+   reads as a footnote to it rather than a second badge answering the icon on
+   the far side. Tabular figures keep the pill from twitching in width as the
+   number changes with the other row's selection. */
+.wf-count {
+  font-size: 0.86em;
+  font-weight: 400;
+  letter-spacing: 0;
+  opacity: 0.45;
+  margin-left: -3px;
+  font-variant-numeric: tabular-nums;
+}
+
+.wf-btn--active .wf-count { opacity: 0.7; }
+
+/* A pill reading 0 leads to an empty grid, so it is put out of reach rather
+   than left tappable. Faded rather than hidden: the 0 is the explanation for
+   why it cannot be pressed, and a pill that vanished would shift every pill
+   after it sideways mid-scroll. */
+.wf-btn:disabled {
+  opacity: 0.32;
+  cursor: default;
+  border-color: rgba(139, 115, 85, 0.18);
+}
+
+.wf-btn:disabled .wf-icon {
+  background: rgba(139, 115, 85, 0.08);
+}
+
 /* Touch browsers leave :hover stuck on the last tapped element, so this is
-   gated to devices that can genuinely hover. */
+   gated to devices that can genuinely hover. The :enabled guard keeps a
+   disabled pill from lighting up under the cursor as if it were pressable. */
 @media (hover: hover) {
-  .wf-btn:hover {
+  .wf-btn:enabled:hover {
     border-color: var(--gold);
     color: var(--wine-deep);
   }
@@ -730,10 +845,16 @@ button {
   cursor: pointer;
 }
 
-.wine-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.55);
-  border-color: var(--gold);
+/* Behind a real pointer. On a phone there is nothing to un-hover, so the last
+   card touched stayed lifted and glowing — and in the swipe row it is the
+   card's own box the scroller snaps to, so a stuck lift moved the snap point
+   too. Half of why the cards read as floating. */
+@media (hover: hover) {
+  .wine-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.55);
+    border-color: var(--gold);
+  }
 }
 
 .wine-img-wrap {
@@ -771,9 +892,11 @@ button {
   opacity: 0.9;
 }
 
-.wine-card:hover .wine-img-wrap img {
-  transform: scale(1.07) translateY(-18px);
-  opacity: 1;
+@media (hover: hover) {
+  .wine-card:hover .wine-img-wrap img {
+    transform: scale(1.07) translateY(-18px);
+    opacity: 1;
+  }
 }
 
 .wine-type-badge {
@@ -828,6 +951,59 @@ button {
   overflow: hidden;
 }
 
+/* The wine's own one-line character, not a filter — same icon language as
+   the "Brzi izbor" row above, so a shopper already reads its colour and
+   glyph as a category before ever landing on the card itself. Sits on a
+   near-black card rather than the cream filter row, so its badge needs a
+   stronger tint than the 16%/32% pair reads as elsewhere to stay legible. */
+.wine-tag-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.wine-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--pill-accent, var(--gold));
+}
+
+.wine-tag .wf-icon {
+  width: 18px;
+  height: 18px;
+  background: rgba(201, 169, 97, 0.22);
+  background: color-mix(in srgb, var(--pill-accent) 26%, transparent);
+}
+
+/* The 1L-only extra badge: reads as a quiet footnote about the bottle size,
+   not a second competing claim about the wine itself — drops the taste
+   tag's uppercase/bold weight for an italic serif whisper underneath it.
+   Fixed gold tint rather than --pill-accent — this isn't a filter
+   category, it's the same note on every bottle it appears on. */
+.wine-tag--mini {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  text-transform: none;
+  color: rgba(232, 201, 135, 0.65);
+}
+
+.wf-icon--mini {
+  width: 13px;
+  height: 13px;
+  background: rgba(232, 201, 135, 0.12);
+  color: rgba(232, 201, 135, 0.75);
+}
+
 .wine-footer {
   display: flex;
   justify-content: space-between;
@@ -875,22 +1051,57 @@ button {
   vertical-align: middle;
 }
 
+/* An icon, not a label: at card width the words cost more room than they earn,
+   and a cart glyph is read faster than "Dodaj u listu". The accessible name
+   still carries the words for anyone not going by sight. */
 .wine-add {
   background: transparent;
   color: var(--gold);
   border: 1px solid rgba(201, 169, 97, 0.55);
-  padding: 8px 16px;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
+  border-radius: 8px;
+  width: 46px;
+  height: 46px;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.3s;
 }
 
-.wine-add:hover {
-  background: var(--gold);
-  color: var(--wine-deep);
-  border-color: var(--gold);
+.wine-add svg { display: block; }
+
+/* Sits opposite the type badge, so the two top corners read as a pair: what
+   this is on the left, look closer on the right. Deliberately its own control
+   rather than the whole card, so nothing opens by accident on a touch screen
+   while swiping through the row. */
+.wine-more {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 4;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--gold);
+  background: rgba(8, 2, 4, 0.65);
+  border: 1px solid rgba(201, 169, 97, 0.45);
+  transition: background 0.25s, border-color 0.25s;
+}
+
+.wine-more svg { display: block; }
+
+/* Gated on a real pointer. A touch screen has no way to un-hover, so on a phone
+   this filled state latched on after a tap and the button sat there gold long
+   after the bottle was already in the list. */
+@media (hover: hover) {
+  .wine-add:hover {
+    background: var(--gold);
+    color: var(--wine-deep);
+    border-color: var(--gold);
+  }
 }
 
 /* ===== BUNDLES ===== */
@@ -1030,12 +1241,23 @@ button {
   transition: transform 0.45s ease !important;
 }
 
-.bundles-grid .wine-card:hover .wine-img-wrap img {
-  transform: scale(1.07) !important;
+@media (hover: hover) {
+  .bundles-grid .wine-card:hover .wine-img-wrap img {
+    transform: scale(1.07) !important;
+  }
 }
 
 /* Starter: landscape 2-bottle photo */
 .bundle-starter .wine-img-wrap img {
+  object-fit: cover !important;
+}
+
+/* Hercz Box: portrait 3-bottle photo. Left on the base rule's `contain`, this
+   was the one bundle with no zoom compensation at all — noticeably smaller
+   and further away than the other two, and further still than a wine card's
+   own close, filled bottle. Cover trims only the outer 20px on each side at
+   this box's proportions, nothing near the bottles at the edges. */
+.bundle-herceg-box .wine-img-wrap img {
   object-fit: cover !important;
 }
 
@@ -1044,8 +1266,10 @@ button {
   transform: scale(1.3) !important;
 }
 
-.bundle-full-herceg.wine-card:hover .wine-img-wrap img {
-  transform: scale(1.38) !important;
+@media (hover: hover) {
+  .bundle-full-herceg.wine-card:hover .wine-img-wrap img {
+    transform: scale(1.38) !important;
+  }
 }
 
 .bundle-bottles {
@@ -1117,9 +1341,10 @@ button {
 
 .bundle-pricing {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-start;
   align-items: baseline;
-  gap: 10px;
+  gap: 2px 10px;
 }
 
 .bundle-original {
@@ -1136,24 +1361,10 @@ button {
   color: var(--gold);
 }
 
+/* Wears the same cart button as a wine card; only the label behind it differs,
+   naming the whole bundle rather than a bottle. */
 .bundle-add {
-  width: 100%;
-  background: transparent;
-  border: 1.5px solid var(--gold);
-  color: var(--gold);
-  padding: 13px 20px;
-  font-family: 'HerczDj', 'Cinzel', serif;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.3s, color 0.3s;
-}
-
-.bundle-add:hover {
-  background: var(--gold);
-  color: #1a0508;
 }
 
 .bundle-card--featured .bundle-add {
@@ -1162,8 +1373,14 @@ button {
   border-color: var(--gold);
 }
 
-.bundle-card--featured .bundle-add:hover {
-  background: #e8c96a;
+@media (hover: hover) {
+  .bundle-add:hover {
+    background: var(--gold);
+    color: #1a0508;
+  }
+  .bundle-card--featured .bundle-add:hover {
+    background: #e8c96a;
+  }
 }
 
 /* Cart bundle item */
@@ -1383,9 +1600,11 @@ button {
   color: var(--gold);
 }
 
-.tour-banner .btn-outline:hover {
-  background: var(--gold);
-  color: var(--wine-deep);
+@media (hover: hover) {
+  .tour-banner .btn-outline:hover {
+    background: var(--gold);
+    color: var(--wine-deep);
+  }
 }
 
 /* ===== CONTACT ===== */
@@ -1686,8 +1905,6 @@ button {
   align-items: center;
   justify-content: center;
 }
-  transition: all 0.2s;
-}
 
 .qty-btn:hover {
   background: var(--wine);
@@ -1794,6 +2011,141 @@ button {
   background: rgba(139, 115, 85, 0.18);
   color: var(--wine-deep);
 }
+
+/* ===== WINE DETAIL ===== */
+/* Deliberately the card's own materials — same near-black, same gold hairline,
+   same radius — so opening one reads as the card growing, not as arriving
+   somewhere new. */
+.detail-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(10, 3, 5, 0.82);
+  backdrop-filter: blur(3px);
+  z-index: 1300;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.28s, visibility 0.28s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.detail-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.detail-modal {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  max-height: 92vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: #080204;
+  border: 1px solid rgba(201, 169, 97, 0.3);
+  border-radius: 14px;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.65);
+  transform: translateY(14px) scale(0.97);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.detail-overlay.active .detail-modal { transform: none; }
+
+.detail-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 6;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--gold);
+  background: rgba(8, 2, 4, 0.7);
+  border: 1px solid rgba(201, 169, 97, 0.4);
+}
+
+.detail-close svg { display: block; }
+
+/* The same cart button as on a card, at the same size. Stretched across the
+   panel it was a gold bar with a small mark adrift in it. */
+.detail-add.btn.btn-full {
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+/* The card crops its photo on purpose — text sits over it. Here the bottle is
+   the point, so the frame keeps its full height and is only widened past the
+   panel, which crops nothing but the black margins at either side. */
+.detail-photo {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-photo img {
+  width: 142%;
+  max-width: none;
+  height: auto;
+  flex: 0 0 auto;
+}
+
+.detail-photo::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 45%;
+  background: linear-gradient(to bottom, transparent, rgba(8, 2, 4, 0.95));
+  pointer-events: none;
+}
+
+.detail-photo .wine-type-badge { top: 16px; left: 16px; }
+
+.detail-body { padding: 4px 24px 26px; }
+
+.detail-body h3 {
+  font-family: 'HerczDj', 'Cinzel', serif;
+  font-size: 1.45rem;
+  color: #f5ede0;
+  margin-bottom: 4px;
+}
+
+/* The card clamps this to three lines; here it runs in full, which is the
+   whole reason the panel exists. */
+.detail-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.65;
+  color: rgba(245, 237, 224, 0.78);
+  margin: 12px 0 20px;
+}
+
+.detail-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(201, 169, 97, 0.22);
+}
+
+.detail-foot .wine-price-row { justify-content: flex-start; }
+.detail-foot .wine-price { font-size: 1.6rem; }
 
 .checkout-modal h2 {
   font-size: 1.7rem;
@@ -2396,7 +2748,159 @@ button {
   .nav-links.active { display: flex; }
   .nav-toggle { display: flex; }
   .section { padding: 70px 0; }
-  .wines-grid, .visit-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+  .visit-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+
+  /* One row per group, not a 2x2 block — a 2x2 grid still cost four rows
+     of vertical space between the two filter groups. Four pills at
+     readable size don't fit a phone's width, so the row scrolls sideways
+     instead of shrinking the text past comfort — the same pattern the
+     wine rail already uses below it, not a new one. */
+  .wine-filters, .quick-filters {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    gap: 10px;
+    /* Left edge held at the container's padding, right edge bled off-screen —
+       same reason as the card rail below: iOS owns the leftmost strip for its
+       swipe-back gesture, so no horizontal scroller should put its surface
+       under it. The right still runs off the edge so a half-visible pill
+       shows the row continues. */
+    padding: 2px 24px 6px 0;
+    margin-left: 0;
+    margin-right: -20px;
+    scrollbar-width: none;
+  }
+  .wine-filters::-webkit-scrollbar, .quick-filters::-webkit-scrollbar { display: none; }
+  .wine-filters { margin-bottom: 24px; }
+  .wf-btn { flex-shrink: 0; }
+
+  /* Stacking the catalogue vertically on a phone makes the page enormous;
+     halving the card width to fit two across cramps the bottle. Neither is
+     worth it, so on phones the catalogue scrolls sideways instead: the card
+     keeps its full width and the whole range costs one screen of height.
+     The row is pulled out to the screen edges so a card bleeds off the right,
+     which is what tells the eye there is more to swipe to. */
+  .wines-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 82%;
+    grid-template-columns: none;
+    gap: 14px;
+    overflow-x: auto;
+    /* Locked to one axis. Setting overflow-x alone makes the browser compute
+       overflow-y to auto as well, so the row was free to drift up and down —
+       invisible today only because every card happens to be the same height,
+       and live the moment one title wraps to a third line. */
+    overflow-y: hidden;
+    /* Keeps an over-swipe at either end inside the row instead of rubber-
+       banding the page behind it or arming the back gesture. */
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x mandatory;
+    /* No -webkit-overflow-scrolling: touch here. That legacy momentum scroller
+       overrides snapping on iOS, so the row coasted to wherever it ran out of
+       speed and the cards never came to rest in the same place twice. */
+    /* Asymmetric on purpose. iOS reserves the leftmost strip of the screen for
+       its swipe-back gesture, and a website cannot turn that off — so a rail
+       that reached x=-4 put its scroll surface directly under it, and a swipe
+       begun there navigated the page instead of moving the row. The left edge
+       now stops at the container's own padding, leaving that strip as inert
+       background, while the right keeps bleeding off-screen so the next card
+       still peeks and the row still reads as swipeable. */
+    padding: 4px 24px 14px 0;
+    margin: 0 -20px 0 0;
+    scroll-padding-left: 0;
+    scrollbar-width: none;
+  }
+
+  /* With nothing to swipe to, the 82% peek width only leaves a band of empty
+     page beside the card, so a lone result takes the full width — the same
+     way a bundle card does further down the page.
+     The bottle has to be pinned back, though: it is sized as a percentage of
+     the card, so a card 100/82 = 1.22x wider renders it 22% larger than the
+     same wine under any other filter. Dividing the rail's 256% by that same
+     ratio gives 210%, which puts the bottle at an identical absolute size in
+     both states — and keeps it identical at every viewport, since the two
+     card widths scale from the same content box. */
+  .wines-grid--single { grid-auto-columns: 100%; }
+  /* Doubled up on the grid's own class deliberately: the 256% rule further
+     down this block has identical specificity, so a single-class selector
+     here would lose to it on source order alone. */
+  .wines-grid.wines-grid--single .wine-img-wrap img { max-width: 210%; }
+  .wines-grid::-webkit-scrollbar { display: none; }
+  /* Snapping to centre put the first card in the middle of the screen with
+     nothing either side of it, so the row looked like a single card and the
+     rest of the range was invisible. Snapping to the start keeps a slice of
+     the next card in view, which is the only thing telling anyone to swipe. */
+  /* scroll-snap-stop keeps a fast flick from skating past four cards at once:
+     each swipe advances exactly one. That is what makes the row feel like
+     turning pages rather than shoving a loose tray around. */
+  .wines-grid > * {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  /* One line in the rail, the rest on the detail card. Three lines of body
+     copy sat over the middle of the bottle and were the single biggest thing
+     covering the photo; a first line plus the ellipsis says what kind of wine
+     it is and hands the rest of the height back to the image. */
+  .wines-grid .wine-desc {
+    -webkit-line-clamp: 1;
+    margin-bottom: 10px;
+  }
+
+  /* The base rule sizes the bottle at 160% of the card's OWN dimensions, so
+     a narrower card renders a proportionally smaller bottle even though the
+     percentage is identical — a 287px rail card and a 350px single-column
+     card produce the same crop at a different absolute size, measured at
+     456px and 557px of actual bottle width for the same 160%. 194% matched
+     production's absolute size on the rail's narrower card; +20% then +10%
+     requested on top of that after seeing it on a real phone. */
+  .wines-grid .wine-img-wrap img {
+    max-width: 256%;
+  }
+
+  .wines-grid .wine-price { font-size: 1.28rem; white-space: nowrap; }
+
+  /* The cards travel sideways here, so they arrive from the side: sliding up
+     out of a row that scrolls across reads as the wrong direction.
+
+     The entrance must not touch the card's own box, though — that box is what
+     the scroller snaps to, and under mandatory snapping the rail chases it
+     while it animates. Moving the card's contents instead gives the same
+     arrival without the snap engine ever seeing it.
+
+     Brisk, and eased out rather than cut short. In a vertical page the
+     entrance plays once on arrival; here it fires on every card swiped to, so
+     a slow one feels like the row is lagging behind a thumb — but a plain
+     short ease lands abruptly. This curve covers most of the distance early
+     and settles gently. Staggered delays are dropped for the same reason. */
+  .wines-grid .fade-up {
+    transform: none;
+    transition-duration: 0.54s;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: 0s;
+  }
+  .wines-grid .fade-up > .wine-img-wrap,
+  .wines-grid .fade-up > .wine-card-body,
+  .wines-grid .fade-up > .wine-more {
+    transform: translateX(30px);
+    transition: transform 0.54s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .wines-grid .fade-up.visible > .wine-img-wrap,
+  .wines-grid .fade-up.visible > .wine-card-body,
+  .wines-grid .fade-up.visible > .wine-more {
+    transform: none;
+  }
+
+  /* Bundles stack into one column here, so each card arrives on its own as
+     the page scrolls down rather than swiped to like the wine rail — 20%
+     quicker than the site-wide 0.7s default keeps a single-column scroll
+     from feeling like it's waiting on each card. */
+  .bundles-grid .fade-up {
+    transition: opacity 0.56s ease, transform 0.56s ease;
+  }
   .vineyard-features { grid-template-columns: 1fr; }
   .about-stats { grid-template-columns: repeat(3, 1fr); gap: 12px; }
   .stat-num { font-size: 1.6rem; }
@@ -2462,4 +2966,184 @@ button {
   .hero-particles { display: none; }
   .hero-video-native { display: none; }
   .hero-bg { opacity: 0.5 !important; }
+}
+
+/* ================================================ bundles: priority pass */
+
+/* Three reasons under the bundle heading. The first is a figure, not a
+   phrase — the saving is real and checkable against the wine prices one
+   section up, and a number persuades where a slogan only gestures. */
+.bundle-benefits {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 26px;
+}
+
+.bundle-benefits li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: var(--text-light);
+}
+
+.bundle-benefits svg { color: var(--gold); flex-shrink: 0; }
+
+/* What a bundle actually costs per bottle. The header claimed a better price
+   in words; this is the number, sitting next to the total where it can be
+   compared with the bottles above without scrolling back. */
+/* The bottle count and the price per bottle are one thought, so they sit
+   together in the corner rather than at opposite ends of the card. Stacked
+   rather than side by side: as a row they reached across the card towards
+   the expand button, and the second line reads as following from the first
+   the way the arithmetic follows from the count. */
+.bundle-badges {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+  max-width: calc(100% - 84px);
+}
+
+/* The featured card wears a "Najpopularnije" ribbon across its top edge,
+   centred, and it reaches far enough left to cross this corner. On that card
+   the badges start below it rather than beside it. */
+.bundle-card--featured .bundle-badges { top: 40px; }
+
+.bundle-badges .wine-type-badge {
+  position: static;
+  top: auto;
+  left: auto;
+}
+
+/* Deliberately the quieter of the pair: the count is the fact, this is the
+   arithmetic on it. Same shape and blur so they read as one group. */
+.bundle-per-bottle {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: rgba(232, 201, 135, 0.85);
+  background: rgba(8, 2, 4, 0.55);
+  border: 1px solid rgba(201, 169, 97, 0.28);
+  padding: 5px 12px;
+  backdrop-filter: blur(8px);
+  white-space: nowrap;
+}
+
+.bundle-ship {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 12px;
+  padding: 5px 12px 5px 9px;
+  border: 1px solid rgba(122, 155, 110, 0.45);
+  border-radius: 40px;
+  background: rgba(122, 155, 110, 0.12);
+  font-family: 'Lato', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: #9dbf8f;
+}
+
+.bundle-ship svg { flex-shrink: 0; }
+
+/* The last card in the wine rail is the bundles, not a wine. It borrows the
+   card's shape so it belongs in the row, and inverts the palette so nobody
+   mistakes it for a fourteenth bottle. */
+.wine-card--teaser {
+  text-decoration: none;
+  background: linear-gradient(165deg, #2d1015 0%, #1a0508 55%, #120406 100%);
+  border-color: rgba(201, 169, 97, 0.4);
+}
+
+.wine-card--teaser .wine-img-wrap { opacity: 0.32; }
+.wine-card--teaser .wine-img-wrap::after { height: 100%; }
+
+/* The rail clamps a wine's description to one line so the bottle keeps the
+   height. This card has no bottle to protect and its sentence is the offer,
+   so it gets the room to finish. */
+.wines-grid .wine-card--teaser .wine-desc { -webkit-line-clamp: 3; }
+
+.teaser-kicker {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.teaser-cta {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: #f5ede0;
+}
+
+.teaser-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 169, 97, 0.45);
+  color: var(--gold);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), background 0.35s;
+}
+
+@media (hover: hover) {
+  .wine-card--teaser:hover .teaser-arrow {
+    transform: translateX(4px);
+    background: rgba(201, 169, 97, 0.14);
+  }
+}
+
+/* The free-delivery line in the cart. Two states, deliberately different in
+   colour: short of the threshold it is a prompt in gold, over it a
+   confirmation in green — the same green the bundle card's mark uses, so
+   the two read as one promise kept. */
+.cart-ship {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 14px;
+  margin-bottom: 14px;
+  border-radius: 10px;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+}
+
+.cart-ship svg { flex-shrink: 0; }
+
+.cart-ship--short {
+  background: rgba(201, 169, 97, 0.12);
+  border: 1px solid rgba(201, 169, 97, 0.35);
+  color: var(--gold);
+}
+
+.cart-ship--free {
+  background: rgba(122, 155, 110, 0.14);
+  border: 1px solid rgba(122, 155, 110, 0.45);
+  color: #9dbf8f;
 }

@@ -1,33 +1,138 @@
 // ===== Wines Data =====
 const WINES = [
   {
-    id: 'zilavka-hercegovina',
-    name: { sr: 'Žilavka Čitluk', en: 'Žilavka Čitluk' },
-    volume: '1L',
-    subtitle: { sr: 'Belo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
-    type: { sr: 'Belo', en: 'White' },
-    desc: {
-      sr: 'Retka autohtona sorta uzgojena na karstu Hercegovine. Zlatno-žuta boja, bogata mineralna struktura, note zrele jabuke, breskve i mediteranskog bilja. Vino koje ostavlja trag.',
-      en: 'A rare indigenous variety grown on the Herzegovina karst. Golden-yellow, rich mineral structure, notes of ripe apple, peach and Mediterranean herbs. A wine that leaves a mark.'
-    },
-    price: 990,
-    img: 'images/zilavka-hercegovina.webp'
-  },
-  {
-    id: 'zilavka-mostar',
-    name: { sr: 'Žilavka Čitluk', en: 'Žilavka Čitluk' },
+    id: 'tvrdos-vranac',
+    quickTag: 'preporuka',
+    tag: { sr: 'Duboko i staloženo', en: 'Deep and composed' },
+    tagIcon: 'barrel',
+    name: { sr: 'Tvrdoš Vranac', en: 'Tvrdoš Vranac' },
     volume: '0.75L',
-    subtitle: { sr: 'Belo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
-    type: { sr: 'Belo', en: 'White' },
+    subtitle: { sr: 'Crveno vino • Manastir Tvrdoš, Trebinje', en: 'Red Wine • Manastir Tvrdoš, Trebinje' },
+    type: { sr: 'Crveno', en: 'Red' },
     desc: {
-      sr: 'Elegantna Žilavka iz čuvene Vinarije Čitluk uz reku Neretvu. Sveža kiselina, voćna kompleksnost i dug, svilenkast završetak. Najprepoznatljivije belo vino BiH.',
-      en: 'Elegant Žilavka from the renowned Vinarija Čitluk along the Neretva. Fresh acidity, fruity complexity and a long, silky finish. The most recognised white wine of BiH.'
+      sr: 'Vino iz manastirskih vinograda na stenovitim padinama iznad Trebinja. Monaška tradicija utkana u svaki gutljaj, kompleksno, dostojanstveno, duboko, za momente koji ostaju u sećanju.',
+      en: 'Wine from monastery vineyards on rocky slopes above Trebinje. Monastic tradition woven into every sip, complex, dignified, deep, for moments that stay in memory.'
     },
-    price: 1490,
-    img: 'images/zilavka-mostar.webp'
+    price: 1990,
+    img: 'images/tvrdos-vranac.webp'
   },
   {
-    id: 'blatina-citluk',
+    id: 'tvrdos-zilavka',
+    quickTag: 'preporuka',
+    tag: { sr: 'Sveže i mineralno', en: 'Fresh and mineral' },
+    tagIcon: 'droplet',
+    name: { sr: 'Tvrdoš Žilavka', en: 'Tvrdoš Žilavka' },
+    volume: '0.75L',
+    subtitle: { sr: 'Belo vino • Manastir Tvrdoš, Trebinje', en: 'White Wine • Manastir Tvrdoš, Trebinje' },
+    type: { sr: 'Belo', en: 'White' },
+    desc: {
+      sr: 'Žilavka iz manastirskih vinograda, sa notama zrele kruške i badema. Sveža kiselina i dug, mineralan završetak, vino koje otkriva novi sloj ukusa sa svakim gutljajem.',
+      en: 'Žilavka from the monastery vineyards, with notes of ripe pear and almond. Fresh acidity and a long mineral finish, a wine that reveals a new layer with every sip.'
+    },
+    price: 2390,
+    img: 'images/tvrdos-zilavka.webp'
+  },
+  {
+    id: 'tamjanika-galerija',
+    quickTag: 'drugacije',
+    tag: { sr: 'Aromatično', en: 'Aromatic' },
+    tagIcon: 'flower',
+    name: { sr: 'Tamjanika Galerija', en: 'Tamjanika Galerija' },
+    volume: '0.75L',
+    subtitle: { sr: 'Belo vino • Podrumi Vukoje, Trebinje', en: 'White Wine • Podrumi Vukoje, Trebinje' },
+    type: { sr: 'Belo', en: 'White' },
+    desc: {
+      sr: 'Izrazito mirisno belo vino sa aromama cvetne livade, grožđa i blagog meda. Pitko i osvežavajuće, savršeno za one koji vole da vino prvo osete nosom, pa tek onda ukusom.',
+      en: 'A strikingly fragrant white with aromas of flowering meadow, grapes and a hint of honey. Easy to drink and refreshing, perfect for anyone who likes to taste a wine with their nose first.'
+    },
+    price: 1890,
+    img: 'images/tamjanika-galerija.webp'
+  },
+  {
+    id: 'tvrdos-metoh-vranac',
+    quickTag: 'preporuka',
+    tag: { sr: 'Opušteno i pitko', en: 'Relaxed and easy' },
+    tagIcon: 'glass',
+    name: { sr: 'Tvrdoš Metoh Vranac', en: 'Tvrdoš Metoh Vranac' },
+    volume: '0.75L',
+    subtitle: { sr: 'Crveno vino • Manastir Tvrdoš, Trebinje', en: 'Red Wine • Manastir Tvrdoš, Trebinje' },
+    type: { sr: 'Crveno', en: 'Red' },
+    desc: {
+      sr: 'Mlađi, opušteniji Vranac iz istog manastirskog podruma. Ukus zrele šljive i višnje, meki tanini bez težine, vino za svaki dan kad poželite nešto ozbiljno, ali ne zahtevno.',
+      en: 'A younger, more relaxed Vranac from the same monastery cellar. Ripe plum and cherry, soft tannins without the weight, a wine for when you want something serious but not demanding.'
+    },
+    price: 1590,
+    img: 'images/tvrdos-metoh-vranac.webp'
+  },
+  {
+    id: 'primavera-roze',
+    quickTag: 'drugacije',
+    tag: { sr: 'Osvežavajuće leto', en: 'Refreshing summer' },
+    tagIcon: 'sun',
+    name: { sr: 'Primavera cuvee roze', en: 'Primavera cuvee roze' },
+    volume: '0.75L',
+    subtitle: { sr: 'Rosé vino • Podrumi Vukoje, Trebinje', en: 'Rosé Wine • Podrumi Vukoje, Trebinje' },
+    type: { sr: 'Rosé', en: 'Rosé' },
+    desc: {
+      sr: 'Svetlo rozé vino boje latica ruže, sa mirisom jagode i divlje kupine. Lagano, sveže i lako se pije, ide uz sve, od letnjeg druženja do prve večere na terasi.',
+      en: 'A pale rosé the colour of rose petals, with aromas of strawberry and wild blackberry. Light, fresh and effortless to drink, pairs with everything from a summer gathering to the first dinner on the terrace.'
+    },
+    price: 1890,
+    img: 'images/primavera-roze.webp'
+  },
+  {
+    id: 'tvrdos-izba-merlot',
+    quickTag: 'preporuka',
+    tag: { sr: 'Mekše crveno', en: 'Softer red' },
+    tagIcon: 'heart',
+    name: { sr: 'Tvrdoš Izba Merlot', en: 'Tvrdoš Izba Merlot' },
+    volume: '0.75L',
+    subtitle: { sr: 'Crveno vino • Manastir Tvrdoš, Trebinje', en: 'Red Wine • Manastir Tvrdoš, Trebinje' },
+    type: { sr: 'Crveno', en: 'Red' },
+    desc: {
+      sr: 'Merlot u svom najpitomijem izdanju, baršunast, okrugao, bez oštrih ivica. Ukus zrele šljive i tamne čokolade, savršen izbor za nekoga ko tek otkriva crvena vina.',
+      en: 'Merlot at its most approachable, velvety, round, no rough edges. Ripe plum and dark chocolate, a perfect choice for someone just discovering red wine.'
+    },
+    price: 1590,
+    img: 'images/tvrdos-izba-merlot.webp'
+  },
+  {
+    id: 'zlatna-selekcija-bijelo',
+    quickTag: 'premium',
+    tag: { sr: 'Bogato i slojevito', en: 'Rich and layered' },
+    tagIcon: 'layers',
+    name: { sr: 'Zlatna Selekcija Bijelo', en: 'Zlatna Selekcija Bijelo' },
+    volume: '0.75L',
+    subtitle: { sr: 'Belo vino • Podrumi Vukoje, Trebinje', en: 'White Wine • Podrumi Vukoje, Trebinje' },
+    type: { sr: 'Belo', en: 'White' },
+    desc: {
+      sr: 'Vrhunsko belo vino iz posebne selekcije, negovano sa više pažnje i vremena. Bogat, slojevit ukus zrelog voća i suptilne vanile, za trenutke kada želite da počastite sebe ili nekog drugog.',
+      en: 'A premium white from a special selection, given extra care and time. A rich, layered taste of ripe fruit and subtle vanilla, for moments when you want to treat yourself or someone else.'
+    },
+    price: 4490,
+    img: 'images/zlatna-selekcija-bijelo.webp'
+  },
+  {
+    id: 'vranac-reserve',
+    quickTag: 'premium',
+    tag: { sr: 'Baršunasto i začinjeno', en: 'Velvety and spiced' },
+    tagIcon: 'flame',
+    name: { sr: 'Vranac Reserve', en: 'Vranac Reserve' },
+    volume: '0.75L',
+    subtitle: { sr: 'Crveno vino • Podrumi Vukoje, Trebinje', en: 'Red Wine • Podrumi Vukoje, Trebinje' },
+    type: { sr: 'Crveno', en: 'Red' },
+    desc: {
+      sr: 'Vranac u svom najboljem izdanju, odležao duže od ostalih da uhvati punu dubinu ukusa. Tamni bobičasti plodovi, začini i baršunasta struktura, vino za slavlje i posebne trenutke.',
+      en: 'Vranac at its finest, aged longer than the rest to reach full depth. Dark berry fruit, spice and a velvety structure, a wine for celebration and special moments.'
+    },
+    price: 4490,
+    img: 'images/vranac-reserve.webp'
+  },
+  {
+    id: 'blatina-citluk-075',
+    quickTag: 'svakodnevno',
+    tag: { sr: 'Snažno i domaće', en: 'Bold and homegrown' },
+    tagIcon: 'house',
     name: { sr: 'Blatina Čitluk', en: 'Blatina Čitluk' },
     volume: '0.75L',
     subtitle: { sr: 'Crveno vino • Vinarija Čitluk', en: 'Red Wine • Vinarija Čitluk' },
@@ -36,34 +141,77 @@ const WINES = [
       sr: 'Jedinstven autohtoni crveni kultivar, uzgojen isključivo u Hercegovini. Tamno rubinska boja, arome višnje, šljive i začina. Srednji tanini, meki i savršeno balansirani.',
       en: 'A unique indigenous red cultivar, grown exclusively in Herzegovina. Dark ruby, aromas of cherry, plum and spice. Medium tannins, soft and perfectly balanced.'
     },
-    price: 1690,
+    price: 1390,
     img: 'images/blatina-citluk.webp'
   },
   {
-    id: 'tvrdos-2022',
-    name: { sr: 'Manastir Tvrdoš Vranac', en: 'Monastery Tvrdoš Vranac' },
+    id: 'zilavka-citluk-075',
+    quickTag: 'svakodnevno',
+    tag: { sr: 'Laka klasika', en: 'Easy classic' },
+    tagIcon: 'feather',
+    name: { sr: 'Žilavka Čitluk', en: 'Žilavka Čitluk' },
     volume: '0.75L',
-    subtitle: { sr: 'Crveno vino • Manastir Tvrdoš, Trebinje', en: 'Red Wine • Monastery Tvrdoš, Trebinje' },
-    type: { sr: 'Crveno', en: 'Red' },
+    subtitle: { sr: 'Belo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
+    type: { sr: 'Belo', en: 'White' },
     desc: {
-      sr: 'Vino iz manastirskih vinograda na stenovitim padinama iznad Trebinja. Monaška tradicija utkana u svaki gutljaj: kompleksno, dostojanstveno, duboko, za momente koji ostaju u sećanju.',
-      en: 'Wine from monastery vineyards on rocky slopes above Trebinje. Monastic tradition woven into every sip: complex, dignified, deep, for moments that stay in memory.'
+      sr: 'Elegantna Žilavka iz čuvene Vinarije Čitluk uz reku Neretvu. Sveža kiselina, voćna kompleksnost i dug, svilenkast završetak. Najprepoznatljivije belo vino BiH.',
+      en: 'Elegant Žilavka from the renowned Vinarija Čitluk along the Neretva. Fresh acidity, fruity complexity and a long, silky finish. The most recognised white wine of BiH.'
     },
-    price: 1990,
-    img: 'images/tvrdos-2022.webp'
+    price: 1190,
+    img: 'images/zilavka-mostar.webp'
   },
   {
-    id: 'andjelic-hercegovina',
-    name: { sr: 'Anđelić Tribun', en: 'Anđelić Tribun' },
-    volume: '0.75L',
-    subtitle: { sr: 'Crveno vino • Vinarija Anđelić', en: 'Red Wine • Vinarija Anđelić' },
+    id: 'blatina-citluk-1l',
+    quickTag: 'svakodnevno',
+    tag: { sr: 'Snažno i domaće', en: 'Bold and homegrown' },
+    tagIcon: 'house',
+    tag2: { sr: 'Za veće društvo', en: 'For a bigger crowd' },
+    name: { sr: 'Blatina Čitluk', en: 'Blatina Čitluk' },
+    volume: '1L',
+    subtitle: { sr: 'Crveno vino • Vinarija Čitluk', en: 'Red Wine • Vinarija Čitluk' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
-      sr: 'Vrhunsko crveno vino iz podruma vinarije Anđelić. Bogata tamna boja, arome zrelog voća, crnih ribizla i blage vanilije. Dugo odležano, baršunasti tanini i izuzetno dug završetak.',
-      en: 'Premium red wine from the Anđelić winery cellar. Rich dark colour, aromas of ripe fruit, blackcurrant and gentle vanilla. Long-aged, velvety tannins and an exceptionally long finish.'
+      sr: 'Ista omiljena Blatina iz Vinarije Čitluk, sada u većem, praktičnom pakovanju od 1 litre. Idealna kada je društvo veće ili kada jednostavno ne želite da vam ponestane.',
+      en: 'The same beloved Blatina from Vinarija Čitluk, now in a bigger, more practical 1-litre bottle. Ideal for a larger crowd, or simply so it does not run out mid-evening.'
     },
-    price: 2490,
-    img: 'images/andjelic-hercegovina.webp'
+    // Its own photograph now — the 1L bottle carries a visibly different
+    // label ("Hercegovačka Blatina", 1850, Mostarsko vinogorje) from the
+    // 0.75L shot the two sizes used to share.
+    price: 690,
+    img: 'images/blatina-citluk-1l.webp'
+  },
+  {
+    id: 'zilavka-citluk-1l',
+    quickTag: 'svakodnevno',
+    tag: { sr: 'Laka klasika', en: 'Easy classic' },
+    tagIcon: 'feather',
+    tag2: { sr: 'Za veće društvo', en: 'For a bigger crowd' },
+    name: { sr: 'Žilavka Čitluk', en: 'Žilavka Čitluk' },
+    volume: '1L',
+    subtitle: { sr: 'Belo vino • Vinarija Čitluk', en: 'White Wine • Vinarija Čitluk' },
+    type: { sr: 'Belo', en: 'White' },
+    desc: {
+      sr: 'Retka autohtona sorta uzgojena na karstu Hercegovine. Zlatno-žuta boja, bogata mineralna struktura, note zrele jabuke, breskve i mediteranskog bilja.',
+      en: 'A rare indigenous variety grown on the Herzegovina karst. Golden-yellow, rich mineral structure, notes of ripe apple, peach and Mediterranean herbs.'
+    },
+    price: 690,
+    img: 'images/zilavka-hercegovina.webp'
+  },
+  {
+    id: 'tribunija-bijelo',
+    quickTag: 'preporuka',
+    tag: { sr: 'Elegantno i lako', en: 'Elegant and easy' },
+    tagIcon: 'ribbon',
+    name: { sr: 'Tribunija bijelo', en: 'Tribunija bijelo' },
+    volume: '0.75L',
+    subtitle: { sr: 'Belo vino • Podrumi Vukoje, Trebinje', en: 'White Wine • Podrumi Vukoje, Trebinje' },
+    type: { sr: 'Belo', en: 'White' },
+    desc: {
+      sr: 'Belo vino iz podruma Vukoje u Trebinju, sa mirisom svežeg voća i blagom notom cvetova. Elegantno i lako pitko, ostavlja utisak bez da ikog optereti.',
+      en: 'A white wine from the Vukoje cellars in Trebinje, with aromas of fresh fruit and a gentle floral note. Elegant and easy to drink, memorable without being demanding.'
+    },
+    price: 1890,
+    img: 'images/tribunija-bijelo.webp'
   }
 ];
 
@@ -77,33 +225,33 @@ const BUNDLES = [
       sr: 'Jedno belo i jedno crveno, savršen uvod u autohtone sorte Hercegovine.',
       en: 'One white and one red, the perfect introduction to indigenous Herzegovina varieties.'
     },
-    wines: ['zilavka-hercegovina', 'blatina-citluk'],
-    price: 2490,
+    wines: ['zilavka-citluk-075', 'blatina-citluk-075'],
+    price: 2390,
     img: 'images/IMG_9965.webp'
   },
   {
     id: 'bundle-herceg-box',
     name: { sr: 'Hercz Box', en: 'Hercz Box' },
-    subtitle: { sr: 'Blatina + Žilavka + Anđelić Tribun', en: 'Blatina + Žilavka + Anđelić Tribun' },
+    subtitle: { sr: 'Blatina + Žilavka + Tvrdoš Vranac', en: 'Blatina + Žilavka + Tvrdoš Vranac' },
     desc: {
       sr: 'Tri vina, tri karaktera: belo, crveno i premium cuvée u jednoj kutiji.',
       en: 'Three wines, three characters: white, red and a premium cuvée in one box.'
     },
-    wines: ['blatina-citluk', 'zilavka-hercegovina', 'andjelic-hercegovina'],
-    price: 4790,
+    wines: ['blatina-citluk-075', 'zilavka-citluk-075', 'tvrdos-vranac'],
+    price: 4190,
     featured: true,
     img: 'images/IMG_9968.webp'
   },
   {
     id: 'bundle-full-herceg',
     name: { sr: 'Full Hercz', en: 'Full Hercz' },
-    subtitle: { sr: 'Svih 5 vina iz naše ponude', en: 'All 5 wines from our collection' },
+    subtitle: { sr: 'Izbor od 5 vina iz naše ponude', en: 'A selection of 5 wines from our range' },
     desc: {
-      sr: 'Kompletna kolekcija: Žilavka, Blatina, Tvrdoš Vranac i Anđelić Tribun. Savršen poklon za poznavaoce.',
-      en: 'The complete collection: Žilavka, Blatina, Tvrdoš Vranac and Anđelić Tribun. The perfect gift for connoisseurs.'
+      sr: 'Žilavka u dve zapremine, Blatina, Tvrdoš Vranac i Tvrdoš Žilavka. Savršen poklon za poznavaoce.',
+      en: 'Žilavka in two sizes, Blatina, Tvrdoš Vranac and Tvrdoš Žilavka. The perfect gift for connoisseurs.'
     },
-    wines: ['zilavka-hercegovina', 'zilavka-mostar', 'blatina-citluk', 'tvrdos-2022', 'andjelic-hercegovina'],
-    price: 7790,
+    wines: ['zilavka-citluk-075', 'zilavka-citluk-1l', 'blatina-citluk-075', 'tvrdos-vranac', 'tvrdos-zilavka'],
+    price: 6890,
     img: 'images/IMG_9969.webp'
   }
 ];
@@ -133,6 +281,78 @@ const BUNDLES = [
 const RECIPIENT_EMAIL = 'herczwines@gmail.com';
 const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/herczwines@gmail.com';
 let currentLang = 'sr';
+
+// Four corners pushing outward: the panel it opens is the card at full size.
+const MORE_ICON =
+  '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+  + 'stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'
+  + '<polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/>'
+  + '<line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>'
+  + '</svg>';
+
+// The four "Brzi izbor" glyphs (sun/star/leaf/crown) only say which bucket a
+// wine sits in, not what it actually tastes like. The card's own tag speaks
+// for the wine itself, so each gets an icon drawn from its own tag's theme —
+// two wines only ever share an icon when they also share the exact same tag
+// text (the 0.75L/1L sibling pairs).
+const TAG_THEME_ICONS = {
+  barrel: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h12l1.2 8L18 20H6l-1.2-8L6 4z"/><path d="M5.3 9h13.4M5.6 15h12.8"/></svg>',
+  droplet: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c4 5 7 9.5 7 13a7 7 0 01-14 0c0-3.5 3-8 7-13z"/></svg>',
+  flower: '<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="2.6"/><circle cx="12" cy="5.5" r="2.6"/><circle cx="12" cy="18.5" r="2.6"/><circle cx="5.5" cy="12" r="2.6"/><circle cx="18.5" cy="12" r="2.6"/></svg>',
+  glass: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10l-1 7.5a4 4 0 01-8 0L7 3z"/><path d="M12 14.5V21M8 21h8"/></svg>',
+  sun: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
+  heart: '<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.4-4.6-10-9.2C.4 8 2.3 4 6.2 4c2.2 0 3.8 1.2 5.8 3.6C14 5.2 15.6 4 17.8 4c3.9 0 5.8 4 4.2 7.8-2.6 4.6-10 9.2-10 9.2z"/></svg>',
+  layers: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg>',
+  flame: '<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c4 0 7-2.8 7-6.7 0-3.4-2.3-5.7-3.5-8.3-.8 2-1.5 3-1.5 4.7 0-2.6-1.2-4.4-2-5.7-2.6 2.6-4 5.3-4 7.6C8 19.2 9.6 22 12 22z"/></svg>',
+  house: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7"/><path d="M6 10v10h12V10"/></svg>',
+  feather: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4c-6.5 0-15 4-16 13.5C6 15.5 9 13 12 12.5"/><line x1="20" y1="4" x2="7" y2="17"/></svg>',
+  ribbon: '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12L4 5.5v13L12 12z"/><path d="M12 12l8-6.5v13L12 12z"/></svg>'
+};
+
+function tagChip(wine, lang) {
+  if (!wine.tag || !wine.quickTag) return '';
+  const icon = TAG_THEME_ICONS[wine.tagIcon] || '';
+  return '<span class="wine-tag" data-quick="' + wine.quickTag + '">'
+    + '<span class="wf-icon">' + icon + '</span>' + wine.tag[lang] + '</span>';
+}
+
+// Only the 1L Blatina and Žilavka carry this — same wine, same taste tag as
+// their 0.75L sibling, so nothing on the card said the bigger bottle is
+// meant for a bigger table. A small second badge, not a second full tag.
+const GROUP_ICON =
+  '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+  + '<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6"/>'
+  + '<circle cx="17" cy="9" r="2.4"/><path d="M14.5 14.3c2.7.4 4.5 2.6 4.5 5.7"/>'
+  + '</svg>';
+
+function tag2Chip(wine, lang) {
+  if (!wine.tag2) return '';
+  return '<span class="wine-tag wine-tag--mini">'
+    + '<span class="wf-icon wf-icon--mini">' + GROUP_ICON + '</span>' + wine.tag2[lang] + '</span>';
+}
+
+// The same basket drawn in the header, so the two read as one action.
+const CART_ICON =
+  '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+  + 'stroke-width="1.8" aria-hidden="true" focusable="false">'
+  + '<path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>'
+  + '<line x1="3" y1="6" x2="21" y2="6"/>'
+  + '<path d="M16 10a4 4 0 01-8 0"/>'
+  + '</svg>';
+
+// Bundles at or above this carry the free-delivery mark.
+const FREE_SHIPPING_FROM = 4000;
+
+// The same delivery truck the "Zašto mi" section uses, so the mark on a
+// bundle and the promise further down the page read as one claim.
+const SHIP_ICON =
+  '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+  + 'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+  + '<path d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 '
+  + '01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 '
+  + '1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 '
+  + '18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 '
+  + '1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>';
 
 // A cart still sitting there the next day reads as a glitch, not a courtesy.
 // Six hours covers "let me think it over and come back tonight"; older than
@@ -176,33 +396,129 @@ let cart = loadCart();
 
 // ===== Render Wines =====
 let activeWineFilter = 'all';
+// Independent of the type filter — a shopper can combine "Nešto drugačije"
+// with "Belo" and land on exactly the one wine that is both, same as the
+// two rows read as separate questions in the design.
+// Matches the pill already marked wf-btn--active in the markup — the two
+// have to agree, or the button shows selected while the grid renders
+// everything, or the wines section opens twice as tall as it needs to.
+let activeQuickFilter = 'preporuka';
+
+// Thirteen wines spread over four quick tags x three types leaves about one
+// wine per cell, so empty combinations are arithmetic rather than accident:
+// four of the twelve are empty, three of them because there is exactly one
+// rose in the catalogue.
+//
+// The two rows are not peers. The quick row is the primary choice — picking
+// one is a fresh look at the catalogue — and the type row refines whatever it
+// selected. That ranking does the work:
+//
+//   - Choosing a quick tag clears the type filter (see the click handler), so
+//     a quick pill always lands on that tag's whole group. Every group has
+//     wines, so the quick row can never reach an empty grid and never needs
+//     disabling. It stays fully tappable, which is what a primary control
+//     should be.
+//   - Only the type row can produce an empty combination, so only it disables
+//     its zeroes.
+//
+// Either way the number on a pill is exactly what tapping it would show, which
+// is what makes a 0 both the count and the reason the pill is unavailable.
+function updateFilterCounts() {
+  const quickRow = document.getElementById('quickFilters');
+  const typeRow = document.getElementById('wineFilters');
+  if (!quickRow || !typeRow) return;
+
+  typeRow.querySelectorAll('.wf-btn').forEach(btn => {
+    const t = btn.dataset.filter;
+    const n = WINES.filter(w =>
+      (t === 'all' || w.type.sr === t) &&
+      (activeQuickFilter === 'all' || w.quickTag === activeQuickFilter)
+    ).length;
+    const el = btn.querySelector('.wf-count');
+    if (el) el.textContent = n;
+    // The active pill is never disabled even at zero — that would trap the
+    // selection with nothing left to tap out of.
+    btn.disabled = n === 0 && !btn.classList.contains('wf-btn--active');
+  });
+
+  quickRow.querySelectorAll('.wf-btn').forEach(btn => {
+    // Its full total, not a count narrowed by the type row: tapping it drops
+    // the type filter, so the total is genuinely where you land.
+    const n = WINES.filter(w => w.quickTag === btn.dataset.quick).length;
+    const el = btn.querySelector('.wf-count');
+    if (el) el.textContent = n;
+    btn.disabled = false;
+  });
+}
 
 function renderWines() {
   const grid = document.getElementById('winesGrid');
-  const list = activeWineFilter === 'all'
-    ? WINES
-    : WINES.filter(w => w.type.sr === activeWineFilter);
+  const list = WINES.filter(w =>
+    (activeWineFilter === 'all' || w.type.sr === activeWineFilter) &&
+    (activeQuickFilter === 'all' || w.quickTag === activeQuickFilter)
+  );
+  updateFilterCounts();
+  // The rail always ends with the bundle card below, so it can never hold a
+  // single card any more — the lone-card width rule it used to need is gone
+  // with it.
+  const addLabel = currentLang === 'sr' ? 'Dodaj u listu' : 'Add to list';
+  const moreLabel = currentLang === 'sr' ? 'Prikaži detalje' : 'Show details';
   grid.innerHTML = list.map(wine => `
     <div class="wine-card fade-up">
       <div class="wine-img-wrap">
         <span class="wine-type-badge">${wine.type[currentLang]}</span>
         <img src="${wine.img}" alt="${wine.name[currentLang]}" loading="lazy">
       </div>
+      <button type="button" class="wine-more" data-detail-id="${wine.id}" aria-label="${wine.name[currentLang]}: ${moreLabel}" title="${moreLabel}">${MORE_ICON}</button>
       <div class="wine-card-body">
         <h3>${wine.name[currentLang]}</h3>
         <div class="wine-srb">${wine.subtitle[currentLang]}</div>
         <p class="wine-desc">${wine.desc[currentLang]}</p>
+        <div class="wine-tag-group">${tagChip(wine, currentLang)}${tag2Chip(wine, currentLang)}</div>
         <div class="wine-footer">
           <div class="wine-price-row"><span class="wine-price">${wine.price} RSD</span><span class="wine-volume">${wine.volume}</span></div>
-          <button type="button" class="wine-add" data-id="${wine.id}">${currentLang === 'sr' ? 'Dodaj u listu' : 'Add to list'}</button>
+          <button type="button" class="wine-add" data-id="${wine.id}" aria-label="${addLabel}" title="${addLabel}">${CART_ICON}</button>
         </div>
       </div>
     </div>
-  `).join('');
+  `).join('') + bundleTeaserCard(currentLang);
   document.querySelectorAll('.wine-add').forEach(btn => {
     btn.addEventListener('click', () => addToCart(btn.dataset.id));
   });
   observeFadeElements();
+}
+
+// The last card in the rail is not a wine. Someone who has swiped to the end
+// of the range without adding anything is, by definition, undecided — and the
+// bundles are two sections further down where they will never look. This puts
+// the offer at the moment the hesitation actually happens, inside the thing
+// they are already using, rather than behind another button on the screen.
+function bundleTeaserCard(lang) {
+  const isSr = lang === 'sr';
+  // Whichever bundle is marked featured, falling back to the first: the data
+  // decides which one is shown here, not this function.
+  const b = BUNDLES.find(x => x.featured) || BUNDLES[0];
+  if (!b) return '';
+  return `
+    <a class="wine-card wine-card--teaser fade-up" href="#bundles">
+      <div class="wine-img-wrap">
+        <img src="${b.img}" alt="" loading="lazy">
+      </div>
+      <div class="wine-card-body">
+        <div class="teaser-kicker">${isSr ? 'Ne možete da izaberete?' : 'Cannot decide?'}</div>
+        <h3>${isSr ? 'Uzmite paket' : 'Take a bundle'}</h3>
+        <p class="wine-desc">${isSr
+          ? BUNDLES.length + ' paketa spremnih izbora, po nižoj ceni nego kad se vina kupuju pojedinačno.'
+          : BUNDLES.length + ' ready-made selections, priced below the same wines bought separately.'}</p>
+        <div class="wine-footer">
+          <span class="teaser-cta">${isSr ? 'Pogledaj pakete' : 'See the bundles'}</span>
+          <span class="teaser-arrow" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+      </div>
+    </a>
+  `;
 }
 
 // ===== Render Bundles =====
@@ -211,14 +527,12 @@ function renderBundles() {
   if (!grid) return;
   const isSr = currentLang === 'sr';
   grid.innerHTML = BUNDLES.map(function(bundle) {
-    // With no real saving left, the tag and the struck-through price would be
-    // claiming a discount that is not there — drop both instead.
+    // No saving badge on the card any more. The struck-through price says the
+    // same thing in the place where the decision is made, and a discount
+    // sticker across a bottle photograph reads as a supermarket shelf.
+    // Still gated on a real saving: with none, a struck-through price would
+    // be claiming a discount that is not there.
     const hasSaving = bundle.saving > 0;
-    const savingTag = hasSaving
-      ? '<div class="bundle-saving-tag">'
-        + (isSr ? 'Uštedite ' + bundle.saving + ' RSD' : 'Save ' + bundle.saving + ' RSD')
-        + '</div>'
-      : '';
     const originalPrice = hasSaving
       ? '<span class="bundle-original">' + bundle.originalPrice + ' RSD</span>'
       : '';
@@ -228,24 +542,48 @@ function renderBundles() {
       : '';
     const countLabel = bundle.count + (isSr ? (bundle.count >= 5 ? ' flaša' : ' flaše') : ' btl.');
     const btnLabel = isSr ? 'Dodaj paket u listu' : 'Add bundle to list';
+    const moreLabel = isSr ? 'Prikaži detalje' : 'Show details';
+
+    // The per-bottle figure is the whole argument for a bundle. It sits
+    // beside the bottle count rather than under the total, because the two
+    // are one thought — this many bottles, at this much each — and split
+    // across the card they had to be assembled by the reader.
+    const perBottle = Math.round(bundle.price / bundle.count);
+    const perBottleBadge = '<span class="bundle-per-bottle">'
+      + perBottle + ' RSD ' + (isSr ? 'po flaši' : 'per bottle') + '</span>';
+
+    // Free delivery is called out from this threshold up.
+    const freeShip = bundle.price >= FREE_SHIPPING_FROM
+      ? '<div class="bundle-ship">'
+        + SHIP_ICON
+        + '<span>' + (isSr ? 'Besplatna dostava' : 'Free delivery') + '</span>'
+        + '</div>'
+      : '';
     return [
       '<div class="wine-card ' + bundle.id + featured + ' fade-up">',
         '<div class="wine-img-wrap">',
-          '<span class="wine-type-badge">' + countLabel + '</span>',
+          '<div class="bundle-badges">',
+            '<span class="wine-type-badge">' + countLabel + '</span>',
+            perBottleBadge,
+          '</div>',
           '<img src="' + bundle.img + '" alt="' + bundle.name[currentLang] + '" loading="lazy">',
         '</div>',
+        '<button type="button" class="wine-more" data-detail-id="' + bundle.id + '"'
+          + ' aria-label="' + bundle.name[currentLang] + ': ' + moreLabel + '"'
+          + ' title="' + moreLabel + '">' + MORE_ICON + '</button>',
         topBadge,
-        savingTag,
         '<div class="wine-card-body">',
           '<h3>' + bundle.name[currentLang] + '</h3>',
           '<div class="wine-srb">' + bundle.subtitle[currentLang] + '</div>',
           '<p class="wine-desc">' + bundle.desc[currentLang] + '</p>',
+          freeShip,
           '<div class="wine-footer">',
             '<div class="bundle-pricing">',
               originalPrice,
               '<span class="wine-price">' + bundle.price + ' RSD</span>',
             '</div>',
-            '<button type="button" class="bundle-add" data-bundle-id="' + bundle.id + '">' + btnLabel + '</button>',
+            '<button type="button" class="wine-add bundle-add" data-bundle-id="' + bundle.id + '"'
+              + ' aria-label="' + btnLabel + '" title="' + btnLabel + '">' + CART_ICON + '</button>',
           '</div>',
         '</div>',
       '</div>'
@@ -398,7 +736,30 @@ function renderCart() {
     `;
   }).join('');
   document.getElementById('cartTotal').textContent = getCartTotal() + ' RSD';
+  renderShippingLine(getCartTotal());
   footerEl.style.display = 'block';
+}
+
+// The threshold is stated on the "Zašto mi" card, but stating it is not the
+// same as using it. Here it can still change what someone does: a shopper
+// 600 RSD short is told exactly that, at the only moment the number is
+// actionable, and a shopper already over it gets the confirmation rather
+// than a rule they have to apply to themselves.
+function renderShippingLine(total) {
+  const el = document.getElementById('cartShip');
+  if (!el) return;
+  const isSr = currentLang === 'sr';
+  const short = FREE_SHIPPING_FROM - total;
+  if (short > 0) {
+    el.className = 'cart-ship cart-ship--short';
+    el.innerHTML = SHIP_ICON + '<span>' + (isSr
+      ? 'Još ' + short + ' RSD do besplatne dostave'
+      : short + ' RSD more for free delivery') + '</span>';
+  } else {
+    el.className = 'cart-ship cart-ship--free';
+    el.innerHTML = SHIP_ICON + '<span>' + (isSr
+      ? 'Besplatna dostava' : 'Free delivery') + '</span>';
+  }
 }
 
 // ===== Checkout =====
@@ -490,6 +851,82 @@ function setPanelOpen(id, open) {
   el.classList.toggle('active', open);
   if (open) el.removeAttribute('inert');
   else el.setAttribute('inert', '');
+}
+
+// ===== Wine Detail =====
+// The card clamps its description and hides the volume behind a small pill.
+// This shows the whole thing without leaving the catalogue, so a shopper never
+// loses their scroll position to a product page.
+let _detailItemId = null;
+
+function openDetail(id) {
+  const wine = WINES.find(w => w.id === id);
+  const bundle = wine ? null : BUNDLES.find(b => b.id === id);
+  const item = wine || bundle;
+  if (!item) return;
+  _detailItemId = id;
+
+  const isSr = currentLang === 'sr';
+  const badge = wine
+    ? wine.type[currentLang]
+    : item.count + (isSr ? (item.count >= 5 ? ' flaša' : ' flaše') : ' btl.');
+
+  document.getElementById('detailBadge').textContent = badge;
+  const img = document.getElementById('detailImg');
+  img.src = item.img;
+  img.alt = item.name[currentLang];
+  document.getElementById('detailName').textContent = item.name[currentLang];
+  document.getElementById('detailSub').textContent = item.subtitle[currentLang];
+  document.getElementById('detailDesc').textContent = item.desc[currentLang];
+  document.getElementById('detailPrice').textContent = item.price + ' RSD';
+  // Only wines carry a quickTag; bundles show no chip here.
+  document.getElementById('detailTag').innerHTML = wine ? tagChip(wine, currentLang) + tag2Chip(wine, currentLang) : '';
+
+  const vol = document.getElementById('detailVol');
+  vol.textContent = wine ? wine.volume : '';
+  vol.style.display = wine ? '' : 'none';
+
+  // The button shows only the cart, so the words live in its accessible name —
+  // setting textContent here would replace the icon with them.
+  document.getElementById('detailAdd').setAttribute('aria-label', wine
+    ? (isSr ? 'Dodaj u listu' : 'Add to list')
+    : (isSr ? 'Dodaj paket u listu' : 'Add bundle to list'));
+
+  setPanelOpen('wineDetail', true);
+  document.getElementById('detailClose').focus();
+}
+
+function closeDetail() {
+  setPanelOpen('wineDetail', false);
+  // Send focus back to the card that opened it, so keyboard users are not
+  // dumped at the top of the document.
+  if (_detailItemId) {
+    const card = document.querySelector('[data-detail-id="' + _detailItemId + '"]');
+    if (card) card.focus();
+  }
+  _detailItemId = null;
+}
+
+function initDetail() {
+  document.getElementById('detailClose').addEventListener('click', closeDetail);
+  document.getElementById('wineDetail').addEventListener('click', e => {
+    if (e.target.id === 'wineDetail') closeDetail();
+  });
+  document.getElementById('detailAdd').addEventListener('click', () => {
+    const id = _detailItemId;
+    if (!id) return;
+    if (WINES.some(w => w.id === id)) addToCart(id);
+    else addBundleToCart(id);
+    closeDetail();
+  });
+
+  // Delegated, because both grids re-render whenever the filter or language
+  // changes and per-button listeners would be lost with them. A real button
+  // needs no key handling of its own — Enter and Space already fire a click.
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('[data-detail-id]');
+    if (btn) openDetail(btn.dataset.detailId);
+  });
 }
 
 function setCartOpen(open) {
@@ -779,7 +1216,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.addEventListener('keydown', e => {
     if (e.key !== 'Escape') return;
-    if (document.getElementById('checkoutOverlay').classList.contains('active')) {
+    if (document.getElementById('wineDetail').classList.contains('active')) {
+      closeDetail();
+    } else if (document.getElementById('checkoutOverlay').classList.contains('active')) {
       closeCheckout();
     } else if (document.getElementById('cartSidebar').classList.contains('active')) {
       setCartOpen(false);
@@ -831,19 +1270,60 @@ document.addEventListener('DOMContentLoaded', () => {
   renderWines();
   renderBundles();
   renderCart();
+  initDetail();
   switchLanguage(currentLang);
   observeFadeElements();
   createHeroParticles();
   animateCounters();
   initParallax();
 
+  // The rail keeps whatever horizontal position a previous filter left it
+  // at, which can show nothing at all once a new filter narrows the list —
+  // scrolled to card 9 of 13, then filtered down to 3. Every filter change
+  // resets the rail to its first card.
+  function resetRailScroll() {
+    const grid = document.getElementById('winesGrid');
+    if (grid) grid.scrollLeft = 0;
+  }
+
   document.getElementById('wineFilters').addEventListener('click', function(e) {
     const btn = e.target.closest('.wf-btn');
     if (!btn) return;
-    document.querySelectorAll('.wf-btn').forEach(b => b.classList.remove('wf-btn--active'));
+    // Scoped to this row only — the quick-pick row keeps its own selection
+    // when this one changes, since the two filters combine rather than
+    // replace each other.
+    this.querySelectorAll('.wf-btn').forEach(b => b.classList.remove('wf-btn--active'));
     btn.classList.add('wf-btn--active');
     activeWineFilter = btn.dataset.filter;
     renderWines();
+    resetRailScroll();
+  });
+
+  document.getElementById('quickFilters').addEventListener('click', function(e) {
+    const btn = e.target.closest('.wf-btn');
+    if (!btn) return;
+    const wasActive = btn.classList.contains('wf-btn--active');
+    this.querySelectorAll('.wf-btn').forEach(b => b.classList.remove('wf-btn--active'));
+    if (wasActive) {
+      // Row has no "all" pill of its own — clicking the active one a second
+      // time is how it clears back to showing every quick tag.
+      activeQuickFilter = 'all';
+    } else {
+      btn.classList.add('wf-btn--active');
+      activeQuickFilter = btn.dataset.quick;
+    }
+    // This row outranks the type row: choosing a quick tag is a fresh look at
+    // the catalogue, not a refinement of the last one. Carrying the old type
+    // over is what used to strand people on an empty grid ("Rosé" held from a
+    // group that had one, into a group that has none). Clearing it also means
+    // this row can never land on nothing, so it never has to disable a pill.
+    activeWineFilter = 'all';
+    const typeRow = document.getElementById('wineFilters');
+    typeRow.querySelectorAll('.wf-btn').forEach(b => b.classList.remove('wf-btn--active'));
+    const allBtn = typeRow.querySelector('[data-filter="all"]');
+    if (allBtn) allBtn.classList.add('wf-btn--active');
+    renderWines();
+    resetRailScroll();
   });
 });
 

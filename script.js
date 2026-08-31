@@ -174,8 +174,11 @@ const WINES = [
       sr: 'Ista omiljena Blatina iz Vinarije Čitluk, sada u većem, praktičnom pakovanju od 1 litre. Idealna kada je društvo veće ili kada jednostavno ne želite da vam ponestane.',
       en: 'The same beloved Blatina from Vinarija Čitluk, now in a bigger, more practical 1-litre bottle. Ideal for a larger crowd, or simply so it does not run out mid-evening.'
     },
+    // Its own photograph now — the 1L bottle carries a visibly different
+    // label ("Hercegovačka Blatina", 1850, Mostarsko vinogorje) from the
+    // 0.75L shot the two sizes used to share.
     price: 690,
-    img: 'images/blatina-citluk.webp'
+    img: 'images/blatina-citluk-1l.webp'
   },
   {
     id: 'zilavka-citluk-1l',

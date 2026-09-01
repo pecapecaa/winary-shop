@@ -13,7 +13,8 @@ const WINES = [
       sr: 'Vino iz manastirskih vinograda na stenovitim padinama iznad Trebinja. Monaška tradicija utkana u svaki gutljaj, kompleksno, dostojanstveno, duboko, za momente koji ostaju u sećanju.',
       en: 'Wine from monastery vineyards on rocky slopes above Trebinje. Monastic tradition woven into every sip, complex, dignified, deep, for moments that stay in memory.'
     },
-    price: 1990,
+    price: 1790,
+    rank: 8,
     img: 'images/tvrdos-vranac.webp'
   },
   {
@@ -29,7 +30,8 @@ const WINES = [
       sr: 'Žilavka iz manastirskih vinograda, sa notama zrele kruške i badema. Sveža kiselina i dug, mineralan završetak, vino koje otkriva novi sloj ukusa sa svakim gutljajem.',
       en: 'Žilavka from the monastery vineyards, with notes of ripe pear and almond. Fresh acidity and a long mineral finish, a wine that reveals a new layer with every sip.'
     },
-    price: 2390,
+    price: 2090,
+    rank: 5,
     img: 'images/tvrdos-zilavka.webp'
   },
   {
@@ -45,7 +47,8 @@ const WINES = [
       sr: 'Izrazito mirisno belo vino sa aromama cvetne livade, grožđa i blagog meda. Pitko i osvežavajuće, savršeno za one koji vole da vino prvo osete nosom, pa tek onda ukusom.',
       en: 'A strikingly fragrant white with aromas of flowering meadow, grapes and a hint of honey. Easy to drink and refreshing, perfect for anyone who likes to taste a wine with their nose first.'
     },
-    price: 1890,
+    price: 1790,
+    rank: 4,
     img: 'images/tamjanika-galerija.webp'
   },
   {
@@ -62,6 +65,7 @@ const WINES = [
       en: 'A younger, more relaxed Vranac from the same monastery cellar. Ripe plum and cherry, soft tannins without the weight, a wine for when you want something serious but not demanding.'
     },
     price: 1590,
+    rank: 3,
     img: 'images/tvrdos-metoh-vranac.webp'
   },
   {
@@ -78,6 +82,7 @@ const WINES = [
       en: 'A pale rosé the colour of rose petals, with aromas of strawberry and wild blackberry. Light, fresh and effortless to drink, pairs with everything from a summer gathering to the first dinner on the terrace.'
     },
     price: 1890,
+    rank: 13,
     img: 'images/primavera-roze.webp'
   },
   {
@@ -93,7 +98,8 @@ const WINES = [
       sr: 'Merlot u svom najpitomijem izdanju, baršunast, okrugao, bez oštrih ivica. Ukus zrele šljive i tamne čokolade, savršen izbor za nekoga ko tek otkriva crvena vina.',
       en: 'Merlot at its most approachable, velvety, round, no rough edges. Ripe plum and dark chocolate, a perfect choice for someone just discovering red wine.'
     },
-    price: 1590,
+    price: 1490,
+    rank: 7,
     img: 'images/tvrdos-izba-merlot.webp'
   },
   {
@@ -109,7 +115,8 @@ const WINES = [
       sr: 'Vrhunsko belo vino iz posebne selekcije, negovano sa više pažnje i vremena. Bogat, slojevit ukus zrelog voća i suptilne vanile, za trenutke kada želite da počastite sebe ili nekog drugog.',
       en: 'A premium white from a special selection, given extra care and time. A rich, layered taste of ripe fruit and subtle vanilla, for moments when you want to treat yourself or someone else.'
     },
-    price: 4490,
+    price: 3990,
+    rank: 1,
     img: 'images/zlatna-selekcija-bijelo.webp'
   },
   {
@@ -125,7 +132,8 @@ const WINES = [
       sr: 'Vranac u svom najboljem izdanju, odležao duže od ostalih da uhvati punu dubinu ukusa. Tamni bobičasti plodovi, začini i baršunasta struktura, vino za slavlje i posebne trenutke.',
       en: 'Vranac at its finest, aged longer than the rest to reach full depth. Dark berry fruit, spice and a velvety structure, a wine for celebration and special moments.'
     },
-    price: 4490,
+    price: 3990,
+    rank: 2,
     img: 'images/vranac-reserve.webp'
   },
   {
@@ -141,7 +149,8 @@ const WINES = [
       sr: 'Jedinstven autohtoni crveni kultivar, uzgojen isključivo u Hercegovini. Tamno rubinska boja, arome višnje, šljive i začina. Srednji tanini, meki i savršeno balansirani.',
       en: 'A unique indigenous red cultivar, grown exclusively in Herzegovina. Dark ruby, aromas of cherry, plum and spice. Medium tannins, soft and perfectly balanced.'
     },
-    price: 1390,
+    price: 1190,
+    rank: 10,
     img: 'images/blatina-citluk.webp'
   },
   {
@@ -157,7 +166,8 @@ const WINES = [
       sr: 'Elegantna Žilavka iz čuvene Vinarije Čitluk uz reku Neretvu. Sveža kiselina, voćna kompleksnost i dug, svilenkast završetak. Najprepoznatljivije belo vino BiH.',
       en: 'Elegant Žilavka from the renowned Vinarija Čitluk along the Neretva. Fresh acidity, fruity complexity and a long, silky finish. The most recognised white wine of BiH.'
     },
-    price: 1190,
+    price: 1090,
+    rank: 9,
     img: 'images/zilavka-mostar.webp'
   },
   {
@@ -178,6 +188,7 @@ const WINES = [
     // label ("Hercegovačka Blatina", 1850, Mostarsko vinogorje) from the
     // 0.75L shot the two sizes used to share.
     price: 690,
+    rank: 11,
     img: 'images/blatina-citluk-1l.webp'
   },
   {
@@ -195,6 +206,7 @@ const WINES = [
       en: 'A rare indigenous variety grown on the Herzegovina karst. Golden-yellow, rich mineral structure, notes of ripe apple, peach and Mediterranean herbs.'
     },
     price: 690,
+    rank: 12,
     img: 'images/zilavka-hercegovina.webp'
   },
   {
@@ -210,49 +222,65 @@ const WINES = [
       sr: 'Belo vino iz podruma Vukoje u Trebinju, sa mirisom svežeg voća i blagom notom cvetova. Elegantno i lako pitko, ostavlja utisak bez da ikog optereti.',
       en: 'A white wine from the Vukoje cellars in Trebinje, with aromas of fresh fruit and a gentle floral note. Elegant and easy to drink, memorable without being demanding.'
     },
-    price: 1890,
+    price: 2090,
+    rank: 6,
     img: 'images/tribunija-bijelo.webp'
   }
 ];
 
+// The rail leads with the wines that earn the most on a single bottle sold, so
+// whichever filter someone lands on opens with its strongest earner rather than
+// with whatever happened to be typed first. The order comes from the margin
+// model in the pricing sheet; only the resulting position is kept here, because
+// this file is served to anyone who opens the page and the figures behind it
+// are not. A wine with no ranking sorts to the end instead of jumping ahead of
+// one that has been costed.
+WINES.sort((a, b) => (a.rank || 99) - (b.rank || 99));
+
 // ===== Bundles Data =====
 const BUNDLES = [
   {
-    id: 'bundle-starter',
-    name: { sr: 'Starter', en: 'Starter' },
-    subtitle: { sr: 'Žilavka + Blatina • Vinarija Čitluk', en: 'Žilavka + Blatina • Vinarija Čitluk' },
+    id: 'bundle-start-duo',
+    name: { sr: 'Hercz Start Duo', en: 'Hercz Start Duo' },
+    subtitle: { sr: 'Metoh Vranac + Tamjanika Galerija', en: 'Metoh Vranac + Tamjanika Galerija' },
     desc: {
-      sr: 'Jedno belo i jedno crveno, savršen uvod u autohtone sorte Hercegovine.',
-      en: 'One white and one red, the perfect introduction to indigenous Herzegovina varieties.'
+      sr: 'Jedno crveno i jedno belo, oba pitka i bez pretenzija. Najlakši način da probate šta Hercegovina radi.',
+      en: 'One red and one white, both easy and unpretentious. The simplest way to taste what Herzegovina does.'
     },
-    wines: ['zilavka-citluk-075', 'blatina-citluk-075'],
-    price: 2390,
-    img: 'images/IMG_9965.webp'
+    wines: ['tvrdos-metoh-vranac', 'tamjanika-galerija'],
+    price: 3290,
+    img: 'images/paket-start-duo.webp'
   },
   {
-    id: 'bundle-herceg-box',
-    name: { sr: 'Hercz Box', en: 'Hercz Box' },
-    subtitle: { sr: 'Blatina + Žilavka + Tvrdoš Vranac', en: 'Blatina + Žilavka + Tvrdoš Vranac' },
-    desc: {
-      sr: 'Tri vina, tri karaktera: belo, crveno i premium cuvée u jednoj kutiji.',
-      en: 'Three wines, three characters: white, red and a premium cuvée in one box.'
+    id: 'bundle-signature-trio',
+    name: { sr: 'Hercz Signature Trio', en: 'Hercz Signature Trio' },
+    subtitle: {
+      sr: 'Metoh Vranac + Tamjanika Galerija + Tribunia bijelo',
+      en: 'Metoh Vranac + Tamjanika Galerija + Tribunia bijelo'
     },
-    wines: ['blatina-citluk-075', 'zilavka-citluk-075', 'tvrdos-vranac'],
-    price: 4190,
+    desc: {
+      sr: 'Naš glavni izbor: manastirsko crveno, aromatična Tamjanika i elegantna Tribunia. Tri različita karaktera u jednoj kutiji.',
+      en: 'Our main selection: a monastery red, the aromatic Tamjanika and the elegant Tribunia. Three different characters in one box.'
+    },
+    wines: ['tvrdos-metoh-vranac', 'tamjanika-galerija', 'tribunija-bijelo'],
+    price: 5390,
     featured: true,
-    img: 'images/IMG_9968.webp'
+    img: 'images/paket-signature-trio.webp'
   },
   {
-    id: 'bundle-full-herceg',
-    name: { sr: 'Full Hercz', en: 'Full Hercz' },
-    subtitle: { sr: 'Izbor od 5 vina iz naše ponude', en: 'A selection of 5 wines from our range' },
-    desc: {
-      sr: 'Žilavka u dve zapremine, Blatina, Tvrdoš Vranac i Tvrdoš Žilavka. Savršen poklon za poznavaoce.',
-      en: 'Žilavka in two sizes, Blatina, Tvrdoš Vranac and Tvrdoš Žilavka. The perfect gift for connoisseurs.'
+    id: 'bundle-premium-trio',
+    name: { sr: 'Hercz Premium Trio', en: 'Hercz Premium Trio' },
+    subtitle: {
+      sr: 'Metoh Vranac + Tamjanika Galerija + Zlatna Selekcija',
+      en: 'Metoh Vranac + Tamjanika Galerija + Zlatna Selekcija'
     },
-    wines: ['zilavka-citluk-075', 'zilavka-citluk-1l', 'blatina-citluk-075', 'tvrdos-vranac', 'tvrdos-zilavka'],
-    price: 6890,
-    img: 'images/IMG_9969.webp'
+    desc: {
+      sr: 'Isti provereni par, sa Zlatnom Selekcijom kao krunom. Paket za poklon ili za veče koje treba da se pamti.',
+      en: 'The same proven pair, crowned with the Zlatna Selekcija. A bundle for a gift, or for an evening meant to be remembered.'
+    },
+    wines: ['tvrdos-metoh-vranac', 'tamjanika-galerija', 'zlatna-selekcija-bijelo'],
+    price: 7290,
+    img: 'images/paket-premium-trio.webp'
   }
 ];
 

@@ -1219,13 +1219,18 @@ button {
   backdrop-filter: blur(8px);
 }
 
+/* The bundle photographs put three lit labels across the middle of the card,
+   which is exactly where the name and description sit. The scrim has to come
+   in higher and reach full strength sooner than the single-bottle one, or the
+   text is read against a label instead of against the dark. */
 .bundles-grid .wine-img-wrap::after {
-  height: 58%;
+  height: 74%;
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(8, 2, 4, 0.6) 42%,
-    rgba(8, 2, 4, 0.96) 100%
+    rgba(8, 2, 4, 0.55) 28%,
+    rgba(8, 2, 4, 0.9) 54%,
+    rgba(8, 2, 4, 0.985) 100%
   );
 }
 
@@ -1247,29 +1252,14 @@ button {
   }
 }
 
-/* Starter: landscape 2-bottle photo */
-.bundle-starter .wine-img-wrap img {
+/* All three bundle photographs are now the same landscape frame, shot against
+   the same background as the single bottles, so they no longer need a rule
+   each to undo differences in aspect ratio. Cover trims the black margin the
+   frame leaves around the bottles; `contain` left them small and distant. */
+.bundle-start-duo .wine-img-wrap img,
+.bundle-signature-trio .wine-img-wrap img,
+.bundle-premium-trio .wine-img-wrap img {
   object-fit: cover !important;
-}
-
-/* Hercz Box: portrait 3-bottle photo. Left on the base rule's `contain`, this
-   was the one bundle with no zoom compensation at all — noticeably smaller
-   and further away than the other two, and further still than a wine card's
-   own close, filled bottle. Cover trims only the outer 20px on each side at
-   this box's proportions, nothing near the bottles at the edges. */
-.bundle-herceg-box .wine-img-wrap img {
-  object-fit: cover !important;
-}
-
-/* Full Herceg: landscape 5-bottle photo — base zoom + hover zoom */
-.bundle-full-herceg .wine-img-wrap img {
-  transform: scale(1.3) !important;
-}
-
-@media (hover: hover) {
-  .bundle-full-herceg.wine-card:hover .wine-img-wrap img {
-    transform: scale(1.38) !important;
-  }
 }
 
 .bundle-bottles {

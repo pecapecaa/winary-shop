@@ -31,7 +31,7 @@ const WINES = [
       en: 'Žilavka from the monastery vineyards, with notes of ripe pear and almond. Fresh acidity and a long mineral finish, a wine that reveals a new layer with every sip.'
     },
     price: 2090,
-    rank: 5,
+    rank: 6,
     img: 'images/tvrdos-zilavka.webp'
   },
   {
@@ -223,7 +223,7 @@ const WINES = [
       en: 'A white wine from the Vukoje cellars in Trebinje, with aromas of fresh fruit and a gentle floral note. Elegant and easy to drink, memorable without being demanding.'
     },
     price: 2090,
-    rank: 6,
+    rank: 5,
     img: 'images/tribunija-bijelo.webp'
   }
 ];

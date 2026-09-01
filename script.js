@@ -149,8 +149,8 @@ const WINES = [
       sr: 'Jedinstven autohtoni crveni kultivar, uzgojen isključivo u Hercegovini. Tamno rubinska boja, arome višnje, šljive i začina. Srednji tanini, meki i savršeno balansirani.',
       en: 'A unique indigenous red cultivar, grown exclusively in Herzegovina. Dark ruby, aromas of cherry, plum and spice. Medium tannins, soft and perfectly balanced.'
     },
-    price: 1190,
-    rank: 11,
+    price: 1290,
+    rank: 10,
     img: 'images/blatina-citluk.webp'
   },
   {
@@ -167,7 +167,7 @@ const WINES = [
       en: 'Elegant Žilavka from the renowned Vinarija Čitluk along the Neretva. Fresh acidity, fruity complexity and a long, silky finish. The most recognised white wine of BiH.'
     },
     price: 1090,
-    rank: 10,
+    rank: 11,
     img: 'images/zilavka-mostar.webp'
   },
   {

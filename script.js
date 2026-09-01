@@ -522,7 +522,7 @@ function renderWines() {
     <div class="wine-card fade-up">
       <div class="wine-img-wrap">
         <span class="wine-type-badge">${wine.type[currentLang]}</span>
-        <img src="${wine.img}" alt="${wine.name[currentLang]}" loading="lazy">
+        <img src="${wine.img}" alt="${wine.name[currentLang]}" loading="lazy" decoding="async">
       </div>
       <button type="button" class="wine-more" data-detail-id="${wine.id}" aria-label="${wine.name[currentLang]}: ${moreLabel}" title="${moreLabel}">${MORE_ICON}</button>
       <div class="wine-card-body">
@@ -537,7 +537,14 @@ function renderWines() {
       </div>
     </div>
   `).join('') + bundleTeaserCard(currentLang);
-  document.querySelectorAll('.wine-add').forEach(btn => {
+  // Scoped to this grid, not the document. A bundle's add button carries
+  // `wine-add` too, so the unscoped search also bound every bundle card to
+  // addToCart — with a wine id of undefined, since bundles carry
+  // data-bundle-id. Nothing broke only because the bundle's own handler runs
+  // first and raises the busy flag this one checks; meanwhile a fresh copy of
+  // the listener was added to each bundle on every filter tap, because those
+  // cards are not the ones being re-rendered here.
+  grid.querySelectorAll('.wine-add').forEach(btn => {
     btn.addEventListener('click', () => addToCart(btn.dataset.id));
   });
   observeFadeElements();
@@ -557,7 +564,7 @@ function bundleTeaserCard(lang) {
   return `
     <a class="wine-card wine-card--teaser fade-up" href="#bundles">
       <div class="wine-img-wrap">
-        <img src="${b.img}" alt="" loading="lazy">
+        <img src="${b.img}" alt="" loading="lazy" decoding="async">
       </div>
       <div class="wine-card-body">
         <div class="teaser-kicker">${isSr ? 'Ne možete da izaberete?' : 'Cannot decide?'}</div>
@@ -617,7 +624,7 @@ function renderBundles() {
           '<div class="bundle-badges">',
             '<span class="wine-type-badge">' + countLabel + '</span>',
           '</div>',
-          '<img src="' + bundle.img + '" alt="' + bundle.name[currentLang] + '" loading="lazy">',
+          '<img src="' + bundle.img + '" alt="' + bundle.name[currentLang] + '" loading="lazy" decoding="async">',
         '</div>',
         '<button type="button" class="wine-more" data-detail-id="' + bundle.id + '"'
           + ' aria-label="' + bundle.name[currentLang] + ': ' + moreLabel + '"'
@@ -771,7 +778,7 @@ function renderCart() {
       : '';
     return `
       <div class="cart-item">
-        <div class="cart-item-img"><img src="${source.img}" alt="${source.name[currentLang]}"></div>
+        <div class="cart-item-img"><img src="${source.img}" alt="${source.name[currentLang]}" decoding="async"></div>
         <div class="cart-item-info">
           <h4>${source.name[currentLang]} ${label}</h4>
           ${note}
@@ -1161,6 +1168,8 @@ function animateCounters() {
 }
 
 // ===== Staggered Scroll Animations =====
+let _fadeObserver = null;
+
 function observeFadeElements() {
   const groups = ['.wine-card', '.visit-card', '.vf-item', '.about-stat'];
   groups.forEach(selector => {
@@ -1174,23 +1183,57 @@ function observeFadeElements() {
   singles.forEach(el => {
     if (!el.classList.contains('fade-up')) el.classList.add('fade-up');
   });
-  const allFade = document.querySelectorAll('.fade-up');
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  allFade.forEach(el => io.observe(el));
+  // One observer for the life of the page. This function runs again on every
+  // filter tap, every language switch and every cart render, and it used to
+  // build a fresh observer each time and point it at every fading element on
+  // the page — while the previous ones stayed alive watching the same
+  // elements. A few minutes of browsing left dozens of live observers doing
+  // identical work. Re-observing an element the observer already holds is a
+  // no-op, so pointing this one at the new cards is enough, and the ones that
+  // have already appeared are skipped outright.
+  if (!_fadeObserver) {
+    _fadeObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          _fadeObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+  }
+  document.querySelectorAll('.fade-up:not(.visible)').forEach(el => _fadeObserver.observe(el));
 }
 
 // ===== Vineyard Parallax =====
+// Two separate things used to react to scrolling — the navbar and progress
+// bar, and the vineyard parallax — and each had its own listener on the raw
+// scroll event. That fires dozens of times a second, and both handlers read
+// layout (getBoundingClientRect, scrollHeight) and then write to it, so every
+// read after a write forced the browser to lay the page out again in the
+// middle of a scroll. They register here instead and run together, at most
+// once per painted frame. Same arithmetic, same result, a fraction of the
+// work — and a frame can never be laid out twice for two effects that are
+// going to be drawn at the same moment anyway.
+const _scrollJobs = [];
+let _scrollTicking = false;
+
+function onScrollFrame(job) {
+  _scrollJobs.push(job);
+}
+
+window.addEventListener('scroll', () => {
+  if (_scrollTicking) return;
+  _scrollTicking = true;
+  requestAnimationFrame(() => {
+    _scrollTicking = false;
+    for (let i = 0; i < _scrollJobs.length; i++) _scrollJobs[i]();
+  });
+}, { passive: true });
+
 function initParallax() {
   const vineyard = document.querySelector('.section-vineyard');
   if (!vineyard) return;
-  window.addEventListener('scroll', () => {
+  onScrollFrame(() => {
     const rect = vineyard.getBoundingClientRect();
     const windowH = window.innerHeight;
     if (rect.bottom > 0 && rect.top < windowH) {
@@ -1198,7 +1241,7 @@ function initParallax() {
       const offset = (progress - 0.5) * 80;
       vineyard.style.setProperty('--parallax-y', offset + 'px');
     }
-  }, { passive: true });
+  });
 }
 
 // ===== Init =====
@@ -1224,11 +1267,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.body.appendChild(scrollProgress);
 
   const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
+  onScrollFrame(() => {
     navbar.classList.toggle('scrolled', window.scrollY > 50);
     const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
     scrollProgress.style.width = Math.min(pct * 100, 100) + '%';
-  }, { passive: true });
+  });
 
   document.getElementById('navToggle').addEventListener('click', () => {
     document.getElementById('navLinks').classList.toggle('active');

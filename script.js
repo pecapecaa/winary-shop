@@ -188,7 +188,7 @@ const WINES = [
     // label ("Hercegovačka Blatina", 1850, Mostarsko vinogorje) from the
     // 0.75L shot the two sizes used to share.
     price: 690,
-    rank: 12,
+    rank: 13,
     img: 'images/blatina-citluk-1l.webp'
   },
   {
@@ -206,7 +206,7 @@ const WINES = [
       en: 'A rare indigenous variety grown on the Herzegovina karst. Golden-yellow, rich mineral structure, notes of ripe apple, peach and Mediterranean herbs.'
     },
     price: 690,
-    rank: 13,
+    rank: 12,
     img: 'images/zilavka-hercegovina.webp'
   },
   {

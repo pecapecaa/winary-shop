@@ -13,8 +13,8 @@ const WINES = [
       sr: 'Vino iz manastirskih vinograda na stenovitim padinama iznad Trebinja. Monaška tradicija utkana u svaki gutljaj, kompleksno, dostojanstveno, duboko, za momente koji ostaju u sećanju.',
       en: 'Wine from monastery vineyards on rocky slopes above Trebinje. Monastic tradition woven into every sip, complex, dignified, deep, for moments that stay in memory.'
     },
-    price: 1790,
-    rank: 9,
+    price: 1890,
+    rank: 7,
     img: 'images/tvrdos-vranac.webp'
   },
   {
@@ -82,7 +82,7 @@ const WINES = [
       en: 'A pale rosé the colour of rose petals, with aromas of strawberry and wild blackberry. Light, fresh and effortless to drink, pairs with everything from a summer gathering to the first dinner on the terrace.'
     },
     price: 1690,
-    rank: 7,
+    rank: 8,
     img: 'images/primavera-roze.webp'
   },
   {
@@ -99,7 +99,7 @@ const WINES = [
       en: 'Merlot at its most approachable, velvety, round, no rough edges. Ripe plum and dark chocolate, a perfect choice for someone just discovering red wine.'
     },
     price: 1490,
-    rank: 8,
+    rank: 9,
     img: 'images/tvrdos-izba-merlot.webp'
   },
   {

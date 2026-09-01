@@ -2996,14 +2996,9 @@ button {
 
 .bundle-benefits svg { color: var(--gold); flex-shrink: 0; }
 
-/* What a bundle actually costs per bottle. The header claimed a better price
-   in words; this is the number, sitting next to the total where it can be
-   compared with the bottles above without scrolling back. */
-/* The bottle count and the price per bottle are one thought, so they sit
-   together in the corner rather than at opposite ends of the card. Stacked
-   rather than side by side: as a row they reached across the card towards
-   the expand button, and the second line reads as following from the first
-   the way the arithmetic follows from the count. */
+/* Holds the bottle count in the card's corner. It kept a per-bottle figure
+   under it while the bundles were discounted; priced at the sum of their
+   bottles, that number only restated the prices already on the wine cards. */
 .bundle-badges {
   position: absolute;
   top: 20px;
@@ -3025,22 +3020,6 @@ button {
   position: static;
   top: auto;
   left: auto;
-}
-
-/* Deliberately the quieter of the pair: the count is the fact, this is the
-   arithmetic on it. Same shape and blur so they read as one group. */
-.bundle-per-bottle {
-  font-family: 'Lato', sans-serif;
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
-  color: rgba(232, 201, 135, 0.85);
-  background: rgba(8, 2, 4, 0.55);
-  border: 1px solid rgba(201, 169, 97, 0.28);
-  padding: 5px 12px;
-  backdrop-filter: blur(8px);
-  white-space: nowrap;
 }
 
 .bundle-ship {

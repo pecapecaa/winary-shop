@@ -583,14 +583,6 @@ function renderBundles() {
     const btnLabel = isSr ? 'Dodaj paket u listu' : 'Add bundle to list';
     const moreLabel = isSr ? 'Prikaži detalje' : 'Show details';
 
-    // The per-bottle figure is the whole argument for a bundle. It sits
-    // beside the bottle count rather than under the total, because the two
-    // are one thought — this many bottles, at this much each — and split
-    // across the card they had to be assembled by the reader.
-    const perBottle = Math.round(bundle.price / bundle.count);
-    const perBottleBadge = '<span class="bundle-per-bottle">'
-      + perBottle + ' RSD ' + (isSr ? 'po flaši' : 'per bottle') + '</span>';
-
     // Free delivery is called out from this threshold up.
     const freeShip = bundle.price >= FREE_SHIPPING_FROM
       ? '<div class="bundle-ship">'
@@ -603,7 +595,6 @@ function renderBundles() {
         '<div class="wine-img-wrap">',
           '<div class="bundle-badges">',
             '<span class="wine-type-badge">' + countLabel + '</span>',
-            perBottleBadge,
           '</div>',
           '<img src="' + bundle.img + '" alt="' + bundle.name[currentLang] + '" loading="lazy">',
         '</div>',

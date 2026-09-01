@@ -1201,6 +1201,16 @@ button {
   white-space: nowrap;
 }
 
+/* The entry bundle's ribbon marks a different thing from the popular one, so
+   it is outlined rather than filled: it names a starting point without
+   competing with the gold the featured card carries. */
+.bundle-top-badge--soft {
+  background: rgba(8, 2, 4, 0.92);
+  color: var(--gold);
+  border: 1px solid rgba(201, 169, 97, 0.5);
+  border-top: none;
+}
+
 .bundle-saving-tag {
   position: absolute;
   top: 58px;

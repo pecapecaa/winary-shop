@@ -243,9 +243,10 @@ const BUNDLES = [
     id: 'bundle-start-duo',
     name: { sr: 'Hercz Start Duo', en: 'Hercz Start Duo' },
     subtitle: { sr: 'Metoh Vranac + Tamjanika Galerija', en: 'Metoh Vranac + Tamjanika Galerija' },
+    badge: { sr: 'Za prvi put', en: 'Start here' },
     desc: {
-      sr: 'Jedno crveno i jedno belo, oba pitka i bez pretenzija. Najlakši način da probate šta Hercegovina radi.',
-      en: 'One red and one white, both easy and unpretentious. The simplest way to taste what Herzegovina does.'
+      sr: 'Jedno crveno i jedno belo, oba pitka i bez pretenzija. Najlakši način da vidite šta Hercegovina radi, bez velike porudžbine.',
+      en: 'One red and one white, both easy and unpretentious. The simplest way to see what Herzegovina does, without committing to a big order.'
     },
     wines: ['tvrdos-metoh-vranac', 'tamjanika-galerija'],
     price: 3380,
@@ -262,6 +263,7 @@ const BUNDLES = [
       sr: 'Naš glavni izbor: manastirsko crveno, aromatična Tamjanika i elegantna Tribunia. Tri različita karaktera u jednoj kutiji.',
       en: 'Our main selection: a monastery red, the aromatic Tamjanika and the elegant Tribunia. Three different characters in one box.'
     },
+    badge: { sr: 'Najpopularnije', en: 'Most popular' },
     wines: ['tvrdos-metoh-vranac', 'tamjanika-galerija', 'tribunija-bijelo'],
     price: 5470,
     featured: true,
@@ -569,8 +571,13 @@ function renderBundles() {
       ? '<span class="bundle-original">' + bundle.originalPrice + ' RSD</span>'
       : '';
     const featured = bundle.featured ? ' bundle-card--featured' : '';
-    const topBadge = bundle.featured
-      ? '<div class="bundle-top-badge">' + (isSr ? 'Najpopularnije' : 'Most popular') + '</div>'
+    // The ribbon is the bundle's own label rather than a fixed one for the
+    // featured card, because the entry bundle needs to say a different thing:
+    // not that most people take it, but that it is where to start. Only the
+    // featured card gets the solid gold, so the two do not compete.
+    const topBadge = bundle.badge
+      ? '<div class="bundle-top-badge' + (bundle.featured ? '' : ' bundle-top-badge--soft')
+        + '">' + bundle.badge[currentLang] + '</div>'
       : '';
     const countLabel = bundle.count + (isSr ? (bundle.count >= 5 ? ' flaša' : ' flaše') : ' btl.');
     const btnLabel = isSr ? 'Dodaj paket u listu' : 'Add bundle to list';

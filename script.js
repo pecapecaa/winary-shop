@@ -14,7 +14,7 @@ const WINES = [
       en: 'Wine from monastery vineyards on rocky slopes above Trebinje. Monastic tradition woven into every sip, complex, dignified, deep, for moments that stay in memory.'
     },
     price: 1790,
-    rank: 8,
+    rank: 9,
     img: 'images/tvrdos-vranac.webp'
   },
   {
@@ -81,8 +81,8 @@ const WINES = [
       sr: 'Svetlo rozé vino boje latica ruže, sa mirisom jagode i divlje kupine. Lagano, sveže i lako se pije, ide uz sve, od letnjeg druženja do prve večere na terasi.',
       en: 'A pale rosé the colour of rose petals, with aromas of strawberry and wild blackberry. Light, fresh and effortless to drink, pairs with everything from a summer gathering to the first dinner on the terrace.'
     },
-    price: 1890,
-    rank: 13,
+    price: 1690,
+    rank: 7,
     img: 'images/primavera-roze.webp'
   },
   {
@@ -99,7 +99,7 @@ const WINES = [
       en: 'Merlot at its most approachable, velvety, round, no rough edges. Ripe plum and dark chocolate, a perfect choice for someone just discovering red wine.'
     },
     price: 1490,
-    rank: 7,
+    rank: 8,
     img: 'images/tvrdos-izba-merlot.webp'
   },
   {
@@ -150,7 +150,7 @@ const WINES = [
       en: 'A unique indigenous red cultivar, grown exclusively in Herzegovina. Dark ruby, aromas of cherry, plum and spice. Medium tannins, soft and perfectly balanced.'
     },
     price: 1190,
-    rank: 10,
+    rank: 11,
     img: 'images/blatina-citluk.webp'
   },
   {
@@ -167,7 +167,7 @@ const WINES = [
       en: 'Elegant Žilavka from the renowned Vinarija Čitluk along the Neretva. Fresh acidity, fruity complexity and a long, silky finish. The most recognised white wine of BiH.'
     },
     price: 1090,
-    rank: 9,
+    rank: 10,
     img: 'images/zilavka-mostar.webp'
   },
   {
@@ -188,7 +188,7 @@ const WINES = [
     // label ("Hercegovačka Blatina", 1850, Mostarsko vinogorje) from the
     // 0.75L shot the two sizes used to share.
     price: 690,
-    rank: 11,
+    rank: 12,
     img: 'images/blatina-citluk-1l.webp'
   },
   {
@@ -206,7 +206,7 @@ const WINES = [
       en: 'A rare indigenous variety grown on the Herzegovina karst. Golden-yellow, rich mineral structure, notes of ripe apple, peach and Mediterranean herbs.'
     },
     price: 690,
-    rank: 12,
+    rank: 13,
     img: 'images/zilavka-hercegovina.webp'
   },
   {
@@ -248,7 +248,7 @@ const BUNDLES = [
       en: 'One red and one white, both easy and unpretentious. The simplest way to taste what Herzegovina does.'
     },
     wines: ['tvrdos-metoh-vranac', 'tamjanika-galerija'],
-    price: 3290,
+    price: 3380,
     img: 'images/paket-start-duo.webp'
   },
   {
@@ -263,7 +263,7 @@ const BUNDLES = [
       en: 'Our main selection: a monastery red, the aromatic Tamjanika and the elegant Tribunia. Three different characters in one box.'
     },
     wines: ['tvrdos-metoh-vranac', 'tamjanika-galerija', 'tribunija-bijelo'],
-    price: 5390,
+    price: 5470,
     featured: true,
     img: 'images/paket-signature-trio.webp'
   },
@@ -279,15 +279,19 @@ const BUNDLES = [
       en: 'The same proven pair, crowned with the Zlatna Selekcija. A bundle for a gift, or for an evening meant to be remembered.'
     },
     wines: ['tvrdos-metoh-vranac', 'tamjanika-galerija', 'zlatna-selekcija-bijelo'],
-    price: 7290,
+    price: 7370,
     img: 'images/paket-premium-trio.webp'
   }
 ];
 
-// A bundle stores only its discounted price and which wines it contains. The
-// full price, the saving and the bottle count are derived from WINES on every
-// load, so changing a wine's price can never leave a bundle advertising a
-// saving that no longer adds up.
+// A bundle stores only its own price and which wines it contains. The sum of
+// the parts, the difference against it and the bottle count are derived from
+// WINES on every load, so changing a wine's price can never leave a bundle
+// advertising a saving that no longer adds up. The bundles are currently
+// priced at exactly the sum of their bottles — what they offer is the choosing
+// and the single box, not a discount — so the difference is zero and the card
+// shows no struck-through price. Price one below its parts and the saving
+// reappears on its own.
 (function deriveBundleTotals() {
   const priceOf = id => {
     const wine = WINES.find(w => w.id === id);
@@ -536,8 +540,8 @@ function bundleTeaserCard(lang) {
         <div class="teaser-kicker">${isSr ? 'Ne možete da izaberete?' : 'Cannot decide?'}</div>
         <h3>${isSr ? 'Uzmite paket' : 'Take a bundle'}</h3>
         <p class="wine-desc">${isSr
-          ? BUNDLES.length + ' paketa spremnih izbora, po nižoj ceni nego kad se vina kupuju pojedinačno.'
-          : BUNDLES.length + ' ready-made selections, priced below the same wines bought separately.'}</p>
+          ? BUNDLES.length + ' gotova izbora, složena tako da se vina dopunjuju.'
+          : BUNDLES.length + ' ready-made selections, put together so the wines complement each other.'}</p>
         <div class="wine-footer">
           <span class="teaser-cta">${isSr ? 'Pogledaj pakete' : 'See the bundles'}</span>
           <span class="teaser-arrow" aria-hidden="true">

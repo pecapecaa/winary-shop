@@ -273,15 +273,15 @@ const BUNDLES = [
     id: 'bundle-premium-trio',
     name: { sr: 'Hercz Premium Trio', en: 'Hercz Premium Trio' },
     subtitle: {
-      sr: 'Metoh Vranac + Tamjanika Galerija + Zlatna Selekcija',
-      en: 'Metoh Vranac + Tamjanika Galerija + Zlatna Selekcija'
+      sr: 'Metoh Vranac + Tribunia bijelo + Zlatna Selekcija',
+      en: 'Metoh Vranac + Tribunia bijelo + Zlatna Selekcija'
     },
     desc: {
-      sr: 'Isti provereni par, sa Zlatnom Selekcijom kao krunom. Paket za poklon ili za veče koje treba da se pamti.',
-      en: 'The same proven pair, crowned with the Zlatna Selekcija. A bundle for a gift, or for an evening meant to be remembered.'
+      sr: 'Manastirsko crveno, elegantna Tribunia i Zlatna Selekcija kao kruna. Paket za poklon ili za veče koje treba da se pamti.',
+      en: 'A monastery red, the elegant Tribunia and the Zlatna Selekcija to crown it. A bundle for a gift, or for an evening meant to be remembered.'
     },
-    wines: ['tvrdos-metoh-vranac', 'tamjanika-galerija', 'zlatna-selekcija-bijelo'],
-    price: 7370,
+    wines: ['tvrdos-metoh-vranac', 'tribunija-bijelo', 'zlatna-selekcija-bijelo'],
+    price: 7670,
     img: 'images/paket-premium-trio.webp'
   }
 ];
@@ -315,6 +315,27 @@ const BUNDLES = [
 const RECIPIENT_EMAIL = 'herczwines@gmail.com';
 const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/herczwines@gmail.com';
 let currentLang = 'sr';
+
+// Prices are set, charged and recorded in dinars — the order that reaches the
+// inbox is always in RSD, whichever page the buyer was reading. The euro
+// figure exists so a visitor on the English page knows roughly what a bottle
+// costs, and it is written with a ≈ so it never reads as a second, exact
+// price. Where it matters — the cart and the reservation summary — the dinar
+// amount is spelled out beside it as the sum actually collected at the door.
+// PROVERITI: srednji kurs NBS. Jedini broj koji treba menjati kad kurs pomeri.
+const RSD_PER_EUR = 117.5;
+
+function fmtPrice(rsd) {
+  if (currentLang === 'sr') return rsd + ' RSD';
+  return '≈ €' + (rsd / RSD_PER_EUR).toFixed(2);
+}
+
+// The dinar sum, for the two places the buyer is committing to an amount.
+// Empty in Serbian, where the price on screen is already that sum.
+function chargedNote(rsd) {
+  if (currentLang === 'sr') return '';
+  return 'Charged in dinars: ' + rsd + ' RSD';
+}
 
 // Four corners pushing outward: the panel it opens is the card at full size.
 const MORE_ICON =
@@ -510,7 +531,7 @@ function renderWines() {
         <p class="wine-desc">${wine.desc[currentLang]}</p>
         <div class="wine-tag-group">${tagChip(wine, currentLang)}${tag2Chip(wine, currentLang)}</div>
         <div class="wine-footer">
-          <div class="wine-price-row"><span class="wine-price">${wine.price} RSD</span><span class="wine-volume">${wine.volume}</span></div>
+          <div class="wine-price-row"><span class="wine-price">${fmtPrice(wine.price)}</span><span class="wine-volume">${wine.volume}</span></div>
           <button type="button" class="wine-add" data-id="${wine.id}" aria-label="${addLabel}" title="${addLabel}">${CART_ICON}</button>
         </div>
       </div>
@@ -568,7 +589,7 @@ function renderBundles() {
     // be claiming a discount that is not there.
     const hasSaving = bundle.saving > 0;
     const originalPrice = hasSaving
-      ? '<span class="bundle-original">' + bundle.originalPrice + ' RSD</span>'
+      ? '<span class="bundle-original">' + fmtPrice(bundle.originalPrice) + '</span>'
       : '';
     const featured = bundle.featured ? ' bundle-card--featured' : '';
     // The ribbon is the bundle's own label rather than a fixed one for the
@@ -610,7 +631,7 @@ function renderBundles() {
           '<div class="wine-footer">',
             '<div class="bundle-pricing">',
               originalPrice,
-              '<span class="wine-price">' + bundle.price + ' RSD</span>',
+              '<span class="wine-price">' + fmtPrice(bundle.price) + '</span>',
             '</div>',
             '<button type="button" class="wine-add bundle-add" data-bundle-id="' + bundle.id + '"'
               + ' aria-label="' + btnLabel + '" title="' + btnLabel + '">' + CART_ICON + '</button>',
@@ -754,7 +775,7 @@ function renderCart() {
         <div class="cart-item-info">
           <h4>${source.name[currentLang]} ${label}</h4>
           ${note}
-          <div class="cart-item-price">${price * item.qty} RSD</div>
+          <div class="cart-item-price">${fmtPrice(price * item.qty)}</div>
           <div class="cart-item-controls">
             <button type="button" class="qty-btn" onclick="updateQty('${item.id}', -1)">−</button>
             <span class="qty-val">${item.qty}</span>
@@ -765,7 +786,9 @@ function renderCart() {
       </div>
     `;
   }).join('');
-  document.getElementById('cartTotal').textContent = getCartTotal() + ' RSD';
+  document.getElementById('cartTotal').textContent = fmtPrice(getCartTotal());
+  const chargeEl = document.getElementById('cartChargeNote');
+  if (chargeEl) chargeEl.textContent = chargedNote(getCartTotal());
   renderShippingLine(getCartTotal());
   footerEl.style.display = 'block';
 }
@@ -784,7 +807,7 @@ function renderShippingLine(total) {
     el.className = 'cart-ship cart-ship--short';
     el.innerHTML = SHIP_ICON + '<span>' + (isSr
       ? 'Još ' + short + ' RSD do besplatne dostave'
-      : short + ' RSD more for free delivery') + '</span>';
+      : fmtPrice(short) + ' more for free delivery') + '</span>';
   } else {
     el.className = 'cart-ship cart-ship--free';
     el.innerHTML = SHIP_ICON + '<span>' + (isSr
@@ -814,9 +837,10 @@ function populateSummary() {
       const label = item.isBundle
         ? `${BUNDLES.find(b => b.id === item.id).name[currentLang]} (${currentLang === 'sr' ? 'paket' : 'bundle'})`
         : `${wine.name[currentLang]} ${wine.volume}`;
-      return `<div class="checkout-summary-item"><span>${label} × ${item.qty}</span><span>${price * item.qty} RSD</span></div>`;
+      return `<div class="checkout-summary-item"><span>${label} × ${item.qty}</span><span>${fmtPrice(price * item.qty)}</span></div>`;
     }).join('')}
-    <div class="checkout-summary-total"><span>${currentLang === 'sr' ? 'Ukupno' : 'Total'}</span><span>${getCartTotal()} RSD</span></div>
+    <div class="checkout-summary-total"><span>${currentLang === 'sr' ? 'Ukupno' : 'Total'}</span><span>${fmtPrice(getCartTotal())}</span></div>
+    <div class="checkout-charge-note">${chargedNote(getCartTotal())}</div>
   `;
 }
 
@@ -908,7 +932,7 @@ function openDetail(id) {
   document.getElementById('detailName').textContent = item.name[currentLang];
   document.getElementById('detailSub').textContent = item.subtitle[currentLang];
   document.getElementById('detailDesc').textContent = item.desc[currentLang];
-  document.getElementById('detailPrice').textContent = item.price + ' RSD';
+  document.getElementById('detailPrice').textContent = fmtPrice(item.price);
   // Only wines carry a quickTag; bundles show no chip here.
   document.getElementById('detailTag').innerHTML = wine ? tagChip(wine, currentLang) + tag2Chip(wine, currentLang) : '';
 
@@ -1216,6 +1240,14 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('langToggle').addEventListener('click', () => {
     switchLanguage(currentLang === 'sr' ? 'en' : 'sr');
   });
+
+  // Serbian is the default and stays it; only an explicit switch is remembered,
+  // so a first visit always opens in Serbian whatever the browser is set to.
+  try {
+    if (localStorage.getItem('hercegLang') === 'en') switchLanguage('en');
+  } catch (err) {
+    // Storage unavailable — the page stays in Serbian, which is the default.
+  }
 
   document.getElementById('cartBtn').addEventListener('click', () => {
     setCartOpen(true);

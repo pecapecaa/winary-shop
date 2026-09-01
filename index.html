@@ -36,7 +36,7 @@
     <link rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Lato:wght@300;400;700&display=swap">
   </noscript>
-  <link rel="stylesheet" href="styles.css?v=128">
+  <link rel="stylesheet" href="styles.css?v=129">
 
   <!-- Microsoft Clarity: session recordings and click heatmaps, project "Hercz Wines". -->
   <script type="text/javascript">
@@ -62,7 +62,7 @@
         <li><a href="#contact" data-sr="Kontakt" data-en="Contact">Kontakt</a></li>
       </ul>
       <div class="nav-actions">
-        <button type="button" class="lang-toggle" id="langToggle" style="display:none;">
+        <button type="button" class="lang-toggle" id="langToggle" aria-label="Jezik / Language">
           <span class="lang-active">SR</span> / <span>EN</span>
         </button>
         <button type="button" class="cart-btn" id="cartBtn" aria-label="Cart">
@@ -212,7 +212,7 @@
                  three similar-sounding promises. -->
             <li>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>
-              <span data-sr="Besplatna dostava preko 4.000 RSD" data-en="Free delivery over 4,000 RSD">Besplatna dostava preko 4.000 RSD</span>
+              <span data-sr="Besplatna dostava preko 4.000 RSD" data-en="Free delivery over 4,000 RSD (≈ €34)">Besplatna dostava preko 4.000 RSD</span>
             </li>
             <li>
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
@@ -278,7 +278,7 @@
             <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#c8a96a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>
           </div>
           <h3 data-sr="Dostava na adresu" data-en="Home delivery">Dostava na adresu</h3>
-          <p data-sr="Naručite online, mi dostavimo širom Srbije. Besplatno za porudžbine preko 4.000 RSD. Brzo, sigurno, pažljivo upakovano." data-en="Order online, we deliver across Serbia. Free on orders over 4,000 RSD. Fast, safe, carefully packed.">Naručite online, mi dostavimo širom Srbije. Besplatno za porudžbine preko 4.000 RSD. Brzo, sigurno, pažljivo upakovano.</p>
+          <p data-sr="Naručite online, mi dostavimo širom Srbije. Besplatno za porudžbine preko 4.000 RSD. Brzo, sigurno, pažljivo upakovano." data-en="Order online, we deliver across Serbia. Free on orders over 4,000 RSD (≈ €34). Fast, safe, carefully packed. Payment is in dinars, on delivery.">Naručite online, mi dostavimo širom Srbije. Besplatno za porudžbine preko 4.000 RSD. Brzo, sigurno, pažljivo upakovano.</p>
           <div class="visit-price" data-sr="2-4 dana" data-en="2-4 days">2-4 dana</div>
         </div>
         <div class="visit-card">
@@ -397,6 +397,9 @@
         <span data-sr="Ukupno:" data-en="Total:">Ukupno:</span>
         <span id="cartTotal">0 RSD</span>
       </div>
+      <!-- Filled only on the English page, where the total above is shown in
+           euros: this is the dinar sum the courier actually collects. -->
+      <div class="cart-charge-note" id="cartChargeNote"></div>
       <button type="button" class="btn btn-primary btn-full" id="checkoutBtn" data-sr="Nastavi na rezervaciju" data-en="Make a Reservation">Nastavi na rezervaciju</button>
     </div>
   </aside>
@@ -550,6 +553,6 @@
   }
   </script>
 
-  <script src="script.js?v=110"></script>
+  <script src="script.js?v=111"></script>
 </body>
 </html>

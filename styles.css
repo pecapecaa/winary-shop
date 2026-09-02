@@ -746,25 +746,17 @@ button {
   margin-bottom: 18px;
 }
 
-/* The fully round pill was the only one of its kind on the page — every card,
-   button and field here is drawn at 6 to 14px — and a row of them read as a
-   set of app chips borrowed from somewhere else. Squared off to the same
-   radius as the buttons it sits above, on a hairline rather than the heavier
-   1.5px rule, it belongs to the same drawing as the rest of the page. The
-   weight comes down a step for the same reason: at 700 the tracked capitals
-   were shouting a little. The circular icon badge stays round on purpose —
-   against a squarer outline it reads as a detail rather than a repetition. */
 .wf-btn {
   background: transparent;
-  border: 1px solid rgba(139, 115, 85, 0.4);
+  border: 1.5px solid rgba(139, 115, 85, 0.35);
   color: var(--text-light);
   font-family: 'Lato', sans-serif;
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  padding: 11px 20px 11px 11px;
-  border-radius: 8px;
+  padding: 10px 22px 10px 10px;
+  border-radius: 50px;
   cursor: pointer;
   transition: all 0.25s;
 }

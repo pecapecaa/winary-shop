@@ -5,7 +5,7 @@
 // the reader should find their own situation in the list and stop deliberating.
 //
 // Every bundle also says who it is NOT for. That single line is what makes the
-// four above it worth believing: a box that claims to suit everyone is read,
+// ones above it worth believing: a box that claims to suit everyone is read,
 // correctly, as a box that suits no one in particular.
 //
 // Keyed by bundle id from data.js. A bundle with no entry here still gets a
@@ -21,13 +21,11 @@ const BUNDLE_DETAILS = {
     forYou: {
       sr: [
         'Prvi put naručujete hercegovačko vino i ne znate odakle da počnete',
-        'Ne želite da vežete veći novac dok ne probate kakav je stil',
         'Očekujete goste, pa treba i belo i crveno jer ne znate ko šta pije',
         'Tražite poklon koji je pažljiv, a ne pretenciozan'
       ],
       en: [
         'This is your first Herzegovinian wine and you have no idea where to start',
-        'You would rather not commit real money before you know the style',
         'People are coming over and you need both a white and a red, because you cannot know who drinks what',
         'You want a gift that is thoughtful without being grand'
       ]
@@ -75,13 +73,11 @@ const BUNDLE_DETAILS = {
       sr: [
         'Probali ste ponešto i sada želite da vidite raspon, a ne još jednu flašu istog',
         'Spremate večeru za više ljudi i treba vam izbor koji pokriva ceo sto',
-        'Poklanjate nekome ko se razume, pa jedna flaša deluje šturo',
         'Zanima vas kako dva bela iz dva različita podruma stoje jedno pored drugog'
       ],
       en: [
         'You have tasted a few and now want range, not another bottle of the same',
         'You are cooking for several people and need a choice that covers the whole table',
-        'You are giving this to someone who knows wine, where one bottle would look thin',
         'You are curious how two whites from two different cellars stand next to each other'
       ]
     },

@@ -216,13 +216,13 @@ function render(wine, detail) {
   const producer = PRODUCERS[detail.producer];
 
   // --- head ---
-  const title = wine.name.sr + ' - ' + wine.volume + ' | Hercz Wines';
+  const title = wine.name.sr + ' — ' + wine.volume + ' | Hercz Wines';
   document.title = title;
   const shortDesc = wine.desc.sr.length > 155
     ? wine.desc.sr.slice(0, 152).trim() + '…'
     : wine.desc.sr;
   setMeta('meta[name="description"]', shortDesc);
-  setMeta('meta[property="og:title"]', wine.name.sr + ' - Hercz Wines');
+  setMeta('meta[property="og:title"]', wine.name.sr + ' — Hercz Wines');
   setMeta('meta[property="og:description"]', shortDesc);
   setMeta('meta[property="og:image"]', 'https://herczwines.rs/' + wine.img);
 
@@ -468,7 +468,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   if (!wine || !detail) {
     document.getElementById('wineNotFound').hidden = false;
-    document.title = 'Vino nije pronađeno - Hercz Wines';
+    document.title = 'Vino nije pronađeno — Hercz Wines';
     renderCart();
     wireChrome();
     return;

@@ -77,7 +77,7 @@ const WINES = [
     quickTag: 'drugacije',
     tag: { sr: 'Osvežavajuće leto', en: 'Refreshing summer' },
     tagIcon: 'sun',
-    name: { sr: 'Primavera cuvee roze', en: 'Primavera cuvee roze' },
+    name: { sr: 'Primavera cuvée rosé', en: 'Primavera cuvée rosé' },
     volume: '0.75L',
     subtitle: { sr: 'Rosé vino • Podrumi Vukoje, Trebinje', en: 'Rosé Wine • Podrumi Vukoje, Trebinje' },
     type: { sr: 'Rosé', en: 'Rosé' },
@@ -185,7 +185,7 @@ const WINES = [
     subtitle: { sr: 'Crveno vino • Vinarija Čitluk', en: 'Red Wine • Vinarija Čitluk' },
     type: { sr: 'Crveno', en: 'Red' },
     desc: {
-      sr: 'Ista omiljena Blatina iz Vinarije Čitluk, sada u većem, praktičnom pakovanju od 1 litre. Idealna kada je društvo veće ili kada jednostavno ne želite da vam ponestane.',
+      sr: 'Ista omiljena Blatina iz Vinarije Čitluk, sada u većem, praktičnom pakovanju od 1 litra. Idealna kada je društvo veće ili kada jednostavno ne želite da vam ponestane.',
       en: 'The same beloved Blatina from Vinarija Čitluk, now in a bigger, more practical 1-litre bottle. Ideal for a larger crowd, or simply so it does not run out mid-evening.'
     },
     // Its own photograph now — the 1L bottle carries a visibly different
@@ -218,12 +218,12 @@ const WINES = [
     quickTag: 'preporuka',
     tag: { sr: 'Elegantno i lako', en: 'Elegant and easy' },
     tagIcon: 'ribbon',
-    name: { sr: 'Tribunija bijelo', en: 'Tribunija bijelo' },
+    name: { sr: 'Tribunia bijelo', en: 'Tribunia bijelo' },
     volume: '0.75L',
     subtitle: { sr: 'Belo vino • Podrumi Vukoje, Trebinje', en: 'White Wine • Podrumi Vukoje, Trebinje' },
     type: { sr: 'Belo', en: 'White' },
     desc: {
-      sr: 'Belo vino iz podruma Vukoje u Trebinju, sa mirisom svežeg voća i blagom notom cvetova. Elegantno i lako pitko, ostavlja utisak bez da ikog optereti.',
+      sr: 'Belo vino iz podruma Vukoje u Trebinju, sa mirisom svežeg voća i blagom notom cvetova. Elegantno i lako pitko, ostavlja utisak a da nikoga ne optereti.',
       en: 'A white wine from the Vukoje cellars in Trebinje, with aromas of fresh fruit and a gentle floral note. Elegant and easy to drink, memorable without being demanding.'
     },
     price: 2090,

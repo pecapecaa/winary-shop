@@ -208,10 +208,10 @@ function render(bundle, detail) {
     .map(id => WINES.find(w => w.id === id))
     .filter(Boolean);
 
-  document.title = bundle.name.sr + ' - Hercz paket';
+  document.title = bundle.name.sr + ' — Hercz paket';
   const metaDesc = detail ? detail.promise.sr : bundle.desc.sr;
   setMeta('meta[name="description"]', metaDesc);
-  setMeta('meta[property="og:title"]', bundle.name.sr + ' - Hercz Wines');
+  setMeta('meta[property="og:title"]', bundle.name.sr + ' — Hercz Wines');
   setMeta('meta[property="og:description"]', metaDesc);
   setMeta('meta[property="og:image"]', 'https://herczwines.rs/' + bundle.img);
 
@@ -321,7 +321,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   if (!bundle) {
     document.getElementById('bundleNotFound').hidden = false;
-    document.title = 'Paket nije pronađen - Hercz Wines';
+    document.title = 'Paket nije pronađen — Hercz Wines';
     renderCart();
     wireChrome();
     return;

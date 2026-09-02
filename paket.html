@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Title, description and the OG tags are rewritten by vino.js once it
-       knows which wine this is. These are the fallbacks a scraper sees if
-       scripting is off, and what shows while the page is still parsing. -->
-  <title>Vino - Hercz Wines</title>
-  <meta name="description" content="Detaljan opis vina iz ponude Hercz Wines: ukus, arome, serviranje i uz šta ide.">
+  <!-- Rewritten by paket.js once it knows which bundle this is. These are the
+       fallbacks a scraper sees with scripting off, and what shows while the
+       page is still parsing. -->
+  <title>Paket - Hercz Wines</title>
+  <meta name="description" content="Hercz paketi: gotov izbor hercegovačkih vina, složen tako da ne morate sami da birate.">
   <meta name="theme-color" content="#1f0508">
 
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
@@ -16,8 +16,8 @@
   <meta property="og:type" content="product">
   <meta property="og:site_name" content="Hercz Wines">
   <meta property="og:locale" content="sr_RS">
-  <meta property="og:title" content="Vino - Hercz Wines">
-  <meta property="og:description" content="Detaljan opis vina iz ponude Hercz Wines.">
+  <meta property="og:title" content="Paket - Hercz Wines">
+  <meta property="og:description" content="Gotov izbor hercegovačkih vina u jednoj kutiji.">
   <meta property="og:image" content="https://herczwines.rs/images/og-share.png">
   <meta name="twitter:card" content="summary_large_image">
 
@@ -41,7 +41,7 @@
     })(window, document, "clarity", "script", "y81c3xitpl");
   </script>
 </head>
-<body class="page-wine">
+<body class="page-wine page-bundle">
   <a class="skip-link" href="#main">Preskoči na sadržaj</a>
 
   <nav class="navbar navbar--solid" id="navbar">
@@ -50,11 +50,11 @@
         <img src="images/logo-hercz.webp" alt="Hercz Wines" class="logo-img" width="158" height="54">
       </a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="index.html#about" data-sr="O nama" data-en="About">O nama</a></li>
-        <li><a href="index.html#wines" data-sr="Vina" data-en="Wines">Vina</a></li>
-        <li><a href="index.html#vineyard" data-sr="Hercegovina" data-en="Herzegovina">Hercegovina</a></li>
-        <li><a href="index.html#visit" data-sr="Zašto mi" data-en="Why us">Zašto mi</a></li>
-        <li><a href="index.html#contact" data-sr="Kontakt" data-en="Contact">Kontakt</a></li>
+        <li><a href="index.html#about">O nama</a></li>
+        <li><a href="index.html#wines">Vina</a></li>
+        <li><a href="index.html#bundles">Paketi</a></li>
+        <li><a href="index.html#visit">Zašto mi</a></li>
+        <li><a href="index.html#contact">Kontakt</a></li>
       </ul>
       <div class="nav-actions">
         <button type="button" class="cart-btn" id="cartBtn" aria-label="Korpa">
@@ -71,39 +71,33 @@
     </div>
   </nav>
 
-  <!-- How far through the page you are. Long page, and the bar is the only
-       thing that says so without taking any layout space. -->
   <div class="wp-progress" aria-hidden="true"><span id="wpProgressBar"></span></div>
 
-  <!-- Section index. Hidden on phones, where the page is a single column and
-       the dots would just be another thing under the thumb. -->
   <nav class="wp-rail" id="wpRail" aria-label="Sekcije stranice">
-    <a href="#vrh" data-rail="vrh"><i></i><em>Vino</em></a>
-    <a href="#ukus" data-rail="ukus"><i></i><em>Ukus</em></a>
-    <a href="#serviranje" data-rail="serviranje"><i></i><em>Serviranje</em></a>
-    <a href="#uz-sta" data-rail="uz-sta"><i></i><em>Uz hranu</em></a>
-    <a href="#prica" data-rail="prica"><i></i><em>Priča</em></a>
-    <a href="#slicna" data-rail="slicna"><i></i><em>Još vina</em></a>
+    <a href="#vrh" data-rail="vrh"><i></i><em>Paket</em></a>
+    <a href="#za-koga" data-rail="za-koga"><i></i><em>Za koga</em></a>
+    <a href="#unutra" data-rail="unutra"><i></i><em>Unutra</em></a>
+    <a href="#redosled" data-rail="redosled"><i></i><em>Redosled</em></a>
+    <a href="#dostava" data-rail="dostava"><i></i><em>Dostava</em></a>
+    <a href="#ostali" data-rail="ostali"><i></i><em>Ostali</em></a>
   </nav>
 
   <main id="main" tabindex="-1">
-    <!-- Everything below is written by vino.js from the wine id in the URL.
-         A wrong or missing id renders the not-found block instead. -->
-    <div id="wineNotFound" class="wine-404" hidden>
+    <div id="bundleNotFound" class="wine-404" hidden>
       <div class="container">
         <div class="wine-404-inner">
           <div class="section-kicker">404</div>
-          <h1 class="section-title">Ovo vino nije u ponudi</h1>
+          <h1 class="section-title">Ovaj paket nije u ponudi</h1>
           <div class="divider divider-center"></div>
-          <p>Link je možda zastareo, ili je vino povučeno iz ponude.</p>
-          <a href="index.html#wines" class="btn btn-primary">Nazad na sva vina</a>
+          <p>Link je možda zastareo, ili je paket povučen iz ponude.</p>
+          <a href="index.html#bundles" class="btn btn-primary">Nazad na pakete</a>
         </div>
       </div>
     </div>
 
-    <article id="wineArticle" hidden>
+    <article id="bundleArticle" hidden>
 
-      <!-- ===== Hero: the bottle and the decision ===== -->
+      <!-- ===== Hero ===== -->
       <section class="wp-hero" id="vrh">
         <div class="wp-hero-bg" id="wpHeroBg"></div>
         <div class="wp-hero-glow"></div>
@@ -112,171 +106,130 @@
           <nav class="wp-crumbs" aria-label="Putanja">
             <a href="index.html#hero">Početna</a>
             <span aria-hidden="true">/</span>
-            <a href="index.html#wines">Vina</a>
+            <a href="index.html#bundles">Paketi</a>
             <span aria-hidden="true">/</span>
             <span id="wpCrumbName" class="wp-crumbs-current"></span>
           </nav>
 
           <div class="wp-hero-grid">
-            <!-- No frame around the bottle. The photographs are shot on true
-                 black, so the image is blended into the page instead of boxed
-                 on it, and the bottle reads as standing in the page rather
-                 than inside a card. -->
-            <div class="wp-stage" id="wpStage">
+            <div class="wp-stage wp-stage--box" id="wpStage">
               <span class="wp-stage-line" aria-hidden="true"></span>
-              <img id="wpImg" class="wp-bottle" src="" alt="">
-              <span class="wp-reflection" id="wpReflection" aria-hidden="true"></span>
+              <img id="wpImg" class="wp-bottle wp-bottle--box" src="" alt="">
             </div>
 
             <div class="wp-intro">
-              <div class="wp-type-mark" id="wpType"></div>
+              <div class="wp-type-mark" id="wpCount"></div>
               <div class="wp-eyebrow" id="wpEyebrow"></div>
               <h1 class="wp-title" id="wpName"></h1>
-              <p class="wp-producer" id="wpProducer"></p>
+              <p class="wp-producer" id="wpSubtitle"></p>
 
-              <div class="wp-tags" id="wpTags"></div>
+              <p class="wp-lead" id="wpPromise"></p>
 
-              <p class="wp-lead" id="wpLead"></p>
-
-              <div class="wp-facts" id="wpFacts"></div>
+              <!-- The bottles as a line of names, before any of the argument.
+                   Someone who only wants to know what is in the box gets it
+                   here and can leave. -->
+              <ul class="pk-manifest" id="wpManifest"></ul>
 
               <div class="wp-buy">
                 <div class="wp-price-block">
                   <span class="wp-price" id="wpPrice"></span>
-                  <span class="wp-volume" id="wpVolume"></span>
+                  <span class="wp-volume" id="wpPer"></span>
                 </div>
-                <!-- The standard trolley, not the shopping bag used elsewhere
-                     on the site: this is the one glyph people read as "buy"
-                     without looking. -->
                 <button type="button" class="btn btn-primary wp-add" id="wpAdd">
                   <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <circle cx="9" cy="20" r="1.6"/>
-                    <circle cx="18" cy="20" r="1.6"/>
+                    <circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/>
                     <path d="M1.5 2h2.6l2.5 12.1a1.8 1.8 0 001.8 1.4h8.9a1.8 1.8 0 001.8-1.4L21 6H5.2"/>
                   </svg>
-                  <span>Dodaj u korpu</span>
+                  <span>Dodaj paket u korpu</span>
                 </button>
               </div>
 
-              <ul class="wp-assurances">
-                <li>
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>
-                  <span>Dostava širom Srbije</span>
-                </li>
-                <li>
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
-                  <span>Plaćanje pouzećem</span>
-                </li>
-                <li>
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7.5 3.5v5c0 4.3-3.1 8.1-7.5 9.5-4.4-1.4-7.5-5.2-7.5-9.5v-5L12 3z"/></svg>
-                  <span>Direktno od vinara</span>
-                </li>
-              </ul>
+              <ul class="wp-assurances" id="wpAssurances"></ul>
             </div>
           </div>
         </div>
 
-        <a class="wp-cue" href="#ukus" aria-label="Nastavi niže">
-          <span class="wp-cue-text">Zavirite u vino</span>
+        <a class="wp-cue" href="#za-koga" aria-label="Nastavi niže">
+          <span class="wp-cue-text">Da li je ovo za vas</span>
           <span class="wp-cue-line"></span>
         </a>
       </section>
 
-      <!-- ===== Taste ===== -->
-      <section class="section wp-section wp-taste" id="ukus">
+      <!-- ===== Who it is for. The section the page exists for. ===== -->
+      <section class="section wp-section pk-for" id="za-koga">
         <div class="container">
           <div class="section-header">
-            <div class="section-kicker">Ukus</div>
-            <h2 class="section-title">Šta ćete osetiti</h2>
+            <div class="section-kicker">Za koga je</div>
+            <h2 class="section-title">Ovo je vaš paket ako</h2>
             <div class="divider divider-center"></div>
           </div>
 
-          <div class="wp-taste-grid">
-            <div class="wp-aromas">
-              <h3 class="wp-sub">Arome u čaši</h3>
-              <div class="wp-aroma-list" id="wpAromas"></div>
-              <p class="wp-note" id="wpOccasion"></p>
-            </div>
+          <ul class="pk-for-list" id="wpForYou"></ul>
 
-            <div class="wp-profile">
-              <h3 class="wp-sub">Naš utisak</h3>
-              <div class="wp-bars" id="wpProfile"></div>
-              <p class="wp-disclaimer">
-                Ovo je naša procena, a ne podatak sa etikete - opisuje kako
-                vino doživljavamo, da biste znali šta da očekujete.
-              </p>
-            </div>
-          </div>
+          <!-- Saying who it is not for is what makes the list above credible. -->
+          <div class="pk-honest" id="wpNotForYou"></div>
         </div>
       </section>
 
-      <!-- ===== Serving ===== -->
-      <section class="section wp-section wp-serve-sec" id="serviranje">
+      <!-- ===== What is inside, and why each bottle earned its place ===== -->
+      <section class="section wp-section pk-inside" id="unutra">
         <div class="container">
           <div class="section-header">
-            <div class="section-kicker">Serviranje</div>
-            <h2 class="section-title">Kako da ga poslužite</h2>
+            <div class="section-kicker">Sastav</div>
+            <h2 class="section-title">Šta je unutra</h2>
             <div class="divider divider-center"></div>
           </div>
-          <div class="wp-serve-grid" id="wpServe"></div>
+
+          <p class="pk-why" id="wpWhy"></p>
+          <div class="pk-bottles" id="wpBottles"></div>
+        </div>
+      </section>
+
+      <!-- ===== The order to open them in ===== -->
+      <section class="section wp-section pk-order-sec" id="redosled">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-kicker">Predlog</div>
+            <h2 class="section-title">Kojim redom da ih otvorite</h2>
+            <div class="divider divider-center"></div>
+          </div>
+          <ol class="pk-order" id="wpOrder"></ol>
           <p class="wp-disclaimer wp-disclaimer--center">
-            Opšte preporuke za ovaj stil vina, ne uputstvo proizvođača.
+            Predlog, ne pravilo. Vino se pije onako kako vama prija.
           </p>
         </div>
       </section>
 
-      <!-- ===== Food ===== -->
-      <section class="section wp-section wp-pairing-sec" id="uz-sta">
+      <!-- ===== How it arrives ===== -->
+      <section class="section wp-section pk-ship" id="dostava">
         <div class="container">
           <div class="section-header">
-            <div class="section-kicker">Uz hranu</div>
-            <h2 class="section-title">Uz šta ide</h2>
+            <div class="section-kicker">Kako stiže</div>
+            <h2 class="section-title">Od porudžbine do vrata</h2>
             <div class="divider divider-center"></div>
           </div>
-          <div class="wp-pairing" id="wpPairing"></div>
+          <div class="pk-ship-grid" id="wpShip"></div>
+          <p class="pk-gift" id="wpGift"></p>
         </div>
       </section>
 
-      <!-- ===== Variety and producer ===== -->
-      <section class="section wp-section wp-story" id="prica">
-        <div class="container">
-          <div class="wp-story-grid">
-            <div class="wp-story-card">
-              <div class="wp-story-kicker">Sorta</div>
-              <h3 class="wp-story-title" id="wpVarietyName"></h3>
-              <div class="divider"></div>
-              <p id="wpVarietyText"></p>
-            </div>
-            <div class="wp-story-card">
-              <div class="wp-story-kicker">Vinarija</div>
-              <h3 class="wp-story-title" id="wpProducerName"></h3>
-              <div class="wp-story-place" id="wpProducerPlace"></div>
-              <div class="divider"></div>
-              <p id="wpProducerText"></p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===== Related ===== -->
-      <section class="section wp-section wp-related-sec" id="slicna">
+      <!-- ===== The other bundles ===== -->
+      <section class="section wp-section wp-related-sec" id="ostali">
         <div class="container">
           <div class="section-header">
             <div class="section-kicker">Još iz ponude</div>
-            <h2 class="section-title" id="wpRelatedTitle">Slična vina</h2>
+            <h2 class="section-title">Ostali paketi</h2>
             <div class="divider divider-center"></div>
           </div>
-          <div class="wines-grid" id="wpRelated"></div>
+          <div class="bundles-grid" id="wpRelated"></div>
           <div class="wp-related-more">
-            <a href="index.html#wines" class="btn btn-outline">Pogledaj svu ponudu</a>
+            <a href="index.html#wines" class="btn btn-outline">Pogledaj pojedinačna vina</a>
           </div>
         </div>
       </section>
     </article>
   </main>
 
-  <!-- Sticky buy bar: on a phone the price and the button scroll away with
-       the hero, and this page is long. It appears once they do. -->
   <div class="wp-sticky" id="wpSticky" hidden>
     <div class="wp-sticky-inner">
       <div class="wp-sticky-info">
@@ -308,7 +261,7 @@
           <ul>
             <li><a href="index.html#about">O nama</a></li>
             <li><a href="index.html#wines">Vina</a></li>
-            <li><a href="index.html#vineyard">Hercegovina</a></li>
+            <li><a href="index.html#bundles">Paketi</a></li>
             <li><a href="index.html#visit">Zašto mi</a></li>
           </ul>
         </div>
@@ -341,14 +294,14 @@
         <span>Ukupno</span>
         <span id="cartTotal">0 RSD</span>
       </div>
-      <a href="index.html?korpa=1#wines" class="btn btn-primary cart-checkout-link">Nastavi na rezervaciju</a>
+      <a href="index.html?korpa=1#bundles" class="btn btn-primary cart-checkout-link">Nastavi na rezervaciju</a>
     </div>
   </aside>
 
   <div class="toast" id="toast"></div>
 
   <aside class="fab-buttons" aria-label="Brzi kontakt">
-    <a href="https://wa.me/381617056465?text=Zdravo%21%20Pi%C5%A1em%20sa%20sajta%20%E2%80%94%20zanima%20me%20preporuka%20za%20vino%20%F0%9F%8D%B7" class="fab-btn fab-whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <a href="https://wa.me/381617056465?text=Zdravo%21%20Pi%C5%A1em%20sa%20sajta%20%E2%80%94%20zanima%20me%20preporuka%20za%20paket%20%F0%9F%8D%B7" class="fab-btn fab-whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     </a>
     <a href="tel:+381617056465" class="fab-btn fab-phone" aria-label="Pozovi">
@@ -357,7 +310,7 @@
   </aside>
 
   <script src="data.js?v=3"></script>
-  <script src="wine-details.js?v=1"></script>
-  <script src="vino.js?v=11"></script>
+  <script src="bundle-details.js?v=1"></script>
+  <script src="paket.js?v=2"></script>
 </body>
 </html>

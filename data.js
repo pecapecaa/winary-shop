@@ -319,7 +319,12 @@ const BUNDLES = [
 // One place builds a product-page URL, so the homepage links and the page's
 // own related-wine links can never drift into different shapes.
 const WINE_URL_PARAM = 'w';
+const BUNDLE_URL_PARAM = 'p';
 
 function wineHref(id) {
   return 'vino.html?' + WINE_URL_PARAM + '=' + encodeURIComponent(id);
+}
+
+function bundleHref(id) {
+  return 'paket.html?' + BUNDLE_URL_PARAM + '=' + encodeURIComponent(id);
 }

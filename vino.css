@@ -1132,3 +1132,386 @@
      are what the bar is for. */
   .wp-sticky-name { font-size: 0.8rem; }
 }
+
+/* ============================================================
+   PACKAGE PAGE
+   Shares the wine page's frame — hero, rail, sticky bar, section
+   rhythm — and adds only what a box needs that a bottle does not:
+   who it suits, what is in it, and the order to open it in.
+   ============================================================ */
+
+/* The box photograph is a group of bottles, not one, so it needs the width
+   the single-bottle stage gives up to its reflection. */
+.wp-stage--box { align-items: center; }
+
+.wp-bottle--box {
+  max-height: min(74vh, 620px);
+  width: auto;
+  filter: drop-shadow(0 30px 46px rgba(0, 0, 0, 0.55));
+}
+
+/* ---- Hero manifest: the bottles, plainly, before any argument ---- */
+.pk-manifest {
+  list-style: none;
+  margin: 22px 0 26px;
+  padding: 0;
+  display: grid;
+  gap: 9px;
+}
+
+.pk-manifest li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.92rem;
+  color: rgba(250, 246, 238, 0.82);
+}
+
+.pk-manifest svg { color: var(--gold); flex-shrink: 0; }
+.pk-manifest em {
+  font-style: normal;
+  font-size: 0.78rem;
+  letter-spacing: 1px;
+  color: rgba(250, 246, 238, 0.42);
+  margin-left: 2px;
+}
+
+/* ---- Who it is for ---- */
+.pk-for-list {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 760px;
+  display: grid;
+  gap: 14px;
+}
+
+.pk-for-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 22px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(139, 115, 85, 0.18);
+  border-radius: 12px;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.16rem;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+.pk-for-list svg {
+  color: var(--wine);
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+/* The honest counterweight. Quieter than the list above it on purpose: it is
+   there to be believed, not to be sold. */
+.pk-honest {
+  max-width: 760px;
+  margin: 26px auto 0;
+  padding: 18px 22px;
+  border-left: 2px solid rgba(139, 115, 85, 0.4);
+  background: rgba(139, 115, 85, 0.06);
+  border-radius: 0 10px 10px 0;
+}
+
+.pk-honest-label {
+  display: block;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 7px;
+}
+
+.pk-honest p {
+  margin: 0;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.08rem;
+  line-height: 1.5;
+  color: var(--text-light);
+}
+
+/* ---- What is inside ---- */
+.pk-why {
+  max-width: 720px;
+  margin: 0 auto 40px;
+  text-align: center;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.24rem;
+  line-height: 1.6;
+  color: rgba(250, 246, 238, 0.82);
+}
+
+.pk-bottles {
+  display: grid;
+  gap: 18px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.pk-bottle {
+  position: relative;
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 20px;
+  align-items: center;
+  padding: 18px 22px;
+  background: linear-gradient(150deg, rgba(26, 5, 8, 0.9), rgba(45, 16, 21, 0.75));
+  border: 1px solid rgba(201, 169, 97, 0.2);
+  border-radius: 14px;
+  text-decoration: none;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+@media (hover: hover) {
+  .pk-bottle:hover {
+    border-color: var(--gold);
+    transform: translateY(-3px);
+  }
+  .pk-bottle:hover .pk-bottle-link { color: var(--gold-light); }
+}
+
+/* The running number is the only thing that says these are a set rather than
+   three unrelated cards stacked up. */
+.pk-bottle-no {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-family: 'HerczDj', 'Cinzel', serif;
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  color: rgba(201, 169, 97, 0.35);
+}
+
+.pk-bottle-img {
+  display: block;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.pk-bottle-img img {
+  height: 190%;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+}
+
+.pk-bottle-body { display: block; }
+
+.pk-bottle-type {
+  display: block;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 5px;
+}
+
+.pk-bottle-name {
+  display: block;
+  font-family: 'HerczDj', 'Cinzel', serif;
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 7px;
+}
+
+.pk-bottle-why {
+  display: block;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.04rem;
+  line-height: 1.5;
+  color: rgba(250, 246, 238, 0.7);
+  margin-bottom: 10px;
+}
+
+.pk-bottle-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  transition: color 0.3s;
+}
+
+/* ---- Opening order ---- */
+.pk-order {
+  list-style: none;
+  counter-reset: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 720px;
+  display: grid;
+  gap: 0;
+}
+
+.pk-order-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 46px 1fr;
+  gap: 18px;
+  padding: 0 0 30px 0;
+}
+
+/* The line joining the marks is what turns three notes into a sequence. */
+.pk-order-step::before {
+  content: '';
+  position: absolute;
+  left: 22px;
+  top: 38px;
+  bottom: 4px;
+  width: 1px;
+  background: linear-gradient(to bottom, rgba(201, 169, 97, 0.5), rgba(201, 169, 97, 0.06));
+}
+
+.pk-order-step:last-child { padding-bottom: 0; }
+.pk-order-step:last-child::before { display: none; }
+
+.pk-order-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 169, 97, 0.45);
+  background: var(--cream);
+  font-family: 'HerczDj', 'Cinzel', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--wine);
+}
+
+.pk-order-name {
+  display: block;
+  font-family: 'HerczDj', 'Cinzel', serif;
+  font-size: 1.14rem;
+  font-weight: 700;
+  color: var(--wine-deep);
+  margin: 10px 0 5px;
+}
+
+.pk-order-note {
+  display: block;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.08rem;
+  line-height: 1.5;
+  color: var(--text-light);
+}
+
+/* ---- How it arrives ---- */
+.pk-ship-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 940px;
+  margin: 0 auto;
+}
+
+.pk-ship-card {
+  text-align: center;
+  padding: 30px 22px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(139, 115, 85, 0.18);
+  border-radius: 14px;
+}
+
+.pk-ship-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(201, 169, 97, 0.14);
+  color: var(--wine);
+  margin-bottom: 14px;
+}
+
+.pk-ship-title {
+  font-family: 'HerczDj', 'Cinzel', serif;
+  font-size: 1.04rem;
+  font-weight: 700;
+  color: var(--wine-deep);
+  margin: 0 0 8px;
+}
+
+.pk-ship-card p {
+  margin: 0;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.04rem;
+  line-height: 1.5;
+  color: var(--text-light);
+}
+
+.pk-gift {
+  max-width: 620px;
+  margin: 32px auto 0;
+  text-align: center;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 1.12rem;
+  line-height: 1.55;
+  color: var(--text-light);
+}
+
+/* The other bundles, at the size the homepage draws them. */
+.page-bundle .bundles-grid {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.pk-related-card { text-decoration: none; display: block; }
+
+@media (max-width: 860px) {
+  .pk-ship-grid { grid-template-columns: 1fr; gap: 14px; }
+  .page-bundle .bundles-grid { grid-template-columns: 1fr; max-width: 420px; }
+}
+
+@media (max-width: 560px) {
+  .pk-for-list li { font-size: 1.06rem; padding: 15px 17px; gap: 11px; }
+  .pk-bottle { grid-template-columns: 74px 1fr; gap: 14px; padding: 15px 17px; }
+  .pk-bottle-img { height: 108px; }
+  .pk-bottle-name { font-size: 1.06rem; }
+  .pk-order-step { grid-template-columns: 38px 1fr; gap: 14px; }
+  .pk-order-mark { width: 38px; height: 38px; font-size: 0.94rem; }
+  .pk-order-step::before { left: 18px; top: 32px; }
+  .pk-why { font-size: 1.12rem; }
+}
+
+/* The bundle's buy row carries a longer label and a per-bottle figure beside
+   the price, which together outgrow the single-bottle row this is shared
+   with. Without this the button is the thing flex chooses to shrink, and it
+   collapsed to a four-line sliver; refusing to shrink, it wraps onto its own
+   line instead, which is what there is room for. */
+.page-bundle .wp-buy { gap: 20px 26px; }
+.page-bundle .wp-add { flex-shrink: 0; }
+
+@media (max-width: 620px) {
+  .page-bundle .wp-add { flex: 1 1 100%; justify-content: center; }
+}
+
+/* "Šta je unutra" runs dark, the way the wine page's story section does. The
+   bottle cards inside it are photographs on their own black, so on a cream
+   ground they read as three dark slabs dropped onto the page; against the
+   dark they are simply part of it. It also gives the page its rhythm — dark
+   hero, light question, dark contents, light again to the end. */
+.pk-inside { background: var(--wine-deep); }
+.pk-inside .section-title { color: var(--cream); }
+.pk-inside .section-kicker { color: var(--gold); }

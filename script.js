@@ -307,16 +307,17 @@ function renderBundles() {
         + '</div>'
       : '';
     return [
-      '<div class="wine-card ' + bundle.id + featured + ' fade-up">',
+      '<div class="wine-card ' + bundle.id + featured + ' fade-up"'
+        + ' data-wine-page="' + bundleHref(bundle.id) + '">',
         '<div class="wine-img-wrap">',
           '<div class="bundle-badges">',
             '<span class="wine-type-badge">' + countLabel + '</span>',
           '</div>',
           '<img src="' + bundle.img + '" alt="' + bundle.name[currentLang] + '" loading="lazy" decoding="async">',
         '</div>',
-        '<button type="button" class="wine-more" data-detail-id="' + bundle.id + '"'
+        '<a class="wine-more" href="' + bundleHref(bundle.id) + '"'
           + ' aria-label="' + bundle.name[currentLang] + ': ' + moreLabel + '"'
-          + ' title="' + moreLabel + '">' + MORE_ICON + '</button>',
+          + ' title="' + moreLabel + '">' + MORE_ICON + '</a>',
         topBadge,
         '<div class="wine-card-body">',
           '<h3>' + bundle.name[currentLang] + '</h3>',
@@ -602,81 +603,14 @@ function setPanelOpen(id, open) {
   else el.setAttribute('inert', '');
 }
 
-// ===== Wine Detail =====
-// The card clamps its description and hides the volume behind a small pill.
-// This shows the whole thing without leaving the catalogue, so a shopper never
-// loses their scroll position to a product page.
-let _detailItemId = null;
-
-function openDetail(id) {
-  const wine = WINES.find(w => w.id === id);
-  const bundle = wine ? null : BUNDLES.find(b => b.id === id);
-  const item = wine || bundle;
-  if (!item) return;
-  _detailItemId = id;
-
-  const isSr = currentLang === 'sr';
-  const badge = wine
-    ? wine.type[currentLang]
-    : item.count + (isSr ? (item.count >= 5 ? ' flaša' : ' flaše') : ' btl.');
-
-  document.getElementById('detailBadge').textContent = badge;
-  const img = document.getElementById('detailImg');
-  img.src = item.img;
-  img.alt = item.name[currentLang];
-  document.getElementById('detailName').textContent = item.name[currentLang];
-  document.getElementById('detailSub').textContent = item.subtitle[currentLang];
-  document.getElementById('detailDesc').textContent = item.desc[currentLang];
-  document.getElementById('detailPrice').textContent = fmtPrice(item.price);
-  // Only wines carry a quickTag; bundles show no chip here.
-  document.getElementById('detailTag').innerHTML = wine ? tagChip(wine, currentLang) + tag2Chip(wine, currentLang) : '';
-
-  const vol = document.getElementById('detailVol');
-  vol.textContent = wine ? wine.volume : '';
-  vol.style.display = wine ? '' : 'none';
-
-  // The button shows only the cart, so the words live in its accessible name —
-  // setting textContent here would replace the icon with them.
-  document.getElementById('detailAdd').setAttribute('aria-label', wine
-    ? (isSr ? 'Dodaj u korpu' : 'Add to cart')
-    : (isSr ? 'Dodaj paket u korpu' : 'Add bundle to cart'));
-
-  setPanelOpen('wineDetail', true);
-  document.getElementById('detailClose').focus();
-}
-
-function closeDetail() {
-  setPanelOpen('wineDetail', false);
-  // Send focus back to the card that opened it, so keyboard users are not
-  // dumped at the top of the document.
-  if (_detailItemId) {
-    const card = document.querySelector('[data-detail-id="' + _detailItemId + '"]');
-    if (card) card.focus();
-  }
-  _detailItemId = null;
-}
-
+// ===== Card navigation =====
+// Wines and bundles each have a page of their own now, so the panel that used
+// to stand in for one is gone: nothing could open it any more.
 function initDetail() {
-  document.getElementById('detailClose').addEventListener('click', closeDetail);
-  document.getElementById('wineDetail').addEventListener('click', e => {
-    if (e.target.id === 'wineDetail') closeDetail();
-  });
-  document.getElementById('detailAdd').addEventListener('click', () => {
-    const id = _detailItemId;
-    if (!id) return;
-    if (WINES.some(w => w.id === id)) addToCart(id);
-    else addBundleToCart(id);
-    closeDetail();
-  });
-
   // Delegated, because both grids re-render whenever the filter or language
   // changes and per-button listeners would be lost with them. A real button
   // needs no key handling of its own — Enter and Space already fire a click.
   document.addEventListener('click', e => {
-    // Bundles still open in the panel: they have no page of their own.
-    const btn = e.target.closest('[data-detail-id]');
-    if (btn) { openDetail(btn.dataset.detailId); return; }
-
     // A wine card is a link in everything but markup — it cannot be an <a>,
     // because the add-to-cart button inside it would then be a control nested
     // in a link. So the whole card is clickable, minus the two things that
@@ -1019,9 +953,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.addEventListener('keydown', e => {
     if (e.key !== 'Escape') return;
-    if (document.getElementById('wineDetail').classList.contains('active')) {
-      closeDetail();
-    } else if (document.getElementById('checkoutOverlay').classList.contains('active')) {
+    if (document.getElementById('checkoutOverlay').classList.contains('active')) {
       closeCheckout();
     } else if (document.getElementById('cartSidebar').classList.contains('active')) {
       setCartOpen(false);

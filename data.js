@@ -253,7 +253,7 @@ const BUNDLES = [
       en: 'One red and one white, both easy and unpretentious. The simplest way to see what Herzegovina does, without committing to a big order.'
     },
     wines: ['tvrdos-metoh-vranac', 'tamjanika-galerija'],
-    price: 3380,
+    price: 3290,
     img: 'images/paket-start-duo-v2.webp'
   },
   {
@@ -269,7 +269,7 @@ const BUNDLES = [
     },
     badge: { sr: 'Najpopularnije', en: 'Most popular' },
     wines: ['tvrdos-metoh-vranac', 'tamjanika-galerija', 'tribunija-bijelo'],
-    price: 5470,
+    price: 5390,
     featured: true,
     img: 'images/paket-signature-trio-v2.webp'
   },
@@ -285,7 +285,7 @@ const BUNDLES = [
       en: 'A monastery red, the elegant Tribunia and the Zlatna Selekcija to crown it. A bundle for a gift, or for an evening meant to be remembered.'
     },
     wines: ['tvrdos-metoh-vranac', 'tribunija-bijelo', 'zlatna-selekcija-bijelo'],
-    price: 7670,
+    price: 7590,
     img: 'images/paket-premium-trio-v2.webp'
   }
 ];

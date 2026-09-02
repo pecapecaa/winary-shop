@@ -1515,3 +1515,19 @@
 .pk-inside { background: var(--wine-deep); }
 .pk-inside .section-title { color: var(--cream); }
 .pk-inside .section-kicker { color: var(--gold); }
+
+/* The sum of the bottles, struck, beside the box price. Sits above the price
+   rather than beside it: the buy row is already tight enough that a third
+   item on the line pushed the button onto its own. */
+.pk-was:not(:empty) {
+  display: block;
+  width: 100%;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.86rem;
+  letter-spacing: 0.5px;
+  color: rgba(250, 246, 238, 0.4);
+  text-decoration: line-through;
+  margin-bottom: 2px;
+}
+
+.page-bundle .wp-price-block { flex-wrap: wrap; }

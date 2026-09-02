@@ -231,6 +231,10 @@ function render(bundle, detail) {
   document.getElementById('wpPrice').textContent = bundle.price + ' RSD';
   document.getElementById('wpPer').textContent =
     Math.round(bundle.price / bundle.count) + ' RSD po flaši';
+  // Gated on a real difference, the same way the catalogue card is: priced at
+  // the sum of its bottles, the box shows one price and no strike.
+  document.getElementById('wpWas').textContent =
+    bundle.saving > 0 ? bundle.originalPrice + ' RSD' : '';
 
   // The free-delivery line is only shown where it is true, so it never
   // promises something the total does not earn.

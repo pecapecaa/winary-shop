@@ -30,7 +30,7 @@
       href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Lato:wght@300;400;700&display=swap">
   </noscript>
   <link rel="stylesheet" href="styles.css?v=136">
-  <link rel="stylesheet" href="vino.css?v=13">
+  <link rel="stylesheet" href="vino.css?v=14">
 
   <!-- Microsoft Clarity: session recordings and click heatmaps, project "Hercz Wines". -->
   <script type="text/javascript">
@@ -132,6 +132,10 @@
 
               <div class="wp-buy">
                 <div class="wp-price-block">
+                  <!-- Written only when the box really is priced under the sum
+                       of its bottles, so a struck price can never claim a
+                       discount that is not there. -->
+                  <span class="pk-was" id="wpWas"></span>
                   <span class="wp-price" id="wpPrice"></span>
                   <span class="wp-volume" id="wpPer"></span>
                 </div>
@@ -309,8 +313,8 @@
     </a>
   </aside>
 
-  <script src="data.js?v=3"></script>
+  <script src="data.js?v=4"></script>
   <script src="bundle-details.js?v=2"></script>
-  <script src="paket.js?v=2"></script>
+  <script src="paket.js?v=3"></script>
 </body>
 </html>

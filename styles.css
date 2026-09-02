@@ -717,9 +717,15 @@ button {
   transition: background 0.25s;
 }
 
+/* The accent circle keeps its own colour on the selected pill, but lightened
+   towards white: at full strength the darker accents — the red of Crveno
+   above all — all but disappeared against the wine behind them. Lightening
+   rather than replacing keeps each category recognisable by its own colour
+   while the pill is the selected one. */
 .wf-btn--active .wf-icon {
-  background: rgba(139, 115, 85, 0.32);
-  background: color-mix(in srgb, var(--pill-accent) 32%, transparent);
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--gold-light); /* fallback if color-mix() is unsupported */
+  color: color-mix(in srgb, var(--pill-accent) 55%, #fff);
 }
 
 .wf-icon svg { display: block; }
@@ -814,11 +820,19 @@ button {
 /* :hover is one class more specific than the active class, so without the
    second selector it repaints the selected pill's label in that pill's own
    background colour and the text vanishes. */
+/* Burgundy rather than the near-black it used to be. On a cream page the
+   black pill read as a browser control dropped onto the design; the wine is
+   already the site's own colour, and against the warm background it sits in
+   the page instead of on top of it. Shaded down towards the darker wine so
+   the pill has some depth, and lifted by a shadow tinted in its own hue
+   rather than grey — a grey shadow under a warm colour is what makes a
+   button look printed on. */
 .wf-btn--active,
 .wf-btn--active:hover {
-  background: var(--wine-deep);
-  border-color: var(--wine-deep);
+  background: linear-gradient(150deg, var(--wine) 0%, var(--wine-dark) 100%);
+  border-color: var(--wine-dark);
   color: #fff;
+  box-shadow: 0 4px 14px rgba(107, 31, 42, 0.26);
 }
 
 .wine-card--hidden {

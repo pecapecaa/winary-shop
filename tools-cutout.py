@@ -67,4 +67,10 @@ def cutout(src, dst, opaque_at=11.0):
     return out.size
 
 if __name__ == '__main__':
-    print('%-38s %s' % (sys.argv[2], cutout(sys.argv[1], sys.argv[2])))
+    # The threshold is an argument because one photograph needed it. The 1L
+    # Blatina was shot with a far stronger backdrop glow than the rest, and at
+    # the default the halo is real light by this tool's definition, so it came
+    # through as a grey slab around the bottle. 120 keys it out and leaves the
+    # bottle untouched. Pass it whenever a new photograph comes back haloed.
+    opaque_at = float(sys.argv[3]) if len(sys.argv) > 3 else 11.0
+    print('%-38s %s' % (sys.argv[2], cutout(sys.argv[1], sys.argv[2], opaque_at)))

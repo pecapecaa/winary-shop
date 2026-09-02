@@ -250,7 +250,7 @@ const BUNDLES = [
     },
     wines: ['tvrdos-metoh-vranac', 'tamjanika-galerija'],
     price: 3380,
-    img: 'images/paket-start-duo.webp'
+    img: 'images/paket-start-duo-v2.webp'
   },
   {
     id: 'bundle-signature-trio',
@@ -267,7 +267,7 @@ const BUNDLES = [
     wines: ['tvrdos-metoh-vranac', 'tamjanika-galerija', 'tribunija-bijelo'],
     price: 5470,
     featured: true,
-    img: 'images/paket-signature-trio.webp'
+    img: 'images/paket-signature-trio-v2.webp'
   },
   {
     id: 'bundle-premium-trio',
@@ -282,7 +282,7 @@ const BUNDLES = [
     },
     wines: ['tvrdos-metoh-vranac', 'tribunija-bijelo', 'zlatna-selekcija-bijelo'],
     price: 7670,
-    img: 'images/paket-premium-trio.webp'
+    img: 'images/paket-premium-trio-v2.webp'
   }
 ];
 

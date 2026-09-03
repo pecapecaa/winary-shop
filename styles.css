@@ -33,11 +33,11 @@
   --stone: #e8dfd0;
   --text: #2a1a15;
   --text-light: #6b5d50;
-  /* Cask oak. The one dark the page can fill a control with that does not
-     name a wine: the burgundy it replaced meant that choosing BELO lit the
-     button up in the colour of red. */
-  --oak: #4a3527;
-  --oak-dark: #33241a;
+  /* The near-black the bottles are photographed against, and the ground the
+     catalogue cards are drawn on. Filling the selected filter with it ties
+     the control to the photography instead of to a grape: the burgundy it
+     replaced meant that choosing BELO lit the button up in the colour of red. */
+  --photo-black: #080204;
 }
 
 /* overflow-x alone didn't stop it: that governs CSS scrolling, not Safari's
@@ -825,20 +825,19 @@ button {
 /* :hover is one class more specific than the active class, so without the
    second selector it repaints the selected pill's label in that pill's own
    background colour and the text vanishes. */
-/* Oak, not wine. These buttons name what is in the bottle, so filling the
-   selected one with burgundy meant the site answered BELO and ROSÉ in the
-   colour of red — the control contradicting its own label. Cask oak says
-   cellar without naming a grape, stays as dark and as warm as the burgundy
-   was, and leaves the wine reds to the bottles and the type filters' own
-   accent marks. Shaded towards the darker oak for depth, and lifted by a
-   shadow tinted in its own hue rather than grey: a grey shadow under a warm
-   colour is what makes a button look printed on. */
+/* The black the bottles are shot against. These buttons name what is in the
+   bottle, so filling the selected one with burgundy meant the site answered
+   BELO and ROSÉ in the colour of red — the control contradicting its own
+   label. This black names no grape at all, and it is not an arbitrary dark:
+   it is the exact ground of the photographs directly below, so the selected
+   pill and the cards read as one surface. The shadow stays warm rather than
+   grey, which is what keeps a dark control from looking printed on. */
 .wf-btn--active,
 .wf-btn--active:hover {
-  background: linear-gradient(150deg, var(--oak) 0%, var(--oak-dark) 100%);
-  border-color: var(--oak-dark);
+  background: var(--photo-black);
+  border-color: var(--photo-black);
   color: #fff;
-  box-shadow: 0 4px 14px rgba(74, 53, 39, 0.3);
+  box-shadow: 0 4px 14px rgba(8, 2, 4, 0.3);
 }
 
 .wine-card--hidden {

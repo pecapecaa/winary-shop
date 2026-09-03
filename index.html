@@ -36,7 +36,7 @@
     <link rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Lato:wght@400;700&display=swap">
   </noscript>
-  <link rel="stylesheet" href="styles.css?v=138">
+  <link rel="stylesheet" href="styles.css?v=139">
 
   <!-- Microsoft Clarity: session recordings and click heatmaps, project "Hercz Wines". -->
   <script type="text/javascript">
@@ -384,7 +384,7 @@
   <div class="cart-overlay" id="cartOverlay"></div>
   <aside class="cart-sidebar" id="cartSidebar" aria-label="Korpa" inert>
     <div class="cart-header">
-      <h3 data-sr="Korpa" data-en="Reservation List">Korpa</h3>
+      <h3 data-sr="Korpa" data-en="Cart">Korpa</h3>
       <button type="button" class="cart-close" id="cartClose">&times;</button>
     </div>
     <div class="cart-items" id="cartItems">
@@ -399,11 +399,11 @@
       <!-- Filled only on the English page, where the total above is shown in
            euros: this is the dinar sum the courier actually collects. -->
       <div class="cart-charge-note" id="cartChargeNote"></div>
-      <button type="button" class="btn btn-primary btn-full" id="checkoutBtn" data-sr="Nastavi na rezervaciju" data-en="Make a Reservation">Nastavi na rezervaciju</button>
+      <button type="button" class="btn btn-primary btn-full" id="checkoutBtn" data-sr="Nastavi na kupovinu" data-en="Continue to checkout">Nastavi na kupovinu</button>
     </div>
   </aside>
 
-  <div class="checkout-overlay" id="checkoutOverlay" role="dialog" aria-modal="true" aria-label="Rezervacija" inert>
+  <div class="checkout-overlay" id="checkoutOverlay" role="dialog" aria-modal="true" aria-label="Kupovina" inert>
     <div class="checkout-modal" id="checkoutModal">
       <button type="button" class="checkout-close" id="checkoutClose">&times;</button>
       <div class="checkout-progress" id="checkoutProgress">
@@ -419,7 +419,7 @@
       </div>
       <div id="checkoutFormWrap">
         <h2 id="checkoutStepTitle" data-sr="Vaši podaci" data-en="Your Details">Vaši podaci</h2>
-        <p id="checkoutStepDesc" data-sr="Popunite sve informacije za rezervaciju." data-en="Fill in all details for your reservation.">Popunite sve informacije za rezervaciju.</p>
+        <p id="checkoutStepDesc" data-sr="Popunite sve informacije za kupovinu." data-en="Fill in all details for your order.">Popunite sve informacije za kupovinu.</p>
         <form id="checkoutForm" novalidate>
           <div id="checkoutStep1">
             <input type="text" id="oName" placeholder="Ime i prezime" data-sr-ph="Ime i prezime" data-en-ph="Full name">
@@ -439,9 +439,9 @@
               <div id="confirmDelivery"></div>
             </div>
             <div class="checkout-summary" id="checkoutSummary"></div>
-            <button type="submit" class="btn btn-primary btn-full" data-sr="Potvrdi rezervaciju" data-en="Confirm Reservation">Potvrdi rezervaciju</button>
+            <button type="submit" class="btn btn-primary btn-full" data-sr="Potvrdi kupovinu" data-en="Confirm order">Potvrdi kupovinu</button>
             <button type="button" class="checkout-edit-btn" id="checkoutBack" data-sr="← Izmeni podatke" data-en="← Edit details">← Izmeni podatke</button>
-            <p class="form-privacy-note" data-sr="Vaši podaci se koriste isključivo kako bismo vas kontaktirali u vezi sa rezervacijom i ne čuvaju se trajno." data-en="Your data is used solely to contact you about your reservation and is not stored permanently.">Vaši podaci se koriste isključivo kako bismo vas kontaktirali u vezi sa rezervacijom i ne čuvaju se trajno.</p>
+            <p class="form-privacy-note" data-sr="Vaši podaci se koriste isključivo kako bismo vas kontaktirali u vezi sa porudžbinom i ne čuvaju se trajno." data-en="Your data is used solely to contact you about your order and is not stored permanently.">Vaši podaci se koriste isključivo kako bismo vas kontaktirali u vezi sa porudžbinom i ne čuvaju se trajno.</p>
           </div>
         </form>
       </div>
@@ -449,11 +449,8 @@
         <div class="success-icon">
           <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11.5 14.5 16 9"/></svg>
         </div>
-        <h2 data-sr="Porudžbina rezervisana!" data-en="Order Reserved!">Porudžbina rezervisana!</h2>
+        <h2 data-sr="Porudžbina primljena!" data-en="Order received!">Porudžbina primljena!</h2>
         <p data-sr="Zbog velike potražnje kontaktiraćemo vas u roku od 2–3 radna dana." data-en="Due to high demand, we will contact you within 2–3 business days.">Zbog velike potražnje kontaktiraćemo vas u roku od 2–3 radna dana.</p>
-        <div class="success-bonus">
-          <span data-sr="Kao zahvalnost za strpljenje, dobićete kod na e-mail za 10% popusta na narednu porudžbinu." data-en="As a thank you for your patience, you will receive a 10% discount code by email for your next order.">Kao zahvalnost za strpljenje, dobićete kod na e-mail za 10% popusta na narednu porudžbinu.</span>
-        </div>
         <button type="button" class="btn btn-primary" id="successCloseBtn" data-sr="Zatvori" data-en="Close">Zatvori</button>
       </div>
     </div>
@@ -516,6 +513,6 @@
   </script>
 
   <script src="data.js?v=5"></script>
-  <script src="script.js?v=116"></script>
+  <script src="script.js?v=117"></script>
 </body>
 </html>

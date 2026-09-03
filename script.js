@@ -526,7 +526,7 @@ function updateProgress(step) {
 
 function populateSummary() {
   document.getElementById('checkoutSummary').innerHTML = `
-    <h4>${currentLang === 'sr' ? 'Vaša rezervacija' : 'Your reservation'}</h4>
+    <h4>${currentLang === 'sr' ? 'Vaša porudžbina' : 'Your order'}</h4>
     ${cart.map(item => {
       const price = getItemPrice(item);
       const wine = !item.isBundle ? WINES.find(w => w.id === item.id) : null;
@@ -578,7 +578,7 @@ function goToStep2() {
   populateSummary();
   document.getElementById('checkoutStep1').style.display = 'none';
   document.getElementById('checkoutStep2').style.display = 'block';
-  document.getElementById('checkoutStepTitle').textContent = currentLang === 'sr' ? 'Pregled rezervacije' : 'Reservation review';
+  document.getElementById('checkoutStepTitle').textContent = currentLang === 'sr' ? 'Pregled porudžbine' : 'Order review';
   document.getElementById('checkoutStepDesc').textContent = currentLang === 'sr' ? 'Proverite detalje i potvrdite.' : 'Review the details and confirm.';
   updateProgress(2);
   document.getElementById('checkoutModal').scrollTop = 0;
@@ -588,7 +588,7 @@ function goToStep1() {
   document.getElementById('checkoutStep2').style.display = 'none';
   document.getElementById('checkoutStep1').style.display = 'block';
   document.getElementById('checkoutStepTitle').textContent = currentLang === 'sr' ? 'Vaši podaci' : 'Your Details';
-  document.getElementById('checkoutStepDesc').textContent = currentLang === 'sr' ? 'Popunite sve informacije za rezervaciju.' : 'Fill in all details for your reservation.';
+  document.getElementById('checkoutStepDesc').textContent = currentLang === 'sr' ? 'Popunite sve informacije za kupovinu.' : 'Fill in all details for your order.';
   updateProgress(1);
   document.getElementById('checkoutModal').scrollTop = 0;
 }
@@ -636,7 +636,7 @@ function openCheckout() {
   document.getElementById('checkoutStep1').style.display = 'block';
   document.getElementById('checkoutStep2').style.display = 'none';
   document.getElementById('checkoutStepTitle').textContent = currentLang === 'sr' ? 'Vaši podaci' : 'Your Details';
-  document.getElementById('checkoutStepDesc').textContent = currentLang === 'sr' ? 'Popunite sve informacije za rezervaciju.' : 'Fill in all details for your reservation.';
+  document.getElementById('checkoutStepDesc').textContent = currentLang === 'sr' ? 'Popunite sve informacije za kupovinu.' : 'Fill in all details for your order.';
   updateProgress(1);
   setCartOpen(false);
   setPanelOpen('checkoutOverlay', true);
@@ -684,11 +684,11 @@ async function submitOrder(e) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
-        _subject: `Hercz Wines | Nova rezervacija | ${name} | ${getCartTotal()} RSD`,
+        _subject: `Hercz Wines | Nova porudžbina | ${name} | ${getCartTotal()} RSD`,
         _template: 'table',
         _captcha: 'false',
         _replyto: email,
-        _autoresponse: `Poštovani ${name},\n\nhvala Vam što ste odabrali Hercz Wines.\n\nVaša rezervacija je uspešno primljena. Kontaktiraćemo Vas u roku od 2-3 radna dana.\n\n★ HERCZ10 ★\n10% popusta na narednu porudžbinu.\n\nHercz Wines tim`,
+        _autoresponse: `Poštovani ${name},\n\nhvala Vam što ste odabrali Hercz Wines.\n\nVaša porudžbina je uspešno primljena. Kontaktiraćemo Vas u roku od 2-3 radna dana.\n\nHercz Wines tim`,
         datum_i_vreme: timestamp,
         name, email, phone, city, address,
         total: `${getCartTotal()} RSD`,
@@ -944,7 +944,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('checkoutStep1').style.display = 'block';
     document.getElementById('checkoutStep2').style.display = 'none';
     document.getElementById('checkoutStepTitle').textContent = currentLang === 'sr' ? 'Vaši podaci' : 'Your Details';
-    document.getElementById('checkoutStepDesc').textContent = currentLang === 'sr' ? 'Popunite sve informacije za rezervaciju.' : 'Fill in all details for your reservation.';
+    document.getElementById('checkoutStepDesc').textContent = currentLang === 'sr' ? 'Popunite sve informacije za kupovinu.' : 'Fill in all details for your order.';
     updateProgress(1);
   }
   document.getElementById('checkoutClose').addEventListener('click', closeCheckout);

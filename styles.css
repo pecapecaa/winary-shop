@@ -2262,19 +2262,6 @@ button {
   100% { transform: scale(1); }
 }
 
-.success-bonus {
-  background: linear-gradient(135deg, rgba(201, 169, 97, 0.15) 0%, rgba(107, 31, 42, 0.1) 100%);
-  border: 1px solid var(--gold);
-  padding: 16px 20px;
-  margin: 20px 0 24px;
-  font-family: 'HerczDj', 'Cinzel', serif;
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--wine);
-  letter-spacing: 0.5px;
-  line-height: 1.6;
-}
-
 /* ===== CHECKOUT PROGRESS ===== */
 .checkout-progress {
   display: flex;

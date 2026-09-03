@@ -33,6 +33,11 @@
   --stone: #e8dfd0;
   --text: #2a1a15;
   --text-light: #6b5d50;
+  /* Cask oak. The one dark the page can fill a control with that does not
+     name a wine: the burgundy it replaced meant that choosing BELO lit the
+     button up in the colour of red. */
+  --oak: #4a3527;
+  --oak-dark: #33241a;
 }
 
 /* overflow-x alone didn't stop it: that governs CSS scrolling, not Safari's
@@ -820,19 +825,20 @@ button {
 /* :hover is one class more specific than the active class, so without the
    second selector it repaints the selected pill's label in that pill's own
    background colour and the text vanishes. */
-/* Burgundy rather than the near-black it used to be. On a cream page the
-   black pill read as a browser control dropped onto the design; the wine is
-   already the site's own colour, and against the warm background it sits in
-   the page instead of on top of it. Shaded down towards the darker wine so
-   the pill has some depth, and lifted by a shadow tinted in its own hue
-   rather than grey — a grey shadow under a warm colour is what makes a
-   button look printed on. */
+/* Oak, not wine. These buttons name what is in the bottle, so filling the
+   selected one with burgundy meant the site answered BELO and ROSÉ in the
+   colour of red — the control contradicting its own label. Cask oak says
+   cellar without naming a grape, stays as dark and as warm as the burgundy
+   was, and leaves the wine reds to the bottles and the type filters' own
+   accent marks. Shaded towards the darker oak for depth, and lifted by a
+   shadow tinted in its own hue rather than grey: a grey shadow under a warm
+   colour is what makes a button look printed on. */
 .wf-btn--active,
 .wf-btn--active:hover {
-  background: linear-gradient(150deg, var(--wine) 0%, var(--wine-dark) 100%);
-  border-color: var(--wine-dark);
+  background: linear-gradient(150deg, var(--oak) 0%, var(--oak-dark) 100%);
+  border-color: var(--oak-dark);
   color: #fff;
-  box-shadow: 0 4px 14px rgba(107, 31, 42, 0.26);
+  box-shadow: 0 4px 14px rgba(74, 53, 39, 0.3);
 }
 
 .wine-card--hidden {

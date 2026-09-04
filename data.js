@@ -121,7 +121,7 @@ const WINES = [
     },
     price: 3990,
     rank: 1,
-    img: 'images/zlatna-selekcija-bijelo.webp'
+    img: 'images/zlatna-selekcija-bijelo-v2.webp'
   },
   {
     id: 'vranac-reserve',
@@ -138,7 +138,7 @@ const WINES = [
     },
     price: 3990,
     rank: 2,
-    img: 'images/vranac-reserve.webp'
+    img: 'images/vranac-reserve-v2.webp'
   },
   {
     id: 'blatina-citluk-075',

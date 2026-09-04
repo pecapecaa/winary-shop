@@ -688,7 +688,7 @@ async function submitOrder(e) {
         _template: 'table',
         _captcha: 'false',
         _replyto: email,
-        _autoresponse: `Poštovani ${name},\n\nhvala Vam što ste odabrali Hercz Wines.\n\nVaša porudžbina je uspešno primljena. Kontaktiraćemo Vas u roku od 1–2 radna dana.\n\nHercz Wines tim`,
+        _autoresponse: `Poštovani ${name},\n\nhvala Vam što ste odabrali Hercz Wines.\n\nVaša porudžbina je uspešno primljena.\n\nHercz je trenutno u pretprodajnoj fazi. Kontaktiraćemo Vas radi potvrde dostupnosti i isporuke u roku od 1–2 dana.\n\nHercz Wines tim`,
         datum_i_vreme: timestamp,
         name, email, phone, city, address,
         total: `${getCartTotal()} RSD`,

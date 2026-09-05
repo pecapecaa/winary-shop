@@ -830,14 +830,16 @@ button {
    BELO and ROSÉ in the colour of red — the control contradicting its own
    label. This black names no grape at all, and it is not an arbitrary dark:
    it is the exact ground of the photographs directly below, so the selected
-   pill and the cards read as one surface. The shadow stays warm rather than
-   grey, which is what keeps a dark control from looking printed on. */
+   pill and the cards read as one surface. It carries no shadow: against a
+   cream this dark, a drop shadow reads as a smudge under the pill rather
+   than as lift, and the unselected pills are a hairline outline on the flat
+   page — a raised selected one belongs to a different surface than the row
+   it sits in. The fill alone already says which is chosen. */
 .wf-btn--active,
 .wf-btn--active:hover {
   background: var(--photo-black);
   border-color: var(--photo-black);
   color: #fff;
-  box-shadow: 0 4px 14px rgba(8, 2, 4, 0.3);
 }
 
 .wine-card--hidden {

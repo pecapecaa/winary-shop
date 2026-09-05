@@ -902,6 +902,32 @@ function initParallax() {
   });
 }
 
+// Which parts of the page a visitor actually reaches, and whether they reach
+// for the phone instead of the cart. Each fires once, so a long session does
+// not flood the funnel with repeats.
+function trackSections() {
+  const once = (id, event) => {
+    const el = document.getElementById(id);
+    if (!el || !('IntersectionObserver' in window)) return;
+    const obs = new IntersectionObserver(entries => {
+      if (entries.some(en => en.isIntersecting)) {
+        clEvent(event);
+        obs.disconnect();
+      }
+    }, { threshold: 0.25 });
+    obs.observe(el);
+  };
+  once('wines', 'vina_videna');
+  once('bundles', 'paketi_videni');
+  once('contact', 'kontakt_vidjen');
+
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="tel:"], a[href^="mailto:"]');
+    if (!a) return;
+    clEvent(a.getAttribute('href').startsWith('tel:') ? 'telefon_kliknut' : 'email_kliknut');
+  });
+}
+
 // ===== Init =====
 document.addEventListener('DOMContentLoaded', () => {
   const ageGate = document.getElementById('ageGate');
@@ -966,6 +992,12 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('checkoutNext').addEventListener('click', goToStep2);
   document.getElementById('checkoutBack').addEventListener('click', goToStep1);
   function closeCheckout() {
+    // Leaving the modal is not a page change, so Clarity cannot see it on its
+    // own. The success panel shows only after an order went through, which is
+    // what separates "finished" from "gave up".
+    if (document.getElementById('checkoutSuccess').style.display !== 'block') {
+      clEvent('checkout_napusten');
+    }
     setPanelOpen('checkoutOverlay', false);
     document.getElementById('checkoutFormWrap').style.display = '';
     document.getElementById('checkoutSuccess').style.display = 'none';
@@ -1048,6 +1080,7 @@ document.addEventListener('DOMContentLoaded', () => {
   createHeroParticles();
   animateCounters();
   initParallax();
+  trackSections();
 
   // The rail keeps whatever horizontal position a previous filter left it
   // at, which can show nothing at all once a new filter narrows the list —

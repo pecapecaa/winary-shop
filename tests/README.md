@@ -28,6 +28,18 @@ a čitaju je tri različita fajla; ovi testovi su jedino što ih drži usklađen
 11. Posle uspešne porudžbine korpa je prazna na svim stranicama.
 12. Posle neuspele porudžbine korpa **ostaje**, da kupac može da pokuša opet.
 
+`analytics.spec.js` — imena događaja i tagova koje šaljemo Clarity-ju. Na njima
+su izgrađeni svi levci i filteri. Ako se ime promeni ili nestane, sajt i dalje
+radi i niko se ne žali — samo levak tiho prijavljuje pogrešan broj. Ovi testovi
+stoje između jedne slovne greške i mesec dana pogrešnih podataka.
+
+Proverava se: da svako dodavanje (vino, paket, sa bilo koje stranice) okine
+zajednički `u_korpu`; da checkout označi vrednost korpe, broj artikala i da li
+je prešla prag za besplatnu dostavu; da odustajanje kaže **na kom koraku**; da
+odbijena forma kaže **koje polje**; da uspešna porudžbina ne prijavi i
+odustajanje; da neuspešna ne prijavi uspeh; i da sajt radi normalno kad je
+Clarity potpuno blokiran adblockerom.
+
 ## Kad menjaš nešto oko korpe
 
 Pokreni ovo pre nego što pušiš na produkciju. I proveri da test stvarno hvata

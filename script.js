@@ -347,7 +347,13 @@ function addBundleToCart(bundleId) {
   saveCart();
   renderCart();
   clTag('paket', bundle.name.sr);
+  clTag('tip_artikla', 'paket');
+  clTag('mesto_dodavanja', 'pocetna');
   clEvent('paket_u_korpu');
+  // A funnel step needs one event that covers every way of adding. Counting
+  // only dodato_u_korpu would silently drop every customer who bought a
+  // bundle, and the funnel would read as worse than the shop actually is.
+  clEvent('u_korpu');
   showToast(currentLang === 'sr' ? `${bundle.name.sr} dodat u korpu` : `${bundle.name.en} added to cart`);
   const cartBtn = document.getElementById('cartBtn');
   cartBtn.classList.remove('cart-pulse');
@@ -369,7 +375,10 @@ function addToCart(id) {
   renderCart();
   const wine = WINES.find(w => w.id === id);
   clTag('vino', wine.name.sr);
+  clTag('tip_artikla', 'vino');
+  clTag('mesto_dodavanja', 'pocetna');
   clEvent('dodato_u_korpu');
+  clEvent('u_korpu');
   showToast(currentLang === 'sr' ? `${wine.name.sr} dodato u korpu` : `${wine.name.en} added to cart`);
   const cartBtn = document.getElementById('cartBtn');
   cartBtn.classList.remove('cart-pulse');
@@ -384,6 +393,8 @@ function removeFromCart(id) {
   cart = cart.filter(i => i.id !== id);
   saveCart();
   renderCart();
+  clEvent('iz_korpe_uklonjeno');
+  if (cart.length === 0) clEvent('korpa_ispraznjena');
   setTimeout(() => { _cartBusy = false; }, 300);
 }
 
@@ -548,15 +559,28 @@ function goToStep2() {
   const city    = document.getElementById('oCity').value.trim();
   const address = document.getElementById('oAddress').value.trim();
   if (!name || !email || !phone || !city || !address) {
+    // Which field is empty is the whole point: "prazno:telefon" appearing
+    // again and again means people will not leave a number, which is a
+    // decision about the form, not a bug.
+    const prazno = [
+      !name && 'ime', !email && 'email', !phone && 'telefon',
+      !city && 'grad', !address && 'adresa'
+    ].filter(Boolean).join('+');
+    clTag('greska_polje', 'prazno:' + prazno);
+    clEvent('forma_greska');
     showToast(currentLang === 'sr' ? 'Popunite sva polja' : 'Please fill in all fields', false);
     return;
   }
   if (!EMAIL_RE.test(email)) {
+    clTag('greska_polje', 'email');
+    clEvent('forma_greska');
     showToast(currentLang === 'sr' ? 'Unesite ispravnu email adresu' : 'Please enter a valid email address', false);
     document.getElementById('oEmail').focus();
     return;
   }
   if (phone.replace(/\D/g, '').length < 8) {
+    clTag('greska_polje', 'telefon');
+    clEvent('forma_greska');
     showToast(currentLang === 'sr' ? 'Unesite ispravan broj telefona' : 'Please enter a valid phone number', false);
     document.getElementById('oPhone').focus();
     return;
@@ -627,7 +651,13 @@ function openCheckout() {
   document.getElementById('checkoutStep2').style.display = 'none';
   document.getElementById('checkoutStepTitle').textContent = currentLang === 'sr' ? 'Vaši podaci' : 'Your Details';
   document.getElementById('checkoutStepDesc').textContent = currentLang === 'sr' ? 'Popunite sve informacije za kupovinu.' : 'Fill in all details for your order.';
-  clTag('vrednost_korpe', cartBand(getCartTotal()));
+  const total = getCartTotal();
+  clTag('vrednost_korpe', cartBand(total));
+  // The threshold is a lever we can move. Tagging which side of it a basket
+  // landed on is what makes "would 5000 work better than 4000" answerable
+  // from data instead of from opinion.
+  clTag('besplatna_dostava', total >= FREE_SHIPPING_FROM ? 'da' : 'ne');
+  clTag('broj_artikala', String(cart.reduce((n, i) => n + i.qty, 0)));
   clEvent('checkout_otvoren');
   updateProgress(1);
   setCartOpen(false);
@@ -883,12 +913,17 @@ function trackSections() {
   const once = (id, event) => {
     const el = document.getElementById(id);
     if (!el || !('IntersectionObserver' in window)) return;
+    // No threshold. These sections are taller than a phone screen — #wines
+    // contains the bundles too — and a ratio threshold is a fraction of the
+    // ELEMENT, so a section three screens tall can never reach 25% no matter
+    // how far someone scrolls through it. "Reached this section" is the top
+    // edge coming into view, which is what a bare intersection means.
     const obs = new IntersectionObserver(entries => {
       if (entries.some(en => en.isIntersecting)) {
         clEvent(event);
         obs.disconnect();
       }
-    }, { threshold: 0.25 });
+    });
     obs.observe(el);
   };
   once('wines', 'vina_videna');
@@ -970,6 +1005,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // own. The success panel shows only after an order went through, which is
     // what separates "finished" from "gave up".
     if (document.getElementById('checkoutSuccess').style.display !== 'block') {
+      // Leaving at the form is friction in the form. Leaving at the review,
+      // after seeing the total and the delivery line, is a reaction to the
+      // price. Same event, opposite fix — so the step is tagged.
+      const naPregledu = document.getElementById('checkoutStep2').style.display === 'block';
+      clTag('checkout_faza', naPregledu ? 'pregled' : 'podaci');
+      // These are the recordings worth watching, so they are kept.
+      clKeep('checkout_napusten');
       clEvent('checkout_napusten');
     }
     setPanelOpen('checkoutOverlay', false);

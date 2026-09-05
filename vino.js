@@ -101,7 +101,12 @@ function addToCart(id) {
   renderCart();
   const wine = WINES.find(w => w.id === id);
   clTag('vino', wine ? wine.name.sr : id);
+  clTag('tip_artikla', 'vino');
+  // Whether the product pages actually earn their keep is answerable only if
+  // an add says where it happened.
+  clTag('mesto_dodavanja', 'stranica_vina');
   clEvent('dodato_u_korpu');
+  clEvent('u_korpu');
   showToast((wine ? wine.name.sr : 'Vino') + ' dodato u korpu');
   const btn = document.getElementById('cartBtn');
   if (btn) {

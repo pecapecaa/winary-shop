@@ -22,3 +22,4 @@ for _ in $(seq 1 40); do
 done
 
 BASE="http://localhost:$PORT" node tests/cart.spec.js
+BASE="http://localhost:$PORT" node tests/analytics.spec.js

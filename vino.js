@@ -230,31 +230,22 @@ function render(wine, detail) {
   setMeta('meta[property="og:description"]', shortDesc);
   setMeta('meta[property="og:image"]', 'https://herczwines.rs/' + wine.img);
 
-  const canonical = document.createElement('link');
-  canonical.rel = 'canonical';
-  canonical.href = 'https://herczwines.rs/' + wineHref(wine.id);
-  document.head.appendChild(canonical);
+  setCanonical(wineHref(wine.id));
 
-  // Product structured data. Only fields we actually hold are emitted —
-  // no invented rating, brand ownership or availability guarantees.
-  const ld = document.createElement('script');
-  ld.type = 'application/ld+json';
-  ld.textContent = JSON.stringify({
+  // Structured data, built through data.js so the wine page and the bundle
+  // page cannot describe the same shop in two different ways.
+  setProductJsonLd({
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: wine.name.sr,
-    image: 'https://herczwines.rs/' + wine.img,
+    sku: wine.id,
+    image: absUrl(wine.img),
     description: wine.desc.sr,
     brand: { '@type': 'Brand', name: producer.name.sr },
-    category: wine.type.sr === 'Belo' ? 'Belo vino' : (wine.type.sr === 'Crveno' ? 'Crveno vino' : 'Rosé vino'),
-    offers: {
-      '@type': 'Offer',
-      price: wine.price,
-      priceCurrency: 'RSD',
-      url: 'https://herczwines.rs/' + wineHref(wine.id)
-    }
+    category: wine.type.sr === 'Belo' ? 'Belo vino'
+            : (wine.type.sr === 'Crveno' ? 'Crveno vino' : 'Rosé vino'),
+    offers: productOffer(wine.price, wineHref(wine.id))
   });
-  document.head.appendChild(ld);
 
   // --- hero ---
   document.getElementById('wpCrumbName').textContent = wine.name.sr;

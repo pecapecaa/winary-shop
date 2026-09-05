@@ -427,3 +427,57 @@ const CartStore = (function () {
 
   return { KEY, TTL_MS, read, write, clear, count, same, subscribe };
 })();
+
+// ===== Search metadata =====
+// The product pages are one HTML file each, told apart by a query parameter,
+// so their canonical link and structured data cannot be written into the
+// markup — they have to be built per product at render time. Both product
+// pages do it through here rather than each keeping its own copy, which is
+// how the bundle page ended up with neither.
+const SITE_ORIGIN = 'https://herczwines.rs/';
+
+const absUrl = pathOrHref => SITE_ORIGIN + String(pathOrHref).replace(/^\//, '');
+
+// Everything is sold before it is stocked: the shop is in its pre-sale phase
+// and the confirmation says so. PreOrder is what that is, and claiming
+// InStock instead would be a promise the shop has not made.
+const SCHEMA_AVAILABILITY = 'https://schema.org/PreOrder';
+
+const SELLER = { '@type': 'Organization', name: 'Hercz Wines', url: SITE_ORIGIN };
+
+function setCanonical(href) {
+  let el = document.querySelector('link[rel="canonical"]');
+  if (!el) {
+    el = document.createElement('link');
+    el.rel = 'canonical';
+    document.head.appendChild(el);
+  }
+  el.href = absUrl(href);
+}
+
+// Replaces any block this page wrote before, so re-rendering cannot leave two
+// contradictory Product records in one document.
+function setProductJsonLd(product) {
+  const previous = document.getElementById('productJsonLd');
+  if (previous) previous.remove();
+  const el = document.createElement('script');
+  el.type = 'application/ld+json';
+  el.id = 'productJsonLd';
+  el.textContent = JSON.stringify(product);
+  document.head.appendChild(el);
+}
+
+// Only fields the catalogue actually holds are emitted. No invented rating,
+// review count or stock number — a fabricated one is worse than none, both
+// for the buyer and for the search listing.
+function productOffer(price, href) {
+  return {
+    '@type': 'Offer',
+    price: price,
+    priceCurrency: 'RSD',
+    availability: SCHEMA_AVAILABILITY,
+    itemCondition: 'https://schema.org/NewCondition',
+    url: absUrl(href),
+    seller: SELLER
+  };
+}

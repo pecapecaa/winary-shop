@@ -40,6 +40,23 @@ odbijena forma kaže **koje polje**; da uspešna porudžbina ne prijavi i
 odustajanje; da neuspešna ne prijavi uspeh; i da sajt radi normalno kad je
 Clarity potpuno blokiran adblockerom.
 
+`seo.spec.js` — canonical link i strukturirani podaci (`Product`) na svakoj
+stranici vina i paketa, i potpunost `sitemap.xml`. Te stranice su jedan HTML
+fajl razlikovan parametrom u adresi, pa se canonical i JSON-LD prave tek pri
+iscrtavanju — nevidljivi su svakoj proveri koja čita HTML fajl. Baš tako su
+stranice paketa i otišle na produkciju bez ijednog od to dvoje.
+
+Proverava se i da je cena u strukturiranim podacima ista kao cena na stranici,
+i da adresa nepostojećeg vina ne objavi lažan proizvod.
+
+## Kad menjaš katalog
+
+Posle svake izmene cena ili dodavanja vina pokreni:
+
+    node tools-sitemap.js
+
+Sitemap se generiše iz `data.js` da ne bi mogao da se razmimoiđe sa katalogom.
+
 ## Kad menjaš nešto oko korpe
 
 Pokreni ovo pre nego što pušiš na produkciju. I proveri da test stvarno hvata

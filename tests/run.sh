@@ -23,3 +23,4 @@ done
 
 BASE="http://localhost:$PORT" node tests/cart.spec.js
 BASE="http://localhost:$PORT" node tests/analytics.spec.js
+BASE="http://localhost:$PORT" node tests/seo.spec.js

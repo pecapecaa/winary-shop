@@ -215,7 +215,31 @@ function render(bundle, detail) {
   setMeta('meta[name="description"]', metaDesc);
   setMeta('meta[property="og:title"]', bundle.name.sr + ' — Hercz Wines');
   setMeta('meta[property="og:description"]', metaDesc);
-  setMeta('meta[property="og:image"]', 'https://herczwines.rs/' + bundle.img);
+  setMeta('meta[property="og:image"]', absUrl(bundle.img));
+  setCanonical(bundleHref(bundle.id));
+
+  // A bundle is a product in its own right — it has its own price, its own
+  // photograph and its own page — so it gets its own record rather than
+  // being left out because it is not a single bottle. The bottles inside it
+  // are named as parts, which is what isAccessoryOrSparePartFor cannot say
+  // and hasPart can.
+  setProductJsonLd({
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: bundle.name.sr,
+    sku: bundle.id,
+    image: absUrl(bundle.img),
+    description: metaDesc,
+    brand: { '@type': 'Brand', name: 'Hercz Wines' },
+    category: 'Paket vina',
+    hasPart: bottles.map(w => ({
+      '@type': 'Product',
+      name: w.name.sr,
+      sku: w.id,
+      url: absUrl(wineHref(w.id))
+    })),
+    offers: productOffer(bundle.price, bundleHref(bundle.id))
+  });
 
   document.getElementById('wpCrumbName').textContent = bundle.name.sr;
   document.getElementById('wpCount').textContent =

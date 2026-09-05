@@ -107,6 +107,8 @@ function addBundleToCart(id) {
   saveCart();
   renderCart();
   const b = BUNDLES.find(x => x.id === id);
+  clTag('paket', b ? b.name.sr : id);
+  clEvent('paket_u_korpu');
   showToast((b ? b.name.sr : 'Paket') + ' dodat u korpu');
   const btn = document.getElementById('cartBtn');
   if (btn) {
@@ -204,6 +206,8 @@ function setMeta(selector, value) {
 }
 
 function render(bundle, detail) {
+  clTag('stranica_paketa', bundle.name.sr);
+  clEvent('paket_otvoren');
   const bottles = bundle.wines
     .map(id => WINES.find(w => w.id === id))
     .filter(Boolean);

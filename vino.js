@@ -105,6 +105,8 @@ function addToCart(id) {
   saveCart();
   renderCart();
   const wine = WINES.find(w => w.id === id);
+  clTag('vino', wine ? wine.name.sr : id);
+  clEvent('dodato_u_korpu');
   showToast((wine ? wine.name.sr : 'Vino') + ' dodato u korpu');
   const btn = document.getElementById('cartBtn');
   if (btn) {
@@ -212,6 +214,8 @@ function setMeta(selector, value) {
 }
 
 function render(wine, detail) {
+  clTag('stranica_vina', wine.name.sr);
+  clEvent('vino_otvoreno');
   const variety = VARIETIES[detail.variety];
   const producer = PRODUCERS[detail.producer];
 

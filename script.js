@@ -345,6 +345,16 @@ function renderBundles() {
 // ===== Cart Logic =====
 let _cartBusy = false;
 
+// Clarity tags are text, so the total goes in as a band rather than an exact
+// dinar figure: that keeps the filter list short and still answers the only
+// question worth asking, which basket sizes actually reach the end.
+function cartBand(total) {
+  if (total < 2000) return 'do 2000';
+  if (total < 4000) return '2000-4000';
+  if (total < 8000) return '4000-8000';
+  return '8000+';
+}
+
 function addBundleToCart(bundleId) {
   if (_cartBusy) return;
   _cartBusy = true;
@@ -358,6 +368,8 @@ function addBundleToCart(bundleId) {
   }
   saveCart();
   renderCart();
+  clTag('paket', bundle.name.sr);
+  clEvent('paket_u_korpu');
   showToast(currentLang === 'sr' ? `${bundle.name.sr} dodat u korpu` : `${bundle.name.en} added to cart`);
   const cartBtn = document.getElementById('cartBtn');
   cartBtn.classList.remove('cart-pulse');
@@ -378,6 +390,8 @@ function addToCart(id) {
   saveCart();
   renderCart();
   const wine = WINES.find(w => w.id === id);
+  clTag('vino', wine.name.sr);
+  clEvent('dodato_u_korpu');
   showToast(currentLang === 'sr' ? `${wine.name.sr} dodato u korpu` : `${wine.name.en} added to cart`);
   const cartBtn = document.getElementById('cartBtn');
   cartBtn.classList.remove('cart-pulse');
@@ -581,6 +595,7 @@ function goToStep2() {
   document.getElementById('checkoutStepTitle').textContent = currentLang === 'sr' ? 'Pregled porudžbine' : 'Order review';
   document.getElementById('checkoutStepDesc').textContent = currentLang === 'sr' ? 'Proverite detalje i potvrdite.' : 'Review the details and confirm.';
   updateProgress(2);
+  clEvent('checkout_podaci_uneti');
   document.getElementById('checkoutModal').scrollTop = 0;
 }
 
@@ -623,6 +638,7 @@ function initDetail() {
 }
 
 function setCartOpen(open) {
+  if (open) clEvent('korpa_otvorena');
   setPanelOpen('cartOverlay', open);
   setPanelOpen('cartSidebar', open);
   if (open) document.getElementById('cartClose').focus();
@@ -637,6 +653,8 @@ function openCheckout() {
   document.getElementById('checkoutStep2').style.display = 'none';
   document.getElementById('checkoutStepTitle').textContent = currentLang === 'sr' ? 'Vaši podaci' : 'Your Details';
   document.getElementById('checkoutStepDesc').textContent = currentLang === 'sr' ? 'Popunite sve informacije za kupovinu.' : 'Fill in all details for your order.';
+  clTag('vrednost_korpe', cartBand(getCartTotal()));
+  clEvent('checkout_otvoren');
   updateProgress(1);
   setCartOpen(false);
   setPanelOpen('checkoutOverlay', true);
@@ -702,6 +720,10 @@ async function submitOrder(e) {
     // Never claim success we cannot verify — the cart stays intact so the
     // customer can retry instead of losing the order silently.
     console.error('Order submission failed:', err);
+    // A failed order is the single most valuable recording on the site, so
+    // the session is upgraded before anything else happens to it.
+    clKeep('porudzbina_neuspesna');
+    clEvent('porudzbina_neuspesna');
     showToast(currentLang === 'sr'
       ? 'Slanje nije uspelo. Pokušajte ponovo ili nas kontaktirajte telefonom.'
       : 'Sending failed. Please try again or contact us by phone.', false);
@@ -709,6 +731,9 @@ async function submitOrder(e) {
     return;
   }
 
+  clKeep('porudzbina_poslata');
+  clTag('vrednost_porudzbine', cartBand(getCartTotal()));
+  clEvent('porudzbina_poslata');
   document.getElementById('checkoutFormWrap').style.display = 'none';
   document.getElementById('checkoutSuccess').style.display = 'block';
   updateProgress(2);
@@ -738,6 +763,7 @@ function switchLanguage(lang) {
     ? '<span class="lang-active">SR</span> / <span>EN</span>'
     : '<span>SR</span> / <span class="lang-active">EN</span>';
   localStorage.setItem('hercegLang', lang);
+  clTag('jezik', lang);
   renderWines();
   renderBundles();
   renderCart();
@@ -881,6 +907,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const ageGate = document.getElementById('ageGate');
   if (!sessionStorage.getItem('ageVerified')) document.body.style.overflow = 'hidden';
   document.getElementById('ageYes').addEventListener('click', () => {
+    clEvent('starost_potvrdjena');
     sessionStorage.setItem('ageVerified', '1');
     ageGate.classList.add('age-gate--hidden');
     ageGate.setAttribute('inert', '');
@@ -890,6 +917,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('main').focus();
   });
   document.getElementById('ageNo').addEventListener('click', () => {
+    clEvent('starost_odbijena');
     document.getElementById('ageBtns').style.display = 'none';
     document.getElementById('ageDenied').style.display = 'block';
   });
@@ -1039,6 +1067,8 @@ document.addEventListener('DOMContentLoaded', () => {
     this.querySelectorAll('.wf-btn').forEach(b => b.classList.remove('wf-btn--active'));
     btn.classList.add('wf-btn--active');
     activeWineFilter = btn.dataset.filter;
+    clTag('filter_vrsta', activeWineFilter);
+    clEvent('filter_koriscen');
     renderWines();
     resetRailScroll();
   });
@@ -1056,6 +1086,8 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.classList.add('wf-btn--active');
       activeQuickFilter = btn.dataset.quick;
     }
+    clTag('filter_prilika', activeQuickFilter);
+    clEvent('filter_koriscen');
     // This row outranks the type row: choosing a quick tag is a fresh look at
     // the catalogue, not a refinement of the last one. Carrying the old type
     // over is what used to strand people on an empty grid ("Rosé" held from a

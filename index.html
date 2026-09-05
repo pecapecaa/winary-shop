@@ -46,6 +46,21 @@
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "y81c3xitpl");
   </script>
+  <script>
+    // Sopstveni događaji i tagovi za Clarity. Sve kroz try/catch: ako je tag
+    // blokiran (adblocker) ili još nije stigao, sajt radi potpuno normalno.
+    window.clEvent = function (name) {
+      try { if (window.clarity) window.clarity('event', name); } catch (e) {}
+    };
+    window.clTag = function (key, value) {
+      try { if (window.clarity) window.clarity('set', key, String(value).slice(0, 255)); } catch (e) {}
+    };
+    // Snimke se brišu kad dan pređe 100.000 sesija; sesija u kojoj je neko
+    // stvarno poručio (ili pokušao) vredi previše da bi se izgubila.
+    window.clKeep = function (reason) {
+      try { if (window.clarity) window.clarity('upgrade', reason); } catch (e) {}
+    };
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Preskoči na sadržaj</a>
@@ -513,6 +528,6 @@
   </script>
 
   <script src="data.js?v=7"></script>
-  <script src="script.js?v=120"></script>
+  <script src="script.js?v=121"></script>
 </body>
 </html>

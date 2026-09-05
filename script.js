@@ -97,45 +97,23 @@ const SHIP_ICON =
   + '18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 '
   + '1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>';
 
-// A cart still sitting there the next day reads as a glitch, not a courtesy.
-// Six hours covers "let me think it over and come back tonight"; older than
-// that gets dropped. The clock restarts on every change, so a long browsing
-// session never expires while someone is still shopping.
-const CART_TTL_MS = 6 * 60 * 60 * 1000;
+// Reading and writing the cart is CartStore's job (data.js), shared with the
+// wine and bundle pages so all three can never disagree about what is in it.
+let cart = CartStore.read();
 
-function clearStoredCart() {
-  try {
-    localStorage.removeItem('hercegCart');
-    sessionStorage.removeItem('hercegCart');
-  } catch (err) {
-    // Storage unavailable — there is nothing to clear.
-  }
+// The stored cart changed under a page that is already on screen — another
+// tab, or this page coming back from the back/forward cache. Re-read it and
+// redraw, skipping the redraw when nothing actually differs.
+function syncCartFromStorage() {
+  const stored = CartStore.read();
+  if (CartStore.same(stored, cart)) return;
+  cart = stored;
+  // The badge is not renderCart's job on any of the pages, so both have to be
+  // called here — redrawing the panel alone is how the number goes stale.
+  renderCart();
+  updateCartCount();
 }
-
-// Corrupt or unavailable storage must never take the whole page down.
-function loadCart() {
-  try {
-    const raw = localStorage.getItem('hercegCart') || sessionStorage.getItem('hercegCart');
-    const parsed = JSON.parse(raw || 'null');
-    // Carts written before the expiry existed are bare arrays with no
-    // timestamp — those are exactly the stale ones this is meant to clear.
-    const fresh = parsed
-      && Array.isArray(parsed.items)
-      && typeof parsed.savedAt === 'number'
-      && Date.now() - parsed.savedAt <= CART_TTL_MS;
-    if (!fresh) {
-      clearStoredCart();
-      return [];
-    }
-    // A saved cart outlives the catalogue now that it sits in localStorage, so
-    // drop anything that no longer exists rather than rendering a broken row.
-    const known = id => WINES.some(w => w.id === id) || BUNDLES.some(b => b.id === id);
-    return parsed.items.filter(i => i && typeof i.id === 'string' && i.qty > 0 && known(i.id));
-  } catch (err) {
-    return [];
-  }
-}
-let cart = loadCart();
+CartStore.subscribe(syncCartFromStorage);
 
 // ===== Render Wines =====
 let activeWineFilter = 'all';
@@ -432,11 +410,7 @@ function updateCartCount() {
 }
 
 function saveCart() {
-  try {
-    localStorage.setItem('hercegCart', JSON.stringify({ items: cart, savedAt: Date.now() }));
-  } catch (err) {
-    // Private mode / quota exceeded — the cart still works for this session.
-  }
+  CartStore.write(cart);
   updateCartCount();
 }
 

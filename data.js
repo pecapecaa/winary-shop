@@ -328,3 +328,102 @@ function wineHref(id) {
 function bundleHref(id) {
   return 'paket.html?' + BUNDLE_URL_PARAM + '=' + encodeURIComponent(id);
 }
+
+// ===== Cart storage =====
+// The cart is read and written by three separate scripts: the homepage, the
+// wine page and the bundle page. Each used to carry its own copy of this
+// logic, and the copies drifted — one read a storage fallback the others
+// never wrote, and none of them noticed the cart changing after the page had
+// already rendered. That last gap is what a customer actually hit: a bottle
+// added on a product page, then the back button, and the basket in the header
+// said nothing was in it. A phone restores the previous page from the
+// back/forward cache without re-running a line of this file, so a count
+// computed once at load is a count that goes stale.
+//
+// There is one implementation now, and every page subscribes to it.
+const CartStore = (function () {
+  const KEY = 'hercegCart';
+  // A cart still sitting there the next day reads as a glitch, not a
+  // courtesy. Six hours covers "let me think it over and come back tonight";
+  // the clock restarts on every write, so a long session never expires while
+  // someone is still shopping.
+  const TTL_MS = 6 * 60 * 60 * 1000;
+
+  const isKnown = id => WINES.some(w => w.id === id) || BUNDLES.some(b => b.id === id);
+
+  // Every row leaves this function in the same shape, whichever page wrote it,
+  // so no page has to guess whether isBundle is missing or merely false.
+  const normalise = i => ({ id: i.id, qty: i.qty, isBundle: !!i.isBundle });
+
+  function clear() {
+    try {
+      localStorage.removeItem(KEY);
+    } catch (err) {
+      // Storage unavailable — there is nothing to clear.
+    }
+  }
+
+  // Corrupt or unavailable storage must never take a page down.
+  function read() {
+    try {
+      const parsed = JSON.parse(localStorage.getItem(KEY) || 'null');
+      // Carts written before the expiry existed are bare arrays with no
+      // timestamp — those are exactly the stale ones this is meant to clear.
+      const fresh = parsed
+        && Array.isArray(parsed.items)
+        && typeof parsed.savedAt === 'number'
+        && Date.now() - parsed.savedAt <= TTL_MS;
+      if (!fresh) {
+        clear();
+        return [];
+      }
+      // A saved cart outlives the catalogue, so drop anything that no longer
+      // exists rather than rendering a broken row.
+      return parsed.items
+        .filter(i => i && typeof i.id === 'string' && i.qty > 0 && isKnown(i.id))
+        .map(normalise);
+    } catch (err) {
+      return [];
+    }
+  }
+
+  function write(items) {
+    try {
+      localStorage.setItem(KEY, JSON.stringify({
+        items: items.map(normalise),
+        savedAt: Date.now()
+      }));
+    } catch (err) {
+      // Private mode or quota exceeded — the cart still works for this view.
+    }
+  }
+
+  const count = items => items.reduce((sum, i) => sum + i.qty, 0);
+
+  // Two carts are the same cart only if they hold the same rows in the same
+  // order with the same quantities. Used to skip a re-render that would
+  // change nothing on screen.
+  const same = (a, b) => JSON.stringify(a.map(normalise)) === JSON.stringify(b.map(normalise));
+
+  // Every way the stored cart can change while a page is already on screen:
+  //   - another tab writes it (storage);
+  //   - this page is restored from the back/forward cache, which is what the
+  //     back button does on a phone, without re-running any script (pageshow
+  //     with persisted);
+  //   - the tab is brought back to the foreground after the customer was in
+  //     another app, which iOS does not always report as a pageshow.
+  function subscribe(onChange) {
+    window.addEventListener('storage', e => {
+      // A null key means the whole store was cleared.
+      if (e.key === null || e.key === KEY) onChange();
+    });
+    window.addEventListener('pageshow', e => {
+      if (e.persisted) onChange();
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') onChange();
+    });
+  }
+
+  return { KEY, TTL_MS, read, write, clear, count, same, subscribe };
+})();

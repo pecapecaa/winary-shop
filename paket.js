@@ -14,34 +14,29 @@
 // ---------------------------------------------------------------- cart
 // Same small implementation the wine page carries, and the same storage key:
 // a box added here is in the cart when the shopper returns to the homepage.
-const CART_KEY = 'hercegCart';
-const CART_TTL_MS = 6 * 60 * 60 * 1000;
 
-function loadCart() {
-  try {
-    const parsed = JSON.parse(localStorage.getItem(CART_KEY) || 'null');
-    const fresh = parsed
-      && Array.isArray(parsed.items)
-      && typeof parsed.savedAt === 'number'
-      && Date.now() - parsed.savedAt <= CART_TTL_MS;
-    if (!fresh) return [];
-    const known = id => WINES.some(w => w.id === id) || BUNDLES.some(b => b.id === id);
-    return parsed.items.filter(i => i && typeof i.id === 'string' && i.qty > 0 && known(i.id));
-  } catch (err) {
-    return [];
-  }
-}
-
-let cart = loadCart();
+// One cart, defined once in data.js and shared with every other page, so the
+// number in this header and the number on the homepage can never disagree.
+let cart = CartStore.read();
 
 function saveCart() {
-  try {
-    localStorage.setItem(CART_KEY, JSON.stringify({ items: cart, savedAt: Date.now() }));
-  } catch (err) {
-    // Private mode or quota — the cart still works for this page view.
-  }
+  CartStore.write(cart);
   updateCartCount();
 }
+
+// The stored cart can change while this page is already on screen: another
+// tab, or the page being restored from the back/forward cache when someone
+// taps back. Neither re-runs this file, so the count has to be refreshed.
+function syncCartFromStorage() {
+  const stored = CartStore.read();
+  if (CartStore.same(stored, cart)) return;
+  cart = stored;
+  // The badge is not renderCart's job on any of the pages, so both have to be
+  // called here — redrawing the panel alone is how the number goes stale.
+  renderCart();
+  updateCartCount();
+}
+CartStore.subscribe(syncCartFromStorage);
 
 function updateCartCount() {
   const el = document.getElementById('cartCount');

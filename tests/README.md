@@ -2,8 +2,14 @@
 
     ./tests/run.sh
 
-Podiže lokalni server, pokrene proveru korpe i ugasi server. Izlazni kod 0
+Podiže lokalni server, pokrene sve provere i ugasi server. Izlazni kod 0
 znači da je sve prošlo.
+
+Server je `tests/server.js`, a ne običan fajl-server: Cloudflare Pages
+poslužuje `vino.html` na adresi `/vino` i trajno preusmerava `.html` oblik na
+nju. Sa običnim serverom testirali bismo drugačiji sajt od onog koji kupci
+dobijaju — adrese bi lokalno izgledale ispravno, a u produkciji se
+preusmeravale.
 
 ## Šta se proverava
 

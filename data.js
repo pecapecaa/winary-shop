@@ -321,12 +321,17 @@ const BUNDLES = [
 const WINE_URL_PARAM = 'w';
 const BUNDLE_URL_PARAM = 'p';
 
+// Cloudflare Pages serves vino.html at /vino and permanently redirects the
+// .html form to it. Linking to vino.html therefore costs every visitor a
+// redirect before the page even starts, and hands search engines an address
+// that is not the one they will end up indexing — so the extensionless form
+// is the only one this site ever writes down.
 function wineHref(id) {
-  return 'vino.html?' + WINE_URL_PARAM + '=' + encodeURIComponent(id);
+  return 'vino?' + WINE_URL_PARAM + '=' + encodeURIComponent(id);
 }
 
 function bundleHref(id) {
-  return 'paket.html?' + BUNDLE_URL_PARAM + '=' + encodeURIComponent(id);
+  return 'paket?' + BUNDLE_URL_PARAM + '=' + encodeURIComponent(id);
 }
 
 // ===== Cart storage =====

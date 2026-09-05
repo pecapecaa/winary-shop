@@ -153,6 +153,24 @@ async function run() {
     await page.close();
   }
 
+  // ---- 6. The .html form still works for anyone holding an old link, and
+  // lands on the address we publish rather than a second, parallel one.
+  {
+    console.log('\n6. Old .html links');
+    const page = await ctx.newPage();
+    const w = WINES[0];
+    const res = await page.goto(`${BASE}/vino.html?w=${w.id}`);
+    await passAgeGate(page);
+    await page.waitForTimeout(150);
+    check('still reaches the page', res.status() === 200, `status ${res.status()}`);
+    check('ends up on the extensionless URL',
+      new URL(page.url()).pathname === '/vino', page.url());
+    const c = await canonical(page);
+    check('canonical points at the final URL, not the redirect',
+      c.href === ORIGIN + wineHref(w.id), c.href);
+    await page.close();
+  }
+
   await ctx.close();
   await browser.close();
   console.log(`\n${pass} passed, ${fail} failed`);

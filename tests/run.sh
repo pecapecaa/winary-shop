@@ -11,13 +11,13 @@ cd "$(dirname "$0")/.."
 PORT="${PORT:-8299}"
 export NODE_PATH="${NODE_PATH:-/opt/node22/lib/node_modules}"
 
-python3 -m http.server "$PORT" >/dev/null 2>&1 &
+node tests/server.js "$PORT" >/dev/null 2>&1 &
 SERVER_PID=$!
 trap 'kill $SERVER_PID 2>/dev/null || true' EXIT
 
 # Wait for the server rather than guessing at a sleep.
 for _ in $(seq 1 40); do
-  if curl -sf "http://localhost:$PORT/index.html" >/dev/null; then break; fi
+  if curl -sf "http://localhost:$PORT/" >/dev/null; then break; fi
   sleep 0.25
 done
 

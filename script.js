@@ -97,6 +97,46 @@ const SHIP_ICON =
   + '18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 '
   + '1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>';
 
+// The age gate was remembered in sessionStorage, which is per tab. Open a
+// bottle in a new tab, click "Vina" from there, and that tab had never been
+// answered — so the customer was asked their age again, in the middle of
+// shopping, after already answering it. localStorage is shared across tabs
+// and is what "I already told you" means to a person.
+//
+// Thirty days rather than forever: long enough that nobody is asked twice in
+// the same shopping trip, short enough that a shared or public computer does
+// not stay answered indefinitely.
+const AGE_KEY = 'hercegAge';
+const AGE_TTL_MS = 30 * 24 * 60 * 60 * 1000;
+
+function ageConfirmed() {
+  try {
+    const at = Number(localStorage.getItem(AGE_KEY));
+    if (at && Date.now() - at <= AGE_TTL_MS) return true;
+  } catch (err) {
+    // Storage unavailable — fall through to the per-tab record below.
+  }
+  try {
+    return sessionStorage.getItem('ageVerified') === '1';
+  } catch (err) {
+    return false;
+  }
+}
+
+function rememberAge() {
+  try {
+    localStorage.setItem(AGE_KEY, String(Date.now()));
+  } catch (err) {
+    // Private mode or quota. The session record below still covers this tab,
+    // which is no worse than the behaviour this replaced.
+  }
+  try {
+    sessionStorage.setItem('ageVerified', '1');
+  } catch (err) {
+    // Nothing left to remember it with; the gate will ask again next time.
+  }
+}
+
 // Reading and writing the cart is CartStore's job (data.js), shared with the
 // wine and bundle pages so all three can never disagree about what is in it.
 let cart = CartStore.read();
@@ -906,6 +946,31 @@ function initParallax() {
   });
 }
 
+// Scrolling to a section and leaving the address bar alone are one operation,
+// because doing only the first is what put #hero and #bundles in front of
+// customers in the first place.
+function goToSection(target, behavior) {
+  target.scrollIntoView({ behavior: behavior || 'smooth' });
+  // Smooth scrolling alone leaves the keyboard focus behind, so the next Tab
+  // would resume from the link instead of the section jumped to.
+  if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+  target.focus({ preventScroll: true });
+  clearHash();
+}
+
+// Rewrites the address without the fragment, keeping any query string and
+// without adding a history entry — so Back still goes to the previous page
+// rather than stepping through the sections someone scrolled past.
+function clearHash() {
+  if (!location.hash) return;
+  try {
+    history.replaceState(null, '', location.pathname + location.search);
+  } catch (err) {
+    // Some embedded browsers refuse replaceState; the fragment is cosmetic,
+    // so leaving it there is the correct failure.
+  }
+}
+
 // Which parts of the page a visitor actually reaches, and whether they reach
 // for the phone instead of the cart. Each fires once, so a long session does
 // not flood the funnel with repeats.
@@ -940,10 +1005,17 @@ function trackSections() {
 // ===== Init =====
 document.addEventListener('DOMContentLoaded', () => {
   const ageGate = document.getElementById('ageGate');
-  if (!sessionStorage.getItem('ageVerified')) document.body.style.overflow = 'hidden';
+  const alreadyOfAge = ageConfirmed();
+  if (alreadyOfAge) {
+    // Answered before, so the gate is never shown or focus-trapped again.
+    ageGate.classList.add('age-gate--hidden');
+    ageGate.setAttribute('inert', '');
+  } else {
+    document.body.style.overflow = 'hidden';
+  }
   document.getElementById('ageYes').addEventListener('click', () => {
     clEvent('starost_potvrdjena');
-    sessionStorage.setItem('ageVerified', '1');
+    rememberAge();
     ageGate.classList.add('age-gate--hidden');
     ageGate.setAttribute('inert', '');
     document.body.style.overflow = '';
@@ -1069,13 +1141,40 @@ document.addEventListener('DOMContentLoaded', () => {
       const target = document.querySelector(a.getAttribute('href'));
       if (!target) return;
       e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth' });
-      // Smooth scrolling alone leaves the keyboard focus behind, so the next
-      // Tab would resume from the link instead of the section jumped to.
-      if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
-      target.focus({ preventScroll: true });
+      goToSection(target, 'smooth');
     });
   });
+
+  // The product pages link back here as index.html#wines and #bundles, because
+  // a cross-page link has no other way to say which part of the page it means.
+  // The browser then leaves that fragment sitting in the address bar, so
+  // coming back from a bottle showed herczwines.rs/#wines — an internal
+  // anchor presented to the customer as if it were the address of the page.
+  // The fragment does its job on arrival and is then cleared: shared links
+  // still land where they point, and the bar shows the address of the site.
+  const wanted = location.hash;
+  if (wanted) {
+    // Cleared first, so the bar is right from the very first frame rather
+    // than showing the anchor and tidying it up a moment later.
+    clearHash();
+    const target = document.querySelector(wanted);
+    if (target) {
+      goToSection(target, 'auto');
+      // The wine cards and their photographs land after this runs and push
+      // the section down, so the first jump can stop short. One correction
+      // once everything has loaded — abandoned the moment the visitor
+      // scrolls for themselves, because moving the page under someone who is
+      // already reading is worse than stopping a little short.
+      let ownScroll = false;
+      const noteScroll = () => { ownScroll = true; };
+      window.addEventListener('wheel', noteScroll, { once: true, passive: true });
+      window.addEventListener('touchstart', noteScroll, { once: true, passive: true });
+      window.addEventListener('keydown', noteScroll, { once: true });
+      const settle = () => { if (!ownScroll) goToSection(target, 'auto'); };
+      if (document.readyState === 'complete') setTimeout(settle, 60);
+      else window.addEventListener('load', () => setTimeout(settle, 60), { once: true });
+    }
+  }
 
   currentLang = 'sr';
   renderWines();

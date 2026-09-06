@@ -504,7 +504,24 @@
       <p class="age-gate-legal">Pijte odgovorno. Prekomerna konzumacija alkohola šteti zdravlju.</p>
     </div>
   </div>
-  <script>if(sessionStorage.getItem('ageVerified'))document.getElementById('ageGate').classList.add('age-gate--hidden');</script>
+  <!-- Hides the gate before the first paint for anyone who has already
+       answered, so it never flashes on screen. Mirrors ageConfirmed() in
+       script.js; both have to agree or the gate blinks and disappears. -->
+  <script>
+    (function () {
+      var ok = false;
+      try {
+        var at = Number(localStorage.getItem('hercegAge'));
+        ok = !!at && Date.now() - at <= 30 * 24 * 60 * 60 * 1000;
+      } catch (e) {}
+      try { ok = ok || sessionStorage.getItem('ageVerified') === '1'; } catch (e) {}
+      if (ok) {
+        var g = document.getElementById('ageGate');
+        g.classList.add('age-gate--hidden');
+        g.setAttribute('inert', '');
+      }
+    })();
+  </script>
 
   <script type="application/ld+json">
   {
@@ -528,6 +545,6 @@
   </script>
 
   <script src="data.js?v=10"></script>
-  <script src="script.js?v=124"></script>
+  <script src="script.js?v=126"></script>
 </body>
 </html>

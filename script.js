@@ -363,6 +363,14 @@ function renderBundles() {
 // ===== Cart Logic =====
 let _cartBusy = false;
 
+// An order the customer was told had gone through, which then did not. The
+// screen cannot take that back, so the only thing left is to make sure the
+// shop can see it and pick up the phone.
+function noteSilentFailure() {
+  clKeep('porudzbina_tiho_pala');
+  clEvent('porudzbina_tiho_pala');
+}
+
 // Seconds, as a band: enough to tell slow from silent without a tag per
 // millisecond.
 function responseBand(ms) {
@@ -762,6 +770,10 @@ async function submitOrder(e) {
   const SEND_TIMEOUT_MS = 5000;
   const startedAt = Date.now();
 
+  // A response body can only be read once, so it is read here and nowhere
+  // else: the verdict travels on instead of the response. Reading it in both
+  // the measurement below and the wait further down left whichever ran second
+  // holding an empty shell, and calling a good order a failure.
   const sending = fetch(FORMSUBMIT_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -776,6 +788,15 @@ async function submitOrder(e) {
         total: `${getCartTotal()} RSD`,
         order: orderLines
       })
+    }).then(async res => {
+      if (!res.ok) return { ok: false, why: 'HTTP ' + res.status };
+      try {
+        const body = await res.json();
+        const ok = body.success === 'true' || body.success === true;
+        return { ok, why: ok ? '' : 'FormSubmit error' };
+      } catch (err) {
+        return { ok: false, why: 'nečitljiv odgovor' };
+      }
     });
 
   // The customer stops waiting after five seconds, but the request does not:
@@ -784,26 +805,13 @@ async function submitOrder(e) {
   // in fact did not — the screen cannot take the message back, but the owner
   // can still pick up the phone.
   sending
-    .then(async res => {
-      let ok = res.ok;
-      if (ok) {
-        try {
-          const body = await res.json();
-          ok = body.success === 'true' || body.success === true;
-        } catch (err) {
-          ok = false;
-        }
-      }
+    .then(({ ok }) => {
       clTag('vreme_odgovora', (ok ? '' : 'greska:') + responseBand(Date.now() - startedAt));
-      if (!ok) {
-        clKeep('porudzbina_tiho_pala');
-        clEvent('porudzbina_tiho_pala');
-      }
+      if (!ok) noteSilentFailure();
     })
     .catch(() => {
       clTag('vreme_odgovora', 'greska:' + responseBand(Date.now() - startedAt));
-      clKeep('porudzbina_tiho_pala');
-      clEvent('porudzbina_tiho_pala');
+      noteSilentFailure();
     });
 
   // Resolves to the sentinel once the customer has waited long enough.
@@ -811,13 +819,11 @@ async function submitOrder(e) {
   const deadline = new Promise(resolve => setTimeout(() => resolve(longEnough), SEND_TIMEOUT_MS));
 
   try {
-    const res = await Promise.race([sending, deadline]);
+    const outcome = await Promise.race([sending, deadline]);
     // Waited long enough: the order is treated as placed. The request carries
     // on above, and reports there if it turns out otherwise.
-    if (res === longEnough) throw Object.assign(new Error('slow'), { name: 'SlowError' });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const data = await res.json();
-    if (data.success !== 'true' && data.success !== true) throw new Error('FormSubmit error');
+    if (outcome === longEnough) throw Object.assign(new Error('slow'), { name: 'SlowError' });
+    if (!outcome.ok) throw new Error(outcome.why);
   } catch (err) {
     if (err.name !== 'SlowError') {
       // Answered inside five seconds, and answered no — the request never got

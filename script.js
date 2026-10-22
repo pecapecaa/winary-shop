@@ -741,9 +741,21 @@ async function submitOrder(e) {
     submitBtn.textContent = currentLang === 'sr' ? 'Slanje...' : 'Sending...';
   }
 
+  // FormSubmit accepts the order and sends the mail before it answers, and
+  // that answer can take a long time or never arrive at all — which left the
+  // button reading "Slanje..." for as long as the customer was willing to
+  // wait, on an order that had in fact already gone through. Nothing can hang
+  // forever: past this point the request is abandoned and the outcome is
+  // reported as unconfirmed, which is the truth rather than a guess either way.
+  const SEND_TIMEOUT_MS = 20000;
+  const abort = new AbortController();
+  const givenUp = setTimeout(() => abort.abort(), SEND_TIMEOUT_MS);
+  let unconfirmed = false;
+
   try {
     const res = await fetch(FORMSUBMIT_ENDPOINT, {
       method: 'POST',
+      signal: abort.signal,
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
         _subject: `Hercz Wines | Nova porudžbina | ${name} | ${getCartTotal()} RSD`,
@@ -761,23 +773,38 @@ async function submitOrder(e) {
     const data = await res.json();
     if (data.success !== 'true' && data.success !== true) throw new Error('FormSubmit error');
   } catch (err) {
-    // Never claim success we cannot verify — the cart stays intact so the
-    // customer can retry instead of losing the order silently.
-    console.error('Order submission failed:', err);
-    // A failed order is the single most valuable recording on the site, so
-    // the session is upgraded before anything else happens to it.
-    clKeep('porudzbina_neuspesna');
-    clEvent('porudzbina_neuspesna');
-    showToast(currentLang === 'sr'
-      ? 'Slanje nije uspelo. Pokušajte ponovo ili nas kontaktirajte telefonom.'
-      : 'Sending failed. Please try again or contact us by phone.', false);
-    if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalBtnText; }
-    return;
+    if (err.name === 'AbortError') {
+      // No answer in time. The order has most likely arrived — the mail goes
+      // out before the reply does — so telling the customer it failed would
+      // invite a second, duplicate order. They are told what is actually
+      // known, and given the number to check on it.
+      unconfirmed = true;
+      clKeep('porudzbina_bez_potvrde');
+      clEvent('porudzbina_bez_potvrde');
+    } else {
+      // A definite refusal: the order did not go. The cart stays intact so
+      // the customer can retry instead of losing it silently.
+      console.error('Order submission failed:', err);
+      // A failed order is the single most valuable recording on the site, so
+      // the session is upgraded before anything else happens to it.
+      clKeep('porudzbina_neuspesna');
+      clEvent('porudzbina_neuspesna');
+      showToast(currentLang === 'sr'
+        ? 'Slanje nije uspelo. Pokušajte ponovo ili nas kontaktirajte telefonom.'
+        : 'Sending failed. Please try again or contact us by phone.', false);
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalBtnText; }
+      return;
+    }
+  } finally {
+    clearTimeout(givenUp);
   }
 
-  clKeep('porudzbina_poslata');
-  clTag('vrednost_porudzbine', cartBand(getCartTotal()));
-  clEvent('porudzbina_poslata');
+  if (!unconfirmed) {
+    clKeep('porudzbina_poslata');
+    clTag('vrednost_porudzbine', cartBand(getCartTotal()));
+    clEvent('porudzbina_poslata');
+  }
+  showOrderOutcome(unconfirmed);
   document.getElementById('checkoutFormWrap').style.display = 'none';
   document.getElementById('checkoutSuccess').style.display = 'block';
   updateProgress(2);
@@ -786,6 +813,40 @@ async function submitOrder(e) {
   renderCart();
   document.getElementById('checkoutForm').reset();
   if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalBtnText; }
+}
+
+// The confirmation panel says one of two things, and the difference matters:
+// the order is in, or the order went out and we could not confirm it. The
+// second is not a failure and must not read as one, but it must not read as a
+// plain confirmation either.
+function showOrderOutcome(unconfirmed) {
+  const panel = document.getElementById('checkoutSuccess');
+  // Remembered on the panel, because switching language rewrites every
+  // [data-sr] element from its attributes — which would quietly turn the
+  // unconfirmed notice back into a plain confirmation.
+  if (unconfirmed) panel.dataset.unconfirmed = '1';
+  else delete panel.dataset.unconfirmed;
+
+  const title = document.getElementById('successTitle');
+  const text = document.getElementById('successText');
+  const call = document.getElementById('successCall');
+  const sr = currentLang === 'sr';
+
+  if (unconfirmed) {
+    title.textContent = sr ? 'Porudžbina je poslata' : 'Your order was sent';
+    text.textContent = sr
+      ? 'Nismo uspeli da dobijemo potvrdu od servera, pa je proverite sa nama. '
+        + 'Kontaktiraćemo vas u roku od 1–2 dana, a možete nas i pozvati:'
+      : 'We could not get a confirmation back from the server, so please check '
+        + 'with us. We will contact you within 1–2 days, or you can call:';
+    call.hidden = false;
+  } else {
+    // Back to the wording held on the element itself, so the two languages
+    // stay where every other translation on the page lives.
+    title.textContent = sr ? title.dataset.sr : title.dataset.en;
+    text.textContent = sr ? text.dataset.sr : text.dataset.en;
+    call.hidden = true;
+  }
 }
 
 // ===== Language Toggle =====
@@ -808,6 +869,10 @@ function switchLanguage(lang) {
     : '<span>SR</span> / <span class="lang-active">EN</span>';
   localStorage.setItem('hercegLang', lang);
   clTag('jezik', lang);
+  const successPanel = document.getElementById('checkoutSuccess');
+  if (successPanel && successPanel.style.display === 'block') {
+    showOrderOutcome(successPanel.dataset.unconfirmed === '1');
+  }
   renderWines();
   renderBundles();
   renderCart();

@@ -346,6 +346,46 @@ async function run() {
     await ctx.close();
   }
 
+  // ---- 13. The server never answers. This is what a customer actually hit:
+  // the order arrived in the inbox, and the button read "Slanje..." forever.
+  {
+    console.log('\n13. When the server does not answer');
+    const ctx = await browser.newContext();
+    const page = await ctx.newPage();
+    // Accept the request and then never reply, exactly like the real case.
+    await page.route('**formsubmit.co/**', () => {});
+    await openHome(page);
+    await page.click('.wine-add');
+    await page.waitForTimeout(200);
+    await page.click('#cartBtn'); await page.waitForTimeout(250);
+    await page.click('#checkoutBtn'); await page.waitForTimeout(250);
+    await page.fill('#oName', 'Test Kupac');
+    await page.fill('#oEmail', 'test@example.com');
+    await page.fill('#oPhone', '0601234567');
+    await page.fill('#oCity', 'Novi Sad');
+    await page.fill('#oAddress', 'Ulica 1');
+    await page.click('#checkoutNext'); await page.waitForTimeout(250);
+    await page.click('#checkoutForm button[type="submit"]');
+
+    // Still sending a moment later — it must not give up early either.
+    await page.waitForTimeout(2000);
+    const stillSending = await page.$eval('#checkoutForm button[type="submit"]',
+      el => el.disabled);
+    check('waits rather than failing immediately', stillSending);
+
+    // And it must resolve on its own, without the customer doing anything.
+    await page.waitForSelector('#checkoutSuccess', { state: 'visible', timeout: 30000 });
+    const title = await page.$eval('#successTitle', el => el.textContent.trim());
+    const phoneShown = await page.$eval('#successCall', el => !el.hidden);
+    check('ends on a resolved screen', title.length > 0, title);
+    check('does not claim the order failed', !/nije uspelo|failed/i.test(title), title);
+    check('does not claim a confirmation it never got',
+      title !== 'Porudžbina primljena!', title);
+    check('offers the phone number to check on it', phoneShown);
+    check('the cart is cleared so nobody orders twice', await badge(page), '0');
+    await ctx.close();
+  }
+
   await browser.close();
 
   console.log(`\n${pass} passed, ${fail} failed`);

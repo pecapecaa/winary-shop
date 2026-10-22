@@ -353,7 +353,10 @@ async function run() {
     const ctx = await browser.newContext();
     const page = await ctx.newPage();
     // Accept the request and then never reply, exactly like the real case.
-    await page.route('**formsubmit.co/**', () => {});
+    // The handler's promise never settles, so the route stays unhandled and
+    // the request hangs — an empty handler resolves at once and lets it go
+    // through, which tests nothing.
+    await page.route('**formsubmit.co/**', () => new Promise(() => {}));
     await openHome(page);
     await page.click('.wine-add');
     await page.waitForTimeout(200);
@@ -371,17 +374,22 @@ async function run() {
     await page.waitForTimeout(2000);
     const stillSending = await page.$eval('#checkoutForm button[type="submit"]',
       el => el.disabled);
-    check('waits rather than failing immediately', stillSending);
+    check('waits rather than failing immediately', stillSending, true);
 
     // And it must resolve on its own, without the customer doing anything.
     await page.waitForSelector('#checkoutSuccess', { state: 'visible', timeout: 30000 });
     const title = await page.$eval('#successTitle', el => el.textContent.trim());
+    const body = await page.$eval('#successText', el => el.textContent.trim());
     const phoneShown = await page.$eval('#successCall', el => !el.hidden);
-    check('ends on a resolved screen', title.length > 0, title);
-    check('does not claim the order failed', !/nije uspelo|failed/i.test(title), title);
+
+    check('says the order was sent', title, 'Porudžbina je poslata');
     check('does not claim a confirmation it never got',
-      title !== 'Porudžbina primljena!', title);
-    check('offers the phone number to check on it', phoneShown);
+      title === 'Porudžbina primljena!', false);
+    check('says the confirmation is what is missing',
+      /nismo uspeli da dobijemo potvrdu/i.test(body), true);
+    check('does not tell the customer it failed',
+      /nije uspelo|pokušajte ponovo/i.test(body), false);
+    check('offers the phone number to check on it', phoneShown, true);
     check('the cart is cleared so nobody orders twice', await badge(page), '0');
     await ctx.close();
   }

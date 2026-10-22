@@ -372,11 +372,11 @@ async function run() {
     const startedAt = Date.now();
     await page.click('#checkoutForm button[type="submit"]');
 
-    // Still sending after two seconds — it must not give up early either.
-    await page.waitForTimeout(2000);
+    // Still sending a moment in — it must not give up the instant it starts.
+    await page.waitForTimeout(1200);
     const stillSending = await page.$eval('#checkoutForm button[type="submit"]',
       el => el.disabled);
-    check('still waiting after two seconds', stillSending, true);
+    check('still waiting a second in', stillSending, true);
 
     // And it resolves on its own, without the customer doing anything.
     await page.waitForSelector('#checkoutSuccess', { state: 'visible', timeout: 15000 });
@@ -384,7 +384,7 @@ async function run() {
     const title = await page.$eval('#successTitle', el => el.textContent.trim());
 
     check('confirms the order', title, 'Porudžbina primljena!');
-    check('within a few seconds, not tens of them', waited < 12, true);
+    check('within a few seconds, not tens of them', waited < 8, true);
     check('the cart is cleared', await badge(page), '0');
     await ctx.close();
   }

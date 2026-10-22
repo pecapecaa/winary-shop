@@ -766,8 +766,9 @@ async function submitOrder(e) {
   // itself arrives, every time, so after this long the customer is simply
   // told it went through. A failure that comes back FASTER than this is still
   // reported as a failure: those are the real ones, where the request never
-  // left the device at all.
-  const SEND_TIMEOUT_MS = 5000;
+  // left the device at all, and long enough for a phone on a bad connection
+  // to say so.
+  const SEND_TIMEOUT_MS = 2500;
   const startedAt = Date.now();
 
   // A response body can only be read once, so it is read here and nowhere

@@ -363,6 +363,18 @@ function renderBundles() {
 // ===== Cart Logic =====
 let _cartBusy = false;
 
+// Seconds, as a band: enough to tell slow from silent without a tag per
+// millisecond.
+function responseBand(ms) {
+  const s = ms / 1000;
+  if (s < 2) return 'do 2s';
+  if (s < 5) return '2-5s';
+  if (s < 10) return '5-10s';
+  if (s < 20) return '10-20s';
+  if (s < 45) return '20-45s';
+  return 'preko 45s';
+}
+
 // Clarity tags are text, so the total goes in as a band rather than an exact
 // dinar figure: that keeps the filter list short and still answers the only
 // question worth asking, which basket sizes actually reach the end.
@@ -747,15 +759,17 @@ async function submitOrder(e) {
   // wait, on an order that had in fact already gone through. Nothing can hang
   // forever: past this point the request is abandoned and the outcome is
   // reported as unconfirmed, which is the truth rather than a guess either way.
+  // How long the customer is made to wait before being told what is known.
+  // The request itself is NOT cancelled at this point — it is left to finish
+  // in the background, because the answer, whenever it comes, is the only
+  // measurement of how slow this service actually is. Guessing at that from
+  // the outside is what this replaces.
   const SEND_TIMEOUT_MS = 20000;
-  const abort = new AbortController();
-  const givenUp = setTimeout(() => abort.abort(), SEND_TIMEOUT_MS);
   let unconfirmed = false;
+  const startedAt = Date.now();
 
-  try {
-    const res = await fetch(FORMSUBMIT_ENDPOINT, {
+  const sending = fetch(FORMSUBMIT_ENDPOINT, {
       method: 'POST',
-      signal: abort.signal,
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
         _subject: `Hercz Wines | Nova porudžbina | ${name} | ${getCartTotal()} RSD`,
@@ -769,6 +783,22 @@ async function submitOrder(e) {
         order: orderLines
       })
     });
+
+  // Whenever the answer arrives — in two seconds or in two minutes — the time
+  // it took is recorded. A handful of real orders then say plainly whether
+  // this service is slow or simply silent, which decides whether the fix is a
+  // longer wait or a different service.
+  sending
+    .then(() => clTag('vreme_odgovora', responseBand(Date.now() - startedAt)))
+    .catch(() => clTag('vreme_odgovora', 'greska:' + responseBand(Date.now() - startedAt)));
+
+  // Resolves to the sentinel if the answer has not come by the deadline.
+  const tooSlow = Symbol('tooSlow');
+  const deadline = new Promise(resolve => setTimeout(() => resolve(tooSlow), SEND_TIMEOUT_MS));
+
+  try {
+    const res = await Promise.race([sending, deadline]);
+    if (res === tooSlow) throw Object.assign(new Error('timeout'), { name: 'AbortError' });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     if (data.success !== 'true' && data.success !== true) throw new Error('FormSubmit error');
@@ -795,8 +825,6 @@ async function submitOrder(e) {
       if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalBtnText; }
       return;
     }
-  } finally {
-    clearTimeout(givenUp);
   }
 
   if (!unconfirmed) {

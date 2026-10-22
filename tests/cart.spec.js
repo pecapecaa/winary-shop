@@ -346,10 +346,11 @@ async function run() {
     await ctx.close();
   }
 
-  // ---- 13. The server never answers. This is what a customer actually hit:
-  // the order arrived in the inbox, and the button read "Slanje..." forever.
+  // ---- 13. The server never answers. FormSubmit delivers the order and
+  // then takes its time, so after a short wait the order is confirmed anyway
+  // — the owner's decision, made once it was clear the orders do arrive.
   {
-    console.log('\n13. When the server does not answer');
+    console.log('\n13. When the server is slow to answer');
     const ctx = await browser.newContext();
     const page = await ctx.newPage();
     // Accept the request and then never reply, exactly like the real case.
@@ -368,29 +369,23 @@ async function run() {
     await page.fill('#oCity', 'Novi Sad');
     await page.fill('#oAddress', 'Ulica 1');
     await page.click('#checkoutNext'); await page.waitForTimeout(250);
+    const startedAt = Date.now();
     await page.click('#checkoutForm button[type="submit"]');
 
-    // Still sending a moment later — it must not give up early either.
+    // Still sending after two seconds — it must not give up early either.
     await page.waitForTimeout(2000);
     const stillSending = await page.$eval('#checkoutForm button[type="submit"]',
       el => el.disabled);
-    check('waits rather than failing immediately', stillSending, true);
+    check('still waiting after two seconds', stillSending, true);
 
-    // And it must resolve on its own, without the customer doing anything.
-    await page.waitForSelector('#checkoutSuccess', { state: 'visible', timeout: 30000 });
+    // And it resolves on its own, without the customer doing anything.
+    await page.waitForSelector('#checkoutSuccess', { state: 'visible', timeout: 15000 });
+    const waited = (Date.now() - startedAt) / 1000;
     const title = await page.$eval('#successTitle', el => el.textContent.trim());
-    const body = await page.$eval('#successText', el => el.textContent.trim());
-    const phoneShown = await page.$eval('#successCall', el => !el.hidden);
 
-    check('says the order was sent', title, 'Porudžbina je poslata');
-    check('does not claim a confirmation it never got',
-      title === 'Porudžbina primljena!', false);
-    check('says the confirmation is what is missing',
-      /nismo uspeli da dobijemo potvrdu/i.test(body), true);
-    check('does not tell the customer it failed',
-      /nije uspelo|pokušajte ponovo/i.test(body), false);
-    check('offers the phone number to check on it', phoneShown, true);
-    check('the cart is cleared so nobody orders twice', await badge(page), '0');
+    check('confirms the order', title, 'Porudžbina primljena!');
+    check('within a few seconds, not tens of them', waited < 12, true);
+    check('the cart is cleared', await badge(page), '0');
     await ctx.close();
   }
 

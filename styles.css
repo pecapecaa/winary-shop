@@ -3154,21 +3154,3 @@ button {
   border: 1px solid rgba(122, 155, 110, 0.45);
   color: #9dbf8f;
 }
-
-/* The phone number on the checkout confirmation, shown only when the order
-   went out but the confirmation did not come back. Quiet: it is a way to
-   check, not a call to action. */
-.success-call {
-  margin-top: -6px;
-  font-family: 'Lato', sans-serif;
-  font-size: 1.15rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
-.success-call a {
-  color: var(--wine-deep);
-  text-decoration: none;
-  border-bottom: 1.5px solid var(--gold);
-  padding-bottom: 2px;
-}
-.success-call a:hover { color: var(--gold); }

@@ -753,19 +753,13 @@ async function submitOrder(e) {
     submitBtn.textContent = currentLang === 'sr' ? 'Slanje...' : 'Sending...';
   }
 
-  // FormSubmit accepts the order and sends the mail before it answers, and
-  // that answer can take a long time or never arrive at all — which left the
-  // button reading "Slanje..." for as long as the customer was willing to
-  // wait, on an order that had in fact already gone through. Nothing can hang
-  // forever: past this point the request is abandoned and the outcome is
-  // reported as unconfirmed, which is the truth rather than a guess either way.
-  // How long the customer is made to wait before being told what is known.
-  // The request itself is NOT cancelled at this point — it is left to finish
-  // in the background, because the answer, whenever it comes, is the only
-  // measurement of how slow this service actually is. Guessing at that from
-  // the outside is what this replaces.
-  const SEND_TIMEOUT_MS = 20000;
-  let unconfirmed = false;
+  // FormSubmit delivers the order and then takes its time answering — often
+  // far longer than anyone will sit in front of a spinning button. The order
+  // itself arrives, every time, so after this long the customer is simply
+  // told it went through. A failure that comes back FASTER than this is still
+  // reported as a failure: those are the real ones, where the request never
+  // left the device at all.
+  const SEND_TIMEOUT_MS = 5000;
   const startedAt = Date.now();
 
   const sending = fetch(FORMSUBMIT_ENDPOINT, {
@@ -784,36 +778,51 @@ async function submitOrder(e) {
       })
     });
 
-  // Whenever the answer arrives — in two seconds or in two minutes — the time
-  // it took is recorded. A handful of real orders then say plainly whether
-  // this service is slow or simply silent, which decides whether the fix is a
-  // longer wait or a different service.
+  // The customer stops waiting after five seconds, but the request does not:
+  // it is left to finish, and however it ends is recorded. That is the only
+  // way the shop ever learns that an order it told someone had gone through
+  // in fact did not — the screen cannot take the message back, but the owner
+  // can still pick up the phone.
   sending
-    .then(() => clTag('vreme_odgovora', responseBand(Date.now() - startedAt)))
-    .catch(() => clTag('vreme_odgovora', 'greska:' + responseBand(Date.now() - startedAt)));
+    .then(async res => {
+      let ok = res.ok;
+      if (ok) {
+        try {
+          const body = await res.json();
+          ok = body.success === 'true' || body.success === true;
+        } catch (err) {
+          ok = false;
+        }
+      }
+      clTag('vreme_odgovora', (ok ? '' : 'greska:') + responseBand(Date.now() - startedAt));
+      if (!ok) {
+        clKeep('porudzbina_tiho_pala');
+        clEvent('porudzbina_tiho_pala');
+      }
+    })
+    .catch(() => {
+      clTag('vreme_odgovora', 'greska:' + responseBand(Date.now() - startedAt));
+      clKeep('porudzbina_tiho_pala');
+      clEvent('porudzbina_tiho_pala');
+    });
 
-  // Resolves to the sentinel if the answer has not come by the deadline.
-  const tooSlow = Symbol('tooSlow');
-  const deadline = new Promise(resolve => setTimeout(() => resolve(tooSlow), SEND_TIMEOUT_MS));
+  // Resolves to the sentinel once the customer has waited long enough.
+  const longEnough = Symbol('longEnough');
+  const deadline = new Promise(resolve => setTimeout(() => resolve(longEnough), SEND_TIMEOUT_MS));
 
   try {
     const res = await Promise.race([sending, deadline]);
-    if (res === tooSlow) throw Object.assign(new Error('timeout'), { name: 'AbortError' });
+    // Waited long enough: the order is treated as placed. The request carries
+    // on above, and reports there if it turns out otherwise.
+    if (res === longEnough) throw Object.assign(new Error('slow'), { name: 'SlowError' });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     if (data.success !== 'true' && data.success !== true) throw new Error('FormSubmit error');
   } catch (err) {
-    if (err.name === 'AbortError') {
-      // No answer in time. The order has most likely arrived — the mail goes
-      // out before the reply does — so telling the customer it failed would
-      // invite a second, duplicate order. They are told what is actually
-      // known, and given the number to check on it.
-      unconfirmed = true;
-      clKeep('porudzbina_bez_potvrde');
-      clEvent('porudzbina_bez_potvrde');
-    } else {
-      // A definite refusal: the order did not go. The cart stays intact so
-      // the customer can retry instead of losing it silently.
+    if (err.name !== 'SlowError') {
+      // Answered inside five seconds, and answered no — the request never got
+      // anywhere. The cart stays intact so the customer can retry instead of
+      // losing it silently.
       console.error('Order submission failed:', err);
       // A failed order is the single most valuable recording on the site, so
       // the session is upgraded before anything else happens to it.
@@ -827,12 +836,9 @@ async function submitOrder(e) {
     }
   }
 
-  if (!unconfirmed) {
-    clKeep('porudzbina_poslata');
-    clTag('vrednost_porudzbine', cartBand(getCartTotal()));
-    clEvent('porudzbina_poslata');
-  }
-  showOrderOutcome(unconfirmed);
+  clKeep('porudzbina_poslata');
+  clTag('vrednost_porudzbine', cartBand(getCartTotal()));
+  clEvent('porudzbina_poslata');
   document.getElementById('checkoutFormWrap').style.display = 'none';
   document.getElementById('checkoutSuccess').style.display = 'block';
   updateProgress(2);
@@ -841,40 +847,6 @@ async function submitOrder(e) {
   renderCart();
   document.getElementById('checkoutForm').reset();
   if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalBtnText; }
-}
-
-// The confirmation panel says one of two things, and the difference matters:
-// the order is in, or the order went out and we could not confirm it. The
-// second is not a failure and must not read as one, but it must not read as a
-// plain confirmation either.
-function showOrderOutcome(unconfirmed) {
-  const panel = document.getElementById('checkoutSuccess');
-  // Remembered on the panel, because switching language rewrites every
-  // [data-sr] element from its attributes — which would quietly turn the
-  // unconfirmed notice back into a plain confirmation.
-  if (unconfirmed) panel.dataset.unconfirmed = '1';
-  else delete panel.dataset.unconfirmed;
-
-  const title = document.getElementById('successTitle');
-  const text = document.getElementById('successText');
-  const call = document.getElementById('successCall');
-  const sr = currentLang === 'sr';
-
-  if (unconfirmed) {
-    title.textContent = sr ? 'Porudžbina je poslata' : 'Your order was sent';
-    text.textContent = sr
-      ? 'Nismo uspeli da dobijemo potvrdu od servera, pa je proverite sa nama. '
-        + 'Kontaktiraćemo vas u roku od 1–2 dana, a možete nas i pozvati:'
-      : 'We could not get a confirmation back from the server, so please check '
-        + 'with us. We will contact you within 1–2 days, or you can call:';
-    call.hidden = false;
-  } else {
-    // Back to the wording held on the element itself, so the two languages
-    // stay where every other translation on the page lives.
-    title.textContent = sr ? title.dataset.sr : title.dataset.en;
-    text.textContent = sr ? text.dataset.sr : text.dataset.en;
-    call.hidden = true;
-  }
 }
 
 // ===== Language Toggle =====
@@ -897,10 +869,6 @@ function switchLanguage(lang) {
     : '<span>SR</span> / <span class="lang-active">EN</span>';
   localStorage.setItem('hercegLang', lang);
   clTag('jezik', lang);
-  const successPanel = document.getElementById('checkoutSuccess');
-  if (successPanel && successPanel.style.display === 'block') {
-    showOrderOutcome(successPanel.dataset.unconfirmed === '1');
-  }
   renderWines();
   renderBundles();
   renderCart();
